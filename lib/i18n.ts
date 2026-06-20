@@ -113,11 +113,36 @@ type Dict = {
     }[]
   }
   contact: {
+    kicker: string
+    badge: string
+    headline: string
+    headlineEmphasis: string
+    subheadline: string
+    ctaPrimary: string
+    ctaSecondary: string
     title: string
     body: string
     emailLabel: string
     inboxLabel: string
     socialLabel: string
+    available: string
+    channelsTitle: string
+    metaLocation: { label: string; value: string }
+    metaResponse: { label: string; value: string }
+    metaStatus: { label: string; value: string }
+    form: {
+      title: string
+      status: string
+      nameLabel: string
+      namePlaceholder: string
+      emailLabel: string
+      emailPlaceholder: string
+      subjectLabel: string
+      subjectPlaceholder: string
+      messageLabel: string
+      messagePlaceholder: string
+      sendCta: string
+    }
   }
   footer: string
   toggle: {
@@ -295,12 +320,39 @@ const en: Dict = {
     ],
   },
   contact: {
-    title: "GET IN TOUCH",
+    kicker: "GET IN TOUCH",
+    badge: "24H RESPONSE",
+    headline: "READY TO BUILD SOMETHING",
+    headlineEmphasis: "?",
+    subheadline:
+      "Open to freelance projects, consulting and full-time opportunities.",
+    ctaPrimary: "START A CONVERSATION",
+    ctaSecondary: "VIEW RESUME",
+    title: "LET'S TALK",
     body:
-      "Got a project in mind, a job offer or just want to chat? My inbox is always open.",
+      "Got a project in mind or an opportunity to discuss? I'd love to hear from you.",
     emailLabel: "Email me",
     inboxLabel: "Inbox",
     socialLabel: "Find me online",
+    available: "AVAILABLE",
+    channelsTitle: "CHANNELS",
+    metaLocation: { label: "LOCATION", value: "BRAZIL, GMT-3" },
+    metaResponse: { label: "RESPONSE TIME", value: "WITHIN 24H" },
+    metaStatus: { label: "STATUS", value: "AVAILABLE" },
+    form: {
+      title: "NEW MESSAGE",
+      status: "DRAFT",
+      nameLabel: "NAME",
+      namePlaceholder: "Your name",
+      emailLabel: "EMAIL",
+      emailPlaceholder: "your@email.com",
+      subjectLabel: "SUBJECT",
+      subjectPlaceholder: "What's this about?",
+      messageLabel: "MESSAGE",
+      messagePlaceholder:
+        "Have a project in mind or a question to ask? Send me a message — I'll reply within 24 hours.",
+      sendCta: "SEND MESSAGE",
+    },
   },
   footer: "built with next.js + tailwind",
   toggle: {
@@ -495,12 +547,39 @@ const pt: Dict = {
     ],
   },
   contact: {
+    kicker: "ENTRE EM CONTATO",
+    badge: "RESPOSTA EM 24H",
+    headline: "PRONTO PRA CONSTRUIR ALGO",
+    headlineEmphasis: "?",
+    subheadline:
+      "Aberto a projetos freelance, consultoria e oportunidades full-time.",
+    ctaPrimary: "INICIAR CONVERSA",
+    ctaSecondary: "VER CURRÍCULO",
     title: "VAMOS CONVERSAR",
     body:
-      "Tem um projeto em mente, uma vaga ou só quer trocar uma ideia? Minha caixa de entrada está sempre aberta.",
+      "Tem um projeto em mente ou uma oportunidade pra discutir? Vou adorar ouvir.",
     emailLabel: "Me envie um email",
     inboxLabel: "Inbox",
     socialLabel: "Me encontre online",
+    available: "DISPONÍVEL",
+    channelsTitle: "CANAIS",
+    metaLocation: { label: "LOCALIZAÇÃO", value: "BRASIL, GMT-3" },
+    metaResponse: { label: "TEMPO DE RESPOSTA", value: "EM ATÉ 24H" },
+    metaStatus: { label: "STATUS", value: "DISPONÍVEL" },
+    form: {
+      title: "NOVA MENSAGEM",
+      status: "RASCUNHO",
+      nameLabel: "NOME",
+      namePlaceholder: "Seu nome",
+      emailLabel: "EMAIL",
+      emailPlaceholder: "seu@email.com",
+      subjectLabel: "ASSUNTO",
+      subjectPlaceholder: "Sobre o que é?",
+      messageLabel: "MENSAGEM",
+      messagePlaceholder:
+        "Tem um projeto em mente ou uma pergunta? Manda uma mensagem — respondo em até 24h.",
+      sendCta: "ENVIAR MENSAGEM",
+    },
   },
   footer: "feito com next.js + tailwind",
   toggle: {
