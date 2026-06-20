@@ -26,7 +26,7 @@ export function SidebarProfile({ className = "" }: { className?: string }) {
 
         <a
           href="/files/resume.pdf"
-          download
+          download="washington-cardoso-resume.pdf"
           className="group inline-flex w-full items-center justify-between gap-2 border border-primary bg-primary/10 px-4 py-3 font-mono text-xs font-semibold tracking-wider text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           {p.downloadResume}

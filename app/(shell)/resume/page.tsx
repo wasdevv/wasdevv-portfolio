@@ -22,7 +22,7 @@ export default function ResumePage() {
         </div>
         <a
           href="/files/resume.pdf"
-          download
+          download="washington-cardoso-resume.pdf"
           className="inline-flex items-center gap-2 border border-primary bg-primary/10 px-4 py-2.5 font-mono text-xs font-semibold tracking-wider text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
         >
           {t.resume.downloadCta}

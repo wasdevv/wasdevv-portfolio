@@ -1,9 +1,12 @@
 "use client"
 
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { CodeTabs } from "@/components/code-tabs"
 import { ExperienceCard } from "@/components/experience-card"
 import { SkillsTable } from "@/components/skills-table"
 import { useLanguage } from "@/components/language-provider"
+import { profile } from "@/lib/portfolio-data"
 
 export default function AboutMePage() {
   const { t } = useLanguage()
@@ -97,6 +100,44 @@ export default function AboutMePage() {
           </ul>
         </section>
       </div>
+
+      <section className="border border-border bg-card p-8 md:p-12">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <p className="font-mono text-xs tracking-wider text-primary">
+            [05] {t.contact.kicker}
+          </p>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            {t.contact.badge}
+          </span>
+        </div>
+
+        <h2 className="mt-6 text-pretty font-mono text-3xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          {t.contact.headline}
+          <span className="text-primary">{t.contact.headlineEmphasis}</span>
+        </h2>
+
+        <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          {t.contact.subheadline}
+        </p>
+
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href={`mailto:${profile.email}?subject=${encodeURIComponent(
+              "Let's build something together",
+            )}`}
+            className="inline-flex items-center gap-2 border border-primary bg-primary px-5 py-3 font-mono text-xs font-semibold tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            {t.contact.ctaPrimary}
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+          <Link
+            href="/resume"
+            className="inline-flex items-center gap-2 border border-border bg-transparent px-5 py-3 font-mono text-xs font-semibold tracking-wider text-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            {t.contact.ctaSecondary}
+          </Link>
+        </div>
+      </section>
     </div>
   )
 }
