@@ -6,7 +6,6 @@ import { CodeTabs } from "@/components/code-tabs"
 import { ExperienceCard } from "@/components/experience-card"
 import { SkillsTable } from "@/components/skills-table"
 import { useLanguage } from "@/components/language-provider"
-import { profile } from "@/lib/portfolio-data"
 
 export default function AboutMePage() {
   const { t } = useLanguage()
@@ -121,15 +120,16 @@ export default function AboutMePage() {
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
-          <a
-            href={`mailto:${profile.email}?subject=${encodeURIComponent(
-              "Let's build something together",
-            )}`}
-            className="inline-flex items-center gap-2 border border-primary bg-primary px-5 py-3 font-mono text-xs font-semibold tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-2 border border-primary bg-primary px-5 py-3 font-mono text-xs font-semibold tracking-wider text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_24px_2px_var(--primary)]"
           >
             {t.contact.ctaPrimary}
-            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-          </a>
+            <ArrowRight
+              className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
           <Link
             href="/resume"
             className="inline-flex items-center gap-2 border border-border bg-transparent px-5 py-3 font-mono text-xs font-semibold tracking-wider text-foreground transition-colors hover:border-primary hover:text-primary"
