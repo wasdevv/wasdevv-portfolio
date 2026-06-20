@@ -65,6 +65,7 @@ export const skills: Skill[] = [
   { name: "RSpec", icon: "ruby", iconColor: "CC342D", level: "ADVANCED", category: "testing" },
   { name: "Capybara", icon: "ruby", iconColor: "CC342D", level: "ADVANCED", category: "testing" },
   { name: "TDD", level: "ADVANCED", category: "testing" },
+  { name: "Selenium", icon: "selenium", iconColor: "43B02A", level: "INTERMEDIATE", category: "testing" },
   // Architecture
   { name: "Hub-and-Spoke", level: "INTERMEDIATE", category: "architecture" },
   { name: "AI Agent Orchestration", level: "INTERMEDIATE", category: "architecture" },
