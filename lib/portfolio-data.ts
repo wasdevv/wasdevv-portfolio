@@ -46,7 +46,6 @@ export const skills: Skill[] = [
   // Frameworks
   { name: "Ruby on Rails", icon: "rubyonrails", iconColor: "D30001", level: "ADVANCED", category: "frameworks" },
   { name: "React", icon: "react", iconColor: "61DAFB", level: "ADVANCED", category: "frameworks" },
-  { name: "Next.js", icon: "nextdotjs", iconColor: "FFFFFF", level: "INTERMEDIATE", category: "frameworks" },
   { name: "Django", icon: "django", iconColor: "092E20", level: "FAMILIAR", category: "frameworks" },
   { name: "Sinatra", icon: "ruby", iconColor: "CC342D", level: "INTERMEDIATE", category: "frameworks" },
   { name: "Stimulus", icon: "stimulus", iconColor: "77E8B9", level: "INTERMEDIATE", category: "frameworks" },
@@ -67,8 +66,6 @@ export const skills: Skill[] = [
   { name: "TDD", level: "ADVANCED", category: "testing" },
   { name: "Selenium", icon: "selenium", iconColor: "43B02A", level: "INTERMEDIATE", category: "testing" },
   // Architecture
-  { name: "Hub-and-Spoke", level: "INTERMEDIATE", category: "architecture" },
-  { name: "AI Agent Orchestration", level: "INTERMEDIATE", category: "architecture" },
   { name: "Clean Architecture", level: "ADVANCED", category: "architecture" },
   { name: "RESTful APIs", level: "ADVANCED", category: "architecture" },
   { name: "Event-Driven", level: "INTERMEDIATE", category: "architecture" },
