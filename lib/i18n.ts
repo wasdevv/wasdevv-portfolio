@@ -322,8 +322,8 @@ const en: Dict = {
   contact: {
     kicker: "GET IN TOUCH",
     badge: "24H RESPONSE",
-    headline: "READY TO BUILD SOMETHING",
-    headlineEmphasis: "?",
+    headline: "GOT AN IDEA? LET'S BUILD IT TOGETHER",
+    headlineEmphasis: ".",
     subheadline:
       "Open to freelance projects, consulting and full-time opportunities.",
     ctaPrimary: "START A CONVERSATION",
@@ -549,7 +549,7 @@ const pt: Dict = {
   contact: {
     kicker: "ENTRE EM CONTATO",
     badge: "RESPOSTA EM 24H",
-    headline: "PRONTO PRA CONSTRUIR ALGO",
+    headline: "BORA TIRAR SUA IDEIA DO PAPEL",
     headlineEmphasis: "?",
     subheadline:
       "Aberto a projetos freelance, consultoria e oportunidades full-time.",
