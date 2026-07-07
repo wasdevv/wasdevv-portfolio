@@ -225,11 +225,11 @@ const en: Dict = {
           period: "May 2024 — Present",
           isCurrent: true,
           bullets: [
-            "Founded **Was Advisory**, providing **Ruby on Rails** and full-stack development services to other software companies (**Nobe Sistemas**, **GoTechDS**, among others).",
-            "Embedded directly into client product teams, owning feature delivery, **PostgreSQL** schema design with strategic indexing, **Sidekiq** background processing and **AWS** deploys.",
-            "Designing **AI agent orchestration** architectures (**hub-and-spoke**) to automate internal workflows and product features.",
-            "Cut a client's critical path latency from **2s to 200ms** through index optimization, N+1 elimination and **Redis** caching layers.",
-            "Maintaining **99.9%+ uptime** across client projects with proactive monitoring and fast incident response.",
+            "Optimized a critical endpoint, cutting latency from **3.5s to 180ms** (-94%) by identifying **N+1** queries, implementing **eager loading** and **3-layer Redis caching**, impacting **10k+ requests/day**.",
+            "Built automated test suites with **RSpec** and **Capybara**, raising coverage from **35% to 85%** and reducing production bugs through robust **CI/CD** pipelines, with **RuboCop** and **Brakeman** for static analysis and security.",
+            "Architected and implemented the integration with the external **SINAL API**, documented in **OpenAPI/Swagger**, processing **100k+ records/month** in a **multi-tenant** environment, applying **Faraday**, **distributed Circuit Breaker (Stoplight)**, **Outbox Pattern**, advisory locks in **PostgreSQL** and **Sidekiq** for asynchronous processing, sustaining **99.9% uptime** and zero duplicate records even with an unstable provider.",
+            "Monitored production applications using observability tools (**Datadog**), identifying and resolving incidents proactively before they affected end users.",
+            "Evolved the critical **Acordos de Dívida Ativa** (Active Debt Agreements) module in a **multi-tenant** architecture serving **50+ municipalities**, during the system migration from **Rails 7 to Rails 8**, structured with **Devise**, **Service Objects** and **Form::Builder** to encapsulate complex fiscal rules, delivering **15+ per-municipality customizations via feature flags**, cutting delivery time by **60%**, zeroing cross-tenant regressions and reducing module-related support tickets by **59%**.",
           ],
         },
         {
@@ -452,11 +452,11 @@ const pt: Dict = {
           period: "Mai 2024 — Presente",
           isCurrent: true,
           bullets: [
-            "Fundei a **Was Advisory**, prestando serviços de desenvolvimento **Ruby on Rails** e full-stack para outras empresas de software (**Nobe Sistemas**, **GoTechDS**, entre outras).",
-            "Atuando embarcado nos times de produto dos clientes, com **entrega de features ponta a ponta**, modelagem **PostgreSQL** com indexação estratégica, processamento assíncrono com **Sidekiq** e deploys na **AWS**.",
-            "Desenhando arquiteturas de **orquestração de agentes de IA** (**hub-and-spoke**) para automatizar fluxos internos e features de produto.",
-            "Reduzi a latência de caminhos críticos de **2s para 200ms** com otimização de índices, eliminação de N+1 e camadas de cache com **Redis**.",
-            "Mantendo **99.9%+ de uptime** entre os projetos com monitoramento proativo e resposta rápida a incidentes.",
+            "Otimizei endpoint crítico reduzindo latência de **3,5s para 180ms** (-94%) através de identificação de queries **N+1**, implementação de **eager loading** e **cache Redis em 3 camadas**, impactando **10k+ requisições/dia**.",
+            "Implementei suítes de testes automatizados com **RSpec** e **Capybara**, aumentando a cobertura de testes de **35% para 85%** e reduzindo bugs em produção graças a pipelines de **CI/CD** robustos, com **RuboCop** e **Brakeman** para análise estática e segurança.",
+            "Arquitetei e implementei a integração com a API externa (**SINAL**), documentada em **OpenAPI/Swagger**, que processava **100k+ registros/mês** em ambiente **multi-tenant**, aplicando **Faraday**, **Circuit Breaker distribuído (Stoplight)**, **Outbox Pattern**, advisory locks no **PostgreSQL** e **Sidekiq** para processamento assíncrono, o que sustentou **99,9% de disponibilidade** e zero duplicação de cadastros mesmo com o fornecedor instável.",
+            "Monitorei aplicações em produção utilizando ferramentas de observabilidade (**Datadog**), identificando e resolvendo incidentes de forma proativa antes que afetassem o usuário final.",
+            "Evoluí o módulo crítico de **Acordos de Dívida Ativa** em arquitetura **multi-tenant** atendendo **50+ municípios**, durante a migração do sistema do **Rails 7 para o Rails 8**, estruturado com **Devise**, **Service Objects** e **Form::Builder** para encapsular regras fiscais complexas, entregando **15+ customizações específicas por prefeitura via feature flags**, o que reduziu em **60% o tempo de entrega** de demandas municipais, zerou regressões cross-tenant e cortou em **59% os chamados de suporte** relacionados ao módulo.",
           ],
         },
         {
