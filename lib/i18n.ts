@@ -319,7 +319,7 @@ const en: Dict = {
       {
         degree: "SYSTEMS ANALYSIS AND DEVELOPMENT — IN PROGRESS",
         school: "Wyden — São José do Rio Preto, SP",
-        period: "2022 — 2026 (expected Dec/2026)",
+        period: "2024 — 2026 (expected Dec/2026)",
       },
       {
         degree: "LEARN RAILS AND RUBY PROGRAMMING",
@@ -575,7 +575,7 @@ const pt: Dict = {
       {
         degree: "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS — CURSANDO",
         school: "Wyden — São José do Rio Preto, SP",
-        period: "2022 — 2026 (previsão dez/2026)",
+        period: "2024 — 2026 (previsão dez/2026)",
       },
       {
         degree: "LEARN RAILS AND RUBY PROGRAMMING",
