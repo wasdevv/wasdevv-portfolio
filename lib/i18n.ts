@@ -236,9 +236,9 @@ const en: Dict = {
         filename: "README.md",
         title: "About",
         paragraphs: [
-          "I'm a full-stack developer specialized in Ruby on Rails, building production systems from the database to the UI.",
-          "I enjoy solving complex problems with simple solutions, writing maintainable code and collaborating with product teams to ship features that move the needle.",
-          "Outside of code, I'm always exploring new technologies, contributing to open-source and pushing my Rails knowledge deeper.",
+          "Full Stack Software Engineer with over 3 years of experience developing scalable applications on Ruby on Rails and multi-tenant SaaS platforms.",
+          "Solid background in backend architecture, REST APIs, automated testing, CI/CD, observability and performance optimization.",
+          "Proven track record of delivering measurable improvements in latency, reliability and development team productivity, building high-quality software with clean architecture and modern software engineering practices.",
         ],
       },
       stack: {
@@ -487,9 +487,9 @@ const pt: Dict = {
         filename: "README.md",
         title: "Sobre",
         paragraphs: [
-          "Sou desenvolvedor full-stack especializado em Ruby on Rails, construindo sistemas em produção do banco de dados à interface.",
-          "Curto resolver problemas complexos com soluções simples, escrever código manutenível e colaborar com times de produto pra entregar features que movem ponteiro.",
-          "Fora do código, estou sempre estudando novas tecnologias, contribuindo em open-source e aprofundando meu conhecimento em Rails.",
+          "Engenheiro de Software Full Stack com mais de 3 anos de experiência no desenvolvimento de aplicações escaláveis em Ruby on Rails e plataformas SaaS multi-tenant.",
+          "Experiência em arquitetura de backend, APIs REST, testes automatizados, CI/CD, observabilidade e otimização de desempenho.",
+          "Histórico comprovado na entrega de melhorias mensuráveis em latência, confiabilidade e produtividade da equipe de desenvolvimento, construindo software de alta qualidade com arquitetura limpa e práticas modernas de engenharia de software.",
         ],
       },
       stack: {
