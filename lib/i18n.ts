@@ -52,6 +52,21 @@ type Dict = {
           monster: string
         }
         focus: string
+        blocks: {
+          openSource: {
+            swarm: string
+          }
+          education: {
+            degree: string
+            institution: string
+            status: string
+            expected: string
+          }
+          languages: {
+            portuguese: string
+            english: string
+          }
+        }
       }
       readme: {
         filename: string
@@ -201,6 +216,21 @@ const en: Dict = {
           monster: "monster",
         },
         focus: "shipping products",
+        blocks: {
+          openSource: {
+            swarm: "Agent Development Environment (Rails 8 + Hotwire + Tauri)",
+          },
+          education: {
+            degree: "Systems Analysis and Development",
+            institution: "Wyden",
+            status: "in_progress",
+            expected: "Dec/2026",
+          },
+          languages: {
+            portuguese: "native",
+            english: "B2 (technical)",
+          },
+        },
       },
       readme: {
         filename: "README.md",
@@ -437,6 +467,21 @@ const pt: Dict = {
           monster: "monster",
         },
         focus: "shipar produtos",
+        blocks: {
+          openSource: {
+            swarm: "Agent Development Environment (Rails 8 + Hotwire + Tauri)",
+          },
+          education: {
+            degree: "Análise e Desenvolvimento de Sistemas",
+            institution: "Wyden",
+            status: "cursando",
+            expected: "dez/2026",
+          },
+          languages: {
+            portuguese: "nativo",
+            english: "B2 (técnico)",
+          },
+        },
       },
       readme: {
         filename: "README.md",

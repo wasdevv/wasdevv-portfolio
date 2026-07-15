@@ -53,6 +53,7 @@ export function CodeTabs() {
 function RubyView() {
   const { t } = useLanguage()
   const k = t.aboutMe.codeTabs.devRb.codeKeys
+  const b = t.aboutMe.codeTabs.devRb.blocks
 
   return (
     <pre>
@@ -80,6 +81,49 @@ function RubyView() {
         ,{"\n"}
         {"  "}
         {k.monster}: <span className="text-primary">true</span>,{"\n"}
+        {"}"}
+        {"\n\n"}
+        <span className="text-primary">open_source</span>{" "}
+        <span className="text-muted-foreground">=</span> {"{"}
+        {"\n"}
+        {"  "}swarm:{" "}
+        <span className="text-chart-3">{`"${b.openSource.swarm}"`}</span>,
+        {"\n"}
+        {"  "}claude_code_plugins: [
+        <span className="text-chart-3">"lean-output"</span>,{" "}
+        <span className="text-chart-3">"rails-context"</span>,{" "}
+        <span className="text-chart-3">"rails-guard"</span>],
+        {"\n"}
+        {"  "}contributions: [
+        <span className="text-chart-3">"brasilapi-ruby"</span>],{"\n"}
+        {"}"}
+        {"\n\n"}
+        <span className="text-primary">education</span>{" "}
+        <span className="text-muted-foreground">=</span> {"{"}
+        {"\n"}
+        {"  "}degree:{" "}
+        <span className="text-chart-3">{`"${b.education.degree}"`}</span>,
+        {"\n"}
+        {"  "}institution:{" "}
+        <span className="text-chart-3">{`"${b.education.institution}"`}</span>,
+        {"\n"}
+        {"  "}status:{" "}
+        <span className="text-chart-3">{`"${b.education.status}"`}</span>,
+        {"\n"}
+        {"  "}expected:{" "}
+        <span className="text-chart-3">{`"${b.education.expected}"`}</span>,
+        {"\n"}
+        {"}"}
+        {"\n\n"}
+        <span className="text-primary">languages</span>{" "}
+        <span className="text-muted-foreground">=</span> {"{"}
+        {"\n"}
+        {"  "}portuguese:{" "}
+        <span className="text-chart-3">{`"${b.languages.portuguese}"`}</span>,
+        {"\n"}
+        {"  "}english:{" "}
+        <span className="text-chart-3">{`"${b.languages.english}"`}</span>,
+        {"\n"}
         {"}"}
       </code>
     </pre>
