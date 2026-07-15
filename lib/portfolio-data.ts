@@ -60,11 +60,17 @@ export const skills: Skill[] = [
   { name: "CI/CD", icon: "githubactions", iconColor: "2088FF", level: "INTERMEDIATE", category: "devops" },
   { name: "Sidekiq", icon: "ruby", iconColor: "B1003E", level: "ADVANCED", category: "devops" },
   { name: "Linux", icon: "linux", iconColor: "FCC624", level: "ADVANCED", category: "devops" },
+  { name: "Kubernetes", icon: "kubernetes", iconColor: "326CE5", level: "FAMILIAR", category: "devops" },
+  { name: "ArgoCD", icon: "argo", iconColor: "EF7B4D", level: "FAMILIAR", category: "devops" },
+  { name: "Grafana", icon: "grafana", iconColor: "F46800", level: "INTERMEDIATE", category: "devops" },
+  { name: "Datadog", icon: "datadog", iconColor: "632CA6", level: "INTERMEDIATE", category: "devops" },
   // Testing & Quality
   { name: "RSpec", icon: "ruby", iconColor: "CC342D", level: "ADVANCED", category: "testing" },
   { name: "Capybara", icon: "ruby", iconColor: "CC342D", level: "ADVANCED", category: "testing" },
   { name: "TDD", level: "ADVANCED", category: "testing" },
   { name: "Selenium", icon: "selenium", iconColor: "43B02A", level: "INTERMEDIATE", category: "testing" },
+  { name: "RuboCop", icon: "rubocop", iconColor: "E34F26", level: "ADVANCED", category: "testing" },
+  { name: "Brakeman", level: "INTERMEDIATE", category: "testing" },
   // Architecture
   { name: "Clean Architecture", level: "ADVANCED", category: "architecture" },
   { name: "RESTful APIs", level: "ADVANCED", category: "architecture" },
