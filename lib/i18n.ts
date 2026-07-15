@@ -317,14 +317,19 @@ const en: Dict = {
     title: "EDUCATION",
     items: [
       {
-        degree: "BACHELOR'S IN COMPUTER SCIENCE (PAUSED)",
+        degree: "SYSTEMS ANALYSIS AND DEVELOPMENT — IN PROGRESS",
         school: "Wyden — São José do Rio Preto, SP",
-        period: "2022 — 2023",
+        period: "2022 — 2026 (expected Dec/2026)",
       },
       {
-        degree: "SYSTEMS ANALYSIS & DATABASES COURSE",
-        school: "Udemy",
-        period: "Self-paced",
+        degree: "LEARN RAILS AND RUBY PROGRAMMING",
+        school: "Udemy — John Elder",
+        period: "2023",
+      },
+      {
+        degree: "ENGLISH COURSE",
+        school: "CNA — São José do Rio Preto (Downtown)",
+        period: "2019",
       },
     ],
   },
@@ -332,7 +337,7 @@ const en: Dict = {
     title: "LANGUAGES",
     items: [
       { language: "PORTUGUESE", level: "NATIVE" },
-      { language: "ENGLISH", level: "INTERMEDIATE B1" },
+      { language: "ENGLISH", level: "B2 (TECHNICAL)" },
     ],
   },
   resume: {
@@ -568,14 +573,19 @@ const pt: Dict = {
     title: "FORMAÇÃO",
     items: [
       {
-        degree: "BACHARELADO EM CIÊNCIA DA COMPUTAÇÃO (TRANCADO)",
+        degree: "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS — CURSANDO",
         school: "Wyden — São José do Rio Preto, SP",
-        period: "2022 — 2023",
+        period: "2022 — 2026 (previsão dez/2026)",
       },
       {
-        degree: "CURSO DE ANÁLISE DE SISTEMAS & BANCO DE DADOS",
-        school: "Udemy",
-        period: "Self-paced",
+        degree: "LEARN RAILS AND RUBY PROGRAMMING",
+        school: "Udemy — John Elder",
+        period: "2023",
+      },
+      {
+        degree: "CURSO DE INGLÊS",
+        school: "CNA — São José do Rio Preto (Downtown)",
+        period: "2019",
       },
     ],
   },
@@ -583,7 +593,7 @@ const pt: Dict = {
     title: "IDIOMAS",
     items: [
       { language: "PORTUGUÊS", level: "NATIVO" },
-      { language: "INGLÊS", level: "INTERMEDIÁRIO B1" },
+      { language: "INGLÊS", level: "B2 (TÉCNICO)" },
     ],
   },
   resume: {
