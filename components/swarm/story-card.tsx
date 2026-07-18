@@ -30,7 +30,7 @@ export function StoryCard() {
         <div className="relative mt-8 flex items-center gap-2 border-t border-border/50 pt-4 font-mono text-xs text-muted-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-primary/70" />
           <a
-            href="https://www.onorca.dev/"
+            href="https://github.com/wasdevv/swarm"
             target="_blank"
             rel="noreferrer"
             className="underline decoration-dotted underline-offset-4 hover:text-foreground"

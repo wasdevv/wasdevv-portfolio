@@ -694,11 +694,11 @@ const en: Dict = {
       kicker: "// 08 — STORY",
       title: "How it started.",
       body: [
-        "I wanted the same core idea as Orca — spawn multiple coding agents against a task and pick the best — but running fully offline, shipping as a native Windows app, and built on Rails 8 with Hotwire so the whole loop stays in one process.",
+        "I wanted a tool that could spawn multiple coding agents against the same task and let me pick the best attempt — running fully offline, shipping as a native Windows app, and built on Rails 8 with Hotwire so the whole loop stays in one process.",
         "The first version was 400 lines of Ruby and one xterm.js pane. Then I added worktrees, then live diff, then per-line comments feeding back into the agent's session. Then Tauri 2 to ship it as a real desktop app. Then a separate CLI plugin so you can get 80% of the value inside Claude Code itself.",
         "It's the tool I wanted every time I typed a hard prompt and had to guess which of my agent's five possible interpretations would win.",
       ],
-      inspiredByLabel: "Inspired by Orca",
+      inspiredByLabel: "View source on GitHub",
     },
     finalCta: {
       kicker: "// 09 — TRY IT",
@@ -1153,11 +1153,11 @@ const pt: Dict = {
       kicker: "// 08 — HISTÓRIA",
       title: "Como começou.",
       body: [
-        "Eu queria a mesma ideia central do Orca — spawn de múltiplos agentes de código contra uma task e escolher o melhor — mas rodando 100% offline, empacotado como app nativo pro Windows, e construído sobre Rails 8 com Hotwire pra manter todo o loop num único processo.",
+        "Eu queria uma ferramenta que pudesse fazer spawn de múltiplos agentes de código contra a mesma task e me deixasse escolher a melhor tentativa — rodando 100% offline, empacotado como app nativo pro Windows, e construído sobre Rails 8 com Hotwire pra manter todo o loop num único processo.",
         "A primeira versão foram 400 linhas de Ruby e um painel xterm.js. Depois veio worktrees, depois diff ao vivo, depois comentários por linha voltando pra sessão do agente. Depois Tauri 2 pra empacotar como desktop de verdade. Depois um plugin CLI separado pra você ter 80% do valor dentro do próprio Claude Code.",
         "É a ferramenta que eu queria toda vez que digitava um prompt difícil e precisava adivinhar qual das cinco interpretações possíveis do meu agente ia vencer.",
       ],
-      inspiredByLabel: "Inspirado no Orca",
+      inspiredByLabel: "Ver código no GitHub",
     },
     finalCta: {
       kicker: "// 09 — EXPERIMENTA",
