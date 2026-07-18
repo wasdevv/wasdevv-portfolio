@@ -30,6 +30,7 @@ type Dict = {
     skills: string
     resume: string
     contact: string
+    swarm: string
   }
   sidebar: {
     stats: Stat[]
@@ -169,6 +170,87 @@ type Dict = {
     skills: { title: string; description: string }
     resume: { title: string; description: string }
     contact: { title: string; description: string }
+    swarm: { title: string; description: string }
+  }
+  swarm: {
+    hero: {
+      kicker: string
+      title: string
+      tagline: string
+      subtitle: string
+      ctaGithub: string
+      ctaCli: string
+      agentLabel: string
+    }
+    pty: {
+      kicker: string
+      title: string
+      subtitle: string
+      promptLine: string
+    }
+    compare: {
+      kicker: string
+      title: string
+      subtitle: string
+      hint: string
+      mergeLabel: string
+      discardLabel: string
+      viewDiffLabel: string
+      attempts: {
+        id: string
+        elapsed: string
+        files: string
+        preview: string
+      }[]
+    }
+    features: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: {
+        title: string
+        description: string
+      }[]
+    }
+    architecture: {
+      kicker: string
+      title: string
+      subtitle: string
+      nodes: {
+        id: string
+        label: string
+      }[]
+    }
+    stack: {
+      kicker: string
+      title: string
+      items: string[]
+    }
+    roadmap: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: {
+        version: string
+        status: "shipped" | "shipping" | "planned"
+        title: string
+        description: string
+      }[]
+    }
+    story: {
+      kicker: string
+      title: string
+      body: string[]
+      inspiredByLabel: string
+    }
+    finalCta: {
+      kicker: string
+      title: string
+      subtitle: string
+      ctaGithub: string
+      ctaCli: string
+      ctaDocs: string
+    }
   }
 }
 
@@ -187,6 +269,7 @@ const en: Dict = {
   nav: {
     aboutMe: "ABOUT_ME",
     skills: "SKILLS",
+    swarm: "SWARM",
     resume: "RESUME",
     contact: "CONTACT",
   },
@@ -425,6 +508,207 @@ const en: Dict = {
       title: "Contact — Washington Pereira",
       description: "Get in touch with Washington Pereira, full-stack developer.",
     },
+    swarm: {
+      title: "Swarm — Agent Development Environment",
+      description:
+        "Orchestrate up to 4 Claude Code agents in parallel Git worktrees. Review diffs, merge the best attempt, ship faster.",
+    },
+  },
+  swarm: {
+    hero: {
+      kicker: "// PRODUCT — FEATURED",
+      title: "SWARM",
+      tagline: "Agent Development Environment",
+      subtitle:
+        "Orchestrate up to 4 Claude Code agents in parallel Git worktrees. Review each attempt's diff, merge the best one, ship faster — without leaving localhost.",
+      ctaGithub: "Star on GitHub",
+      ctaCli: "Install CLI plugin",
+      agentLabel: "agent",
+    },
+    pty: {
+      kicker: "// 02 — LIVE",
+      title: "One prompt, four attempts.",
+      subtitle:
+        "This is what a spawn looks like — real PTY over ActionCable, xterm.js on the client, zero-latency streaming.",
+      promptLine: 'swarm> spawn 3 "add cursor pagination to DealsController#index"',
+    },
+    compare: {
+      kicker: "// 03 — REVIEW",
+      title: "Compare grid.",
+      subtitle:
+        "Every attempt runs in its own worktree, its own branch. Diff them side by side and pick the best.",
+      hint: "Hover to focus · click to expand",
+      mergeLabel: "Merge",
+      discardLabel: "Discard",
+      viewDiffLabel: "View diff",
+      attempts: [
+        {
+          id: "20260715-1445-a3f2",
+          elapsed: "2m14s",
+          files: "3 files · +48 −12",
+          preview: "def index\n  @deals = policy_scope(Deal).paginate(cursor: params[:cursor])\n  render json: {\n    data: @deals,\n    next: @deals.next_cursor,\n  }\nend",
+        },
+        {
+          id: "20260715-1445-b7c1",
+          elapsed: "1m58s",
+          files: "2 files · +36 −8",
+          preview: "def index\n  scope = policy_scope(Deal).order(:id)\n  @deals = scope.after(params[:cursor]).limit(25)\n  render json: DealSerializer.wrap(@deals)\nend",
+        },
+        {
+          id: "20260715-1445-9d0e",
+          elapsed: "3m01s",
+          files: "5 files · +72 −18",
+          preview: "def index\n  paginator = CursorPaginator.new(\n    scope: policy_scope(Deal),\n    cursor: params[:cursor],\n    per: 25,\n  )\n  render json: paginator.page\nend",
+        },
+        {
+          id: "20260715-1445-c204",
+          elapsed: "2m47s",
+          files: "4 files · +52 −22",
+          preview: "def index\n  @deals = DealQuery\n    .for(current_user)\n    .cursor_page(params[:cursor])\n  render json: @deals\nend",
+        },
+      ],
+    },
+    features: {
+      kicker: "// 04 — CAPABILITIES",
+      title: "Everything you need to fan out and ship.",
+      subtitle: "Eight capabilities, one localhost.",
+      items: [
+        {
+          title: "Isolated worktrees",
+          description:
+            "Every agent gets its own Git worktree and branch — attempts never see each other's changes.",
+        },
+        {
+          title: "Real-time PTY",
+          description:
+            "xterm.js over ActionCable with zero-latency streaming, Ctrl+Shift+F search and scrollback replay.",
+        },
+        {
+          title: "Live diff review",
+          description:
+            "Committed, uncommitted and untracked — everything the agent produced against merge-base, auto-refreshing.",
+        },
+        {
+          title: "Per-line comments",
+          description:
+            "Comment on any file:line inside the diff and the feedback flows straight back into the agent's session.",
+        },
+        {
+          title: "One-click merge",
+          description:
+            "Commit the worktree, --no-ff into your default branch, and remove the worktree — aborts cleanly on conflict.",
+        },
+        {
+          title: "PR via GitHub CLI",
+          description:
+            "Push the task branch and open a pull request through gh, straight from the Diff tab.",
+        },
+        {
+          title: "Session resume",
+          description:
+            "Agent died (token limit, app closed) — claude --continue reopens the same conversation in the same worktree.",
+        },
+        {
+          title: "Native desktop",
+          description:
+            "Ships as Tauri 2 + WebView2 on Windows with the Rails backend running inside WSL. No terminal required.",
+        },
+      ],
+    },
+    architecture: {
+      kicker: "// 05 — INSIDE",
+      title: "How the fanout works.",
+      subtitle:
+        "One user prompt, N Git worktrees, N Claude Code processes streamed through ActionCable to a single review pane.",
+      nodes: [
+        { id: "prompt", label: "User prompt" },
+        { id: "orchestrator", label: "Swarm orchestrator" },
+        { id: "worktrees", label: "Worktree pool" },
+        { id: "ptys", label: "PTY 1..N" },
+        { id: "claude", label: "Claude Code processes" },
+        { id: "cable", label: "ActionCable stream" },
+        { id: "diff", label: "Live diff" },
+        { id: "ship", label: "Merge / PR" },
+      ],
+    },
+    stack: {
+      kicker: "// 06 — STACK",
+      title: "Built on.",
+      items: [
+        "Ruby 4.x",
+        "Rails 8.1",
+        "Hotwire",
+        "Turbo",
+        "Stimulus",
+        "Tailwind v4",
+        "PostgreSQL",
+        "Solid Queue",
+        "Solid Cache",
+        "Solid Cable",
+        "ActionCable",
+        "xterm.js",
+        "CodeMirror 6",
+        "Tauri 2",
+        "WebView2",
+        "GitHub CLI",
+      ],
+    },
+    roadmap: {
+      kicker: "// 07 — ROADMAP",
+      title: "Where it's going.",
+      subtitle: "Shipped, shipping and planned — as of today.",
+      items: [
+        {
+          version: "v0.1",
+          status: "shipped",
+          title: "MVP orchestrator",
+          description: "Isolated worktrees, PTY streaming, live diff review, merge / discard / PR.",
+        },
+        {
+          version: "v0.2",
+          status: "shipped",
+          title: "Compare grid",
+          description: "Side-by-side review of N attempts, per-line comments flowing back into the agent.",
+        },
+        {
+          version: "v0.3",
+          status: "shipping",
+          title: "Desktop app",
+          description: "Tauri 2 + WebView2 native shell for Windows, Rails backend inside WSL.",
+        },
+        {
+          version: "v0.4",
+          status: "planned",
+          title: "Multi-project workspace",
+          description: "One Swarm session spanning multiple repositories, with cross-repo diff and search.",
+        },
+        {
+          version: "v0.5",
+          status: "planned",
+          title: "MCP integration",
+          description: "Model Context Protocol adapters so agents in Swarm can call the same tools your IDE does.",
+        },
+      ],
+    },
+    story: {
+      kicker: "// 08 — STORY",
+      title: "How it started.",
+      body: [
+        "I wanted the same core idea as Orca — spawn multiple coding agents against a task and pick the best — but running fully offline, shipping as a native Windows app, and built on Rails 8 with Hotwire so the whole loop stays in one process.",
+        "The first version was 400 lines of Ruby and one xterm.js pane. Then I added worktrees, then live diff, then per-line comments feeding back into the agent's session. Then Tauri 2 to ship it as a real desktop app. Then a separate CLI plugin so you can get 80% of the value inside Claude Code itself.",
+        "It's the tool I wanted every time I typed a hard prompt and had to guess which of my agent's five possible interpretations would win.",
+      ],
+      inspiredByLabel: "Inspired by Orca",
+    },
+    finalCta: {
+      kicker: "// 09 — TRY IT",
+      title: "Ship your next attempt in parallel.",
+      subtitle:
+        "Star the repo, install the plugin, or read the docs. Everything is open source and runs on your machine.",
+      ctaGithub: "github.com/wasdevv/swarm",
+      ctaCli: "swarm-plugin (CLI)",
+      ctaDocs: "Read the docs",
+    },
   },
 }
 
@@ -445,6 +729,7 @@ const pt: Dict = {
     skills: "SKILLS",
     resume: "CURRÍCULO",
     contact: "CONTATO",
+    swarm: "SWARM",
   },
   sidebar: {
     stats: [
@@ -681,6 +966,207 @@ const pt: Dict = {
       title: "Contato — Washington Pereira",
       description:
         "Entre em contato com Washington Pereira, desenvolvedor full-stack.",
+    },
+    swarm: {
+      title: "Swarm — Agent Development Environment",
+      description:
+        "Orquestre até 4 agentes Claude Code em paralelo, cada um em um worktree Git isolado. Revise diffs, faça merge da melhor tentativa, entregue mais rápido.",
+    },
+  },
+  swarm: {
+    hero: {
+      kicker: "// PROJETO — DESTAQUE",
+      title: "SWARM",
+      tagline: "Agent Development Environment",
+      subtitle:
+        "Orquestre até 4 agentes Claude Code em worktrees Git paralelos. Revise o diff de cada tentativa, faça merge da melhor, entregue mais rápido — sem sair do localhost.",
+      ctaGithub: "Estrela no GitHub",
+      ctaCli: "Instalar plugin CLI",
+      agentLabel: "agente",
+    },
+    pty: {
+      kicker: "// 02 — AO VIVO",
+      title: "Um prompt, quatro tentativas.",
+      subtitle:
+        "É assim que um spawn se comporta — PTY real via ActionCable, xterm.js no cliente, streaming sem latência.",
+      promptLine: 'swarm> spawn 3 "adiciona paginação por cursor no DealsController#index"',
+    },
+    compare: {
+      kicker: "// 03 — REVISÃO",
+      title: "Grid de comparação.",
+      subtitle:
+        "Cada tentativa roda em seu próprio worktree, em sua própria branch. Compare lado a lado e escolha a melhor.",
+      hint: "Passe o mouse para focar · clique para expandir",
+      mergeLabel: "Mesclar",
+      discardLabel: "Descartar",
+      viewDiffLabel: "Ver diff",
+      attempts: [
+        {
+          id: "20260715-1445-a3f2",
+          elapsed: "2m14s",
+          files: "3 arquivos · +48 −12",
+          preview: "def index\n  @deals = policy_scope(Deal).paginate(cursor: params[:cursor])\n  render json: {\n    data: @deals,\n    next: @deals.next_cursor,\n  }\nend",
+        },
+        {
+          id: "20260715-1445-b7c1",
+          elapsed: "1m58s",
+          files: "2 arquivos · +36 −8",
+          preview: "def index\n  scope = policy_scope(Deal).order(:id)\n  @deals = scope.after(params[:cursor]).limit(25)\n  render json: DealSerializer.wrap(@deals)\nend",
+        },
+        {
+          id: "20260715-1445-9d0e",
+          elapsed: "3m01s",
+          files: "5 arquivos · +72 −18",
+          preview: "def index\n  paginator = CursorPaginator.new(\n    scope: policy_scope(Deal),\n    cursor: params[:cursor],\n    per: 25,\n  )\n  render json: paginator.page\nend",
+        },
+        {
+          id: "20260715-1445-c204",
+          elapsed: "2m47s",
+          files: "4 arquivos · +52 −22",
+          preview: "def index\n  @deals = DealQuery\n    .for(current_user)\n    .cursor_page(params[:cursor])\n  render json: @deals\nend",
+        },
+      ],
+    },
+    features: {
+      kicker: "// 04 — CAPACIDADES",
+      title: "Tudo que você precisa pra fanout e entrega.",
+      subtitle: "Oito capacidades, um localhost.",
+      items: [
+        {
+          title: "Worktrees isolados",
+          description:
+            "Cada agente ganha seu próprio worktree Git e branch — as tentativas nunca enxergam as mudanças uma da outra.",
+        },
+        {
+          title: "PTY em tempo real",
+          description:
+            "xterm.js sobre ActionCable com streaming zero-latência, busca Ctrl+Shift+F e scrollback replay ao reconectar.",
+        },
+        {
+          title: "Diff ao vivo",
+          description:
+            "Committed, uncommitted e untracked — tudo que o agente produziu contra o merge-base, atualizando sozinho.",
+        },
+        {
+          title: "Comentários por linha",
+          description:
+            "Comente qualquer arquivo:linha no diff e o feedback volta direto pra sessão do agente.",
+        },
+        {
+          title: "Merge com um clique",
+          description:
+            "Commita o worktree, --no-ff na branch padrão, remove o worktree — e aborta limpo em caso de conflito.",
+        },
+        {
+          title: "PR via GitHub CLI",
+          description:
+            "Push da branch da task e abertura do PR via gh, direto da aba de Diff.",
+        },
+        {
+          title: "Resume de sessão",
+          description:
+            "Agente morreu (limite de token, app fechado) — claude --continue reabre a mesma conversa no mesmo worktree.",
+        },
+        {
+          title: "Desktop nativo",
+          description:
+            "Empacotado com Tauri 2 + WebView2 no Windows, com backend Rails rodando dentro do WSL. Sem terminal.",
+        },
+      ],
+    },
+    architecture: {
+      kicker: "// 05 — POR DENTRO",
+      title: "Como o fanout funciona.",
+      subtitle:
+        "Um prompt do usuário, N worktrees Git, N processos Claude Code streamados via ActionCable pra um único painel de revisão.",
+      nodes: [
+        { id: "prompt", label: "Prompt do usuário" },
+        { id: "orchestrator", label: "Orquestrador Swarm" },
+        { id: "worktrees", label: "Pool de worktrees" },
+        { id: "ptys", label: "PTY 1..N" },
+        { id: "claude", label: "Processos Claude Code" },
+        { id: "cable", label: "Stream ActionCable" },
+        { id: "diff", label: "Diff ao vivo" },
+        { id: "ship", label: "Merge / PR" },
+      ],
+    },
+    stack: {
+      kicker: "// 06 — STACK",
+      title: "Construído sobre.",
+      items: [
+        "Ruby 4.x",
+        "Rails 8.1",
+        "Hotwire",
+        "Turbo",
+        "Stimulus",
+        "Tailwind v4",
+        "PostgreSQL",
+        "Solid Queue",
+        "Solid Cache",
+        "Solid Cable",
+        "ActionCable",
+        "xterm.js",
+        "CodeMirror 6",
+        "Tauri 2",
+        "WebView2",
+        "GitHub CLI",
+      ],
+    },
+    roadmap: {
+      kicker: "// 07 — ROADMAP",
+      title: "Pra onde tá indo.",
+      subtitle: "Entregue, em construção e planejado — como está hoje.",
+      items: [
+        {
+          version: "v0.1",
+          status: "shipped",
+          title: "MVP do orquestrador",
+          description: "Worktrees isolados, streaming PTY, revisão de diff ao vivo, merge / descarte / PR.",
+        },
+        {
+          version: "v0.2",
+          status: "shipped",
+          title: "Grid de comparação",
+          description: "Revisão lado a lado de N tentativas, comentários por linha voltando pro agente.",
+        },
+        {
+          version: "v0.3",
+          status: "shipping",
+          title: "App desktop",
+          description: "Shell nativo Tauri 2 + WebView2 pra Windows, backend Rails rodando dentro do WSL.",
+        },
+        {
+          version: "v0.4",
+          status: "planned",
+          title: "Workspace multi-projeto",
+          description: "Uma única sessão Swarm cobrindo vários repositórios, com diff e busca cross-repo.",
+        },
+        {
+          version: "v0.5",
+          status: "planned",
+          title: "Integração MCP",
+          description: "Adaptadores Model Context Protocol pra os agentes no Swarm chamarem as mesmas ferramentas do seu IDE.",
+        },
+      ],
+    },
+    story: {
+      kicker: "// 08 — HISTÓRIA",
+      title: "Como começou.",
+      body: [
+        "Eu queria a mesma ideia central do Orca — spawn de múltiplos agentes de código contra uma task e escolher o melhor — mas rodando 100% offline, empacotado como app nativo pro Windows, e construído sobre Rails 8 com Hotwire pra manter todo o loop num único processo.",
+        "A primeira versão foram 400 linhas de Ruby e um painel xterm.js. Depois veio worktrees, depois diff ao vivo, depois comentários por linha voltando pra sessão do agente. Depois Tauri 2 pra empacotar como desktop de verdade. Depois um plugin CLI separado pra você ter 80% do valor dentro do próprio Claude Code.",
+        "É a ferramenta que eu queria toda vez que digitava um prompt difícil e precisava adivinhar qual das cinco interpretações possíveis do meu agente ia vencer.",
+      ],
+      inspiredByLabel: "Inspirado no Orca",
+    },
+    finalCta: {
+      kicker: "// 09 — EXPERIMENTA",
+      title: "Envie sua próxima tentativa em paralelo.",
+      subtitle:
+        "Estrela no repo, instala o plugin, ou lê a documentação. Tudo é open source e roda na sua máquina.",
+      ctaGithub: "github.com/wasdevv/swarm",
+      ctaCli: "swarm-plugin (CLI)",
+      ctaDocs: "Ler a documentação",
     },
   },
 }

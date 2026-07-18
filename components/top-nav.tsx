@@ -12,6 +12,7 @@ const routes = [
   { href: "/about-me", key: "aboutMe" as const },
   { href: "/skills", key: "skills" as const },
   { href: "/resume", key: "resume" as const },
+  { href: "/swarm", key: "swarm" as const, featured: true },
   { href: "/contact", key: "contact" as const },
 ]
 
@@ -35,6 +36,7 @@ export function TopNav() {
           <ul className="flex items-center gap-5">
             {routes.map((route) => {
               const active = pathname === route.href
+              const featured = "featured" in route && route.featured
               return (
                 <li key={route.href}>
                   <Link
@@ -42,10 +44,15 @@ export function TopNav() {
                     className={`font-mono text-xs tracking-wider transition-colors ${
                       active
                         ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        : featured
+                          ? "text-foreground hover:text-primary"
+                          : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {route.href}
+                    {featured ? (
+                      <span className="ml-1 inline-block h-1 w-1 translate-y-[-2px] rounded-full bg-primary align-middle" />
+                    ) : null}
                   </Link>
                 </li>
               )
