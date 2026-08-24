@@ -10,24 +10,24 @@ const LAYOUT: Record<
   string,
   { x: number; y: number; w: number; h: number; hint?: string }
 > = {
-  prompt: { x: 40, y: 40, w: 200, h: 60 },
-  orchestrator: { x: 300, y: 40, w: 220, h: 60 },
-  worktrees: { x: 580, y: 40, w: 180, h: 60 },
-  ptys: { x: 580, y: 140, w: 180, h: 60 },
-  claude: { x: 580, y: 240, w: 180, h: 60 },
+  task: { x: 40, y: 40, w: 200, h: 60 },
+  start: { x: 300, y: 40, w: 220, h: 60 },
+  planner: { x: 580, y: 40, w: 180, h: 60 },
+  adapters: { x: 580, y: 140, w: 180, h: 60 },
+  coder: { x: 580, y: 240, w: 180, h: 60 },
   cable: { x: 300, y: 240, w: 220, h: 60 },
-  diff: { x: 40, y: 240, w: 200, h: 60 },
+  workspace: { x: 40, y: 240, w: 200, h: 60 },
   ship: { x: 40, y: 340, w: 200, h: 60 },
 }
 
 const EDGES: Array<[string, string]> = [
-  ["prompt", "orchestrator"],
-  ["orchestrator", "worktrees"],
-  ["worktrees", "ptys"],
-  ["ptys", "claude"],
-  ["claude", "cable"],
-  ["cable", "diff"],
-  ["diff", "ship"],
+  ["task", "start"],
+  ["start", "planner"],
+  ["planner", "adapters"],
+  ["adapters", "coder"],
+  ["coder", "cable"],
+  ["cable", "workspace"],
+  ["workspace", "ship"],
 ]
 
 export function ArchitectureDiagram() {
@@ -112,7 +112,7 @@ export function ArchitectureDiagram() {
                   x={rect.x + rect.w / 2}
                   y={rect.y + rect.h / 2 + 4}
                   textAnchor="middle"
-                  className={`font-mono text-[13px] ${active ? "fill-primary" : "fill-foreground"}`}
+                  className={`font-mono text-[12px] ${active ? "fill-primary" : "fill-foreground"}`}
                 >
                   {nodesById[node.id] ?? node.id}
                 </text>

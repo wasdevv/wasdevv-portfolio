@@ -37,14 +37,17 @@ export function CompareGrid() {
                   : "border-border bg-card/60"
               }`}
             >
-              <header className="flex items-center justify-between border-b border-border/50 bg-muted/20 px-4 py-2 font-mono text-xs">
+              <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-border/50 bg-muted/20 px-4 py-2 font-mono text-xs">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <GitBranch className="h-3.5 w-3.5" />
                   <span>swarm/{attempt.id}</span>
                 </div>
-                <span className="tabular-nums text-muted-foreground">
-                  {attempt.elapsed}
-                </span>
+                <div className="flex items-center gap-3 text-muted-foreground">
+                  <span className="border border-border/70 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
+                    {attempt.agent}
+                  </span>
+                  <span className="tabular-nums">{attempt.elapsed}</span>
+                </div>
               </header>
 
               <div className="flex-1 border-b border-border/50 p-4 font-mono text-[12px] leading-relaxed">
