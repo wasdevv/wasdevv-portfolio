@@ -3,18 +3,21 @@
 import { motion } from "framer-motion"
 import {
   Box,
-  Cable,
-  GitFork,
-  GitPullRequest,
+  Bot,
+  Link2,
+  ListChecks,
   MessageSquareText,
-  Monitor,
-  RotateCcw,
+  MonitorPlay,
+  RefreshCw,
   Split,
+  TerminalSquare,
 } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 import { SectionFrame } from "./section-frame"
 
-const ICONS = [Box, Cable, Split, MessageSquareText, GitFork, GitPullRequest, RotateCcw, Monitor]
+// One icon per capability, in dictionary order:
+// planner→coder · adapters · PTYs · panes in the URL · diff review · PR evidence · preview/design · loops
+const ICONS = [ListChecks, Bot, TerminalSquare, Split, MessageSquareText, Link2, MonitorPlay, RefreshCw]
 
 // Bento tile spans — asymmetric layout like Vercel/Linear feature grids.
 const SPANS = [
@@ -63,7 +66,7 @@ export function FeaturesBento() {
                 aria-hidden
                 className="mt-6 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/40"
               >
-                0{i + 1}
+                {String(i + 1).padStart(2, "0")}
               </span>
             </motion.div>
           )

@@ -186,7 +186,10 @@ type Dict = {
       kicker: string
       title: string
       subtitle: string
+      promptLabel: string
       promptLine: string
+      windowLabel: string
+      lines: { kind: "sys" | "task" | "ok"; text: string }[]
     }
     compare: {
       kicker: string
@@ -198,6 +201,7 @@ type Dict = {
       viewDiffLabel: string
       attempts: {
         id: string
+        agent: string
         elapsed: string
         files: string
         preview: string
@@ -231,8 +235,7 @@ type Dict = {
       title: string
       subtitle: string
       items: {
-        version: string
-        status: "shipped" | "shipping" | "planned"
+        marker: string
         title: string
         description: string
       }[]
@@ -350,7 +353,7 @@ const en: Dict = {
             "Evolved the critical **Acordos de Dívida Ativa** (Active Debt Agreements) module in a **multi-tenant** architecture serving **50+ municipalities**, during the system migration from **Rails 7 to Rails 8**, structured with **Devise**, **Service Objects** and **Form::Builder** to encapsulate complex fiscal rules, delivering **15+ per-municipality customizations via feature flags**, cutting delivery time by **60%**, zeroing cross-tenant regressions and reducing module-related support tickets by **59%**.",
             "Monitored production applications using observability tools (**Datadog**), identifying and resolving incidents proactively before they affected end users.",
             "Hands-on experience with **Kubernetes** in production (accessed via **Pritunl VPN**), using **ArgoCD** (GitOps), **Headlamp** and **Grafana** for continuous deploy, cluster management and incident monitoring in a high-availability environment.",
-            "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire** that orchestrates up to **4 parallel Claude Code agents per prompt**, each in an isolated Git worktree with real-time PTY over **ActionCable** (xterm.js, zero-latency streaming, `Ctrl+Shift+F` search and scrollback replay on reconnect). Provides a `/compare` grid to pick the best attempt across agents, live diff (committed, uncommitted and untracked) against the merge-base with per-line comments that flow straight back into the agent's session, one-click `--no-ff` merge or PR creation via **GitHub CLI**, embedded iframe preview of the running app on a free port, a **CodeMirror 6** editor with autocomplete and syntax highlighting for 7+ languages (Ruby, JS/TS, HTML/ERB, CSS, JSON, YAML, Markdown), a split-shell inside the worktree, automatic session resume via `claude --continue` and persistent history with scrollback flushed to disk every 5s. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
+            "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written** — the planner runs in the PTY, writes the plan and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design — the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
             "Published a trilogy of **Claude Code** plugins covering agent input, output and side effects: **lean-output** compresses **RSpec**, **RuboCop** and **Brakeman** outputs by **-70% to -97% tokens** with a zero-loss guarantee on failures; **rails-context** injects a curated dossier (columns, indexes, associations, validations and routes), drastically shrinking the model's read surface instead of loading full `db/schema.rb` and models; **rails-guard** intercepts destructive Rails commands (`db:drop`, `db:reset`, `rails destroy`, `runner` with `delete_all`) via a `PreToolUse` hook, requiring human confirmation before execution.",
           ],
         },
@@ -511,7 +514,7 @@ const en: Dict = {
     swarm: {
       title: "Swarm — Agent Development Environment",
       description:
-        "Orchestrate up to 4 Claude Code agents in parallel Git worktrees. Review diffs, merge the best attempt, ship faster.",
+        "A desktop IDE for coding agents: 1–4 Claude Code or Codex agents in parallel Git worktrees, live PTYs, diff review with per-line comments, merge or PR.",
     },
   },
   swarm: {
@@ -520,48 +523,69 @@ const en: Dict = {
       title: "SWARM",
       tagline: "Agent Development Environment",
       subtitle:
-        "Orchestrate up to 4 Claude Code agents in parallel Git worktrees. Review each attempt's diff, merge the best one, ship faster — without leaving localhost.",
-      ctaGithub: "Star on GitHub",
-      ctaCli: "Install CLI plugin",
+        "A desktop IDE for coding agents. Run 1–4 Claude Code or Codex agents in parallel Git worktrees, watch each one in a live PTY, review the diff with per-line comments, then merge or open the PR — all in one window.",
+      ctaGithub: "View on GitHub",
+      ctaCli: "CLI plugin",
       agentLabel: "agent",
     },
     pty: {
       kicker: "// 02 — LIVE",
-      title: "One prompt, four attempts.",
+      title: "Every task plans before it codes.",
       subtitle:
-        "This is what a spawn looks like — real PTY over ActionCable, xterm.js on the client, zero-latency streaming.",
-      promptLine: 'swarm> spawn 3 "add cursor pagination to DealsController#index"',
+        "A task is born pending, with no worktree — creating one costs neither disk nor money. Start creates the worktree, the planner writes the plan and exits, and only then does on_exit bring up the coder. No non-empty plan, no coder.",
+      promptLabel: "prompt",
+      promptLine: "add cursor pagination to DealsController#index",
+      windowLabel: "swarm — task #142 — agent pane",
+      lines: [
+        { kind: "sys", text: "task #142 · pending — no worktree yet" },
+        { kind: "sys", text: "start: git worktree add .swarm/worktrees/a3f2  branch swarm/cursor-pagination" },
+        { kind: "ok", text: "worktree ready · PTY registered (task=142 pane=agent)" },
+        { kind: "sys", text: "" },
+        { kind: "task", text: "[planner · claude-code] reading routes.rb, deals_controller.rb, deal_spec.rb" },
+        { kind: "task", text: "[planner · claude-code] writing plan to disk" },
+        { kind: "ok", text: "[planner] exited 0 — plan written, 34 lines" },
+        { kind: "sys", text: "" },
+        { kind: "sys", text: "on_exit: plan is non-empty → handing off to coder in the same pane" },
+        { kind: "task", text: "[coder · codex] editing deals_controller.rb, deal.rb, deal_spec.rb" },
+        { kind: "ok", text: "[coder] +48 −12 across 3 files" },
+        { kind: "sys", text: "" },
+        { kind: "sys", text: "process status: running → exited. the user status is yours to set." },
+      ],
     },
     compare: {
       kicker: "// 03 — REVIEW",
-      title: "Compare grid.",
+      title: "Attempts side by side, as tabs.",
       subtitle:
-        "Every attempt runs in its own worktree, its own branch. Diff them side by side and pick the best.",
-      hint: "Hover to focus · click to expand",
+        "The screen is a tree of splits written into the URL. Any surface becomes a tab — the agent, a terminal, the chat, the diff, the preview, a file, or another attempt at the same prompt. That is how two different CLIs on one prompt end up next to each other.",
+      hint: "?panes=agent;(diff|preview)   ·   ; splits · | stacks · , tabs · () nests",
       mergeLabel: "Merge",
       discardLabel: "Discard",
-      viewDiffLabel: "View diff",
+      viewDiffLabel: "Open diff",
       attempts: [
         {
-          id: "20260715-1445-a3f2",
+          id: "cursor-pagination-a3f2",
+          agent: "claude-code",
           elapsed: "2m14s",
           files: "3 files · +48 −12",
           preview: "def index\n  @deals = policy_scope(Deal).paginate(cursor: params[:cursor])\n  render json: {\n    data: @deals,\n    next: @deals.next_cursor,\n  }\nend",
         },
         {
-          id: "20260715-1445-b7c1",
+          id: "cursor-pagination-b7c1",
+          agent: "codex",
           elapsed: "1m58s",
           files: "2 files · +36 −8",
           preview: "def index\n  scope = policy_scope(Deal).order(:id)\n  @deals = scope.after(params[:cursor]).limit(25)\n  render json: DealSerializer.wrap(@deals)\nend",
         },
         {
-          id: "20260715-1445-9d0e",
+          id: "cursor-pagination-9d0e",
+          agent: "claude-code",
           elapsed: "3m01s",
           files: "5 files · +72 −18",
           preview: "def index\n  paginator = CursorPaginator.new(\n    scope: policy_scope(Deal),\n    cursor: params[:cursor],\n    per: 25,\n  )\n  render json: paginator.page\nend",
         },
         {
-          id: "20260715-1445-c204",
+          id: "cursor-pagination-c204",
+          agent: "codex",
           elapsed: "2m47s",
           files: "4 files · +52 −22",
           preview: "def index\n  @deals = DealQuery\n    .for(current_user)\n    .cursor_page(params[:cursor])\n  render json: @deals\nend",
@@ -570,64 +594,64 @@ const en: Dict = {
     },
     features: {
       kicker: "// 04 — CAPABILITIES",
-      title: "Everything you need to fan out and ship.",
-      subtitle: "Eight capabilities, one localhost.",
+      title: "An environment, not a wrapper around one CLI.",
+      subtitle: "Eight things it does, all on your machine.",
       items: [
         {
-          title: "Isolated worktrees",
+          title: "Planner, then coder",
           description:
-            "Every agent gets its own Git worktree and branch — attempts never see each other's changes.",
+            "The handoff is a PTY phase, not a job: the planner runs in the same pane, writes the plan and exits, and on_exit starts the coder pointed at it. “The planner failed” never turns into “code in the dark”.",
         },
         {
-          title: "Real-time PTY",
+          title: "Claude Code and Codex",
           description:
-            "xterm.js over ActionCable with zero-latency streaming, Ctrl+Shift+F search and scrollback replay.",
+            "Two adapters behind one map — 1 to 4 agents in parallel, each in its own worktree and branch. A new CLI is a map entry plus a class; the validation and the form follow from there.",
         },
         {
-          title: "Live diff review",
+          title: "Real PTYs",
           description:
-            "Committed, uncommitted and untracked — everything the agent produced against merge-base, auto-refreshing.",
+            "PTY.spawn per pane, registered in memory by (task, pane), streamed base64 over ActionCable. Stop escalates HUP → TERM → KILL, and scrollback flushes to disk every 5s so an abrupt death loses at most 5 seconds.",
         },
         {
-          title: "Per-line comments",
+          title: "Panes live in the URL",
           description:
-            "Comment on any file:line inside the diff and the feedback flows straight back into the agent's session.",
+            "The layout is a tree of splits serialized into the query string. Switching tabs is reordering, closing is removing, splitting is inserting — every action is a link, so reload, back button and bookmarks all just work.",
         },
         {
-          title: "One-click merge",
+          title: "Diff review that talks back",
           description:
-            "Commit the worktree, --no-ff into your default branch, and remove the worktree — aborts cleanly on conflict.",
+            "Committed, uncommitted and untracked against merge-base, parsed server-side. Comment on any file:line and the comment goes back to the agent as an instruction.",
         },
         {
-          title: "PR via GitHub CLI",
+          title: "PR with real evidence",
           description:
-            "Push the task branch and open a pull request through gh, straight from the Diff tab.",
+            "The body is written server-side by a headless agent from the real diff, the original prompt and the actual check results — “no check command” and “never ran” stay distinct from a real result. The golden path is recorded in headless Chrome and embedded as a GIF.",
         },
         {
-          title: "Session resume",
+          title: "Preview and Design Mode",
           description:
-            "Agent died (token limit, app closed) — claude --continue reopens the same conversation in the same worktree.",
+            "The worktree's app boots in a PTY behind a proxy whose port detection does not rely on the stack honoring $PORT. Design Mode annotates the live screen like Figma comments — the element's live state is serialized from the DOM and re-rendered with the user's session, not screenshotted.",
         },
         {
-          title: "Native desktop",
+          title: "Loops with guards",
           description:
-            "Ships as Tauri 2 + WebView2 on Windows with the Rails backend running inside WSL. No terminal required.",
+            "Turn, Goal, Time and Proactive, all behind the same non-negotiable guards: cost ceiling, attempt ceiling, global kill switch, judgment timeout, HMAC-SHA256 over the raw webhook body. Trello (bidirectional), Linear and Jira on the tracker side.",
         },
       ],
     },
     architecture: {
       kicker: "// 05 — INSIDE",
-      title: "How the fanout works.",
+      title: "What happens when you press Start.",
       subtitle:
-        "One user prompt, N Git worktrees, N Claude Code processes streamed through ActionCable to a single review pane.",
+        "A pending task has no worktree. Start creates it, the planner hands off to the coder in the same PTY, and everything the agent produces streams back through a single Puma process — the registry lives in memory, so WEB_CONCURRENCY is forbidden by design.",
       nodes: [
-        { id: "prompt", label: "User prompt" },
-        { id: "orchestrator", label: "Swarm orchestrator" },
-        { id: "worktrees", label: "Worktree pool" },
-        { id: "ptys", label: "PTY 1..N" },
-        { id: "claude", label: "Claude Code processes" },
-        { id: "cable", label: "ActionCable stream" },
-        { id: "diff", label: "Live diff" },
+        { id: "task", label: "Task · pending" },
+        { id: "start", label: "Start → worktree" },
+        { id: "planner", label: "Planner (PTY)" },
+        { id: "adapters", label: "Claude Code · Codex" },
+        { id: "coder", label: "Coder agent" },
+        { id: "cable", label: "PTY + ActionCable" },
+        { id: "workspace", label: "Panes · diff" },
         { id: "ship", label: "Merge / PR" },
       ],
     },
@@ -635,58 +659,70 @@ const en: Dict = {
       kicker: "// 06 — STACK",
       title: "Built on.",
       items: [
-        "Ruby 4.x",
         "Rails 8.1",
         "Hotwire",
         "Turbo",
         "Stimulus",
+        "Importmap",
         "Tailwind v4",
-        "PostgreSQL",
-        "Solid Queue",
-        "Solid Cache",
-        "Solid Cable",
-        "ActionCable",
+        "Propshaft",
+        "SQLite",
+        "ActionCable (async)",
+        "PTY.spawn",
+        "Rouge",
         "xterm.js",
         "CodeMirror 6",
+        "Ferrum",
         "Tauri 2",
+        "Rust",
         "WebView2",
         "GitHub CLI",
       ],
     },
     roadmap: {
-      kicker: "// 07 — ROADMAP",
-      title: "Where it's going.",
-      subtitle: "Shipped, shipping and planned — as of today.",
+      kicker: "// 07 — MILESTONES",
+      title: "What is already in.",
+      subtitle: "Everything below is shipped and running — this is the tool as it exists, not a plan.",
       items: [
         {
-          version: "v0.1",
-          status: "shipped",
-          title: "MVP orchestrator",
-          description: "Isolated worktrees, PTY streaming, live diff review, merge / discard / PR.",
+          marker: "01",
+          title: "Orchestrator",
+          description: "Isolated worktrees and branches, live PTY streaming, diff review, merge / discard / PR.",
         },
         {
-          version: "v0.2",
-          status: "shipped",
-          title: "Compare grid",
-          description: "Side-by-side review of N attempts, per-line comments flowing back into the agent.",
+          marker: "02",
+          title: "Compare",
+          description: "N attempts at the same prompt reviewed side by side, per-line comments flowing back into the agent.",
         },
         {
-          version: "v0.3",
-          status: "shipping",
-          title: "Desktop app",
-          description: "Tauri 2 + WebView2 native shell for Windows, Rails backend inside WSL.",
+          marker: "03",
+          title: "Workspace",
+          description: "Splittable panes serialized into the URL, with the explorer, editor, preview, chat and any file as draggable tabs.",
         },
         {
-          version: "v0.4",
-          status: "planned",
-          title: "Multi-project workspace",
-          description: "One Swarm session spanning multiple repositories, with cross-repo diff and search.",
+          marker: "04",
+          title: "Two CLIs, one planner",
+          description: "Claude Code and Codex adapters, and a planner phase every task goes through before any code is written.",
         },
         {
-          version: "v0.5",
-          status: "planned",
-          title: "MCP integration",
-          description: "Model Context Protocol adapters so agents in Swarm can call the same tools your IDE does.",
+          marker: "05",
+          title: "PR with evidence",
+          description: "Body written by a headless agent from the real diff and real check results; golden path recorded in headless Chrome as an inline GIF.",
+        },
+        {
+          marker: "06",
+          title: "Design Mode",
+          description: "Annotate the running app like a Figma comment — the element is serialized from the live DOM and re-rendered with the user's session.",
+        },
+        {
+          marker: "07",
+          title: "Loops and trackers",
+          description: "Turn, Goal, Time and Proactive behind cost, attempt and kill-switch guards, plus Trello, Linear and Jira integrations.",
+        },
+        {
+          marker: "08",
+          title: "Desktop",
+          description: "Tauri 2 window on a fixed port with its own process group; WebView2 on Windows, with Rails running inside WSL.",
         },
       ],
     },
@@ -694,17 +730,17 @@ const en: Dict = {
       kicker: "// 08 — STORY",
       title: "How it started.",
       body: [
-        "I wanted a tool that could spawn multiple coding agents against the same task and let me pick the best attempt — running fully offline, shipping as a native Windows app, and built on Rails 8 with Hotwire so the whole loop stays in one process.",
-        "The first version was 400 lines of Ruby and one xterm.js pane. Then I added worktrees, then live diff, then per-line comments feeding back into the agent's session. Then Tauri 2 to ship it as a real desktop app. Then a separate CLI plugin so you can get 80% of the value inside Claude Code itself.",
-        "It's the tool I wanted every time I typed a hard prompt and had to guess which of my agent's five possible interpretations would win.",
+        "I wanted an IDE for coding agents, not a wrapper around one. Register a local repo, fire a prompt, and 1 to 4 agents go at it in parallel — each in its own Git worktree and branch, each in a live PTY, with the file explorer, the editor, the running app, the chat and the diff all in the same window.",
+        "It is a Rails 8 app on Hotwire and SQLite, single-process by design: the PTY registry lives in Puma's memory, so WEB_CONCURRENCY is forbidden — two processes mean two registries and a UI showing an empty terminal for an agent that is very much running. Tauri 2 wraps it as a native window; on Windows that is WebView2 with Rails running inside WSL.",
+        "One rule ended up running through the whole thing: unknown must never become a value. A model missing from the price table pays the most expensive row. An unreadable transcript returns :unknown and stops the loop instead of counting as zero spent. And a prompt that assembles evidence has to tell the model where the hole is — because a prompt without evidence does not answer “I don't know”, it answers with a plausible invention.",
       ],
       inspiredByLabel: "View source on GitHub",
     },
     finalCta: {
       kicker: "// 09 — TRY IT",
-      title: "Ship your next attempt in parallel.",
+      title: "Point it at a repo and press Start.",
       subtitle:
-        "Star the repo, install the plugin, or read the docs. Everything is open source and runs on your machine.",
+        "Swarm runs on your machine, against your local repos. The Claude Code plugin ports the same fan-out into the CLI.",
       ctaGithub: "github.com/wasdevv/swarm",
       ctaCli: "swarm-plugin (CLI)",
       ctaDocs: "Read the docs",
@@ -808,7 +844,7 @@ const pt: Dict = {
             "Evoluí o módulo crítico de **Acordos de Dívida Ativa** em arquitetura **multi-tenant** atendendo **50+ municípios**, durante a migração do sistema do **Rails 7 para o Rails 8**, estruturado com **Devise**, **Service Objects** e **Form::Builder** para encapsular regras fiscais complexas, entregando **15+ customizações específicas por prefeitura via feature flags**, o que reduziu em **60% o tempo de entrega** de demandas municipais, zerou regressões cross-tenant e cortou em **59% os chamados de suporte** relacionados ao módulo.",
             "Monitorei aplicações em produção utilizando ferramentas de observabilidade (**Datadog**), identificando e resolvendo incidentes de forma proativa antes que afetassem o usuário final.",
             "Atuação prática em **Kubernetes** em produção (acesso via **Pritunl VPN**), utilizando **ArgoCD** (GitOps), **Headlamp** e **Grafana** para deploy contínuo, gestão de cluster e monitoramento de incidentes em ambiente de alta disponibilidade.",
-            "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire** que orquestra até **4 agentes Claude Code em paralelo por prompt**, cada um em worktree Git isolado com PTY em tempo real via **ActionCable** (xterm.js, streaming zero-latency, busca `Ctrl+Shift+F` e scrollback replay ao reconectar). Fornece grid `/compare` para eleger a melhor tentativa entre os agentes, diff ao vivo (committed, uncommitted e untracked) contra o merge-base com comentários por linha que voltam direto para a sessão do agente, merge `--no-ff` com um clique ou abertura de PR via **GitHub CLI**, preview do app em iframe embutido em porta livre, editor **CodeMirror 6** com autocomplete e syntax highlighting para 7+ linguagens (Ruby, JS/TS, HTML/ERB, CSS, JSON, YAML, Markdown), split-shell dentro do worktree, resume automático de sessão via `claude --continue` e histórico persistente com scrollback flushed a cada 5s. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
+            "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código** — o planner roda no PTY, escreve o plano e sai, e o `on_exit` sobe o coder com o ponteiro pro plano, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design — o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
             "Publiquei uma trilogia de plugins para o **Claude Code** cobrindo entrada, saída e efeitos colaterais do agente: **lean-output** comprime outputs de **RSpec**, **RuboCop** e **Brakeman** em **-70% a -97% de tokens** com garantia zero-loss de falhas; **rails-context** injeta dossiê curado (colunas, índices, associações, validações e rotas) reduzindo drasticamente a superfície lida pelo modelo em vez de carregar `db/schema.rb` e models inteiros; **rails-guard** intercepta comandos Rails destrutivos (`db:drop`, `db:reset`, `rails destroy`, `runner` com `delete_all`) via hook `PreToolUse`, exigindo confirmação humana antes da execução.",
           ],
         },
@@ -970,7 +1006,7 @@ const pt: Dict = {
     swarm: {
       title: "Swarm — Agent Development Environment",
       description:
-        "Orquestre até 4 agentes Claude Code em paralelo, cada um em um worktree Git isolado. Revise diffs, faça merge da melhor tentativa, entregue mais rápido.",
+        "Uma IDE desktop pra agentes de código: 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, PTYs ao vivo, revisão de diff com comentários por linha, merge ou PR.",
     },
   },
   swarm: {
@@ -979,48 +1015,69 @@ const pt: Dict = {
       title: "SWARM",
       tagline: "Agent Development Environment",
       subtitle:
-        "Orquestre até 4 agentes Claude Code em worktrees Git paralelos. Revise o diff de cada tentativa, faça merge da melhor, entregue mais rápido — sem sair do localhost.",
-      ctaGithub: "Estrela no GitHub",
-      ctaCli: "Instalar plugin CLI",
+        "Uma IDE desktop pra agentes de código. Rode de 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, acompanhe cada um num PTY ao vivo, revise o diff com comentários por linha e faça merge ou abra o PR — tudo na mesma janela.",
+      ctaGithub: "Ver no GitHub",
+      ctaCli: "Plugin CLI",
       agentLabel: "agente",
     },
     pty: {
       kicker: "// 02 — AO VIVO",
-      title: "Um prompt, quatro tentativas.",
+      title: "Toda task planeja antes de codar.",
       subtitle:
-        "É assim que um spawn se comporta — PTY real via ActionCable, xterm.js no cliente, streaming sem latência.",
-      promptLine: 'swarm> spawn 3 "adiciona paginação por cursor no DealsController#index"',
+        "A task nasce pending, sem worktree — criar não gasta disco nem dinheiro. O Start cria a worktree, o planner escreve o plano e sai, e só então o on_exit sobe o coder. Sem plano não-vazio, não tem coder.",
+      promptLabel: "prompt",
+      promptLine: "adiciona paginação por cursor no DealsController#index",
+      windowLabel: "swarm — task #142 — painel do agente",
+      lines: [
+        { kind: "sys", text: "task #142 · pending — ainda sem worktree" },
+        { kind: "sys", text: "start: git worktree add .swarm/worktrees/a3f2  branch swarm/cursor-pagination" },
+        { kind: "ok", text: "worktree pronta · PTY registrado (task=142 pane=agent)" },
+        { kind: "sys", text: "" },
+        { kind: "task", text: "[planner · claude-code] lendo routes.rb, deals_controller.rb, deal_spec.rb" },
+        { kind: "task", text: "[planner · claude-code] escrevendo o plano em disco" },
+        { kind: "ok", text: "[planner] saiu com 0 — plano escrito, 34 linhas" },
+        { kind: "sys", text: "" },
+        { kind: "sys", text: "on_exit: plano não-vazio → handoff pro coder no mesmo pane" },
+        { kind: "task", text: "[coder · codex] editando deals_controller.rb, deal.rb, deal_spec.rb" },
+        { kind: "ok", text: "[coder] +48 −12 em 3 arquivos" },
+        { kind: "sys", text: "" },
+        { kind: "sys", text: "status de processo: running → exited. o status do usuário quem define é você." },
+      ],
     },
     compare: {
       kicker: "// 03 — REVISÃO",
-      title: "Grid de comparação.",
+      title: "Tentativas lado a lado, como abas.",
       subtitle:
-        "Cada tentativa roda em seu próprio worktree, em sua própria branch. Compare lado a lado e escolha a melhor.",
-      hint: "Passe o mouse para focar · clique para expandir",
+        "O arranjo da tela é uma árvore de divisões escrita na URL. Qualquer superfície vira aba — o agente, um terminal, o chat, o diff, o preview, um arquivo ou outra tentativa do mesmo prompt. É assim que duas CLIs diferentes no mesmo prompt ficam lado a lado.",
+      hint: "?panes=agent;(diff|preview)   ·   ; divide · | empilha · , abas · () aninha",
       mergeLabel: "Mesclar",
       discardLabel: "Descartar",
-      viewDiffLabel: "Ver diff",
+      viewDiffLabel: "Abrir diff",
       attempts: [
         {
-          id: "20260715-1445-a3f2",
+          id: "cursor-pagination-a3f2",
+          agent: "claude-code",
           elapsed: "2m14s",
           files: "3 arquivos · +48 −12",
           preview: "def index\n  @deals = policy_scope(Deal).paginate(cursor: params[:cursor])\n  render json: {\n    data: @deals,\n    next: @deals.next_cursor,\n  }\nend",
         },
         {
-          id: "20260715-1445-b7c1",
+          id: "cursor-pagination-b7c1",
+          agent: "codex",
           elapsed: "1m58s",
           files: "2 arquivos · +36 −8",
           preview: "def index\n  scope = policy_scope(Deal).order(:id)\n  @deals = scope.after(params[:cursor]).limit(25)\n  render json: DealSerializer.wrap(@deals)\nend",
         },
         {
-          id: "20260715-1445-9d0e",
+          id: "cursor-pagination-9d0e",
+          agent: "claude-code",
           elapsed: "3m01s",
           files: "5 arquivos · +72 −18",
           preview: "def index\n  paginator = CursorPaginator.new(\n    scope: policy_scope(Deal),\n    cursor: params[:cursor],\n    per: 25,\n  )\n  render json: paginator.page\nend",
         },
         {
-          id: "20260715-1445-c204",
+          id: "cursor-pagination-c204",
+          agent: "codex",
           elapsed: "2m47s",
           files: "4 arquivos · +52 −22",
           preview: "def index\n  @deals = DealQuery\n    .for(current_user)\n    .cursor_page(params[:cursor])\n  render json: @deals\nend",
@@ -1029,64 +1086,64 @@ const pt: Dict = {
     },
     features: {
       kicker: "// 04 — CAPACIDADES",
-      title: "Tudo que você precisa pra fanout e entrega.",
-      subtitle: "Oito capacidades, um localhost.",
+      title: "Um ambiente, não um wrapper de uma CLI.",
+      subtitle: "Oito coisas que ele faz, todas na sua máquina.",
       items: [
         {
-          title: "Worktrees isolados",
+          title: "Planner, depois coder",
           description:
-            "Cada agente ganha seu próprio worktree Git e branch — as tentativas nunca enxergam as mudanças uma da outra.",
+            "O handoff é uma fase de PTY, não um job: o planner roda no mesmo pane, escreve o plano e sai, e o on_exit sobe o coder com o ponteiro pro plano. “Planner falhou” nunca vira “coda no escuro”.",
         },
         {
-          title: "PTY em tempo real",
+          title: "Claude Code e Codex",
           description:
-            "xterm.js sobre ActionCable com streaming zero-latência, busca Ctrl+Shift+F e scrollback replay ao reconectar.",
+            "Dois adapters atrás de um mapa — de 1 a 4 agentes em paralelo, cada um na sua worktree e sua branch. CLI nova é uma entrada no mapa mais uma classe; a validação e o formulário saem daí.",
         },
         {
-          title: "Diff ao vivo",
+          title: "PTYs de verdade",
           description:
-            "Committed, uncommitted e untracked — tudo que o agente produziu contra o merge-base, atualizando sozinho.",
+            "PTY.spawn por pane, registrado em memória por (task, pane) e transmitido em base64 via ActionCable. O stop escala HUP → TERM → KILL, e o scrollback vai pra disco a cada 5s — morte abrupta perde no máximo 5 segundos.",
         },
         {
-          title: "Comentários por linha",
+          title: "Painéis moram na URL",
           description:
-            "Comente qualquer arquivo:linha no diff e o feedback volta direto pra sessão do agente.",
+            "O arranjo é uma árvore de divisões serializada na query string. Trocar de aba é reordenar, fechar é remover, dividir é inserir — cada ação é um link, então reload, botão de voltar e favorito simplesmente funcionam.",
         },
         {
-          title: "Merge com um clique",
+          title: "Diff que responde",
           description:
-            "Commita o worktree, --no-ff na branch padrão, remove o worktree — e aborta limpo em caso de conflito.",
+            "Committed, uncommitted e untracked contra o merge-base, parseado no servidor. Comente qualquer arquivo:linha e o comentário volta pro agente como instrução.",
         },
         {
-          title: "PR via GitHub CLI",
+          title: "PR com evidência real",
           description:
-            "Push da branch da task e abertura do PR via gh, direto da aba de Diff.",
+            "O corpo é escrito no servidor por um agente headless a partir do diff real, do prompt original e do resultado real dos checks — “sem check command” e “nunca rodados” continuam distintos de um resultado de verdade. O golden path é gravado em Chrome headless e embutido como GIF.",
         },
         {
-          title: "Resume de sessão",
+          title: "Preview e Design Mode",
           description:
-            "Agente morreu (limite de token, app fechado) — claude --continue reabre a mesma conversa no mesmo worktree.",
+            "O app da worktree sobe num PTY atrás de um proxy cuja detecção de porta não depende do stack respeitar $PORT. O Design Mode anota a tela viva como quem comenta num Figma — o estado vivo do elemento é serializado do DOM e re-renderizado com a sessão do usuário, não é screenshot.",
         },
         {
-          title: "Desktop nativo",
+          title: "Loops com guardas",
           description:
-            "Empacotado com Tauri 2 + WebView2 no Windows, com backend Rails rodando dentro do WSL. Sem terminal.",
+            "Turn, Goal, Time e Proactive, todos atrás das mesmas guardas inegociáveis: teto de custo, teto de tentativas, kill-switch global, timeout de julgamento e HMAC-SHA256 sobre o corpo cru do webhook. Do lado dos trackers, Trello (bidirecional), Linear e Jira.",
         },
       ],
     },
     architecture: {
       kicker: "// 05 — POR DENTRO",
-      title: "Como o fanout funciona.",
+      title: "O que acontece quando você aperta Start.",
       subtitle:
-        "Um prompt do usuário, N worktrees Git, N processos Claude Code streamados via ActionCable pra um único painel de revisão.",
+        "Uma task pending não tem worktree. O Start cria, o planner faz handoff pro coder no mesmo PTY, e tudo que o agente produz volta por um único processo Puma — o registry vive em memória, então WEB_CONCURRENCY é proibido por design.",
       nodes: [
-        { id: "prompt", label: "Prompt do usuário" },
-        { id: "orchestrator", label: "Orquestrador Swarm" },
-        { id: "worktrees", label: "Pool de worktrees" },
-        { id: "ptys", label: "PTY 1..N" },
-        { id: "claude", label: "Processos Claude Code" },
-        { id: "cable", label: "Stream ActionCable" },
-        { id: "diff", label: "Diff ao vivo" },
+        { id: "task", label: "Task · pending" },
+        { id: "start", label: "Start → worktree" },
+        { id: "planner", label: "Planner (PTY)" },
+        { id: "adapters", label: "Claude Code · Codex" },
+        { id: "coder", label: "Agente coder" },
+        { id: "cable", label: "PTY + ActionCable" },
+        { id: "workspace", label: "Painéis · diff" },
         { id: "ship", label: "Merge / PR" },
       ],
     },
@@ -1094,58 +1151,70 @@ const pt: Dict = {
       kicker: "// 06 — STACK",
       title: "Construído sobre.",
       items: [
-        "Ruby 4.x",
         "Rails 8.1",
         "Hotwire",
         "Turbo",
         "Stimulus",
+        "Importmap",
         "Tailwind v4",
-        "PostgreSQL",
-        "Solid Queue",
-        "Solid Cache",
-        "Solid Cable",
-        "ActionCable",
+        "Propshaft",
+        "SQLite",
+        "ActionCable (async)",
+        "PTY.spawn",
+        "Rouge",
         "xterm.js",
         "CodeMirror 6",
+        "Ferrum",
         "Tauri 2",
+        "Rust",
         "WebView2",
         "GitHub CLI",
       ],
     },
     roadmap: {
-      kicker: "// 07 — ROADMAP",
-      title: "Pra onde tá indo.",
-      subtitle: "Entregue, em construção e planejado — como está hoje.",
+      kicker: "// 07 — MARCOS",
+      title: "O que já está dentro.",
+      subtitle: "Tudo abaixo já está entregue e rodando — é a ferramenta como ela existe, não um plano.",
       items: [
         {
-          version: "v0.1",
-          status: "shipped",
-          title: "MVP do orquestrador",
-          description: "Worktrees isolados, streaming PTY, revisão de diff ao vivo, merge / descarte / PR.",
+          marker: "01",
+          title: "Orquestrador",
+          description: "Worktrees e branches isolados, streaming PTY ao vivo, revisão de diff, merge / descarte / PR.",
         },
         {
-          version: "v0.2",
-          status: "shipped",
-          title: "Grid de comparação",
-          description: "Revisão lado a lado de N tentativas, comentários por linha voltando pro agente.",
+          marker: "02",
+          title: "Comparação",
+          description: "N tentativas do mesmo prompt revisadas lado a lado, comentários por linha voltando pro agente.",
         },
         {
-          version: "v0.3",
-          status: "shipping",
-          title: "App desktop",
-          description: "Shell nativo Tauri 2 + WebView2 pra Windows, backend Rails rodando dentro do WSL.",
+          marker: "03",
+          title: "Workspace",
+          description: "Painéis divisíveis serializados na URL, com explorer, editor, preview, chat e qualquer arquivo como abas arrastáveis.",
         },
         {
-          version: "v0.4",
-          status: "planned",
-          title: "Workspace multi-projeto",
-          description: "Uma única sessão Swarm cobrindo vários repositórios, com diff e busca cross-repo.",
+          marker: "04",
+          title: "Duas CLIs, um planner",
+          description: "Adapters de Claude Code e Codex, e uma fase de planner por onde toda task passa antes de escrever código.",
         },
         {
-          version: "v0.5",
-          status: "planned",
-          title: "Integração MCP",
-          description: "Adaptadores Model Context Protocol pra os agentes no Swarm chamarem as mesmas ferramentas do seu IDE.",
+          marker: "05",
+          title: "PR com evidência",
+          description: "Corpo escrito por agente headless a partir do diff real e do resultado real dos checks; golden path gravado em Chrome headless como GIF inline.",
+        },
+        {
+          marker: "06",
+          title: "Design Mode",
+          description: "Anote o app rodando como quem comenta num Figma — o elemento é serializado do DOM vivo e re-renderizado com a sessão do usuário.",
+        },
+        {
+          marker: "07",
+          title: "Loops e trackers",
+          description: "Turn, Goal, Time e Proactive atrás de guardas de custo, tentativas e kill-switch, mais integrações com Trello, Linear e Jira.",
+        },
+        {
+          marker: "08",
+          title: "Desktop",
+          description: "Janela Tauri 2 em porta fixa com process group próprio; WebView2 no Windows, com o Rails rodando dentro do WSL.",
         },
       ],
     },
@@ -1153,17 +1222,17 @@ const pt: Dict = {
       kicker: "// 08 — HISTÓRIA",
       title: "Como começou.",
       body: [
-        "Eu queria uma ferramenta que pudesse fazer spawn de múltiplos agentes de código contra a mesma task e me deixasse escolher a melhor tentativa — rodando 100% offline, empacotado como app nativo pro Windows, e construído sobre Rails 8 com Hotwire pra manter todo o loop num único processo.",
-        "A primeira versão foram 400 linhas de Ruby e um painel xterm.js. Depois veio worktrees, depois diff ao vivo, depois comentários por linha voltando pra sessão do agente. Depois Tauri 2 pra empacotar como desktop de verdade. Depois um plugin CLI separado pra você ter 80% do valor dentro do próprio Claude Code.",
-        "É a ferramenta que eu queria toda vez que digitava um prompt difícil e precisava adivinhar qual das cinco interpretações possíveis do meu agente ia vencer.",
+        "Eu queria uma IDE pra agentes de código, não um wrapper de um agente só. Registra um repo local, dispara um prompt, e de 1 a 4 agentes atacam em paralelo — cada um na sua worktree e sua branch, cada um num PTY ao vivo, com o explorer de arquivos, o editor, o app rodando, o chat e o diff na mesma janela.",
+        "É um app Rails 8 em Hotwire e SQLite, single-process por design: o registry de PTYs vive na memória do Puma, então WEB_CONCURRENCY é proibido — dois processos significam dois registries e uma UI mostrando terminal vazio pra um agente que está rodando muito bem. O Tauri 2 empacota como janela nativa; no Windows isso é WebView2 com o Rails rodando dentro do WSL.",
+        "Uma regra acabou atravessando o projeto inteiro: desconhecido nunca pode virar valor. Modelo que não está na tabela de preços paga a linha mais cara. Transcript ilegível devolve :unknown e para o loop, em vez de contar como zero gasto. E prompt que monta evidência precisa dizer ao modelo onde está o buraco — porque prompt sem evidência não devolve “não sei”, devolve invenção plausível.",
       ],
       inspiredByLabel: "Ver código no GitHub",
     },
     finalCta: {
       kicker: "// 09 — EXPERIMENTA",
-      title: "Envie sua próxima tentativa em paralelo.",
+      title: "Aponta pra um repo e aperta Start.",
       subtitle:
-        "Estrela no repo, instala o plugin, ou lê a documentação. Tudo é open source e roda na sua máquina.",
+        "O Swarm roda na sua máquina, contra os seus repos locais. O plugin de Claude Code leva o mesmo fan-out pra dentro da CLI.",
       ctaGithub: "github.com/wasdevv/swarm",
       ctaCli: "swarm-plugin (CLI)",
       ctaDocs: "Ler a documentação",
