@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Check, GitBranch, GitPullRequest, X } from "lucide-react"
 import { useState } from "react"
 import { useLanguage } from "@/components/language-provider"
-import { SectionFrame } from "./section-frame"
+import { SectionFrame } from "@/components/section-frame"
 
 export function CompareGrid() {
   const { t } = useLanguage()

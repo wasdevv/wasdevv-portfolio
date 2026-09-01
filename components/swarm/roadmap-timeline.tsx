@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
-import { SectionFrame } from "./section-frame"
+import { SectionFrame } from "@/components/section-frame"
 
 export function RoadmapTimeline() {
   const { t } = useLanguage()

@@ -13,7 +13,7 @@ import {
   TerminalSquare,
 } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
-import { SectionFrame } from "./section-frame"
+import { SectionFrame } from "@/components/section-frame"
 
 // One icon per capability, in dictionary order:
 // planner→coder · adapters · PTYs · panes in the URL · diff review · PR evidence · preview/design · loops
