@@ -31,6 +31,7 @@ type Dict = {
     resume: string
     contact: string
     swarm: string
+    obrahub: string
   }
   sidebar: {
     stats: Stat[]
@@ -171,6 +172,7 @@ type Dict = {
     resume: { title: string; description: string }
     contact: { title: string; description: string }
     swarm: { title: string; description: string }
+    obrahub: { title: string; description: string }
   }
   swarm: {
     hero: {
@@ -255,6 +257,76 @@ type Dict = {
       ctaDocs: string
     }
   }
+  obrahub: {
+    hero: {
+      kicker: string
+      title: string
+      tagline: string
+      subtitle: string
+      badges: string[]
+      ctaContact: string
+    }
+    problem: {
+      kicker: string
+      title: string
+      subtitle: string
+      beforeLabel: string
+      beforeSteps: string[]
+      items: { title: string; description: string }[]
+    }
+    rules: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: { title: string; description: string }[]
+    }
+    domain: {
+      kicker: string
+      title: string
+      subtitle: string
+      tree: string
+      entities: { name: string; description: string }[]
+      hoursTitle: string
+      hoursFactorLabel: string
+      hours: { code: string; factor: string; label: string }[]
+      balanceTitle: string
+      balanceBody: string
+    }
+    architecture: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: { title: string; description: string }[]
+      stackTitle: string
+      stack: string[]
+    }
+    decisions: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: { title: string; description: string }[]
+    }
+    numbers: {
+      kicker: string
+      title: string
+      subtitle: string
+      stats: { value: string; label: string }[]
+      measuredTitle: string
+      measured: { value: string; label: string }[]
+    }
+    status: {
+      kicker: string
+      title: string
+      subtitle: string
+      doneTitle: string
+      done: string[]
+      openTitle: string
+      open: string[]
+      directionTitle: string
+      direction: string
+      ctaLabel: string
+    }
+  }
 }
 
 const en: Dict = {
@@ -273,6 +345,7 @@ const en: Dict = {
     aboutMe: "ABOUT_ME",
     skills: "SKILLS",
     swarm: "SWARM",
+    obrahub: "OBRAHUB",
     resume: "RESUME",
     contact: "CONTACT",
   },
@@ -353,6 +426,7 @@ const en: Dict = {
             "Evolved the critical **Acordos de Dívida Ativa** (Active Debt Agreements) module in a **multi-tenant** architecture serving **50+ municipalities**, during the system migration from **Rails 7 to Rails 8**, structured with **Devise**, **Service Objects** and **Form::Builder** to encapsulate complex fiscal rules, delivering **15+ per-municipality customizations via feature flags**, cutting delivery time by **60%**, zeroing cross-tenant regressions and reducing module-related support tickets by **59%**.",
             "Monitored production applications using observability tools (**Datadog**), identifying and resolving incidents proactively before they affected end users.",
             "Hands-on experience with **Kubernetes** in production (accessed via **Pritunl VPN**), using **ArgoCD** (GitOps), **Headlamp** and **Grafana** for continuous deploy, cluster management and incident monitoring in a high-availability environment.",
+            "Built **ObraHub**, the labor tracking and billing system for **Engemil**, an industrial maintenance and assembly contractor, specified through successive rounds of review and feedback with the person who produced the whole process by hand — a **Rails 8 + PostgreSQL + Hotwire** monolith (Devise, Pundit, 12 policies, 19 importers/exporters) that replaced a paper-to-spreadsheet-to-retyping cycle. Imports the spreadsheet engineering already fills in, with **SHA-256 row digests** for idempotent `upsert_all` so re-uploading a file never duplicates; keeps each work package's balance as a **query, not a stored column**, so a 663h package shows its new balance the moment a report lands; and exports the monthly billing workbook **byte-identical** to the client's reference file — theme-colour fills with tint, ACCOUNTING number format and a two-column-per-hour-type summary layout, with a test that strictly parses the generated `styles.xml`. **899 examples, 0 failures**; **11,551h** closed in one month and **1,395 entries** imported and validated in **3s** in real use.",
             "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written** — the planner runs in the PTY, writes the plan and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design — the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
             "Published a trilogy of **Claude Code** plugins covering agent input, output and side effects: **lean-output** compresses **RSpec**, **RuboCop** and **Brakeman** outputs by **-70% to -97% tokens** with a zero-loss guarantee on failures; **rails-context** injects a curated dossier (columns, indexes, associations, validations and routes), drastically shrinking the model's read surface instead of loading full `db/schema.rb` and models; **rails-guard** intercepts destructive Rails commands (`db:drop`, `db:reset`, `rails destroy`, `runner` with `delete_all`) via a `PreToolUse` hook, requiring human confirmation before execution.",
           ],
@@ -515,6 +589,11 @@ const en: Dict = {
       title: "Swarm — Agent Development Environment",
       description:
         "A desktop IDE for coding agents: 1–4 Claude Code or Codex agents in parallel Git worktrees, live PTYs, diff review with per-line comments, merge or PR.",
+    },
+    obrahub: {
+      title: "ObraHub — labor tracking and billing for Engemil",
+      description:
+        "Case study: the Rails 8 monolith built for Engemil that replaces a paper-to-spreadsheet-to-retyping cycle with spreadsheet import, live package balances and a byte-identical Excel billing export.",
     },
   },
   swarm: {
@@ -746,6 +825,248 @@ const en: Dict = {
       ctaDocs: "Read the docs",
     },
   },
+  obrahub: {
+    hero: {
+      kicker: "// CASE STUDY — CLIENT SYSTEM",
+      title: "OBRAHUB",
+      tagline: "Labor tracking and billing for industrial field work",
+      subtitle:
+        "Built for Engemil, an industrial maintenance and assembly contractor in Mogi Guaçu, Brazil — and shaped from the start to generalize to a sector that all runs the same cycle. It replaces paper → spreadsheet → retyping with one flow: import the spreadsheet engineering already fills in, keep every work package's balance as a live account, and export the monthly billing document byte-identical to the format the client signs.",
+      badges: ["Rails 8 monolith", "In production", "Active development"],
+      ctaContact: "Talk about this project",
+    },
+    problem: {
+      kicker: "// 01 — THE PROBLEM",
+      title: "Money escaped in the retyping.",
+      subtitle:
+        "Engemil allocates crews inside its largest client's plant, and every month it has to prove — job by job, person by person, day by day — how many hours were worked and what they cost. That document is signed by both sides. Before the system, producing it looked like this:",
+      beforeLabel: "The old cycle",
+      beforeSteps: [
+        "the foreman writes on paper who worked, in what role, for how many hours",
+        "someone types that into a tracking spreadsheet",
+        "at month end, someone retypes it into a second spreadsheet — the billing one, in the format the client accepts",
+        "the client checks it cell by cell and signs",
+      ],
+      items: [
+        {
+          title: "Retyping is where money escapes",
+          description:
+            "An hour that never got transcribed never got billed, and nobody finds out — because there is nothing to compare it against.",
+        },
+        {
+          title: "There is no balance",
+          description:
+            "The client approves work packages with budgeted hours. Knowing how much was left in a package meant adding up entries by hand.",
+        },
+        {
+          title: "The client's format is law",
+          description:
+            "The billing spreadsheet has an exact shape — font, colour, number format, block position. A billing document that merely looks similar comes back.",
+        },
+      ],
+    },
+    rules: {
+      kicker: "// 02 — HOW THE RULES GOT HERE",
+      title: "Nothing here came from a written spec.",
+      subtitle:
+        "The system was drawn out in successive rounds of discussion, review and feedback with the person at Engemil who was responsible for producing all of this by hand — each round trading an assumption for a fact about the operation. The real artefacts served as the specification: the reference billing workbook, the engineering tracking spreadsheet, the master package sheet and the job register. Three rules that only ever surface in conversation with someone who has done the work:",
+      items: [
+        {
+          title: "The job has no type",
+          description:
+            "The system briefly had Project#kind (ase | hh | pacote). It was wrong: the same job has package days, hourly days and extra-service days. What declares the nature of the work is the daily report, not the job record. The column was removed.",
+        },
+        {
+          title: "Two of the codes are not hours at all",
+          description:
+            "FE and FO are codes, not time. And the night-shift differential is a 45% uplift on the rate, not time worked — adding it to the hours inflated the billing.",
+        },
+        {
+          title: "74 of 84 packages have no date",
+          description:
+            "They carry the word “UNIFIED” where the issue date should be. The field became optional because of that, not out of modelling elegance.",
+        },
+      ],
+    },
+    domain: {
+      kicker: "// 03 — THE DOMAIN",
+      title: "A job, a day, a line.",
+      subtitle:
+        "Ten domain tables. The whole operation fits in one model, which is why it is one application and not several.",
+      tree: `User (admin | supervisor | foreman)
+ └─ ProjectSupervisor ── Project ── Package        (the budgeted slice)
+                            └────── Rdo            (the day of work)
+                                     └── WorkEntry (the line: who, role, hours)
+Employee ── Position (role, hourly rate)
+ImportBatch ── ImportError`,
+      entities: [
+        {
+          name: "Project · Package",
+          description:
+            "Project is the job. Package is the slice the client asked to be quoted on its own — it carries estimated hours, sale value and billed value.",
+        },
+        {
+          name: "Rdo",
+          description:
+            "The daily work report: job, period, who signs, description, photo. It declares the nature of the day — package (draws down a Package), hourly (draws down nothing), or authorised extra service, identified by its own code, which is the code the invoice cites.",
+        },
+        {
+          name: "WorkEntry",
+          description: "The line inside the report: person, role, date, hours, hour type, photo.",
+        },
+        {
+          name: "Employee",
+          description:
+            "The person in the field — deliberately not a User. A crew of hundreds cannot become hundreds of logins nobody remembers to revoke.",
+        },
+        {
+          name: "Measurement",
+          description:
+            "Not a table. A read object that turns a period's hours into an invoice, at today's prices.",
+        },
+      ],
+      hoursTitle: "The five hour types",
+      hoursFactorLabel: "factor",
+      hours: [
+        { code: "hn", factor: "1.0", label: "regular hour" },
+        { code: "fa", factor: "1.6", label: "overtime, factor A" },
+        { code: "fb", factor: "2.0", label: "overtime, factor B" },
+        { code: "an", factor: "0.45", label: "night differential — an uplift, not time" },
+        { code: "fd", factor: "1.0", label: "compensatory rest" },
+      ],
+      balanceTitle: "Balance is a query, not a column",
+      balanceBody:
+        "Used hours, remaining hours, progress and value-to-bill all come out of a query at read time. A 663-hour package that receives a 9-hour report shows 654 hours remaining immediately, with no column being written — and therefore none of the classic risk of a stored total drifting from the lines that make it up.",
+    },
+    architecture: {
+      kicker: "// 04 — ARCHITECTURE",
+      title: "One process, one database, one deploy.",
+      subtitle:
+        "It is a Rails monolith, and that is a choice rather than a limitation. The data is tightly related — an hour entry only exists inside a daily report, which only exists inside a job — and there are no two teams moving at different speeds. Splitting it into services would buy distributed transactions for a company that closes one billing cycle a month.",
+      items: [
+        {
+          title: "Models",
+          description: "The rules that always hold — validation, scoping, balance calculation.",
+        },
+        {
+          title: "Policies · 12",
+          description:
+            "Who can see and do what, per record. The same policy scope that filters the list filters the autocomplete and the dashboard — a counter that sums hours the viewer may not read is a leak wearing the face of a metric.",
+        },
+        {
+          title: "Query objects",
+          description:
+            "Measurement, ProjectWorkReport, DashboardReport, RdoQuery — reads that do not deserve to be models.",
+        },
+        {
+          title: "Importers · 12 and exporters · 5",
+          description:
+            "One importer per input file format; exporters for the billing workbook, the covering letter and the printable daily report.",
+        },
+        {
+          title: "Three roles",
+          description:
+            "Admin does everything and is the only one who grants access or sees package money. Supervisor gets the whole operation minus user creation. The foreman is in the field: signs the report, sees only where they are assigned.",
+        },
+        {
+          title: "No background processing — on purpose",
+          description:
+            "The daily report is closed inside the request that saves it, and imports are pushed by the page itself, a chunk per submit. A worker polling the database would keep the container from sleeping, so the app would stay up around the clock waiting for one import a month.",
+        },
+      ],
+      stackTitle: "Built on",
+      stack: [
+        "Rails 8",
+        "PostgreSQL",
+        "Hotwire",
+        "Turbo",
+        "Stimulus",
+        "Importmap",
+        "Tailwind",
+        "Devise",
+        "Pundit",
+        "RSpec",
+        "Docker",
+        "Railway",
+      ],
+    },
+    decisions: {
+      kicker: "// 05 — DECISIONS WORTH TELLING",
+      title: "The parts that cost the most to get right.",
+      subtitle: "Four problems where the obvious implementation is the wrong one.",
+      items: [
+        {
+          title: "The client's workbook, cell by cell",
+          description:
+            "“Identical” does not mean “similar”. The work was unzipping the reference .xlsx and reading the XML, because the eye does not catch what breaks: fills use theme colours with tint rather than RGB, so reading only the RGB attribute sees no fill at all; money uses the ACCOUNTING format, which is what pins the currency symbol to the left edge and the number to the right; and in the summary sheet each hour type occupies two columns, so writing into consecutive columns puts every value two cells to the left. There is a test that strictly parses the generated styles.xml, because an unescaped quote in a format code produces a file Excel refuses to open — and neither the reading library nor the content tests notice.",
+        },
+        {
+          title: "Importing twice must not duplicate",
+          description:
+            "The idempotency key is a SHA-256 of the row: job, foreman, role, date and hour type. An upsert updates the same record instead of creating a second one. Without the hour type in the digest, a regular and an overtime entry on the same day collided and one vanished. A detail that cost real time: the digest carries the package id only when there is one — adding it unconditionally would change the digest of everything already stored, and the next upload of the same file would create a copy of every line.",
+        },
+        {
+          title: "The importer creates records, but never invents money",
+          description:
+            "Missing jobs, roles, employees and users are created, and the screen says which ones — creating silently is what turns a misspelled role into a permanent record nobody can trace. A missing package, though, rejects the line: packages carry estimated hours and a sale value, so inventing one would write a budget nobody approved.",
+        },
+        {
+          title: "The phone is not a smaller version of the screen",
+          description:
+            "The foreman is on site with a phone. A seven-column table behind horizontal scroll technically fits, and nobody drags to the status column without a header in view to know where they are. Below 640px every table becomes a labelled card, with the label coming from each cell's data attribute. A test fails any new table that skips it, because such a table would pass every request spec and still disappear on the phone.",
+        },
+      ],
+    },
+    numbers: {
+      kicker: "// 06 — NUMBERS",
+      title: "Measured, not estimated.",
+      subtitle: "Repository counts as of 30 Aug 2026, and figures from real use.",
+      stats: [
+        { value: "899", label: "test examples, 0 failures" },
+        { value: "10", label: "domain tables (+3 Active Storage)" },
+        { value: "17 · 15 · 12", label: "models · controllers · policies" },
+        { value: "19", label: "importers and exporters" },
+        { value: "72", label: "views" },
+        { value: "37", label: "migrations" },
+        { value: "~22.7k", label: "lines across app/ and spec/" },
+        { value: "129", label: "commits, 8–30 Aug 2026" },
+      ],
+      measuredTitle: "From real use",
+      measured: [
+        { value: "11,551 h", label: "of labour closed in a single month, each tied to the job, role and package that paid for it" },
+        { value: "216", label: "daily reports built from the spreadsheet engineering already filled in — nobody typed a report" },
+        { value: "3 s", label: "to import 1,395 entries, check them against the register and reject what does not match" },
+        { value: "24", label: "sheets in the billing workbook, in the format the client signs" },
+      ],
+    },
+    status: {
+      kicker: "// 07 — WHERE IT STANDS",
+      title: "In production, and honestly unfinished.",
+      subtitle:
+        "A portfolio that only lists what worked does not survive the next question. Scale tests count queries: a listing has to cost the same with ten records and with ten thousand — a real import file reaches 8,504 daily reports, which is why batch closing is one SQL statement per slice rather than a walk record by record.",
+      doneTitle: "Done and in use",
+      done: [
+        "registers for jobs, packages, employees, roles and users",
+        "daily reports, entered by hand or in bulk from the programming sheet",
+        "spreadsheet import with a rejection report",
+        "billing calculated and exported to Excel in the client's exact format",
+        "printable daily report sheet",
+        "dashboard",
+        "mobile pass over the whole system",
+      ],
+      openTitle: "Still open",
+      open: [
+        "the PACKAGE lines of the billing document are not generated by the exporter yet — the data already exists, the layout mapping does not",
+        "two jobs remain in the repository with nothing enqueueing them: either async comes back on purpose, or they go",
+        "no browser tests — real horizontal scroll and mobile Safari zoom are still a manual check",
+        "standardising the register screens under an inherited CRUD is decided and not started",
+      ],
+      directionTitle: "Where it is headed",
+      direction:
+        "It was built for one contractor, but the cycle it replaces is not specific to one: crews allocated inside a client's plant, hours proven month by month, a billing document in a format the client dictates. Generalizing it into a product for that sector is the direction — the multi-client work has not started, and nothing here is sold to a second company yet.",
+      ctaLabel: "Talk about this project",
+    },
+  },
 }
 
 const pt: Dict = {
@@ -766,6 +1087,7 @@ const pt: Dict = {
     resume: "CURRÍCULO",
     contact: "CONTATO",
     swarm: "SWARM",
+    obrahub: "OBRAHUB",
   },
   sidebar: {
     stats: [
@@ -844,6 +1166,7 @@ const pt: Dict = {
             "Evoluí o módulo crítico de **Acordos de Dívida Ativa** em arquitetura **multi-tenant** atendendo **50+ municípios**, durante a migração do sistema do **Rails 7 para o Rails 8**, estruturado com **Devise**, **Service Objects** e **Form::Builder** para encapsular regras fiscais complexas, entregando **15+ customizações específicas por prefeitura via feature flags**, o que reduziu em **60% o tempo de entrega** de demandas municipais, zerou regressões cross-tenant e cortou em **59% os chamados de suporte** relacionados ao módulo.",
             "Monitorei aplicações em produção utilizando ferramentas de observabilidade (**Datadog**), identificando e resolvendo incidentes de forma proativa antes que afetassem o usuário final.",
             "Atuação prática em **Kubernetes** em produção (acesso via **Pritunl VPN**), utilizando **ArgoCD** (GitOps), **Headlamp** e **Grafana** para deploy contínuo, gestão de cluster e monitoramento de incidentes em ambiente de alta disponibilidade.",
+            "Desenvolvi o **ObraHub**, o sistema de apontamento e medição da **Engemil**, prestadora de manutenção e montagem industrial, especificado em rodadas sucessivas de review e feedback com o responsável por produzir todo o processo na mão — um monólito **Rails 8 + PostgreSQL + Hotwire** (Devise, Pundit, 12 policies, 19 importadores/exportadores) que substituiu o ciclo papel → planilha → redigitação. Importa a planilha que a engenharia já preenche, com **digest SHA-256 da linha** para `upsert_all` idempotente, de modo que reenviar o mesmo arquivo nunca duplica; mantém o saldo de cada pacote como **query, não coluna gravada**, então um pacote de 663h mostra o saldo novo no instante em que o RDO entra; e exporta a medição mensal **idêntica byte a byte** ao arquivo de referência do cliente — fills com cor de tema e tint, formato numérico CONTÁBIL e o Resumo com duas colunas por tipo de hora, com teste que faz parse estrito do `styles.xml` gerado. **899 exemplos, 0 falhas**; em uso real, **11.551h** fechadas em um mês e **1.395 apontamentos** importados e validados em **3s**.",
             "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código** — o planner roda no PTY, escreve o plano e sai, e o `on_exit` sobe o coder com o ponteiro pro plano, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design — o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
             "Publiquei uma trilogia de plugins para o **Claude Code** cobrindo entrada, saída e efeitos colaterais do agente: **lean-output** comprime outputs de **RSpec**, **RuboCop** e **Brakeman** em **-70% a -97% de tokens** com garantia zero-loss de falhas; **rails-context** injeta dossiê curado (colunas, índices, associações, validações e rotas) reduzindo drasticamente a superfície lida pelo modelo em vez de carregar `db/schema.rb` e models inteiros; **rails-guard** intercepta comandos Rails destrutivos (`db:drop`, `db:reset`, `rails destroy`, `runner` com `delete_all`) via hook `PreToolUse`, exigindo confirmação humana antes da execução.",
           ],
@@ -1007,6 +1330,11 @@ const pt: Dict = {
       title: "Swarm — Agent Development Environment",
       description:
         "Uma IDE desktop pra agentes de código: 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, PTYs ao vivo, revisão de diff com comentários por linha, merge ou PR.",
+    },
+    obrahub: {
+      title: "ObraHub — apontamento e medição de mão de obra em campo",
+      description:
+        "Estudo de caso: o monólito Rails 8 feito para a Engemil que troca o ciclo papel → planilha → redigitação por importação de planilha, saldo vivo de pacote e exportação da medição idêntica ao formato do cliente.",
     },
   },
   swarm: {
@@ -1236,6 +1564,248 @@ const pt: Dict = {
       ctaGithub: "github.com/wasdevv/swarm",
       ctaCli: "swarm-plugin (CLI)",
       ctaDocs: "Ler a documentação",
+    },
+  },
+  obrahub: {
+    hero: {
+      kicker: "// ESTUDO DE CASO — SISTEMA DE CLIENTE",
+      title: "OBRAHUB",
+      tagline: "Apontamento e medição de mão de obra em campo",
+      subtitle:
+        "Feito para a Engemil, prestadora de manutenção e montagem industrial em Mogi Guaçu/SP — e desenhado desde o começo para generalizar num setor que roda todo o mesmo ciclo. Ele substitui o ciclo papel → planilha → redigitação por um fluxo só: importa a planilha que a engenharia já preenche, mantém o saldo de cada pacote como conta viva, e exporta o documento de medição idêntico ao formato que o cliente assina.",
+      badges: ["Monólito Rails 8", "Em produção", "Desenvolvimento ativo"],
+      ctaContact: "Conversar sobre esse projeto",
+    },
+    problem: {
+      kicker: "// 01 — O PROBLEMA",
+      title: "O dinheiro escapava na redigitação.",
+      subtitle:
+        "A Engemil aloca equipes dentro da planta do seu maior cliente, e todo mês precisa provar — obra por obra, pessoa por pessoa, dia por dia — quantas horas foram trabalhadas e quanto isso custa. Esse documento é assinado pelos dois lados. Antes do sistema, produzi-lo era assim:",
+      beforeLabel: "O ciclo antigo",
+      beforeSteps: [
+        "o encarregado anota em papel quem trabalhou, em que cargo e por quantas horas",
+        "alguém digita isso numa planilha de apontamento",
+        "no fim do mês, alguém redigita aquilo numa segunda planilha, a de medição, no formato que o cliente aceita",
+        "o cliente confere célula a célula e assina",
+      ],
+      items: [
+        {
+          title: "Redigitação é onde o dinheiro escapa",
+          description:
+            "Hora que não foi transcrita não é faturada, e ninguém descobre — porque não há com o que comparar.",
+        },
+        {
+          title: "Não há saldo",
+          description:
+            "O cliente aprova pacotes de trabalho com horas orçadas. Saber quanto sobrou de um pacote exigia somar apontamentos à mão.",
+        },
+        {
+          title: "O formato do cliente é lei",
+          description:
+            "A planilha da medição tem uma forma exata — fonte, cor, formato de número, posição de bloco. Uma medição “parecida” volta.",
+        },
+      ],
+    },
+    rules: {
+      kicker: "// 02 — COMO AS REGRAS CHEGARAM AQUI",
+      title: "Nada aqui saiu de um documento de especificação.",
+      subtitle:
+        "O sistema foi levantado em rodadas sucessivas de discussão, review e feedback com o responsável na Engemil por produzir tudo isso na mão — e cada rodada trocou uma suposição por um fato da operação. Os artefatos reais serviram de especificação: a planilha de medição de referência, a de apontamento da engenharia, a mestre de pacotes e o cadastro de obras. Três regras que só aparecem na conversa com quem já fez o trabalho:",
+      items: [
+        {
+          title: "A obra não tem tipo",
+          description:
+            "O sistema chegou a ter Project#kind (ase | hh | pacote). Estava errado: a mesma obra tem dia de pacote, dia de HH e dia de ASE. Quem declara a natureza do trabalho é o relatório do dia, não o cadastro da obra. O campo foi removido.",
+        },
+        {
+          title: "Dois dos códigos não são hora nenhuma",
+          description:
+            "FE e FO são códigos, não tempo. E o adicional noturno é um acréscimo de 45% sobre o valor, não tempo trabalhado — somá-lo às horas inflava a medição.",
+        },
+        {
+          title: "74 dos 84 pacotes não têm data",
+          description:
+            "Eles trazem a palavra “UNIFICADOS” no lugar da data de emissão. O campo virou opcional por causa disso, não por elegância de modelagem.",
+        },
+      ],
+    },
+    domain: {
+      kicker: "// 03 — O DOMÍNIO",
+      title: "Uma obra, um dia, uma linha.",
+      subtitle:
+        "Dez tabelas de domínio. A operação inteira cabe num modelo só, e é por isso que ele é uma aplicação e não várias.",
+      tree: `User (admin | supervisor | encarregado)
+ └─ ProjectSupervisor ── Project ── Package        (a fatia orçada)
+                            └────── Rdo            (o dia de trabalho)
+                                     └── WorkEntry (a linha: quem, cargo, horas)
+Employee ── Position (cargo, valor/hora)
+ImportBatch ── ImportError`,
+      entities: [
+        {
+          name: "Project · Package",
+          description:
+            "Project é a obra. Package é a fatia que o cliente mandou orçar sozinha — tem horas estimadas, valor de venda e valor faturado.",
+        },
+        {
+          name: "Rdo",
+          description:
+            "O Relatório Diário de Obra: obra, período, quem assina, descrição, foto. Ele declara a natureza do dia — pacote (desconta de um Package), HH (não desconta de nada) ou ASE, o serviço extra autorizado por um código próprio, que é o código que a fatura cita.",
+        },
+        {
+          name: "WorkEntry",
+          description: "A linha dentro do relatório: pessoa, cargo, dia, horas, tipo de hora, foto.",
+        },
+        {
+          name: "Employee",
+          description:
+            "A pessoa em campo — deliberadamente não é um User. Uma equipe de centenas não pode virar centenas de logins que ninguém lembra de revogar.",
+        },
+        {
+          name: "Measurement",
+          description:
+            "Não é tabela. É objeto de leitura que transforma as horas de um período em fatura, com os preços de hoje.",
+        },
+      ],
+      hoursTitle: "Os cinco tipos de hora",
+      hoursFactorLabel: "fator",
+      hours: [
+        { code: "hn", factor: "1,0", label: "hora normal" },
+        { code: "fa", factor: "1,6", label: "extra fator A" },
+        { code: "fb", factor: "2,0", label: "extra fator B" },
+        { code: "an", factor: "0,45", label: "adicional noturno — acréscimo, não tempo" },
+        { code: "fd", factor: "1,0", label: "folga de dobra" },
+      ],
+      balanceTitle: "Saldo é conta, não coluna",
+      balanceBody:
+        "Horas usadas, saldo, progresso e valor a faturar saem de query no momento da leitura. Um pacote de 663 h que recebe um RDO de 9 h passa a mostrar 654 h de saldo na hora, sem nenhuma coluna sendo escrita — e portanto sem o risco clássico de o total gravado divergir das linhas que o compõem.",
+    },
+    architecture: {
+      kicker: "// 04 — ARQUITETURA",
+      title: "Um processo, um banco, um deploy.",
+      subtitle:
+        "É um monólito Rails, e isso é escolha, não limitação. Os dados são fortemente relacionados — um lançamento de hora só existe dentro de um RDO, que só existe dentro de uma obra — e não há duas equipes trabalhando em ritmos diferentes. Fatiar isso em serviços compraria transação distribuída para uma empresa que fecha uma medição por mês.",
+      items: [
+        {
+          title: "Models",
+          description: "As regras que valem sempre — validação, escopo, cálculo de saldo.",
+        },
+        {
+          title: "Policies · 12",
+          description:
+            "Quem pode ver e fazer o quê, por registro. O mesmo policy_scope que filtra a lista filtra o autocomplete e o dashboard — um contador que soma horas que a pessoa não pode ler é um vazamento com cara de indicador.",
+        },
+        {
+          title: "POROs de consulta",
+          description:
+            "Measurement, ProjectWorkReport, DashboardReport, RdoQuery — leitura que não merece virar model.",
+        },
+        {
+          title: "Importers · 12 e exporters · 5",
+          description:
+            "Um importador por formato de arquivo de entrada; exportadores para a medição, a carta de encaminhamento e a folha do RDO para impressão.",
+        },
+        {
+          title: "Três papéis",
+          description:
+            "Admin faz tudo, e é o único que dá acesso a alguém e vê dinheiro de pacote. Supervisor tem o operacional inteiro, menos criar usuário. O encarregado está em campo: assina o RDO e só enxerga onde está vinculado.",
+        },
+        {
+          title: "Sem processamento em segundo plano — de propósito",
+          description:
+            "O RDO é fechado dentro da requisição que o salva, e a importação é empurrada pela própria tela, um pedaço por envio. Um worker consultando o banco impediria o contêiner de dormir, e o app ficaria de pé 24 horas por dia esperando uma importação por mês.",
+        },
+      ],
+      stackTitle: "Construído sobre",
+      stack: [
+        "Rails 8",
+        "PostgreSQL",
+        "Hotwire",
+        "Turbo",
+        "Stimulus",
+        "Importmap",
+        "Tailwind",
+        "Devise",
+        "Pundit",
+        "RSpec",
+        "Docker",
+        "Railway",
+      ],
+    },
+    decisions: {
+      kicker: "// 05 — AS DECISÕES QUE VALEM CONTAR",
+      title: "As partes que custaram mais para acertar.",
+      subtitle: "Quatro problemas em que a implementação óbvia é a errada.",
+      items: [
+        {
+          title: "O Excel do cliente, célula a célula",
+          description:
+            "“Idêntico” não significa “parecido”. O trabalho foi descompactar o .xlsx de referência e ler o XML, porque o olho não pega o que quebra: os fills usam cor de tema com tint, não RGB, então ler só o atributo RGB não vê fill nenhum; dinheiro usa o formato CONTÁBIL, que é o que encosta o R$ na borda esquerda e o número na direita; e no Resumo cada tipo de hora ocupa duas colunas, então escrever em colunas consecutivas põe todo valor duas casas à esquerda. Há um teste que faz parse estrito do styles.xml gerado, porque um format_code com aspas não escapadas produz um arquivo que o Excel se recusa a abrir — e nem a biblioteca de leitura nem os testes de conteúdo percebem.",
+        },
+        {
+          title: "Importar duas vezes não pode duplicar",
+          description:
+            "A chave de idempotência é um SHA-256 da linha: obra, encarregado, cargo, data e tipo de hora. O upsert atualiza o mesmo registro em vez de criar um segundo. Sem o tipo de hora na conta, HN e FA do mesmo dia colidiam e uma sumia. Um detalhe que custou caro: o digest carrega o package_id só quando ele existe — acrescentá-lo sempre mudaria o digest de tudo que já estava gravado, e o próximo envio do mesmo arquivo criaria uma cópia de cada linha.",
+        },
+        {
+          title: "O importador cria cadastro, mas não inventa dinheiro",
+          description:
+            "Obra, cargo, funcionário e usuário que faltam são criados, e a tela diz quais foram — criar em silêncio é o que transforma um cargo digitado errado em cadastro permanente que ninguém sabe de onde veio. Pacote que não existe, porém, recusa a linha: pacote tem horas estimadas e valor de venda, então inventá-lo escreveria um orçamento que ninguém aprovou.",
+        },
+        {
+          title: "O celular não é uma versão menor da tela",
+          description:
+            "O encarregado está em obra, com o telefone. Uma tabela de sete colunas atrás de rolagem lateral cabe tecnicamente, e ninguém arrasta até a coluna Situação sem cabeçalho à vista para saber onde parou. Abaixo de 640px cada tabela vira cartão rotulado, com o rótulo saindo do data-label de cada célula. Um teste reprova qualquer tabela nova que pule isso, porque ela passaria em toda request spec e sumiria da tela do celular do mesmo jeito.",
+        },
+      ],
+    },
+    numbers: {
+      kicker: "// 06 — NÚMEROS",
+      title: "Medidos, não estimados.",
+      subtitle: "Contagens do repositório em 30/08/2026, e números de uso real.",
+      stats: [
+        { value: "899", label: "exemplos de teste, 0 falhas" },
+        { value: "10", label: "tabelas de domínio (+3 do Active Storage)" },
+        { value: "17 · 15 · 12", label: "models · controllers · policies" },
+        { value: "19", label: "importadores e exportadores" },
+        { value: "72", label: "views" },
+        { value: "37", label: "migrations" },
+        { value: "~22,7k", label: "linhas em app/ e spec/" },
+        { value: "129", label: "commits, 08–30/08/2026" },
+      ],
+      measuredTitle: "De uso real",
+      measured: [
+        { value: "11.551 h", label: "de mão de obra fechadas em um mês, cada uma amarrada à obra, ao cargo e ao pacote que pagou por ela" },
+        { value: "216", label: "RDOs montados a partir da planilha que a engenharia já preenchia — ninguém digitou um relatório" },
+        { value: "3 s", label: "para importar 1.395 apontamentos, conferir contra o cadastro e recusar o que não bate" },
+        { value: "24", label: "abas no Excel de medição, no formato que o cliente assina" },
+      ],
+    },
+    status: {
+      kicker: "// 07 — ESTADO ATUAL",
+      title: "Em produção, e honestamente inacabado.",
+      subtitle:
+        "Portfólio que só lista acertos não sustenta a pergunta seguinte. Os testes de escala contam queries: a listagem tem de custar o mesmo com dez registros e com dez mil — um arquivo real de importação chega a 8.504 RDOs, e é por isso que o fechamento em lote é uma sentença SQL por fatia, e não um percurso registro a registro.",
+      doneTitle: "Pronto e em uso",
+      done: [
+        "cadastro de obras, pacotes, funcionários, cargos e usuários",
+        "RDO manual e em lote a partir da programação",
+        "importação de planilha com relatório de recusa",
+        "medição calculada e exportada em Excel no formato exato do cliente",
+        "folha do RDO para impressão",
+        "dashboard",
+        "revisão de celular do sistema inteiro",
+      ],
+      openTitle: "Em aberto",
+      open: [
+        "as linhas PACOTE da medição ainda não são geradas pelo exportador — o dado já existe, falta mapear o layout",
+        "dois jobs continuam no repositório sem ninguém os enfileirar: ou o assíncrono volta de propósito, ou eles saem",
+        "não há teste de navegador — rolagem lateral real e o zoom de campo do Safari seguem como conferência manual",
+        "a padronização das telas de cadastro sob um CRUD herdado está decidida e não começou",
+      ],
+      directionTitle: "Para onde vai",
+      direction:
+        "Foi feito para uma prestadora, mas o ciclo que ele substitui não é específico de uma: equipes alocadas dentro da planta de um cliente, horas provadas mês a mês, um documento de medição no formato que o cliente dita. Generalizar isso num produto para o setor é a direção — o trabalho multi-cliente não começou, e nada aqui está vendido para uma segunda empresa ainda.",
+      ctaLabel: "Conversar sobre esse projeto",
     },
   },
 }

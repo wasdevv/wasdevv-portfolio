@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useLanguage } from "@/components/language-provider"
-import { SectionFrame } from "./section-frame"
+import { SectionFrame } from "@/components/section-frame"
 
 export function PtySimulator() {
   const { t } = useLanguage()

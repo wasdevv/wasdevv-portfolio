@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { useLanguage } from "@/components/language-provider"
-import { SectionFrame } from "./section-frame"
+import { SectionFrame } from "@/components/section-frame"
 
 // Node layout on a 800×420 svg viewBox — hand-tuned to read like a data-flow.
 const LAYOUT: Record<

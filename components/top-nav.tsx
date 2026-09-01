@@ -13,6 +13,7 @@ const routes = [
   { href: "/skills", key: "skills" as const },
   { href: "/resume", key: "resume" as const },
   { href: "/swarm", key: "swarm" as const, featured: true },
+  { href: "/obrahub", key: "obrahub" as const },
   { href: "/contact", key: "contact" as const },
 ]
 
