@@ -265,6 +265,7 @@ type Dict = {
       subtitle: string
       badges: string[]
       ctaContact: string
+      ctaLive: string
     }
     problem: {
       kicker: string
@@ -834,6 +835,7 @@ const en: Dict = {
         "Built for Engemil, an industrial maintenance and assembly contractor in Mogi Guaçu, Brazil — and shaped from the start to generalize to a sector that all runs the same cycle. It replaces paper → spreadsheet → retyping with one flow: import the spreadsheet engineering already fills in, keep every work package's balance as a live account, and export the monthly billing document byte-identical to the format the client signs.",
       badges: ["Rails 8 monolith", "In production", "Active development"],
       ctaContact: "Talk about this project",
+      ctaLive: "Open the live system",
     },
     problem: {
       kicker: "// 01 — THE PROBLEM",
@@ -1575,6 +1577,7 @@ const pt: Dict = {
         "Feito para a Engemil, prestadora de manutenção e montagem industrial em Mogi Guaçu/SP — e desenhado desde o começo para generalizar num setor que roda todo o mesmo ciclo. Ele substitui o ciclo papel → planilha → redigitação por um fluxo só: importa a planilha que a engenharia já preenche, mantém o saldo de cada pacote como conta viva, e exporta o documento de medição idêntico ao formato que o cliente assina.",
       badges: ["Monólito Rails 8", "Em produção", "Desenvolvimento ativo"],
       ctaContact: "Conversar sobre esse projeto",
+      ctaLive: "Abrir o sistema no ar",
     },
     problem: {
       kicker: "// 01 — O PROBLEMA",
