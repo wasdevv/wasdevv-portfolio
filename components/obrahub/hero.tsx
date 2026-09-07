@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ExternalLink } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
+import { OBRAHUB_URL } from "./url"
 
 export function ObrahubHero() {
   const { t } = useLanguage()
@@ -80,11 +81,21 @@ export function ObrahubHero() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.45 }}
-          className="mt-10"
+          className="mt-10 flex flex-wrap items-center gap-3"
         >
+          <a
+            href={OBRAHUB_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-all hover:bg-primary/90"
+          >
+            <ExternalLink className="h-4 w-4" />
+            {h.ctaLive}
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-all hover:bg-primary/90"
+            className="group inline-flex items-center gap-2 border border-border bg-transparent px-4 py-2.5 font-mono text-sm transition-colors hover:border-foreground/60 hover:bg-foreground/5"
           >
             {h.ctaContact}
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
