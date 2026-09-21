@@ -160,7 +160,7 @@ export const projects: Project[] = [
   { key: "obrahub", name: "ObraHub", category: "web", year: "2026", tags: ["Rails 8.1", "PostgreSQL", "Hotwire", "Devise", "Pundit"], icons: ["rubyonrails", "postgresql"], image: "/projects/obrahub.webp", site: "https://obrahub.up.railway.app" },
   { key: "tally", name: "Tally", category: "backend", year: "2026", tags: ["Kotlin", "Spring Boot", "jOOQ", "Rails", "PostgreSQL"], icons: ["kotlin", "springboot", "rubyonrails"], repo: "https://github.com/wasdevv/tally" },
   { key: "pulse", name: "Pulse", category: "backend", year: "2026", tags: ["Node.js", "Fastify", "BullMQ", "PostgreSQL", "Expo"], icons: ["nodedotjs", "typescript", "react"], repo: "https://github.com/wasdevv/pulse" },
-  { key: "pipelineHq", name: "PipelineHQ", category: "web", year: "2026", tags: ["Rails 8.1", "Hotwire", "Tailwind v4", "PostgreSQL"], icons: ["rubyonrails", "hotwire", "postgresql"] },
+  { key: "pipelineHq", name: "PipelineHQ", category: "web", year: "2026", tags: ["Rails 8.1", "Hotwire", "Tailwind v4", "PostgreSQL"], icons: ["rubyonrails", "hotwire", "postgresql"], repo: "https://github.com/wasdevv/pipeline_hq" },
   { key: "jornada", name: "Jornada", category: "backend", year: "2026", tags: [".NET 9", "EF Core", "MassTransit", "RabbitMQ", "SQL Server"], icons: ["dotnet", "rabbitmq", "opentelemetry"] },
   { key: "leanOutput", name: "lean-output", category: "tools", year: "2026", tags: ["Ruby", "Claude Code", "Hooks", "RSpec"], icons: ["claude", "ruby"], repo: "https://github.com/wasdevv/lean-output" },
   { key: "amnesia", name: "Amnesia", category: "web", year: "2026", tags: ["Elixir", "Phoenix", "LiveKit", "Electron", "React"], icons: ["elixir", "phoenixframework", "electron"] },
