@@ -2,10 +2,13 @@
 
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { CodeTabs } from "@/components/code-tabs"
+import { AboutIntro } from "@/components/about-intro"
 import { ExperienceCard } from "@/components/experience-card"
+import { ProjectsGrid } from "@/components/projects-grid"
 import { SkillsTable } from "@/components/skills-table"
+import { Testimonials } from "@/components/testimonials"
 import { useLanguage } from "@/components/language-provider"
+import { projects } from "@/lib/portfolio-data"
 
 export default function AboutMePage() {
   const { t } = useLanguage()
@@ -14,7 +17,7 @@ export default function AboutMePage() {
   return (
     <div className="space-y-12">
       <section>
-        <CodeTabs />
+        <AboutIntro />
       </section>
 
       <section>
@@ -43,9 +46,26 @@ export default function AboutMePage() {
       </section>
 
       <section>
+        <header className="mb-8 flex items-baseline justify-between border-b border-border pb-3">
+          <div>
+            <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
+              <span className="text-primary">[02]</span> {t.projects.title}
+            </h2>
+            <p className="mt-1 font-mono text-xs text-muted-foreground">
+              {t.projects.subtitle}
+            </p>
+          </div>
+          <span className="border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
+            {projects.length}
+          </span>
+        </header>
+        <ProjectsGrid />
+      </section>
+
+      <section>
         <header className="mb-5 border-b border-border pb-3">
           <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-            <span className="text-primary">[02]</span> {t.skills.title}
+            <span className="text-primary">[03]</span> {t.skills.title}
           </h2>
         </header>
         <SkillsTable />
@@ -55,7 +75,7 @@ export default function AboutMePage() {
         <section>
           <header className="mb-5 border-b border-border pb-3">
             <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-              <span className="text-primary">[03]</span> {t.education.title}
+              <span className="text-primary">[04]</span> {t.education.title}
             </h2>
           </header>
           <ul className="space-y-4">
@@ -78,7 +98,7 @@ export default function AboutMePage() {
         <section>
           <header className="mb-5 border-b border-border pb-3">
             <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-              <span className="text-primary">[04]</span>{" "}
+              <span className="text-primary">[05]</span>{" "}
               {t.spokenLanguages.title}
             </h2>
           </header>
@@ -100,10 +120,22 @@ export default function AboutMePage() {
         </section>
       </div>
 
+      <section>
+        <header className="mb-5 border-b border-border pb-3">
+          <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
+            <span className="text-primary">[06]</span> {t.testimonials.title}
+          </h2>
+          <p className="mt-1 font-mono text-xs text-muted-foreground">
+            {t.testimonials.subtitle}
+          </p>
+        </header>
+        <Testimonials />
+      </section>
+
       <section className="border border-border bg-card p-8 md:p-12">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <p className="font-mono text-xs tracking-wider text-primary">
-            [05] {t.contact.kicker}
+            [07] {t.contact.kicker}
           </p>
           <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
             {t.contact.badge}
