@@ -123,6 +123,7 @@ export type Project = {
   key: ProjectKey
   name: string
   category: ProjectCategory
+  year: string
   tags: string[]
   // simple-icons slugs drawn on the generated cover when there is no screenshot
   icons: string[]
@@ -155,26 +156,26 @@ export type ProjectKey =
 
 // Only repos that answer 200 to an anonymous visitor get a `repo` link.
 export const projects: Project[] = [
-  { key: "swarm", name: "Swarm", category: "tools", tags: ["Rails 8", "Hotwire", "ActionCable", "Tauri 2", "SQLite"], icons: ["rubyonrails", "tauri"], image: "/projects/swarm.webp" },
-  { key: "obrahub", name: "ObraHub", category: "web", tags: ["Rails 8.1", "PostgreSQL", "Hotwire", "Devise", "Pundit"], icons: ["rubyonrails", "postgresql"], image: "/projects/obrahub.webp", site: "https://obrahub.up.railway.app" },
-  { key: "tally", name: "Tally", category: "backend", tags: ["Kotlin", "Spring Boot", "jOOQ", "Rails", "PostgreSQL"], icons: ["kotlin", "springboot", "rubyonrails"], repo: "https://github.com/wasdevv/tally" },
-  { key: "pulse", name: "Pulse", category: "backend", tags: ["Node.js", "Fastify", "BullMQ", "PostgreSQL", "Expo"], icons: ["nodedotjs", "typescript", "react"], repo: "https://github.com/wasdevv/pulse" },
-  { key: "pipelineHq", name: "PipelineHQ", category: "web", tags: ["Rails 8.1", "Hotwire", "Tailwind v4", "PostgreSQL"], icons: ["rubyonrails", "hotwire", "postgresql"] },
-  { key: "jornada", name: "Jornada", category: "backend", tags: [".NET 9", "EF Core", "MassTransit", "RabbitMQ", "SQL Server"], icons: ["dotnet", "rabbitmq", "opentelemetry"] },
-  { key: "leanOutput", name: "lean-output", category: "tools", tags: ["Ruby", "Claude Code", "Hooks", "RSpec"], icons: ["claude", "ruby"], repo: "https://github.com/wasdevv/lean-output" },
-  { key: "amnesia", name: "Amnesia", category: "web", tags: ["Elixir", "Phoenix", "LiveKit", "Electron", "React"], icons: ["elixir", "phoenixframework", "electron"] },
-  { key: "glossa", name: "Glossa", category: "web", tags: ["Rails 8", "Ember.js", "JSON:API", "PostgreSQL"], icons: ["rubyonrails", "emberdotjs"] },
-  { key: "expresso3300", name: "Expresso3300", category: "web", tags: ["Rails 8.1", "React 19", "TypeScript", "Tailwind v4"], icons: ["rubyonrails", "react", "typescript"], repo: "https://github.com/wasdevv/expresso3300" },
-  { key: "atsOnRails", name: "ATS on Rails", category: "tools", tags: ["Rails 8", "SQLite", "Hotwire", "Claude CLI"], icons: ["rubyonrails", "claude"] },
-  { key: "telehealth", name: "Telehealth Platform", category: "backend", tags: ["Rails", "GraphQL", "Django", "Celery", "Stripe"], icons: ["rubyonrails", "graphql", "django"], repo: "https://github.com/wasdevv/telehealth-clinical-api" },
-  { key: "shelflog", name: "shelflog", category: "web", tags: ["Rails", "PostgreSQL", "Hotwire", "Web Push"], icons: ["rubyonrails", "postgresql"] },
-  { key: "interviewSim", name: "Interview Sim", category: "tools", tags: ["Rails 8", "Hotwire", "Claude API", "Solid Cable"], icons: ["rubyonrails", "claude"], repo: "https://github.com/wasdevv/interview-sim" },
-  { key: "interviewCopilot", name: "Interview Copilot", category: "tools", tags: ["Node.js", "Tauri", "Ollama", "LLM"], icons: ["nodedotjs", "tauri", "ollama"] },
-  { key: "railsGuard", name: "rails-guard", category: "tools", tags: ["Ruby", "Claude Code", "PreToolUse hook"], icons: ["claude", "rubyonrails"], repo: "https://github.com/wasdevv/rails-guard" },
-  { key: "railsContext", name: "rails-context", category: "tools", tags: ["Ruby", "Claude Code", "Rails"], icons: ["claude", "rubyonrails"], repo: "https://github.com/wasdevv/rails-context" },
-  { key: "swarmPlugin", name: "swarm-plugin", category: "tools", tags: ["Ruby", "Git worktrees", "Claude Code", "GitHub CLI"], icons: ["claude", "git"], repo: "https://github.com/wasdevv/swarm-plugin" },
-  { key: "systemDesignPrimer", name: "Rails System Design Primer", category: "backend", tags: ["Rails 8", "PostgreSQL", "Redis", "Benchmarks"], icons: ["rubyonrails", "redis", "postgresql"] },
-  { key: "brasilApiRuby", name: "BrasilAPI Ruby", category: "backend", tags: ["Ruby", "API", "Open Source"], icons: ["ruby"], repo: "https://github.com/wasdevv/BrasilAPI-ruby" },
+  { key: "swarm", name: "Swarm", category: "tools", year: "2026", tags: ["Rails 8", "Hotwire", "ActionCable", "Tauri 2", "SQLite"], icons: ["rubyonrails", "tauri"], image: "/projects/swarm.webp" },
+  { key: "obrahub", name: "ObraHub", category: "web", year: "2026", tags: ["Rails 8.1", "PostgreSQL", "Hotwire", "Devise", "Pundit"], icons: ["rubyonrails", "postgresql"], image: "/projects/obrahub.webp", site: "https://obrahub.up.railway.app" },
+  { key: "tally", name: "Tally", category: "backend", year: "2026", tags: ["Kotlin", "Spring Boot", "jOOQ", "Rails", "PostgreSQL"], icons: ["kotlin", "springboot", "rubyonrails"], repo: "https://github.com/wasdevv/tally" },
+  { key: "pulse", name: "Pulse", category: "backend", year: "2026", tags: ["Node.js", "Fastify", "BullMQ", "PostgreSQL", "Expo"], icons: ["nodedotjs", "typescript", "react"], repo: "https://github.com/wasdevv/pulse" },
+  { key: "pipelineHq", name: "PipelineHQ", category: "web", year: "2026", tags: ["Rails 8.1", "Hotwire", "Tailwind v4", "PostgreSQL"], icons: ["rubyonrails", "hotwire", "postgresql"] },
+  { key: "jornada", name: "Jornada", category: "backend", year: "2026", tags: [".NET 9", "EF Core", "MassTransit", "RabbitMQ", "SQL Server"], icons: ["dotnet", "rabbitmq", "opentelemetry"] },
+  { key: "leanOutput", name: "lean-output", category: "tools", year: "2026", tags: ["Ruby", "Claude Code", "Hooks", "RSpec"], icons: ["claude", "ruby"], repo: "https://github.com/wasdevv/lean-output" },
+  { key: "amnesia", name: "Amnesia", category: "web", year: "2026", tags: ["Elixir", "Phoenix", "LiveKit", "Electron", "React"], icons: ["elixir", "phoenixframework", "electron"] },
+  { key: "glossa", name: "Glossa", category: "web", year: "2026", tags: ["Rails 8", "Ember.js", "JSON:API", "PostgreSQL"], icons: ["rubyonrails", "emberdotjs"] },
+  { key: "expresso3300", name: "Expresso3300", category: "web", year: "2026", tags: ["Rails 8.1", "React 19", "TypeScript", "Tailwind v4"], icons: ["rubyonrails", "react", "typescript"], repo: "https://github.com/wasdevv/expresso3300" },
+  { key: "atsOnRails", name: "ATS on Rails", category: "tools", year: "2026", tags: ["Rails 8", "SQLite", "Hotwire", "Claude CLI"], icons: ["rubyonrails", "claude"] },
+  { key: "telehealth", name: "Telehealth Platform", category: "backend", year: "2026", tags: ["Rails", "GraphQL", "Django", "Celery", "Stripe"], icons: ["rubyonrails", "graphql", "django"], repo: "https://github.com/wasdevv/telehealth-clinical-api" },
+  { key: "shelflog", name: "shelflog", category: "web", year: "2026", tags: ["Rails", "PostgreSQL", "Hotwire", "Web Push"], icons: ["rubyonrails", "postgresql"] },
+  { key: "interviewSim", name: "Interview Sim", category: "tools", year: "2026", tags: ["Rails 8", "Hotwire", "Claude API", "Solid Cable"], icons: ["rubyonrails", "claude"], repo: "https://github.com/wasdevv/interview-sim" },
+  { key: "interviewCopilot", name: "Interview Copilot", category: "tools", year: "2026", tags: ["Node.js", "Tauri", "Ollama", "LLM"], icons: ["nodedotjs", "tauri", "ollama"] },
+  { key: "railsGuard", name: "rails-guard", category: "tools", year: "2026", tags: ["Ruby", "Claude Code", "PreToolUse hook"], icons: ["claude", "rubyonrails"], repo: "https://github.com/wasdevv/rails-guard" },
+  { key: "railsContext", name: "rails-context", category: "tools", year: "2026", tags: ["Ruby", "Claude Code", "Rails"], icons: ["claude", "rubyonrails"], repo: "https://github.com/wasdevv/rails-context" },
+  { key: "swarmPlugin", name: "swarm-plugin", category: "tools", year: "2026", tags: ["Ruby", "Git worktrees", "Claude Code", "GitHub CLI"], icons: ["claude", "git"], repo: "https://github.com/wasdevv/swarm-plugin" },
+  { key: "systemDesignPrimer", name: "Rails System Design Primer", category: "backend", year: "2026", tags: ["Rails 8", "PostgreSQL", "Redis", "Benchmarks"], icons: ["rubyonrails", "redis", "postgresql"] },
+  { key: "brasilApiRuby", name: "BrasilAPI Ruby", category: "backend", year: "2022", tags: ["Ruby", "API", "Open Source"], icons: ["ruby"], repo: "https://github.com/wasdevv/BrasilAPI-ruby" },
 ]
 
 export const experiencesMeta = [
