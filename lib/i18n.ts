@@ -116,7 +116,8 @@ type Dict = {
     prev: string
     next: string
     pageLabel: string
-    items: Record<ProjectKey, { type: string; summary: string }>
+    // details: the long form shown on /resume; the card grid uses summary
+    items: Record<ProjectKey, { type: string; summary: string; details?: string }>
   }
   testimonials: {
     title: string
@@ -144,15 +145,6 @@ type Dict = {
     timelineTitle: string
     openSourceTitle: string
     privateRepoLabel: string
-    openSourceItems: {
-      name: string
-      year: string
-      // absent when the repository is not public — no link is rendered
-      url?: string
-      // live deployment, shown next to the repo link
-      site?: string
-      description: string
-    }[]
   }
   contact: {
     kicker: string
@@ -547,26 +539,36 @@ const en: Dict = {
         type: "Desktop app",
         summary:
           "Agent Development Environment that runs 1–4 coding agents in parallel, each in an isolated git worktree with a live PTY, diff review and one-click merge.",
+        details:
+          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**.",
       },
       obrahub: {
         type: "Full Stack",
         summary:
           "In production at Engemil: turns the spreadsheets site engineers already fill in into labor tracking, daily reports and the measurement the client signs.",
+        details:
+          "**Currently in production at Engemil.** Tracks work executed on construction sites: each site has its assigned foremen, and each one logs how many hours they worked, in which role, on which day, with an optional photo. Admins bulk-import those entries from an **Excel** spreadsheet plus a zip of the photos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** and **Active Storage** — no JS bundler, no job queue.",
       },
       tally: {
         type: "Backend",
         summary:
           "Bank return file reconciliation: a Kotlin engine accounts for every line — matched, in review, unmatched or rejected — and a Rails console shows it in EN and pt-BR.",
+        details:
+          "Reconciles **bank return files** against expected receivables and accounts for every single line: matched, awaiting review, unmatched, or rejected with a reason. A **Kotlin** engine decides and never emits human-facing text — it emits stable codes that a **Rails** console renders in English and pt-BR. Whatever the engine will not decide alone goes to a human queue carrying the candidates and the reason.",
       },
       pulse: {
         type: "API + Mobile",
         summary:
           "Self-hosted uptime and heartbeat monitoring: check workers, incident detection, email alerts and an Expo app with push notifications.",
+        details:
+          "Self-hosted **uptime and heartbeat monitoring** — paste a URL, it checks on a fixed interval and tells you when it goes down. **Fastify + TypeScript** API with **BullMQ** workers (check, reconcile, notify) over **PostgreSQL** and **Redis**, the whole stack up with a single `docker compose`. Ships an **Expo** mobile app with push notifications and a streaming **NDJSON** importer built on `pg-copy-streams`.",
       },
       pipelineHq: {
         type: "Full Stack",
         summary:
           "Multi-tenant B2B CRM on Rails 8.1 with Solid Queue, Cache and Cable, native auth hardened in 10 layers and an ADR behind every decision.",
+        details:
+          "Full-stack **multi-tenant B2B CRM** built on **Rails 8.1.3** — Pipedrive/HubSpot-style sales pipeline. Uses **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** and **native Rails auth** extended with **10 hardening layers** (TOTP 2FA, backup codes, sudo mode, rate limit, audit log, honeypot). Each decision is backed by an **ADR**.",
       },
       jornada: {
         type: "Backend",
@@ -577,11 +579,15 @@ const en: Dict = {
         type: "Claude Code plugin",
         summary:
           "Keeps long tool output out of the context window — spills it to disk behind a pointer and compresses RSpec, RuboCop and Brakeman without losing a failure.",
+        details:
+          "A **Claude Code plugin** that keeps long tool output out of the context window: it spills big results to disk and hands the model a pointer, withholds what the context already holds, and compresses **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo and grep on the way past. Measured by replaying **12,008 real tool results (10.54 MB)** — fewer tokens, **zero lost failures**.",
       },
       amnesia: {
         type: "Real-time app",
         summary:
           "A lean Discord: real-time text and voice channels and screen sharing on Phoenix Channels and LiveKit, with an Electron desktop client.",
+        details:
+          "A lean Discord — real-time **text and voice channels**, screen sharing and a desktop app. **Elixir + Phoenix 1.8** Channels and Presence resolve rooms, join and who-is-online with no infrastructure code, **LiveKit** (SFU) carries the media, and the client is **Electron + React + Vite + Tailwind v4**.",
       },
       glossa: {
         type: "Full Stack",
@@ -597,6 +603,8 @@ const en: Dict = {
         type: "AI tool",
         summary:
           "Paste a job description, get a per-term verdict against evidence-backed facts: already covered, earnable, or a real gap it refuses to fake.",
+        details:
+          "Paste a job description and get a **per-term verdict** against facts that have evidence behind them: already covered by a bullet, **earnable** (a fact describes that work and simply does not use the word), or a real **gap** — which the tool reports instead of writing it anyway. Coverage is read from bullet prose only, because a keyword sitting in a skills list scores nothing against an LLM matcher: measured **76% → 98%** by moving five terms into experience bullets.",
       },
       telehealth: {
         type: "Microservices",
@@ -607,6 +615,8 @@ const en: Dict = {
         type: "Full Stack",
         summary:
           "Expiry-date tracking for supermarket shelves: barcode search, per-product status and web push alerts. Originally intended for Muffato.",
+        details:
+          "**Expiry-date tracking** for supermarket shelves, in **Rails**: barcode or name search, categories, product photo and **web push** alerts, with a per-product status (expired, expiring soon, ok, safe) driven by configurable thresholds. Originally intended for **Muffato**.",
       },
       interviewSim: {
         type: "AI app",
@@ -642,6 +652,8 @@ const en: Dict = {
         type: "Library",
         summary:
           "My first open-source step: an early Ruby wrapper for BrasilAPI — learning to publish packages and code in public.",
+        details:
+          "Early-career attempt to build a **Ruby wrapper** for **BrasilAPI**. The code was naive at the time, but it was my **first dive into open-source** — publishing public code, dealing with packaging and learning from the experience.",
       },
     },
   },
@@ -680,66 +692,6 @@ const en: Dict = {
     timelineTitle: "CAREER TIMELINE",
     openSourceTitle: "PROJECTS & OPEN SOURCE",
     privateRepoLabel: "PRIVATE REPO",
-    openSourceItems: [
-      {
-        name: "Pulse",
-        year: "2026",
-        url: "https://github.com/wasdevv/pulse",
-        description:
-          "Self-hosted **uptime and heartbeat monitoring** — paste a URL, it checks on a fixed interval and tells you when it goes down. **Fastify + TypeScript** API with **BullMQ** workers (check, reconcile, notify) over **PostgreSQL** and **Redis**, the whole stack up with a single `docker compose`. Ships an **Expo** mobile app with push notifications and a streaming **NDJSON** importer built on `pg-copy-streams`.",
-      },
-      {
-        name: "PipelineHQ",
-        year: "2026",
-        description:
-          "Full-stack **multi-tenant B2B CRM** built on **Rails 8.1.3** — Pipedrive/HubSpot-style sales pipeline. Uses **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** and **native Rails auth** extended with **10 hardening layers** (TOTP 2FA, backup codes, sudo mode, rate limit, audit log, honeypot). Each decision is backed by an **ADR**.",
-      },
-      {
-        name: "Swarm",
-        year: "2026",
-        description:
-          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**.",
-      },
-      {
-        name: "lean-output",
-        year: "2026",
-        url: "https://github.com/wasdevv/lean-output",
-        description:
-          "A **Claude Code plugin** that keeps long tool output out of the context window: it spills big results to disk and hands the model a pointer, withholds what the context already holds, and compresses **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo and grep on the way past. Measured by replaying **12,008 real tool results (10.54 MB)** — fewer tokens, **zero lost failures**.",
-      },
-      {
-        name: "Tally",
-        year: "2026",
-        url: "https://github.com/wasdevv/tally",
-        description:
-          "Reconciles **bank return files** against expected receivables and accounts for every single line: matched, awaiting review, unmatched, or rejected with a reason. A **Kotlin** engine decides and never emits human-facing text — it emits stable codes that a **Rails** console renders in English and pt-BR. Whatever the engine will not decide alone goes to a human queue carrying the candidates and the reason.",
-      },
-      {
-        name: "Amnesia",
-        year: "2026",
-        description:
-          "A lean Discord — real-time **text and voice channels**, screen sharing and a desktop app. **Elixir + Phoenix 1.8** Channels and Presence resolve rooms, join and who-is-online with no infrastructure code, **LiveKit** (SFU) carries the media, and the client is **Electron + React + Vite + Tailwind v4**.",
-      },
-      {
-        name: "ATS on Rails",
-        year: "2026",
-        description:
-          "Paste a job description and get a **per-term verdict** against facts that have evidence behind them: already covered by a bullet, **earnable** (a fact describes that work and simply does not use the word), or a real **gap** — which the tool reports instead of writing it anyway. Coverage is read from bullet prose only, because a keyword sitting in a skills list scores nothing against an LLM matcher: measured **76% → 98%** by moving five terms into experience bullets.",
-      },
-      {
-        name: "shelflog",
-        year: "2026",
-        description:
-          "**Expiry-date tracking** for supermarket shelves, in **Rails**: barcode or name search, categories, product photo and **web push** alerts, with a per-product status (expired, expiring soon, ok, safe) driven by configurable thresholds. Originally intended for **Muffato**.",
-      },
-      {
-        name: "ObraHub",
-        year: "2026",
-        site: "https://obrahub.up.railway.app",
-        description:
-          "**Currently in production at Engemil.** Tracks work executed on construction sites: each site has its assigned foremen, and each one logs how many hours they worked, in which role, on which day, with an optional photo. Admins bulk-import those entries from an **Excel** spreadsheet plus a zip of the photos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** and **Active Storage** — no JS bundler, no job queue.",
-      },
-    ],
   },
   contact: {
     kicker: "GET IN TOUCH",
@@ -1480,26 +1432,36 @@ const pt: Dict = {
         type: "App desktop",
         summary:
           "Agent Development Environment que roda de 1 a 4 agentes de código em paralelo, cada um num git worktree isolado com PTY ao vivo, revisão de diff e merge num clique.",
+        details:
+          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**.",
       },
       obrahub: {
         type: "Full Stack",
         summary:
           "Em produção na Engemil: transforma as planilhas que a engenharia já preenche em apontamento de horas, RDO e a medição que o cliente assina.",
+        details:
+          "**Atualmente em produção na Engemil.** Acompanha o trabalho executado em obras: cada obra tem seus encarregados vinculados, e cada um lança quantas horas trabalhou, em que cargo, em que dia, com foto opcional. O admin importa esses lançamentos em massa a partir de uma planilha **Excel** mais um zip com as fotos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** e **Active Storage** — sem bundler JS, sem fila.",
       },
       tally: {
         type: "Backend",
         summary:
           "Conciliação de retorno bancário: um motor Kotlin presta conta de cada linha — conciliada, em revisão, sem par ou rejeitada — e um console Rails mostra em EN e pt-BR.",
+        details:
+          "Concilia **arquivos de retorno bancário** contra recebíveis esperados e presta conta de cada linha: conciliada, aguardando revisão, sem correspondência ou rejeitada com motivo. Um motor em **Kotlin** decide e nunca emite texto pra humano — emite códigos estáveis que um console **Rails** renderiza em inglês e pt-BR. O que o motor não decide sozinho vai pra uma fila humana levando os candidatos e o motivo.",
       },
       pulse: {
         type: "API + Mobile",
         summary:
           "Monitoramento de uptime e heartbeat self-hosted: workers de checagem, detecção de incidentes, alerta por e-mail e app Expo com push.",
+        details:
+          "**Monitoramento de uptime e heartbeat** self-hosted — cola uma URL, ele checa num intervalo fixo e avisa quando cai. API em **Fastify + TypeScript** com workers **BullMQ** (check, reconcile, notify) sobre **PostgreSQL** e **Redis**, tudo de pé com um único `docker compose`. Tem app mobile em **Expo** com push notification e um importador **NDJSON** em streaming sobre `pg-copy-streams`.",
       },
       pipelineHq: {
         type: "Full Stack",
         summary:
           "CRM B2B multi-tenant em Rails 8.1 com Solid Queue, Cache e Cable, auth nativa com 10 camadas de hardening e um ADR por decisão.",
+        details:
+          "**CRM B2B multi-tenant** full-stack em **Rails 8.1.3** — pipeline de vendas no estilo Pipedrive/HubSpot. Usa **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** e **auth nativa do Rails** estendida com **10 camadas de hardening** (2FA TOTP, backup codes, sudo mode, rate limit, audit log, honeypot). Cada decisão tem um **ADR**.",
       },
       jornada: {
         type: "Backend",
@@ -1510,11 +1472,15 @@ const pt: Dict = {
         type: "Plugin do Claude Code",
         summary:
           "Mantém saída longa de ferramenta fora da janela de contexto — manda pro disco atrás de um ponteiro e comprime RSpec, RuboCop e Brakeman sem perder falha.",
+        details:
+          "**Plugin do Claude Code** que mantém saída longa de ferramenta fora da janela de contexto: despeja resultados grandes em disco e entrega um ponteiro ao modelo, omite o que o contexto já tem, e comprime **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo e grep no caminho. Medido reprocessando **12.008 resultados reais (10,54 MB)** — menos tokens, **nenhuma falha perdida**.",
       },
       amnesia: {
         type: "App em tempo real",
         summary:
           "Um Discord enxuto: canais de texto e voz em tempo real e transmissão de tela com Phoenix Channels e LiveKit, e cliente desktop em Electron.",
+        details:
+          "Um Discord enxuto — **canais de texto e de voz** em tempo real, transmissão de tela e app desktop. **Elixir + Phoenix 1.8** com Channels e Presence resolvem sala, entrada e quem-está-online sem código de infraestrutura, **LiveKit** (SFU) carrega a mídia, e o cliente é **Electron + React + Vite + Tailwind v4**.",
       },
       glossa: {
         type: "Full Stack",
@@ -1530,6 +1496,8 @@ const pt: Dict = {
         type: "Ferramenta com IA",
         summary:
           "Cola uma vaga e recebe um veredito por termo contra fatos com evidência: já coberto, alcançável, ou lacuna real — que ele se recusa a inventar.",
+        details:
+          "Cola uma descrição de vaga e recebe um **veredito por termo** contra fatos que têm evidência por trás: já coberto por um bullet, **alcançável** (um fato descreve aquele trabalho e só não usa a palavra), ou **lacuna** real — que a ferramenta aponta em vez de escrever assim mesmo. A cobertura é lida só da prosa dos bullets, porque palavra-chave em lista de skills não pontua contra matcher com LLM: medido **76% → 98%** movendo cinco termos pra dentro dos bullets de experiência.",
       },
       telehealth: {
         type: "Microsserviços",
@@ -1540,6 +1508,8 @@ const pt: Dict = {
         type: "Full Stack",
         summary:
           "Controle de validade para gôndola de supermercado: busca por código de barras, status por produto e alertas via web push. Pensado para o Muffato.",
+        details:
+          "**Controle de validade** para gôndola de supermercado, em **Rails**: busca por código de barras ou nome, categorias, foto do produto e alerta via **web push**, com status por produto (vencido, vencendo, ok, tranquilo) a partir de limites configuráveis. Pensado originalmente para o **Muffato**.",
       },
       interviewSim: {
         type: "App com IA",
@@ -1575,6 +1545,8 @@ const pt: Dict = {
         type: "Biblioteca",
         summary:
           "Meu primeiro passo em open source: um wrapper Ruby inicial para a BrasilAPI — aprendendo a publicar pacotes e código em público.",
+        details:
+          "Tentativa no início da carreira de criar um **wrapper Ruby** pra **BrasilAPI**. O código era ingênuo na época, mas foi meu **primeiro mergulho em open-source** — publicar código público, lidar com empacotamento e aprender com a experiência.",
       },
     },
   },
@@ -1613,66 +1585,6 @@ const pt: Dict = {
     timelineTitle: "LINHA DO TEMPO",
     openSourceTitle: "PROJETOS & OPEN SOURCE",
     privateRepoLabel: "REPO PRIVADO",
-    openSourceItems: [
-      {
-        name: "Pulse",
-        year: "2026",
-        url: "https://github.com/wasdevv/pulse",
-        description:
-          "**Monitoramento de uptime e heartbeat** self-hosted — cola uma URL, ele checa num intervalo fixo e avisa quando cai. API em **Fastify + TypeScript** com workers **BullMQ** (check, reconcile, notify) sobre **PostgreSQL** e **Redis**, tudo de pé com um único `docker compose`. Tem app mobile em **Expo** com push notification e um importador **NDJSON** em streaming sobre `pg-copy-streams`.",
-      },
-      {
-        name: "PipelineHQ",
-        year: "2026",
-        description:
-          "**CRM B2B multi-tenant** full-stack em **Rails 8.1.3** — pipeline de vendas no estilo Pipedrive/HubSpot. Usa **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** e **auth nativa do Rails** estendida com **10 camadas de hardening** (2FA TOTP, backup codes, sudo mode, rate limit, audit log, honeypot). Cada decisão tem um **ADR**.",
-      },
-      {
-        name: "Swarm",
-        year: "2026",
-        description:
-          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**.",
-      },
-      {
-        name: "lean-output",
-        year: "2026",
-        url: "https://github.com/wasdevv/lean-output",
-        description:
-          "**Plugin do Claude Code** que mantém saída longa de ferramenta fora da janela de contexto: despeja resultados grandes em disco e entrega um ponteiro ao modelo, omite o que o contexto já tem, e comprime **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo e grep no caminho. Medido reprocessando **12.008 resultados reais (10,54 MB)** — menos tokens, **nenhuma falha perdida**.",
-      },
-      {
-        name: "Tally",
-        year: "2026",
-        url: "https://github.com/wasdevv/tally",
-        description:
-          "Concilia **arquivos de retorno bancário** contra recebíveis esperados e presta conta de cada linha: conciliada, aguardando revisão, sem correspondência ou rejeitada com motivo. Um motor em **Kotlin** decide e nunca emite texto pra humano — emite códigos estáveis que um console **Rails** renderiza em inglês e pt-BR. O que o motor não decide sozinho vai pra uma fila humana levando os candidatos e o motivo.",
-      },
-      {
-        name: "Amnesia",
-        year: "2026",
-        description:
-          "Um Discord enxuto — **canais de texto e de voz** em tempo real, transmissão de tela e app desktop. **Elixir + Phoenix 1.8** com Channels e Presence resolvem sala, entrada e quem-está-online sem código de infraestrutura, **LiveKit** (SFU) carrega a mídia, e o cliente é **Electron + React + Vite + Tailwind v4**.",
-      },
-      {
-        name: "ATS on Rails",
-        year: "2026",
-        description:
-          "Cola uma descrição de vaga e recebe um **veredito por termo** contra fatos que têm evidência por trás: já coberto por um bullet, **alcançável** (um fato descreve aquele trabalho e só não usa a palavra), ou **lacuna** real — que a ferramenta aponta em vez de escrever assim mesmo. A cobertura é lida só da prosa dos bullets, porque palavra-chave em lista de skills não pontua contra matcher com LLM: medido **76% → 98%** movendo cinco termos pra dentro dos bullets de experiência.",
-      },
-      {
-        name: "shelflog",
-        year: "2026",
-        description:
-          "**Controle de validade** para gôndola de supermercado, em **Rails**: busca por código de barras ou nome, categorias, foto do produto e alerta via **web push**, com status por produto (vencido, vencendo, ok, tranquilo) a partir de limites configuráveis. Pensado originalmente para o **Muffato**.",
-      },
-      {
-        name: "ObraHub",
-        year: "2026",
-        site: "https://obrahub.up.railway.app",
-        description:
-          "**Atualmente em produção na Engemil.** Acompanha o trabalho executado em obras: cada obra tem seus encarregados vinculados, e cada um lança quantas horas trabalhou, em que cargo, em que dia, com foto opcional. O admin importa esses lançamentos em massa a partir de uma planilha **Excel** mais um zip com as fotos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** e **Active Storage** — sem bundler JS, sem fila.",
-      },
-    ],
   },
   contact: {
     kicker: "ENTRE EM CONTATO",

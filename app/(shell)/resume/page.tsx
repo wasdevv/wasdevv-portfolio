@@ -4,6 +4,7 @@ import { Download, ExternalLink, Globe, Lock } from "lucide-react"
 import { GithubIcon } from "@/components/brand-icons"
 import { HighlightedText } from "@/components/highlighted-text"
 import { useLanguage } from "@/components/language-provider"
+import { projects } from "@/lib/portfolio-data"
 
 export default function ResumePage() {
   const { t } = useLanguage()
@@ -96,61 +97,64 @@ export default function ResumePage() {
             {t.resume.openSourceTitle}
           </h3>
           <span className="border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
-            {t.resume.openSourceItems.length}
+            {projects.length}
           </span>
         </header>
 
         <ul className="space-y-4">
-          {t.resume.openSourceItems.map((item) => (
-            <li
-              key={item.name}
-              className="border border-border bg-card p-5 transition-colors hover:border-primary/60"
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h4 className="flex items-center gap-2 font-mono text-sm font-bold tracking-wider text-foreground">
-                  <GithubIcon className="h-3.5 w-3.5 text-primary" />
-                  {item.name}
-                </h4>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {item.year}
-                </span>
-              </div>
-
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                <HighlightedText text={item.description} />
-              </p>
-
-              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs">
-                {item.url ? (
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-primary transition-opacity hover:opacity-80"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    {item.url.replace(/^https?:\/\//, "")}
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5 text-muted-foreground">
-                    <Lock className="h-3 w-3" aria-hidden="true" />
-                    {t.resume.privateRepoLabel}
+          {projects.map((project) => {
+            const copy = t.projects.items[project.key]
+            return (
+              <li
+                key={project.key}
+                className="border border-border bg-card p-5 transition-colors hover:border-primary/60"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h4 className="flex items-center gap-2 font-mono text-sm font-bold tracking-wider text-foreground">
+                    <GithubIcon className="h-3.5 w-3.5 text-primary" />
+                    {project.name}
+                  </h4>
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    {project.year}
                   </span>
-                )}
-                {item.site && (
-                  <a
-                    href={item.site}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-primary transition-opacity hover:opacity-80"
-                  >
-                    <Globe className="h-3.5 w-3.5" aria-hidden="true" />
-                    {item.site.replace(/^https?:\/\//, "")}
-                  </a>
-                )}
-              </div>
-            </li>
-          ))}
+                </div>
+
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <HighlightedText text={copy.details ?? copy.summary} />
+                </p>
+
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs">
+                  {project.repo ? (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-primary transition-opacity hover:opacity-80"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                      {project.repo.replace(/^https?:\/\//, "")}
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                      <Lock className="h-3 w-3" aria-hidden="true" />
+                      {t.resume.privateRepoLabel}
+                    </span>
+                  )}
+                  {project.site && (
+                    <a
+                      href={project.site}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-primary transition-opacity hover:opacity-80"
+                    >
+                      <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+                      {project.site.replace(/^https?:\/\//, "")}
+                    </a>
+                  )}
+                </div>
+              </li>
+            )
+          })}
         </ul>
       </section>
     </div>
