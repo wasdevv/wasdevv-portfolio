@@ -1,3 +1,5 @@
+import type { ProjectKey } from "@/lib/portfolio-data"
+
 export type Lang = "en" | "pt"
 
 type Stat = {
@@ -10,6 +12,9 @@ type ExperienceItem = {
   company: string
   period: string
   isCurrent?: boolean
+  // one-line version of the role, used by the /resume timeline
+  summary: string
+  tags: string[]
   // bullets support **highlighted** keywords parsed by HighlightedText
   bullets: string[]
 }
@@ -34,7 +39,6 @@ type Dict = {
     obrahub: string
   }
   sidebar: {
-    stats: Stat[]
     contactPhone: string
     contactPhoneLabel: string
     contactEmailLabel: string
@@ -42,8 +46,10 @@ type Dict = {
     contactGithubLabel: string
   }
   aboutMe: {
-    codeTabs: {
-      title: string
+    intro: {
+      eyebrow: string
+      headline: string
+      headlineEmphasis: string
       devRb: {
         filename: string
         codeKeys: {
@@ -54,29 +60,14 @@ type Dict = {
           monster: string
         }
         focus: string
-        blocks: {
-          openSource: {
-            swarm: string
-          }
-          education: {
-            degree: string
-            institution: string
-            status: string
-            expected: string
-          }
-          languages: {
-            portuguese: string
-            english: string
-          }
-        }
       }
-      readme: {
-        filename: string
-        title: string
-        paragraphs: string[]
-      }
-      stack: {
-        filename: string
+      paragraphs: string[]
+      stats: Stat[]
+      facts: {
+        name: string
+        role: string
+        focus: string
+        location: string
       }
     }
     experience: {
@@ -92,6 +83,12 @@ type Dict = {
     techSubtitle: string
     allLabel: string
     countSuffix: string
+    levelLabel: string
+    levels: {
+      ADVANCED: string
+      INTERMEDIATE: string
+      FAMILIAR: string
+    }
     categories: {
       languages: string
       frameworks: string
@@ -109,6 +106,30 @@ type Dict = {
       period: string
     }[]
   }
+  projects: {
+    title: string
+    subtitle: string
+    filters: { all: string; web: string; backend: string; tools: string }
+    liveSite: string
+    viewCode: string
+    askAbout: string
+    prev: string
+    next: string
+    pageLabel: string
+    items: Record<ProjectKey, { type: string; summary: string }>
+  }
+  testimonials: {
+    title: string
+    subtitle: string
+    prevLabel: string
+    nextLabel: string
+    goToLabel: string
+    items: {
+      quote: string
+      name: string
+      role: string
+    }[]
+  }
   spokenLanguages: {
     title: string
     items: {
@@ -122,10 +143,14 @@ type Dict = {
     downloadCta: string
     timelineTitle: string
     openSourceTitle: string
+    privateRepoLabel: string
     openSourceItems: {
       name: string
       year: string
-      url: string
+      // absent when the repository is not public — no link is rendered
+      url?: string
+      // live deployment, shown next to the repo link
+      site?: string
       description: string
     }[]
   }
@@ -334,7 +359,7 @@ const en: Dict = {
     nameLine1: "WASHINGTON",
     nameLine2: "CARDOSO.",
     role: "Full-Stack Developer",
-    yearsLabel: "3+ years",
+    yearsLabel: "4 years",
     location: "Brazil",
     tagline:
       "Ruby on Rails specialist building scalable web platforms with focus on performance, clean code and shipping real value.",
@@ -350,12 +375,6 @@ const en: Dict = {
     contact: "CONTACT",
   },
   sidebar: {
-    stats: [
-      { value: "3+", label: "years in Rails" },
-      { value: "2s → 200ms", label: "p99 latency cut" },
-      { value: "3x", label: "faster critical paths" },
-      { value: "99.9%+", label: "production uptime" },
-    ],
     contactPhone: "+55 17 98843-2434",
     contactPhoneLabel: "Phone",
     contactEmailLabel: "Email",
@@ -363,8 +382,10 @@ const en: Dict = {
     contactGithubLabel: "GitHub",
   },
   aboutMe: {
-    codeTabs: {
-      title: "Context",
+    intro: {
+      eyebrow: "Who I am",
+      headline: "I turn complex problems into ",
+      headlineEmphasis: "useful software.",
       devRb: {
         filename: "dev.rb",
         codeKeys: {
@@ -375,33 +396,25 @@ const en: Dict = {
           monster: "monster",
         },
         focus: "shipping products",
-        blocks: {
-          openSource: {
-            swarm: "Agent Development Environment (Rails 8 + Hotwire + Tauri)",
-          },
-          education: {
-            degree: "Systems Analysis and Development",
-            institution: "Wyden",
-            status: "in_progress",
-            expected: "Dec/2026",
-          },
-          languages: {
-            portuguese: "native",
-            english: "B2 (technical)",
-          },
-        },
       },
-      readme: {
-        filename: "README.md",
-        title: "About",
-        paragraphs: [
-          "Full Stack Software Engineer with over 3 years of experience developing scalable applications on Ruby on Rails and multi-tenant SaaS platforms.",
-          "Solid background in backend architecture, REST APIs, automated testing, CI/CD, observability and performance optimization.",
-          "Proven track record of delivering measurable improvements in latency, reliability and development team productivity, building high-quality software with clean architecture and modern software engineering practices.",
-        ],
-      },
-      stack: {
-        filename: "stack.json",
+      paragraphs: [
+        "Full Stack Software Engineer with 4 years of experience developing scalable applications on Ruby on Rails and multi-tenant SaaS platforms.",
+        "Solid background in backend architecture, REST APIs, automated testing, CI/CD, observability and performance optimization.",
+        "Proven track record of delivering measurable improvements in latency, reliability and development team productivity, building high-quality software with clean architecture and modern software engineering practices.",
+      ],
+      stats: [
+        { value: "4", label: "years in Rails" },
+        { value: "3.5s → 180ms", label: "p99 latency cut" },
+        { value: "63,000×", label: "faster queries on 14M+ rows" },
+        { value: "80h → 7min", label: "CSV export pipeline" },
+        { value: "35% → 85%", label: "test coverage via CI/CD" },
+        { value: "99.9%", label: "production uptime" },
+      ],
+      facts: {
+        name: "Name",
+        role: "Role",
+        focus: "Focus",
+        location: "Location",
       },
     },
     experience: {
@@ -413,6 +426,9 @@ const en: Dict = {
           company: "Was Advisory",
           period: "Aug 2023 — Present",
           isCurrent: true,
+          summary:
+            "Building multi-tenant SaaS systems with Rails, PostgreSQL, Redis and React. Cut a critical endpoint from 3.5 seconds to 180 milliseconds and kept reliable workflows running at scale.",
+          tags: ["Ruby on Rails", "PostgreSQL", "React", "Redis"],
           bullets: [
             "Optimized a critical endpoint, cutting latency from **3.5s to 180ms** (-94%) by identifying **N+1** queries, implementing **eager loading** and **3-layer Redis caching**, impacting **10k+ requests/day**.",
             "Rearchitected the CSV report export pipeline, replacing synchronous processing with an asynchronous architecture using **Sidekiq**, **PostgreSQL COPY**, streaming and **Amazon S3**, reducing export time of 1.77M records from ~80h to 7min (~600×).",
@@ -427,6 +443,7 @@ const en: Dict = {
             "Monitored production applications using observability tools (**Datadog**), identifying and resolving incidents proactively before they affected end users.",
             "Hands-on experience with **Kubernetes** in production (accessed via **Pritunl VPN**), using **ArgoCD** (GitOps), **Headlamp** and **Grafana** for continuous deploy, cluster management and incident monitoring in a high-availability environment.",
             "Built **ObraHub**, the labor tracking and billing system for **Engemil**, an industrial maintenance and assembly contractor, specified through successive rounds of review and feedback with the person who produced the whole process by hand — a **Rails 8 + PostgreSQL + Hotwire** monolith (Devise, Pundit, 12 policies, 19 importers/exporters) that replaced a paper-to-spreadsheet-to-retyping cycle. Imports the spreadsheet engineering already fills in, with **SHA-256 row digests** for idempotent `upsert_all` so re-uploading a file never duplicates; keeps each work package's balance as a **query, not a stored column**, so a 663h package shows its new balance the moment a report lands; and exports the monthly billing workbook **byte-identical** to the client's reference file — theme-colour fills with tint, ACCOUNTING number format and a two-column-per-hour-type summary layout, with a test that strictly parses the generated `styles.xml`. **899 examples, 0 failures**; **11,551h** closed in one month and **1,395 entries** imported and validated in **3s** in real use.",
+            "Built **shelflog**, an installable **Rails** PWA for shelf expiry-date control, designed for use in **Muffato's PAS** (a major Brazilian supermarket chain): barcode and name lookup, a per-product status driven by configurable thresholds, and an hourly **Solid Queue** job that sends **web push** alerts for expired and soon-to-expire stock.",
             "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written** — the planner runs in the PTY, writes the plan and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design — the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
             "Published a trilogy of **Claude Code** plugins covering agent input, output and side effects: **lean-output** compresses **RSpec**, **RuboCop** and **Brakeman** outputs by **-70% to -97% tokens** with a zero-loss guarantee on failures; **rails-context** injects a curated dossier (columns, indexes, associations, validations and routes), drastically shrinking the model's read surface instead of loading full `db/schema.rb` and models; **rails-guard** intercepts destructive Rails commands (`db:drop`, `db:reset`, `rails destroy`, `runner` with `delete_all`) via a `PreToolUse` hook, requiring human confirmation before execution.",
           ],
@@ -435,6 +452,9 @@ const en: Dict = {
           role: "FULL STACK DEVELOPER",
           company: "GoTechDS",
           period: "Jun 2023 — Jul 2023",
+          summary:
+            "Contributed to authentication and dashboard features in an established Rails product, through code reviews and collaborative development.",
+          tags: ["Rails", "Devise", "Code Review"],
           bullets: [
             "Contributed to feature implementation on the **Go Tech DS** product using **Ruby on Rails** and **Devise**, following **Trello** cards prioritized by the team within the existing architecture.",
             "Developed features in the **authentication** flow (login, signup and password recovery) and dashboard, under technical guidance from more experienced developers.",
@@ -445,6 +465,9 @@ const en: Dict = {
           role: "FULL STACK DEVELOPER",
           company: "Independent \\\\ Blogs & Micro-SaaS",
           period: "Nov 2022 — May 2023",
+          summary:
+            "Delivered landing pages, blogs and small software products end to end — from discovery and database design to deployment and support.",
+          tags: ["Full Stack", "Clients", "Delivery"],
           bullets: [
             "End-to-end delivery of **blogs, landing pages and mini-softwares** for direct clients — from discovery to production.",
             "Worked as the **single owner of every project**: requirements, **PostgreSQL** modeling, backend in **Ruby on Rails**, frontend, deploy and ongoing support.",
@@ -464,6 +487,12 @@ const en: Dict = {
       "A modern stack, backed by industry best practices — built to scale and perform under pressure.",
     allLabel: "ALL",
     countSuffix: "TECHS",
+    levelLabel: "Skill level",
+    levels: {
+      ADVANCED: "Advanced",
+      INTERMEDIATE: "Intermediate",
+      FAMILIAR: "Familiar",
+    },
     categories: {
       languages: "languages",
       frameworks: "frameworks & libraries",
@@ -476,6 +505,11 @@ const en: Dict = {
   education: {
     title: "EDUCATION",
     items: [
+      {
+        degree: "AWS SERVERLESS DEMONSTRATED",
+        school: "Amazon Web Services (AWS)",
+        period: "Issued Sep 2026 · Expires Sep 2027",
+      },
       {
         degree: "SYSTEMS ANALYSIS AND DEVELOPMENT — IN PROGRESS",
         school: "Wyden — São José do Rio Preto, SP",
@@ -493,6 +527,145 @@ const en: Dict = {
       },
     ],
   },
+  projects: {
+    title: "PROJECTS",
+    subtitle: "Some things I've built with modern technologies",
+    filters: {
+      all: "All projects",
+      web: "Web apps",
+      backend: "Backend & systems",
+      tools: "Dev tools & AI",
+    },
+    liveSite: "Live site",
+    viewCode: "View code",
+    askAbout: "Private — ask me",
+    prev: "Previous",
+    next: "Next",
+    pageLabel: "Page",
+    items: {
+      swarm: {
+        type: "Desktop app",
+        summary:
+          "Agent Development Environment that runs 1–4 coding agents in parallel, each in an isolated git worktree with a live PTY, diff review and one-click merge.",
+      },
+      obrahub: {
+        type: "Full Stack",
+        summary:
+          "In production at Engemil: turns the spreadsheets site engineers already fill in into labor tracking, daily reports and the measurement the client signs.",
+      },
+      tally: {
+        type: "Backend",
+        summary:
+          "Bank return file reconciliation: a Kotlin engine accounts for every line — matched, in review, unmatched or rejected — and a Rails console shows it in EN and pt-BR.",
+      },
+      pulse: {
+        type: "API + Mobile",
+        summary:
+          "Self-hosted uptime and heartbeat monitoring: check workers, incident detection, email alerts and an Expo app with push notifications.",
+      },
+      pipelineHq: {
+        type: "Full Stack",
+        summary:
+          "Multi-tenant B2B CRM on Rails 8.1 with Solid Queue, Cache and Cable, native auth hardened in 10 layers and an ADR behind every decision.",
+      },
+      jornada: {
+        type: "Backend",
+        summary:
+          ".NET 9 timekeeping engine that computes each day against effective-dated labour rules and closes a period into an immutable, reproducible result.",
+      },
+      leanOutput: {
+        type: "Claude Code plugin",
+        summary:
+          "Keeps long tool output out of the context window — spills it to disk behind a pointer and compresses RSpec, RuboCop and Brakeman without losing a failure.",
+      },
+      amnesia: {
+        type: "Real-time app",
+        summary:
+          "A lean Discord: real-time text and voice channels and screen sharing on Phoenix Channels and LiveKit, with an Electron desktop client.",
+      },
+      glossa: {
+        type: "Full Stack",
+        summary:
+          "Translation files managed end to end: a Rails 8 JSON:API backend and an Ember Octane frontend that asks for the target locale's CLDR plurals. 208 RSpec examples.",
+      },
+      expresso3300: {
+        type: "Full Stack",
+        summary:
+          "People management platform: trainings, vacations, performance, multi-channel notifications, exports, Power BI and an AI assistant.",
+      },
+      atsOnRails: {
+        type: "AI tool",
+        summary:
+          "Paste a job description, get a per-term verdict against evidence-backed facts: already covered, earnable, or a real gap it refuses to fake.",
+      },
+      telehealth: {
+        type: "Microservices",
+        summary:
+          "Two services, two databases: a Rails GraphQL API for scheduling and records, and a Django service for billing with idempotent Stripe webhooks.",
+      },
+      shelflog: {
+        type: "Full Stack",
+        summary:
+          "Expiry-date tracking for supermarket shelves: barcode search, per-product status and web push alerts. Originally intended for Muffato.",
+      },
+      interviewSim: {
+        type: "AI app",
+        summary:
+          "AI interview simulator: a Claude-powered interviewer runs the session in real time and hands back structured feedback.",
+      },
+      interviewCopilot: {
+        type: "AI tool",
+        summary:
+          "Live interview copilot: listens, transcribes and starts drafting the answer before the question ends, with your résumé and the job as context.",
+      },
+      railsGuard: {
+        type: "Claude Code plugin",
+        summary:
+          "Blocks the irrecoverable Rails commands an agent might run — db:drop, db:reset, destructive runners — and asks first on the risky ones.",
+      },
+      railsContext: {
+        type: "Claude Code plugin",
+        summary:
+          "Context engineering for Rails: hands the agent a curated digest of columns, associations, validations and routes instead of whole schema and model files.",
+      },
+      swarmPlugin: {
+        type: "Claude Code plugin",
+        summary:
+          "Runs the same prompt across N isolated git worktrees in parallel, then lets you diff each attempt and merge the best one — or open a PR.",
+      },
+      systemDesignPrimer: {
+        type: "Lab",
+        summary:
+          "A Rails 8 lab for system design: cache, N+1, indexes, hot keys, write contention and queues — each layer has to prove itself in a measured number.",
+      },
+      brasilApiRuby: {
+        type: "Library",
+        summary:
+          "My first open-source step: an early Ruby wrapper for BrasilAPI — learning to publish packages and code in public.",
+      },
+    },
+  },
+  testimonials: {
+    title: "TESTIMONIALS",
+    subtitle: "What people say about my work",
+    prevLabel: "Previous testimonial",
+    nextLabel: "Next testimonial",
+    goToLabel: "Go to testimonial",
+    items: [
+      {
+        quote:
+          "I worked with Washington on the Compras project, where he played a key role in raising the application's technical quality. Beyond shipping improvements to the project, he structured an automated testing initiative that took the RSpec suite's coverage from 35% to 89%. Along the way, Washington mentored me — creating and organizing testing cards in Trello, explaining which scenarios had to be covered and reviewing my implementations. His guidance helped me better understand RSpec, testing best practices and why preventing regressions matters. Washington showed not only technical knowledge but also organization, patience and a real ability to share what he knows. His leadership was essential to making the project more reliable and to my own professional growth.",
+        name: "Developer · Was Advisory",
+        role: "RSpec mentorship · Compras project",
+      },
+      {
+        quote:
+          "I had the chance to be mentored by Washington as the Compras project evolved. He was put in charge of guiding two developers in creating and improving the system's automated tests, organizing the work through Trello cards and following our technical progress. Washington took part directly in the changes to the project and led the work that raised the RSpec suite's coverage from 35% to 89%. During the mentorship he helped us spot the scenarios that mattered, write more reliable specs and understand how tests protect business rules against regressions. His work combined technical execution, leadership and knowledge sharing. Besides significantly improving the project's quality, Washington created an environment where we could grow as developers and take on tasks with more autonomy.",
+        name: "Developer · Was Advisory",
+        role: "RSpec mentorship · Compras project",
+      },
+    ],
+  },
   spokenLanguages: {
     title: "LANGUAGES",
     items: [
@@ -506,20 +679,65 @@ const en: Dict = {
     downloadCta: "DOWNLOAD PDF",
     timelineTitle: "CAREER TIMELINE",
     openSourceTitle: "PROJECTS & OPEN SOURCE",
+    privateRepoLabel: "PRIVATE REPO",
     openSourceItems: [
+      {
+        name: "Pulse",
+        year: "2026",
+        url: "https://github.com/wasdevv/pulse",
+        description:
+          "Self-hosted **uptime and heartbeat monitoring** — paste a URL, it checks on a fixed interval and tells you when it goes down. **Fastify + TypeScript** API with **BullMQ** workers (check, reconcile, notify) over **PostgreSQL** and **Redis**, the whole stack up with a single `docker compose`. Ships an **Expo** mobile app with push notifications and a streaming **NDJSON** importer built on `pg-copy-streams`.",
+      },
       {
         name: "PipelineHQ",
         year: "2026",
-        url: "https://github.com/wasdevv/pipeline_hq",
         description:
           "Full-stack **multi-tenant B2B CRM** built on **Rails 8.1.3** — Pipedrive/HubSpot-style sales pipeline. Uses **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** and **native Rails auth** extended with **10 hardening layers** (TOTP 2FA, backup codes, sudo mode, rate limit, audit log, honeypot). Each decision is backed by an **ADR**.",
       },
       {
-        name: "BrasilAPI Ruby",
-        year: "2022",
-        url: "https://github.com/wasdevv/BrasilAPI-ruby",
+        name: "Swarm",
+        year: "2026",
         description:
-          "Early-career attempt to build a **Ruby wrapper** for **BrasilAPI**. The code was naive at the time, but it was my **first dive into open-source** — publishing public code, dealing with packaging and learning from the experience.",
+          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**.",
+      },
+      {
+        name: "lean-output",
+        year: "2026",
+        url: "https://github.com/wasdevv/lean-output",
+        description:
+          "A **Claude Code plugin** that keeps long tool output out of the context window: it spills big results to disk and hands the model a pointer, withholds what the context already holds, and compresses **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo and grep on the way past. Measured by replaying **12,008 real tool results (10.54 MB)** — fewer tokens, **zero lost failures**.",
+      },
+      {
+        name: "Tally",
+        year: "2026",
+        url: "https://github.com/wasdevv/tally",
+        description:
+          "Reconciles **bank return files** against expected receivables and accounts for every single line: matched, awaiting review, unmatched, or rejected with a reason. A **Kotlin** engine decides and never emits human-facing text — it emits stable codes that a **Rails** console renders in English and pt-BR. Whatever the engine will not decide alone goes to a human queue carrying the candidates and the reason.",
+      },
+      {
+        name: "Amnesia",
+        year: "2026",
+        description:
+          "A lean Discord — real-time **text and voice channels**, screen sharing and a desktop app. **Elixir + Phoenix 1.8** Channels and Presence resolve rooms, join and who-is-online with no infrastructure code, **LiveKit** (SFU) carries the media, and the client is **Electron + React + Vite + Tailwind v4**.",
+      },
+      {
+        name: "ATS on Rails",
+        year: "2026",
+        description:
+          "Paste a job description and get a **per-term verdict** against facts that have evidence behind them: already covered by a bullet, **earnable** (a fact describes that work and simply does not use the word), or a real **gap** — which the tool reports instead of writing it anyway. Coverage is read from bullet prose only, because a keyword sitting in a skills list scores nothing against an LLM matcher: measured **76% → 98%** by moving five terms into experience bullets.",
+      },
+      {
+        name: "shelflog",
+        year: "2026",
+        description:
+          "**Expiry-date tracking** for supermarket shelves, in **Rails**: barcode or name search, categories, product photo and **web push** alerts, with a per-product status (expired, expiring soon, ok, safe) driven by configurable thresholds. Originally intended for **Muffato**.",
+      },
+      {
+        name: "ObraHub",
+        year: "2026",
+        site: "https://obrahub.up.railway.app",
+        description:
+          "**Currently in production at Engemil.** Tracks work executed on construction sites: each site has its assigned foremen, and each one logs how many hours they worked, in which role, on which day, with an optional photo. Admins bulk-import those entries from an **Excel** spreadsheet plus a zip of the photos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** and **Active Storage** — no JS bundler, no job queue.",
       },
     ],
   },
@@ -1074,7 +1292,7 @@ const pt: Dict = {
     nameLine1: "WASHINGTON",
     nameLine2: "CARDOSO.",
     role: "Desenvolvedor Full-Stack",
-    yearsLabel: "3+ anos",
+    yearsLabel: "4 anos",
     location: "Brasil",
     tagline:
       "Especialista em Ruby on Rails construindo plataformas web escaláveis com foco em performance, código limpo e entregar valor de verdade.",
@@ -1090,12 +1308,6 @@ const pt: Dict = {
     obrahub: "OBRAHUB",
   },
   sidebar: {
-    stats: [
-      { value: "3+", label: "anos em Rails" },
-      { value: "2s → 200ms", label: "redução de latência p99" },
-      { value: "3x", label: "paths críticos mais rápidos" },
-      { value: "99.9%+", label: "uptime em produção" },
-    ],
     contactPhone: "+55 17 98843-2434",
     contactPhoneLabel: "Telefone",
     contactEmailLabel: "Email",
@@ -1103,8 +1315,10 @@ const pt: Dict = {
     contactGithubLabel: "GitHub",
   },
   aboutMe: {
-    codeTabs: {
-      title: "Contexto",
+    intro: {
+      eyebrow: "Quem eu sou",
+      headline: "Transformo problemas complexos em ",
+      headlineEmphasis: "software útil.",
       devRb: {
         filename: "dev.rb",
         codeKeys: {
@@ -1115,33 +1329,25 @@ const pt: Dict = {
           monster: "monster",
         },
         focus: "shipar produtos",
-        blocks: {
-          openSource: {
-            swarm: "Agent Development Environment (Rails 8 + Hotwire + Tauri)",
-          },
-          education: {
-            degree: "Análise e Desenvolvimento de Sistemas",
-            institution: "Wyden",
-            status: "cursando",
-            expected: "dez/2026",
-          },
-          languages: {
-            portuguese: "nativo",
-            english: "B2 (técnico)",
-          },
-        },
       },
-      readme: {
-        filename: "README.md",
-        title: "Sobre",
-        paragraphs: [
-          "Engenheiro de Software Full Stack com mais de 3 anos de experiência no desenvolvimento de aplicações escaláveis em Ruby on Rails e plataformas SaaS multi-tenant.",
-          "Experiência em arquitetura de backend, APIs REST, testes automatizados, CI/CD, observabilidade e otimização de desempenho.",
-          "Histórico comprovado na entrega de melhorias mensuráveis em latência, confiabilidade e produtividade da equipe de desenvolvimento, construindo software de alta qualidade com arquitetura limpa e práticas modernas de engenharia de software.",
-        ],
-      },
-      stack: {
-        filename: "stack.json",
+      paragraphs: [
+        "Engenheiro de Software Full Stack com 4 anos de experiência no desenvolvimento de aplicações escaláveis em Ruby on Rails e plataformas SaaS multi-tenant.",
+        "Experiência em arquitetura de backend, APIs REST, testes automatizados, CI/CD, observabilidade e otimização de desempenho.",
+        "Histórico comprovado na entrega de melhorias mensuráveis em latência, confiabilidade e produtividade da equipe de desenvolvimento, construindo software de alta qualidade com arquitetura limpa e práticas modernas de engenharia de software.",
+      ],
+      stats: [
+        { value: "4", label: "anos em Rails" },
+        { value: "3,5s → 180ms", label: "redução de latência p99" },
+        { value: "63.000×", label: "queries mais rápidas em 14M+ linhas" },
+        { value: "80h → 7min", label: "pipeline de export CSV" },
+        { value: "35% → 85%", label: "cobertura de testes via CI/CD" },
+        { value: "99,9%", label: "uptime em produção" },
+      ],
+      facts: {
+        name: "Nome",
+        role: "Cargo",
+        focus: "Foco",
+        location: "Local",
       },
     },
     experience: {
@@ -1153,6 +1359,9 @@ const pt: Dict = {
           company: "Was Advisory",
           period: "Ago 2023 — Presente",
           isCurrent: true,
+          summary:
+            "Construção de sistemas SaaS multi-tenant com Rails, PostgreSQL, Redis e React. Reduzi um endpoint crítico de 3,5 segundos para 180 milissegundos e mantive fluxos confiáveis rodando em escala.",
+          tags: ["Ruby on Rails", "PostgreSQL", "React", "Redis"],
           bullets: [
             "Otimizei endpoint crítico reduzindo latência de **3,5s para 180ms** (-94%) através de identificação de queries **N+1**, implementação de **eager loading** e **cache Redis em 3 camadas**, impactando **10k+ requisições/dia**.",
             "Rearquitetei o pipeline de exportação de relatórios CSV, substituindo o processamento síncrono por uma arquitetura assíncrona com **Sidekiq**, **PostgreSQL COPY**, streaming e **Amazon S3**, reduzindo o tempo de exportação de 1,77M registros de ~80h para 7min (~600×).",
@@ -1167,6 +1376,7 @@ const pt: Dict = {
             "Monitorei aplicações em produção utilizando ferramentas de observabilidade (**Datadog**), identificando e resolvendo incidentes de forma proativa antes que afetassem o usuário final.",
             "Atuação prática em **Kubernetes** em produção (acesso via **Pritunl VPN**), utilizando **ArgoCD** (GitOps), **Headlamp** e **Grafana** para deploy contínuo, gestão de cluster e monitoramento de incidentes em ambiente de alta disponibilidade.",
             "Desenvolvi o **ObraHub**, o sistema de apontamento e medição da **Engemil**, prestadora de manutenção e montagem industrial, especificado em rodadas sucessivas de review e feedback com o responsável por produzir todo o processo na mão — um monólito **Rails 8 + PostgreSQL + Hotwire** (Devise, Pundit, 12 policies, 19 importadores/exportadores) que substituiu o ciclo papel → planilha → redigitação. Importa a planilha que a engenharia já preenche, com **digest SHA-256 da linha** para `upsert_all` idempotente, de modo que reenviar o mesmo arquivo nunca duplica; mantém o saldo de cada pacote como **query, não coluna gravada**, então um pacote de 663h mostra o saldo novo no instante em que o RDO entra; e exporta a medição mensal **idêntica byte a byte** ao arquivo de referência do cliente — fills com cor de tema e tint, formato numérico CONTÁBIL e o Resumo com duas colunas por tipo de hora, com teste que faz parse estrito do `styles.xml` gerado. **899 exemplos, 0 falhas**; em uso real, **11.551h** fechadas em um mês e **1.395 apontamentos** importados e validados em **3s**.",
+            "Desenvolvi o **shelflog**, PWA em **Rails** para controle de validade em gôndola, pensado para uso no **PAS do Muffato** (uma grande rede de supermercados do Brasil): busca por código de barras ou nome, status por produto a partir de limites configuráveis e um job horário no **Solid Queue** que dispara alertas via **web push** de produtos vencidos e a vencer.",
             "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código** — o planner roda no PTY, escreve o plano e sai, e o `on_exit` sobe o coder com o ponteiro pro plano, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design — o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
             "Publiquei uma trilogia de plugins para o **Claude Code** cobrindo entrada, saída e efeitos colaterais do agente: **lean-output** comprime outputs de **RSpec**, **RuboCop** e **Brakeman** em **-70% a -97% de tokens** com garantia zero-loss de falhas; **rails-context** injeta dossiê curado (colunas, índices, associações, validações e rotas) reduzindo drasticamente a superfície lida pelo modelo em vez de carregar `db/schema.rb` e models inteiros; **rails-guard** intercepta comandos Rails destrutivos (`db:drop`, `db:reset`, `rails destroy`, `runner` com `delete_all`) via hook `PreToolUse`, exigindo confirmação humana antes da execução.",
           ],
@@ -1175,6 +1385,9 @@ const pt: Dict = {
           role: "DESENVOLVEDOR FULL STACK",
           company: "GoTechDS",
           period: "Jun 2023 — Jul 2023",
+          summary:
+            "Contribuí com funcionalidades de autenticação e dashboard em um produto Rails já estabelecido, via code review e desenvolvimento colaborativo.",
+          tags: ["Rails", "Devise", "Code Review"],
           bullets: [
             "Contribuí para a implementação de features do produto **Go Tech DS** em **Ruby on Rails** e **Devise**, seguindo cards priorizados no **Trello** dentro da arquitetura já definida pelo time.",
             "Desenvolvi funcionalidades no fluxo de **autenticação** (login, cadastro e recuperação de senha) e no dashboard, sob orientação técnica dos desenvolvedores mais experientes.",
@@ -1185,6 +1398,9 @@ const pt: Dict = {
           role: "DESENVOLVEDOR FULL STACK",
           company: "Autônomo \\\\ Blogs & Micro-SaaS",
           period: "Nov 2022 — Mai 2023",
+          summary:
+            "Entrega ponta a ponta de landing pages, blogs e pequenos softwares — do levantamento e modelagem do banco até deploy e suporte.",
+          tags: ["Full Stack", "Clientes", "Entrega"],
           bullets: [
             "Entrega ponta a ponta de **blogs, landing pages e mini-softwares** para clientes diretos — do levantamento à produção.",
             "Atuei como **único responsável por cada projeto**: requisitos, modelagem **PostgreSQL**, backend em **Ruby on Rails**, frontend, deploy e suporte.",
@@ -1204,6 +1420,12 @@ const pt: Dict = {
       "Stack moderna, respaldada pelas melhores práticas do mercado — pra escalar e performar sob pressão.",
     allLabel: "TODOS",
     countSuffix: "TECHS",
+    levelLabel: "Nível",
+    levels: {
+      ADVANCED: "Avançado",
+      INTERMEDIATE: "Intermediário",
+      FAMILIAR: "Familiarizado",
+    },
     categories: {
       languages: "linguagens",
       frameworks: "frameworks & libs",
@@ -1216,6 +1438,11 @@ const pt: Dict = {
   education: {
     title: "FORMAÇÃO",
     items: [
+      {
+        degree: "AWS SERVERLESS DEMONSTRATED",
+        school: "Amazon Web Services (AWS)",
+        period: "Emitido em set 2026 · Expira em set 2027",
+      },
       {
         degree: "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS — CURSANDO",
         school: "Wyden — São José do Rio Preto, SP",
@@ -1233,6 +1460,145 @@ const pt: Dict = {
       },
     ],
   },
+  projects: {
+    title: "PROJETOS",
+    subtitle: "Algumas coisas que construí com tecnologias modernas",
+    filters: {
+      all: "Todos",
+      web: "Aplicações web",
+      backend: "Backend & sistemas",
+      tools: "Dev tools & IA",
+    },
+    liveSite: "Ver no ar",
+    viewCode: "Ver código",
+    askAbout: "Privado — me pergunte",
+    prev: "Anterior",
+    next: "Próximo",
+    pageLabel: "Página",
+    items: {
+      swarm: {
+        type: "App desktop",
+        summary:
+          "Agent Development Environment que roda de 1 a 4 agentes de código em paralelo, cada um num git worktree isolado com PTY ao vivo, revisão de diff e merge num clique.",
+      },
+      obrahub: {
+        type: "Full Stack",
+        summary:
+          "Em produção na Engemil: transforma as planilhas que a engenharia já preenche em apontamento de horas, RDO e a medição que o cliente assina.",
+      },
+      tally: {
+        type: "Backend",
+        summary:
+          "Conciliação de retorno bancário: um motor Kotlin presta conta de cada linha — conciliada, em revisão, sem par ou rejeitada — e um console Rails mostra em EN e pt-BR.",
+      },
+      pulse: {
+        type: "API + Mobile",
+        summary:
+          "Monitoramento de uptime e heartbeat self-hosted: workers de checagem, detecção de incidentes, alerta por e-mail e app Expo com push.",
+      },
+      pipelineHq: {
+        type: "Full Stack",
+        summary:
+          "CRM B2B multi-tenant em Rails 8.1 com Solid Queue, Cache e Cable, auth nativa com 10 camadas de hardening e um ADR por decisão.",
+      },
+      jornada: {
+        type: "Backend",
+        summary:
+          "Motor de ponto em .NET 9 que calcula cada dia contra regras trabalhistas com vigência e fecha o período num resultado imutável e reproduzível.",
+      },
+      leanOutput: {
+        type: "Plugin do Claude Code",
+        summary:
+          "Mantém saída longa de ferramenta fora da janela de contexto — manda pro disco atrás de um ponteiro e comprime RSpec, RuboCop e Brakeman sem perder falha.",
+      },
+      amnesia: {
+        type: "App em tempo real",
+        summary:
+          "Um Discord enxuto: canais de texto e voz em tempo real e transmissão de tela com Phoenix Channels e LiveKit, e cliente desktop em Electron.",
+      },
+      glossa: {
+        type: "Full Stack",
+        summary:
+          "Arquivos de tradução de ponta a ponta: backend Rails 8 JSON:API e frontend Ember Octane que pede os plurais CLDR do locale alvo. 208 exemplos RSpec.",
+      },
+      expresso3300: {
+        type: "Full Stack",
+        summary:
+          "Plataforma de gestão de pessoas: treinamentos, férias, desempenho, notificações multicanal, exportações, Power BI e um assistente com IA.",
+      },
+      atsOnRails: {
+        type: "Ferramenta com IA",
+        summary:
+          "Cola uma vaga e recebe um veredito por termo contra fatos com evidência: já coberto, alcançável, ou lacuna real — que ele se recusa a inventar.",
+      },
+      telehealth: {
+        type: "Microsserviços",
+        summary:
+          "Dois serviços, dois bancos: API GraphQL em Rails para agenda e prontuário, e um serviço Django de cobrança com webhooks Stripe idempotentes.",
+      },
+      shelflog: {
+        type: "Full Stack",
+        summary:
+          "Controle de validade para gôndola de supermercado: busca por código de barras, status por produto e alertas via web push. Pensado para o Muffato.",
+      },
+      interviewSim: {
+        type: "App com IA",
+        summary:
+          "Simulador de entrevista com IA: um entrevistador movido a Claude conduz a sessão em tempo real e devolve feedback estruturado.",
+      },
+      interviewCopilot: {
+        type: "Ferramenta com IA",
+        summary:
+          "Copiloto de entrevista ao vivo: ouve, transcreve e começa a responder antes de a pergunta terminar, com seu currículo e a vaga como contexto.",
+      },
+      railsGuard: {
+        type: "Plugin do Claude Code",
+        summary:
+          "Bloqueia os comandos Rails irrecuperáveis que um agente poderia rodar — db:drop, db:reset, runners destrutivos — e pergunta antes nos arriscados.",
+      },
+      railsContext: {
+        type: "Plugin do Claude Code",
+        summary:
+          "Context engineering para Rails: entrega ao agente um resumo curado de colunas, associações, validações e rotas, em vez do schema e dos models inteiros.",
+      },
+      swarmPlugin: {
+        type: "Plugin do Claude Code",
+        summary:
+          "Roda o mesmo prompt em N git worktrees isolados em paralelo e deixa você comparar o diff de cada tentativa e mesclar a melhor — ou abrir um PR.",
+      },
+      systemDesignPrimer: {
+        type: "Laboratório",
+        summary:
+          "Um laboratório Rails 8 de system design: cache, N+1, índice, hot key, contenção de escrita e fila — cada camada precisa se provar num número medido.",
+      },
+      brasilApiRuby: {
+        type: "Biblioteca",
+        summary:
+          "Meu primeiro passo em open source: um wrapper Ruby inicial para a BrasilAPI — aprendendo a publicar pacotes e código em público.",
+      },
+    },
+  },
+  testimonials: {
+    title: "DEPOIMENTOS",
+    subtitle: "O que dizem sobre o meu trabalho",
+    prevLabel: "Depoimento anterior",
+    nextLabel: "Próximo depoimento",
+    goToLabel: "Ir para o depoimento",
+    items: [
+      {
+        quote:
+          "Trabalhei com Washington no projeto Compras, no qual ele teve um papel fundamental na evolução da qualidade técnica da aplicação. Além de implementar melhorias no projeto, ele estruturou uma iniciativa de testes automatizados que aumentou a cobertura da suíte RSpec de 35% para 89%. Durante esse processo, Washington foi responsável por me mentorar, criando e organizando cards de testes no Trello, explicando os cenários que deveriam ser cobertos e revisando minhas implementações. Sua orientação me ajudou a compreender melhor RSpec, boas práticas de testes e a importância de prevenir regressões. Washington demonstrou não apenas conhecimento técnico, mas também organização, paciência e capacidade de compartilhar conhecimento. Sua liderança foi essencial para elevar a confiabilidade do projeto e contribuir para o meu desenvolvimento profissional.",
+        name: "Dev · Was Advisory",
+        role: "Mentoria em RSpec · Projeto Compras",
+      },
+      {
+        quote:
+          "Tive a oportunidade de ser mentorado por Washington durante a evolução do projeto Compras. Ele recebeu a responsabilidade de orientar dois desenvolvedores na criação e melhoria dos testes automatizados do sistema, organizando as atividades por meio de cards no Trello e acompanhando nosso progresso técnico. Washington participou diretamente das mudanças realizadas no projeto e liderou o trabalho que aumentou a cobertura da suíte RSpec de 35% para 89%. Durante a mentoria, ele nos ajudava a identificar cenários importantes, estruturar specs mais confiáveis e entender como os testes protegiam as regras de negócio contra regressões. Sua atuação combinou execução técnica, liderança e compartilhamento de conhecimento. Além de melhorar significativamente a qualidade do projeto, Washington criou um ambiente em que conseguimos evoluir como desenvolvedores e assumir as tarefas com mais autonomia.",
+        name: "Dev · Was Advisory",
+        role: "Mentoria em RSpec · Projeto Compras",
+      },
+    ],
+  },
   spokenLanguages: {
     title: "IDIOMAS",
     items: [
@@ -1246,20 +1612,65 @@ const pt: Dict = {
     downloadCta: "BAIXAR PDF",
     timelineTitle: "LINHA DO TEMPO",
     openSourceTitle: "PROJETOS & OPEN SOURCE",
+    privateRepoLabel: "REPO PRIVADO",
     openSourceItems: [
+      {
+        name: "Pulse",
+        year: "2026",
+        url: "https://github.com/wasdevv/pulse",
+        description:
+          "**Monitoramento de uptime e heartbeat** self-hosted — cola uma URL, ele checa num intervalo fixo e avisa quando cai. API em **Fastify + TypeScript** com workers **BullMQ** (check, reconcile, notify) sobre **PostgreSQL** e **Redis**, tudo de pé com um único `docker compose`. Tem app mobile em **Expo** com push notification e um importador **NDJSON** em streaming sobre `pg-copy-streams`.",
+      },
       {
         name: "PipelineHQ",
         year: "2026",
-        url: "https://github.com/wasdevv/pipeline_hq",
         description:
-          "**CRM B2B multi-tenant** full-stack construído em **Rails 8.1.3** — pipeline de vendas estilo Pipedrive/HubSpot. Usa **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** e **auth nativa do Rails** estendida com **10 camadas de hardening** (TOTP 2FA, backup codes, sudo mode, rate limit, audit log, honeypot). Cada decisão é documentada em **ADR**.",
+          "**CRM B2B multi-tenant** full-stack em **Rails 8.1.3** — pipeline de vendas no estilo Pipedrive/HubSpot. Usa **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** e **auth nativa do Rails** estendida com **10 camadas de hardening** (2FA TOTP, backup codes, sudo mode, rate limit, audit log, honeypot). Cada decisão tem um **ADR**.",
       },
       {
-        name: "BrasilAPI Ruby",
-        year: "2022",
-        url: "https://github.com/wasdevv/BrasilAPI-ruby",
+        name: "Swarm",
+        year: "2026",
         description:
-          "Tentativa no início da carreira de criar um **wrapper Ruby** pra **BrasilAPI**. O código era ingênuo na época, mas foi meu **primeiro mergulho em open-source** — publicar código público, lidar com empacotamento e aprender com a experiência.",
+          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**.",
+      },
+      {
+        name: "lean-output",
+        year: "2026",
+        url: "https://github.com/wasdevv/lean-output",
+        description:
+          "**Plugin do Claude Code** que mantém saída longa de ferramenta fora da janela de contexto: despeja resultados grandes em disco e entrega um ponteiro ao modelo, omite o que o contexto já tem, e comprime **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo e grep no caminho. Medido reprocessando **12.008 resultados reais (10,54 MB)** — menos tokens, **nenhuma falha perdida**.",
+      },
+      {
+        name: "Tally",
+        year: "2026",
+        url: "https://github.com/wasdevv/tally",
+        description:
+          "Concilia **arquivos de retorno bancário** contra recebíveis esperados e presta conta de cada linha: conciliada, aguardando revisão, sem correspondência ou rejeitada com motivo. Um motor em **Kotlin** decide e nunca emite texto pra humano — emite códigos estáveis que um console **Rails** renderiza em inglês e pt-BR. O que o motor não decide sozinho vai pra uma fila humana levando os candidatos e o motivo.",
+      },
+      {
+        name: "Amnesia",
+        year: "2026",
+        description:
+          "Um Discord enxuto — **canais de texto e de voz** em tempo real, transmissão de tela e app desktop. **Elixir + Phoenix 1.8** com Channels e Presence resolvem sala, entrada e quem-está-online sem código de infraestrutura, **LiveKit** (SFU) carrega a mídia, e o cliente é **Electron + React + Vite + Tailwind v4**.",
+      },
+      {
+        name: "ATS on Rails",
+        year: "2026",
+        description:
+          "Cola uma descrição de vaga e recebe um **veredito por termo** contra fatos que têm evidência por trás: já coberto por um bullet, **alcançável** (um fato descreve aquele trabalho e só não usa a palavra), ou **lacuna** real — que a ferramenta aponta em vez de escrever assim mesmo. A cobertura é lida só da prosa dos bullets, porque palavra-chave em lista de skills não pontua contra matcher com LLM: medido **76% → 98%** movendo cinco termos pra dentro dos bullets de experiência.",
+      },
+      {
+        name: "shelflog",
+        year: "2026",
+        description:
+          "**Controle de validade** para gôndola de supermercado, em **Rails**: busca por código de barras ou nome, categorias, foto do produto e alerta via **web push**, com status por produto (vencido, vencendo, ok, tranquilo) a partir de limites configuráveis. Pensado originalmente para o **Muffato**.",
+      },
+      {
+        name: "ObraHub",
+        year: "2026",
+        site: "https://obrahub.up.railway.app",
+        description:
+          "**Atualmente em produção na Engemil.** Acompanha o trabalho executado em obras: cada obra tem seus encarregados vinculados, e cada um lança quantas horas trabalhou, em que cargo, em que dia, com foto opcional. O admin importa esses lançamentos em massa a partir de uma planilha **Excel** mais um zip com as fotos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** e **Active Storage** — sem bundler JS, sem fila.",
       },
     ],
   },

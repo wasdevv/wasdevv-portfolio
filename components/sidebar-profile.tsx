@@ -75,22 +75,6 @@ export function SidebarProfile({ className = "" }: { className?: string }) {
             </a>
           </li>
         </ul>
-
-        <div className="grid grid-cols-2 gap-2">
-          {sidebar.stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="border border-border bg-card p-3"
-            >
-              <div className="font-mono text-xl font-bold text-primary">
-                {stat.value}
-              </div>
-              <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </aside>
   )
