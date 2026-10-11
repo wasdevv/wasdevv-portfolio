@@ -5,6 +5,27 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Homepage (/) palette and type — a fixed dark design, independent of the
+     light/dark theme the inner pages follow. */
+  --font-plex: var(--font-ibm-plex-sans), system-ui, sans-serif;
+  --font-plex-mono: var(--font-ibm-plex-mono), monospace;
+  --color-hp-bg: #0e1113;
+  --color-hp-band: #111518;
+  --color-hp-panel: #14181b;
+  --color-hp-code: #0a0d0f;
+  --color-hp-line: #252b30;
+  --color-hp-line-2: #2f363b;
+  --color-hp-line-3: #3a4247;
+  --color-hp-fg: #e8ecee;
+  --color-hp-code-fg: #c9d1d5;
+  --color-hp-soft: #b8c1c6;
+  --color-hp-muted: #a9b3b9;
+  --color-hp-dim: #7a858c;
+  --color-hp-cyan: #5ccfe6;
+  --color-hp-cyan-ink: #0b1418;
+  --color-hp-green: #7ddb9c;
+  --color-hp-amber: #e8b04a;
+  --color-hp-red: #f2a7a0;
   --font-heading: var(--font-archivo), var(--font-geist-sans), 'Geist Fallback';
   --font-sans: var(--font-geist-sans), 'Geist Fallback';
   --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
@@ -188,4 +209,23 @@
 /* --- /skills proficiency bar: animates 0 → its inline width --- */
 @keyframes skill-fill {
   from { width: 0; }
+}
+
+/* Homepage testimonial carousel: each slide fades in, and the progress bar's
+   animationend advances to the next one (paused on hover). */
+@keyframes hp-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes hp-bar {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.hp-in { animation: hp-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hp-in-late { animation: hp-in 0.7s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hp-bar { display: block; height: 4px; border-radius: 2px; animation: hp-bar 10s linear both; }
+.hp-paused .hp-bar { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .hp-in, .hp-in-late { animation: none; }
+  .hp-bar { animation: none; width: 100%; }
 }

@@ -12,7 +12,7 @@ export function SwarmHero() {
     <section className="relative overflow-hidden">
       <BackgroundGrid />
 
-      <div className="relative mx-auto flex min-h-[92vh] max-w-6xl flex-col justify-center px-4 pb-24 pt-32 md:px-6 md:pb-32 md:pt-40">
+      <div className="relative mx-auto flex min-h-[92vh] max-w-[1480px] flex-col justify-center px-6 pb-24 pt-32 md:pb-32 md:pt-40">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}

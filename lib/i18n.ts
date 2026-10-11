@@ -19,6 +19,14 @@ type ExperienceItem = {
   bullets: string[]
 }
 
+type HomeProject = {
+  kicker: string
+  title: string
+  body: string
+  bullets: string[]
+  cta: string
+}
+
 type Dict = {
   profile: {
     nameLine1: string
@@ -37,6 +45,7 @@ type Dict = {
     contact: string
     swarm: string
     obrahub: string
+    ecommerce: string
   }
   sidebar: {
     contactPhone: string
@@ -190,6 +199,7 @@ type Dict = {
     contact: { title: string; description: string }
     swarm: { title: string; description: string }
     obrahub: { title: string; description: string }
+    ecommerce: { title: string; description: string }
   }
   swarm: {
     hero: {
@@ -344,6 +354,168 @@ type Dict = {
       ctaLabel: string
     }
   }
+  ecommerce: {
+    hero: {
+      kicker: string
+      title: string
+      tagline: string
+      subtitle: string
+      badges: string[]
+      ctaRepo: string
+      ctaContact: string
+    }
+    overview: {
+      kicker: string
+      title: string
+      subtitle: string
+      flowsTitle: string
+      flows: string[]
+      localTitle: string
+      localBody: string
+    }
+    architecture: {
+      kicker: string
+      title: string
+      subtitle: string
+      diagram: string
+      items: { title: string; description: string }[]
+    }
+    problems: {
+      kicker: string
+      title: string
+      subtitle: string
+      proofLabel: string
+      items: { title: string; description: string; proof?: string }[]
+    }
+    ml: {
+      kicker: string
+      title: string
+      subtitle: string
+      diagram: string
+      items: { title: string; description: string }[]
+    }
+    infra: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: { title: string; description: string }[]
+    }
+    cicd: {
+      kicker: string
+      title: string
+      subtitle: string
+      diagram: string
+      items: { title: string; description: string }[]
+    }
+    observability: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: { title: string; description: string }[]
+    }
+    quality: {
+      kicker: string
+      title: string
+      subtitle: string
+      stats: { value: string; label: string }[]
+      layerLabel: string
+      coverageLabel: string
+      rows: { layer: string; coverage: string }[]
+    }
+    status: {
+      kicker: string
+      title: string
+      subtitle: string
+      doneTitle: string
+      done: string[]
+      pendingTitle: string
+      pending: string[]
+      costTitle: string
+      cost: string
+      learnedTitle: string
+      learned: string[]
+      ctaRepo: string
+      ctaContact: string
+    }
+  }
+  // Copy for the / homepage. Strings support **bold** and `code` via HomeRich.
+  home: {
+    nav: {
+      obrahub: string
+      swarm: string
+      serverless: string
+      experience: string
+      resume: string
+      openToWork: string
+    }
+    hero: {
+      badge: string
+      role: string[]
+      pitch: string
+      downloadResume: string
+      emailMe: string
+      facts: { label: string; value: string; accent?: boolean }[]
+      quote: string
+      quoteBy: string
+    }
+    proof: {
+      title: string
+      items: { label: string; before: string; after: string }[]
+    }
+    highlights: { value: string; label: string }[]
+    work: {
+      title: string
+      allProjects: string
+      projects: {
+        obrahub: HomeProject & { checks: string[]; screenshotAlt: string }
+        swarm: HomeProject
+        serverless: HomeProject
+      }
+      more: {
+        trilogyKicker: string
+        trilogyTitle: string
+        trilogyBody: string
+        shelflogKicker: string
+        shelflogBody: string
+        restKicker: string
+        restTitle: string
+        restCta: string
+      }
+    }
+    bugCase: {
+      kicker: string
+      title: string
+      cause: string
+      fix: string
+      facts: { label: string; value: string }[]
+      fileLabel: string
+    }
+    testimonials: {
+      title: string
+      prev: string
+      next: string
+      items: { quote: string; name: string; role: string; context: string }[]
+    }
+    experience: {
+      title: string
+      items: { period: string; role: string; company: string; summary?: string; bullets: string[]; stack?: string }[]
+    }
+    howIWork: {
+      title: string
+      items: { stat: string; title: string; body: string }[]
+    }
+    skills: {
+      title: string
+      production: string
+      builtWith: string
+      groups: { label: string; production: string[]; builtWith: string[] }[]
+    }
+    footer: {
+      kicker: string
+      title: string
+      resume: string
+    }
+  }
 }
 
 const en: Dict = {
@@ -363,6 +535,7 @@ const en: Dict = {
     skills: "SKILLS",
     swarm: "SWARM",
     obrahub: "OBRAHUB",
+    ecommerce: "ECOMMERCE_SERVERLESS",
     resume: "RESUME",
     contact: "CONTACT",
   },
@@ -548,6 +721,13 @@ const en: Dict = {
           "In production at Engemil: turns the spreadsheets site engineers already fill in into labor tracking, daily reports and the measurement the client signs.",
         details:
           "**Currently in production at Engemil.** Tracks work executed on construction sites: each site has its assigned foremen, and each one logs how many hours they worked, in which role, on which day, with an optional photo. Admins bulk-import those entries from an **Excel** spreadsheet plus a zip of the photos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** and **Active Storage** — no JS bundler, no job queue.",
+      },
+      ecommerceServerless: {
+        type: "Serverless Backend",
+        summary:
+          "E-commerce API on AWS Lambda: idempotent orders, transactional outbox to SQS, Terraform with OIDC CI/CD and SageMaker product recommendations.",
+        details:
+          "Study project: an e-commerce API on **AWS Lambda** (Node.js 24 + Express 5) where every guarantee has a test. Concurrency-safe stock debit, mandatory **Idempotency-Key**, a **transactional outbox** to **SQS** with SKIP LOCKED, **RDS Proxy**, presigned S3 uploads and item-item recommendations served by **SageMaker Serverless** with a best-sellers fallback. **10 Terraform modules**, 3 environments, secrets out of the state, **OIDC** deploys with manual prod approval, **OpenTelemetry/X-Ray** tracing, 69 tests against real PostgreSQL and Redis.",
       },
       tally: {
         type: "Backend",
@@ -764,6 +944,11 @@ const en: Dict = {
       title: "ObraHub — labor tracking and billing for Engemil",
       description:
         "Case study: the Rails 8 monolith built for Engemil that replaces a paper-to-spreadsheet-to-retyping cycle with spreadsheet import, live package balances and a byte-identical Excel billing export.",
+    },
+    ecommerce: {
+      title: "E-commerce Serverless — API on AWS Lambda",
+      description:
+        "Case study: an e-commerce API on AWS Lambda with Terraform, OIDC CI/CD, a transactional outbox, idempotent orders, OpenTelemetry/X-Ray and SageMaker recommendations.",
     },
   },
   swarm: {
@@ -1237,6 +1422,564 @@ ImportBatch ── ImportError`,
       ctaLabel: "Talk about this project",
     },
   },
+  ecommerce: {
+    hero: {
+      kicker: "// CASE STUDY — STUDY PROJECT",
+      title: "SERVERLESS",
+      tagline: "E-commerce API on AWS Lambda",
+      subtitle:
+        "An e-commerce API on AWS Lambda with infrastructure as code, CI/CD on GitHub Actions, full observability and Machine Learning product recommendations. The goal: every decision has a written reason, and every guarantee has a test that proves it.",
+      badges: [
+        "Node.js 24",
+        "Express 5",
+        "AWS Lambda",
+        "API Gateway",
+        "RDS PostgreSQL",
+        "ElastiCache (Valkey)",
+        "SQS",
+        "EventBridge",
+        "S3",
+        "SageMaker",
+        "Terraform",
+        "GitHub Actions",
+        "OpenTelemetry",
+        "X-Ray",
+        "Docker Compose",
+        "Python",
+      ],
+      ctaRepo: "github.com/wasdevv/ecommerce-serverless",
+      ctaContact: "Talk about this project",
+    },
+    overview: {
+      kicker: "// OVERVIEW",
+      title: "More than a Lambda hello world.",
+      subtitle:
+        "A study project built to practise how a serverless backend is really made: transactions, idempotency, async events, least-privilege IAM and a real deploy pipeline.",
+      flowsTitle: "What the API covers",
+      flows: [
+        "sign-up and login with JWT",
+        "paginated, cached catalogue",
+        "transactional, idempotent orders",
+        "image upload straight to S3",
+        "asynchronous event processing",
+        "personalised product recommendations",
+      ],
+      localTitle: "Runs without an AWS account",
+      localBody:
+        "The whole stack runs locally with docker compose, and the same application runs on Lambda without changing a line.",
+    },
+    architecture: {
+      kicker: "// ARCHITECTURE",
+      title: "4 Lambdas, 4 different triggers.",
+      subtitle:
+        "A private VPC across 2 availability zones. RDS and ElastiCache have no public access, and every connection uses TLS.",
+      diagram: `client ─HTTPS→ API Gateway ─→ λ api (Express 5)
+                                ├─→ RDS Proxy ─→ PostgreSQL
+                                ├─→ ElastiCache (Valkey)
+                                ├┄→ S3, private           presigned POST
+                                └┄→ SageMaker serverless  InvokeEndpoint
+
+EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
+                                └┄→ DLQ
+
+λ ops        no HTTP route: migrations and admin tasks`,
+      items: [
+        {
+          title: "api",
+          description: "Express 5 behind API Gateway. The same app runs in docker compose locally.",
+        },
+        {
+          title: "dispatcher",
+          description: "Scheduled by EventBridge. Publishes pending outbox events to SQS.",
+        },
+        {
+          title: "worker",
+          description: "Consumes SQS with partial batch failure, so one bad message goes to the DLQ without blocking the batch.",
+        },
+        {
+          title: "ops",
+          description: "No HTTP route at all: migrations, training data export and admin tasks.",
+        },
+        {
+          title: "10 Terraform modules",
+          description: "Three environments (dev, staging, prod), each with its own state.",
+        },
+        {
+          title: "RDS Proxy",
+          description: "Each Lambda execution environment opens its own connections and can exhaust the database in a traffic spike. The proxy keeps the pool and multiplexes them.",
+        },
+      ],
+    },
+    problems: {
+      kicker: "// PROBLEMS SOLVED",
+      title: "Each guarantee has a test behind it.",
+      subtitle:
+        "The failures a real store hits under concurrency, retries and outages, and how the API handles each one.",
+      proofLabel: "test",
+      items: [
+        {
+          title: "No negative stock, even under concurrency",
+          description:
+            "Stock is debited with UPDATE … WHERE stock >= quantity inside the order transaction, taking locks in a fixed order to avoid deadlocks. A database constraint is the last line of defence.",
+          proof: "4 concurrent buyers fight over 1 unit, and exactly one gets 201.",
+        },
+        {
+          title: "No duplicate order from a client retry",
+          description:
+            "The Idempotency-Key header is mandatory. The same key with the same body returns the same order with no new stock debit. The same key with a different body returns 409.",
+          proof: "3 concurrent retries with the same key become a single order.",
+        },
+        {
+          title: "No event lost between the database and the queue",
+          description:
+            "Transactional outbox: the event is written in the order's transaction, and a dispatcher publishes it with FOR UPDATE SKIP LOCKED, so two dispatchers never publish the same event. The worker deduplicates by event id.",
+          proof: "With SQS down, the event waits in the outbox and is published when the queue comes back.",
+        },
+        {
+          title: "A cache that can't take the app down",
+          description:
+            "Cache-aside on Redis treats every error as a miss, with short timeouts. If Redis goes down, the catalogue keeps answering straight from the database.",
+        },
+        {
+          title: "Safe uploads",
+          description:
+            "Presigned POST instead of PUT, because only the POST policy can cap the file size. The server generates the object key inside the user's own prefix, so no client can write into another user's space.",
+        },
+        {
+          title: "Database connections from Lambda",
+          description:
+            "RDS Proxy holds the connection pool so a burst of cold Lambda environments doesn't exhaust PostgreSQL.",
+        },
+      ],
+    },
+    ml: {
+      kicker: "// MACHINE LEARNING",
+      title: "Recommendations from what similar customers bought.",
+      subtitle:
+        "GET /api/v1/recommendations suggests products from item-item collaborative filtering, served by SageMaker Serverless Inference.",
+      diagram: `PostgreSQL ─→ anonymised export ─→ S3 ─→ Python training ─→ model.tar.gz
+                                                                  │
+λ api ─InvokeEndpoint, 800 ms→ SageMaker Serverless ←─────────────┘
+  └─ timeout · no history · model down ─→ best sellers`,
+      items: [
+        {
+          title: "The right model for the problem",
+          description:
+            "Item-item collaborative filtering with cosine similarity, trained from scratch on the purchase history. Fine-tuning was ruled out on purpose: it needs a pre-trained model, a GPU and data volume a small store doesn't have.",
+        },
+        {
+          title: "Pay per invocation",
+          description:
+            "SageMaker Serverless Inference with the official scikit-learn container. No instance running 24 hours a day.",
+        },
+        {
+          title: "An optional dependency",
+          description:
+            "With an 800 ms timeout, no customer history or the model down, the API answers with best sellers. The X-Recommendation-Source header says where the list came from.",
+        },
+        {
+          title: "Consistent with the store",
+          description:
+            "The model only returns ids. Price and stock always come from the database, so an out-of-stock product is never recommended.",
+        },
+        {
+          title: "Private and reproducible",
+          description:
+            "The training export turns the customer id into an HMAC with a fresh random salt each time. The same data produces a byte-identical artifact, and the model version is the hash of its content.",
+        },
+        {
+          title: "Tested end to end",
+          description:
+            "One test exports from PostgreSQL, trains, starts the inference server and checks that the API switches from “best sellers” to “model”.",
+        },
+      ],
+    },
+    infra: {
+      kicker: "// INFRASTRUCTURE AS CODE",
+      title: "Terraform with no secrets in the state.",
+      subtitle: "10 modules, 3 environments, and a test suite that runs without an AWS account.",
+      items: [
+        {
+          title: "Secrets out of the state",
+          description:
+            "RDS generates and keeps its own password (manage_master_user_password). The JWT key is an ephemeral value written through a write-only argument, so it never appears in the Terraform state.",
+        },
+        {
+          title: "Least-privilege IAM",
+          description:
+            "One role per function, each reaching only what that function uses. api can only invoke the recommendation endpoint; ops can only write under training/.",
+        },
+        {
+          title: "Configuration guards",
+          description: "A check block refuses a production plan without Multi-AZ.",
+        },
+        {
+          title: "Native state locking",
+          description: "Locking happens natively in S3, with no DynamoDB table.",
+        },
+        {
+          title: "terraform test with a mocked provider",
+          description:
+            "Validates all three environments across 8 scenarios, with no AWS account and no cost.",
+        },
+        {
+          title: "Generated docs",
+          description: "Each module has a README produced by terraform-docs and checked in CI.",
+        },
+      ],
+    },
+    cicd: {
+      kicker: "// CI/CD",
+      title: "No AWS keys in GitHub.",
+      subtitle: "GitHub Actions authenticates with OIDC, and production needs a human to approve.",
+      diagram: `pull request ─┬─→ tests · lint · build · compose + smoke · terraform
+              └─→ terraform plan × 3 environments (read-only role)
+
+push main ───→ deploy dev ─→ deploy prod (manual approval)`,
+      items: [
+        {
+          title: "OIDC instead of keys",
+          description:
+            "The production role can only be assumed by a job in the prod environment, which requires manual approval.",
+        },
+        {
+          title: "Pull requests never apply",
+          description: "The plan role is read-only.",
+        },
+        {
+          title: "Deploy from the saved plan",
+          description:
+            "Serialised per environment, followed by migrations and a smoke test.",
+        },
+        {
+          title: "Full local stack in CI",
+          description:
+            "docker compose comes up and the smoke test goes from sign-up to order, through the trained recommendation.",
+        },
+      ],
+    },
+    observability: {
+      kicker: "// OBSERVABILITY",
+      title: "Follow one order from HTTP to the worker.",
+      subtitle: "Structured logs, end-to-end correlation, tracing and alarms on what actually breaks.",
+      items: [
+        {
+          title: "Structured JSON logs",
+          description:
+            "Every line carries the correlation ID and trace ID. Password, token and email are redacted automatically.",
+        },
+        {
+          title: "End-to-end correlation ID",
+          description:
+            "It crosses the HTTP request, the outbox, the SQS message and the worker, so one saved CloudWatch Logs Insights query shows an order's whole path.",
+        },
+        {
+          title: "OpenTelemetry and X-Ray",
+          description:
+            "Locally, an OpenTelemetry collector runs as a sidecar. On Lambda, where there are no side-by-side containers, the equivalent is X-Ray through a Lambda Extension.",
+        },
+        {
+          title: "Dashboard and alarms",
+          description:
+            "A CloudWatch dashboard and alarms for 5xx, p95 latency, errors per function, any message in the DLQ and messages ageing in the queue.",
+        },
+      ],
+    },
+    quality: {
+      kicker: "// QUALITY",
+      title: "Tested against the real thing.",
+      subtitle:
+        "Row locks, constraints, transactions and SKIP LOCKED don't exist in a mock, so the tests use a real database and cache on purpose.",
+      stats: [
+        { value: "69", label: "backend tests against real PostgreSQL and Redis" },
+        { value: "~95%", label: "line coverage (~83% branches, CI floor of 80%)" },
+        { value: "9", label: "ML tests: training, inference contract and HTTP server" },
+        { value: "8", label: "terraform test scenarios" },
+      ],
+      layerLabel: "Layer",
+      coverageLabel: "Coverage",
+      rows: [
+        { layer: "Backend (Jest + Supertest)", coverage: "69 tests against real PostgreSQL and Redis" },
+        { layer: "Machine Learning (unittest)", coverage: "9 tests: training, inference contract and HTTP server" },
+        { layer: "Infrastructure", coverage: "terraform fmt, validate and test (8 scenarios)" },
+        { layer: "Artifact", coverage: "The Lambda zip is unpacked the way AWS does it and invoked with a real API Gateway event" },
+        { layer: "Integration", coverage: "Smoke test against the full Docker Compose stack" },
+      ],
+    },
+    status: {
+      kicker: "// HONEST STATUS",
+      title: "What is proven, and what isn't yet.",
+      subtitle: "The pipeline is ready. A deploy to a real AWS account has not run yet.",
+      doneTitle: "Verified",
+      done: [
+        "tests, lint, build, Terraform validate/test and the Docker stack, all in CI",
+        "recommendations end to end, locally and in CI",
+      ],
+      pendingTitle: "Pipeline ready, not run yet",
+      pending: ["deploy to a real AWS account: apply, SageMaker, X-Ray"],
+      costTitle: "Estimated cost",
+      cost:
+        "About US$ 0.12/hour for the dev environment. It's an estimate, not a bill. Fixed costs dominate: NAT, RDS Proxy, RDS and ElastiCache, not the Lambdas. That's why the project runs 100% locally and goes up to AWS only to test, torn down the same day.",
+      learnedTitle: "What I learned",
+      learned: [
+        "The gap between “written to the database” and “published to the queue” is real, and the outbox closes it.",
+        "Idempotency has to be designed in from the start, not added later.",
+        "Serverless has hidden fixed costs: NAT, Proxy and the database bill while idle, and the Lambdas barely register.",
+        "Pick the ML model that fits the problem. Simple, explainable collaborative filtering beats a big model when data is scarce.",
+        "Optional dependencies (cache, ML model) need a timeout and a fallback, so their failure never becomes the user's failure.",
+        "Infrastructure security: OIDC instead of keys, secrets out of the state and minimal IAM per function.",
+        "Writing down why each decision was made is worth as much as the code.",
+      ],
+      ctaRepo: "Read the code",
+      ctaContact: "Talk about this project",
+    },
+  },
+  home: {
+    nav: {
+      obrahub: "ObraHub",
+      swarm: "Swarm",
+      serverless: "Serverless",
+      experience: "Experience",
+      resume: "Resume",
+      openToWork: "Open to work",
+    },
+    hero: {
+      badge: "Available now · open to remote",
+      role: ["Full-Stack Developer", "Ruby on Rails", "4 years"],
+      pitch:
+        "I make slow Rails apps fast and keep them **correct**, on software used every day by 50+ Brazilian municipalities.",
+      downloadResume: "Download resume",
+      emailMe: "Email me",
+      facts: [
+        { label: "Experience", value: "4 years · Rails + PostgreSQL" },
+        { label: "Availability", value: "Immediate", accent: true },
+        { label: "Work model", value: "Remote · Brazil or abroad" },
+        { label: "Location", value: "São José do Rio Preto, SP" },
+        { label: "English", value: "B2 · daily in PRs and docs" },
+        { label: "Contract", value: "PJ · CLT · International B2B" },
+      ],
+      quote:
+        "His leadership was essential to making the project more reliable and to my own professional growth.",
+      quoteBy: "Samuel · Developer, Was Advisory",
+    },
+    proof: {
+      title: "Measured in production · bar = time left",
+      items: [
+        { label: "Critical endpoint", before: "3.5 s", after: "180 ms" },
+        { label: "CSV export, 1.77M rows", before: "~80 h", after: "7 min" },
+        { label: "Query on 14M rows", before: "12.7 s", after: "0.2 ms" },
+        { label: "Test coverage", before: "35%", after: "85%" },
+      ],
+    },
+    highlights: [
+      { value: "50+", label: "municipalities on one codebase" },
+      { value: "17", label: "releases in 5 months as main author" },
+      { value: "99.9%", label: "uptime on an unstable provider" },
+      { value: "0", label: "downtime index migrations" },
+    ],
+    work: {
+      title: "Things I built",
+      allProjects: "All {count} projects →",
+      projects: {
+        obrahub: {
+          kicker: "Project · In production at Engemil",
+          title: "ObraHub",
+          body: "Labor tracking and billing for an industrial contractor that ran on paper, spreadsheets and retyping. Built round by round with the person who did the job by hand.",
+          bullets: [
+            "Re-uploading a file never duplicates a row",
+            "Billing workbook exported identical to the client's reference file",
+            "11,551 hours closed in its first month",
+          ],
+          cta: "Read the case study →",
+          checks: ["899 examples, 0 failures", "1,395 entries validated in 3 s", "0 duplicates on re-upload"],
+          screenshotAlt: "ObraHub screen listing 216 daily reports built from the monthly spreadsheet",
+        },
+        swarm: {
+          kicker: "Project · Desktop app",
+          title: "Swarm",
+          body: "A workspace that runs one to four coding agents in parallel, each in its own git worktree, streamed live from a real terminal.",
+          bullets: [
+            "Every task is planned before any code is written",
+            "Line comments on the diff flow back to the agent",
+            "PR bodies written from the real diff and check results",
+          ],
+          cta: "See how it works →",
+        },
+        serverless: {
+          kicker: "Project · AWS",
+          title: "Serverless e-commerce API",
+          body: "Four Lambdas, four different triggers, in a private VPC. Every guarantee has a test that proves it.",
+          bullets: [
+            "4 buyers fight over 1 unit: exactly one wins",
+            "3 retries with the same key become one order",
+            "Queue down? Events wait in the outbox",
+          ],
+          cta: "Read the case study →",
+        },
+      },
+      more: {
+        trilogyKicker: "Open source · Claude Code",
+        trilogyTitle: "Rails plugin trilogy",
+        trilogyBody:
+          "Cuts RSpec and RuboCop output by 70–97% of tokens, and blocks `db:drop` until a human says yes.",
+        shelflogKicker: "PWA · Retail",
+        shelflogBody:
+          "Shelf expiry control for a supermarket floor: barcode lookup and hourly push alerts.",
+        restKicker: "{count} more",
+        restTitle: "Web apps, systems, dev tools",
+        restCta: "Browse all projects →",
+      },
+    },
+    bugCase: {
+      kicker: "One bug, start to finish",
+      title: "The same protocol number, three times.",
+      cause:
+        "A double-click in a municipal records system issued duplicate protocol numbers. The next number came from `MAX(number) + 1`, read without a lock.",
+      fix: "A transaction-scoped advisory lock per department and year fixed it without serialising the whole table. A uniqueness check stays as the second line of defence.",
+      facts: [
+        { label: "Cause", value: "read-then-write race" },
+        { label: "Fix", value: "pg_advisory_xact_lock" },
+        { label: "Scope", value: "department + year" },
+      ],
+      fileLabel: "app/models/protocol.rb · simplified",
+    },
+    testimonials: {
+      title: "What people I worked with say",
+      prev: "Previous testimonial",
+      next: "Next testimonial",
+      items: [
+        {
+          quote:
+            "He structured an automated testing initiative that took the RSpec suite's coverage from 35% to 89%. Along the way he mentored me: creating testing cards in Trello, explaining which scenarios had to be covered and reviewing my implementations.",
+          name: "Samuel",
+          role: "Developer · Was Advisory",
+          context: "Compras project · RSpec mentorship",
+        },
+        {
+          quote:
+            "He was put in charge of guiding two developers in improving the system's automated tests. He helped us spot the scenarios that mattered, write more reliable specs and understand how tests protect business rules against regressions.",
+          name: "Iarhel",
+          role: "Developer · Was Advisory",
+          context: "Compras project · RSpec mentorship",
+        },
+        {
+          quote:
+            "He built the Protocol API and implemented the Gov.br integration. After specializing in Claude Code and LLMs, he brought that into our development and helped raise our productivity. We were among the top deliverers on the team, and his contribution played an important part in that.",
+          name: "Lucas",
+          role: "Developer · Nobe Sistemas",
+          context: "Protocol API · Gov.br integration",
+        },
+      ],
+    },
+    experience: {
+      title: "Experience",
+      items: [
+        {
+          period: "Aug 2023 – Oct 2026",
+          role: "Full-Stack Developer",
+          company: "Was Advisory (contract)",
+          summary:
+            "Rails backend for a multi-tenant tax and debt platform serving 50+ municipalities. Led performance work, the Debt Statement module, the SINAL API integration and the Rails 7 → 8 migration of the debt agreements module.",
+          bullets: [
+            "Cut a critical endpoint from **3.5 s to 180 ms** by removing N+1 queries and adding a 3-layer Redis cache, on 10k+ requests a day.",
+            "Rebuilt the CSV export as an async pipeline (Sidekiq, PostgreSQL COPY, streaming to S3): 1.77M records went from **~80 h to 7 min**.",
+            "Designed composite indexes on a 14M-row base, taking a query from **12.7 s to 0.2 ms**.",
+            "Built the Debt Statement module from scratch as main author, **17 releases in 5 months**, and closed its recurring 500 errors.",
+            "Made taxpayer debt totals match **to the cent** across three screens that disagreed in production, with one shared resolver.",
+            "Integrated the SINAL API (**100k+ records/month**) with circuit breaker, retries and outbox: 99.9% uptime and zero duplicates on an unstable provider.",
+            "Fixed a race that issued the same protocol number 3× on double-click, using a scoped `pg_advisory_xact_lock`.",
+            "Removed **33 unused indexes** and added unique ones with concurrent migrations, zero downtime.",
+            "Raised test coverage from **35% to 85%** with RSpec and Capybara, plus RuboCop and Brakeman in CI.",
+            "Evolved the Debt Agreements module through the Rails 7 → 8 migration with **15+ per-municipality** feature flags: 60% faster delivery, 59% fewer support tickets.",
+            "Ran production on Kubernetes with ArgoCD, Grafana and Datadog, catching incidents before users did.",
+          ],
+          stack: "Rails · PostgreSQL · Sidekiq · Redis · Kubernetes · Datadog",
+        },
+        {
+          period: "Jun 2023 – Jul 2023",
+          role: "Full-Stack Developer",
+          company: "GoTechDS",
+          bullets: [
+            "Shipped features on the Go Tech DS product with Rails and Devise, from Trello cards prioritised by the team.",
+            "Built the authentication flow (login, signup, password recovery) and the dashboard.",
+            "Ramped up fast on a new codebase through code reviews and pair programming.",
+          ],
+        },
+        {
+          period: "Nov 2022 – May 2023",
+          role: "Full-Stack Developer",
+          company: "Independent",
+          bullets: [
+            "Delivered blogs, landing pages and small products for direct clients, from discovery to production.",
+            "Handled client communication, scope and pricing myself, with clients who came back.",
+            "Picked up whatever each job needed: Stimulus, Tailwind, AWS S3, payment gateways.",
+          ],
+        },
+      ],
+    },
+    howIWork: {
+      title: "How I work",
+      items: [
+        {
+          stat: "899 / 0",
+          title: "Tests come first",
+          body: "ObraHub ships with 899 examples and zero failures. Every guarantee I claim has a test that tries to break it.",
+        },
+        {
+          stat: "0 dupes",
+          title: "Safe to retry",
+          body: "Idempotency keys, outboxes and advisory locks, so double-clicks, retries and flaky providers don't create bad data.",
+        },
+        {
+          stat: "33 indexes",
+          title: "Small, safe steps",
+          body: "Removed 33 unused indexes with concurrent migrations and zero downtime. Measure first, change one thing, measure again.",
+        },
+      ],
+    },
+    skills: {
+      title: "Technical skills",
+      production: "Used in production",
+      builtWith: "Built with",
+      groups: [
+        {
+          label: "Languages",
+          production: ["Ruby", "SQL", "JavaScript"],
+          builtWith: ["TypeScript", "Python", "Shell", "Kotlin", "C#", "Elixir", "Rust"],
+        },
+        {
+          label: "Frameworks",
+          production: ["Ruby on Rails", "Hotwire", "Stimulus", "React"],
+          builtWith: ["Node.js", "Next.js", "Tailwind CSS", "Tauri", "Sinatra", "Spring Boot", "Django", ".NET", "Phoenix", "Ember.js", "React Native", "Electron"],
+        },
+        {
+          label: "Databases",
+          production: ["PostgreSQL", "Redis"],
+          builtWith: ["SQLite", "MySQL", "Elasticsearch", "SQL Server"],
+        },
+        {
+          label: "DevOps & cloud",
+          production: ["Sidekiq", "Kubernetes", "ArgoCD", "Datadog", "Grafana", "AWS S3", "Docker", "CI/CD", "Git", "Linux"],
+          builtWith: ["Terraform", "AWS Lambda", "Solid Queue", "RabbitMQ", "OpenTelemetry"],
+        },
+        {
+          label: "Testing & quality",
+          production: ["RSpec", "TDD", "Capybara", "RuboCop", "Brakeman"],
+          builtWith: ["Selenium", "Testcontainers"],
+        },
+        {
+          label: "Architecture",
+          production: ["Multi-tenant SaaS", "RESTful APIs", "Event-driven / outbox", "Clean Architecture"],
+          builtWith: ["WebSockets", "GraphQL", "MCP", "RAG", "Claude API"],
+        },
+      ],
+    },
+    footer: {
+      kicker: "Open to backend roles · remote or Brazil",
+      title: "Have a slow or fragile Rails app?",
+      resume: "Resume",
+    },
+  },
 }
 
 const pt: Dict = {
@@ -1258,6 +2001,7 @@ const pt: Dict = {
     contact: "CONTATO",
     swarm: "SWARM",
     obrahub: "OBRAHUB",
+    ecommerce: "ECOMMERCE_SERVERLESS",
   },
   sidebar: {
     contactPhone: "+55 17 98843-2434",
@@ -1441,6 +2185,13 @@ const pt: Dict = {
           "Em produção na Engemil: transforma as planilhas que a engenharia já preenche em apontamento de horas, RDO e a medição que o cliente assina.",
         details:
           "**Atualmente em produção na Engemil.** Acompanha o trabalho executado em obras: cada obra tem seus encarregados vinculados, e cada um lança quantas horas trabalhou, em que cargo, em que dia, com foto opcional. O admin importa esses lançamentos em massa a partir de uma planilha **Excel** mais um zip com as fotos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** e **Active Storage** — sem bundler JS, sem fila.",
+      },
+      ecommerceServerless: {
+        type: "Backend Serverless",
+        summary:
+          "API de e-commerce em AWS Lambda: pedidos idempotentes, transactional outbox para o SQS, Terraform com CI/CD via OIDC e recomendação de produtos com SageMaker.",
+        details:
+          "Projeto de estudo: uma API de e-commerce em **AWS Lambda** (Node.js 24 + Express 5) em que cada garantia tem um teste. Débito de estoque seguro sob concorrência, **Idempotency-Key** obrigatório, **transactional outbox** para o **SQS** com SKIP LOCKED, **RDS Proxy**, upload pré-assinado no S3 e recomendação item-item servida pelo **SageMaker Serverless** com fallback para os mais vendidos. **10 módulos Terraform**, 3 ambientes, segredos fora do state, deploy com **OIDC** e aprovação manual em produção, tracing com **OpenTelemetry/X-Ray**, 69 testes contra PostgreSQL e Redis reais.",
       },
       tally: {
         type: "Backend",
@@ -1658,6 +2409,11 @@ const pt: Dict = {
       title: "ObraHub — apontamento e medição de mão de obra em campo",
       description:
         "Estudo de caso: o monólito Rails 8 feito para a Engemil que troca o ciclo papel → planilha → redigitação por importação de planilha, saldo vivo de pacote e exportação da medição idêntica ao formato do cliente.",
+    },
+    ecommerce: {
+      title: "E-commerce Serverless — API em AWS Lambda",
+      description:
+        "Estudo de caso: uma API de e-commerce em AWS Lambda com Terraform, CI/CD com OIDC, transactional outbox, pedidos idempotentes, OpenTelemetry/X-Ray e recomendação com SageMaker.",
     },
   },
   swarm: {
@@ -2129,6 +2885,564 @@ ImportBatch ── ImportError`,
       direction:
         "Foi feito para uma prestadora, mas o ciclo que ele substitui não é específico de uma: equipes alocadas dentro da planta de um cliente, horas provadas mês a mês, um documento de medição no formato que o cliente dita. Generalizar isso num produto para o setor é a direção — o trabalho multi-cliente não começou, e nada aqui está vendido para uma segunda empresa ainda.",
       ctaLabel: "Conversar sobre esse projeto",
+    },
+  },
+  ecommerce: {
+    hero: {
+      kicker: "// ESTUDO DE CASO — PROJETO DE ESTUDO",
+      title: "SERVERLESS",
+      tagline: "API de e-commerce em AWS Lambda",
+      subtitle:
+        "API de e-commerce em AWS Lambda com infraestrutura como código, CI/CD com GitHub Actions, observabilidade completa e recomendação de produtos com Machine Learning. A meta: cada decisão tem uma justificativa escrita, e cada garantia tem um teste que a prova.",
+      badges: [
+        "Node.js 24",
+        "Express 5",
+        "AWS Lambda",
+        "API Gateway",
+        "RDS PostgreSQL",
+        "ElastiCache (Valkey)",
+        "SQS",
+        "EventBridge",
+        "S3",
+        "SageMaker",
+        "Terraform",
+        "GitHub Actions",
+        "OpenTelemetry",
+        "X-Ray",
+        "Docker Compose",
+        "Python",
+      ],
+      ctaRepo: "github.com/wasdevv/ecommerce-serverless",
+      ctaContact: "Conversar sobre esse projeto",
+    },
+    overview: {
+      kicker: "// VISÃO GERAL",
+      title: "Mais que o hello world de uma Lambda.",
+      subtitle:
+        "Projeto de estudo construído para praticar como um backend serverless é feito de verdade: transações, idempotência, eventos assíncronos, IAM de menor privilégio e um pipeline de deploy real.",
+      flowsTitle: "O que a API cobre",
+      flows: [
+        "cadastro e login com JWT",
+        "catálogo paginado com cache",
+        "pedidos transacionais e idempotentes",
+        "upload de imagens direto ao S3",
+        "processamento assíncrono de eventos",
+        "recomendação personalizada de produtos",
+      ],
+      localTitle: "Roda sem conta AWS",
+      localBody:
+        "Tudo roda localmente com docker compose, e a mesma aplicação roda na Lambda sem mudar uma linha.",
+    },
+    architecture: {
+      kicker: "// ARQUITETURA",
+      title: "4 Lambdas, 4 gatilhos diferentes.",
+      subtitle:
+        "VPC privada em 2 zonas de disponibilidade. RDS e ElastiCache sem acesso público, e TLS em todas as conexões.",
+      diagram: `client ─HTTPS→ API Gateway ─→ λ api (Express 5)
+                                ├─→ RDS Proxy ─→ PostgreSQL
+                                ├─→ ElastiCache (Valkey)
+                                ├┄→ S3 privado            POST pré-assinado
+                                └┄→ SageMaker serverless  InvokeEndpoint
+
+EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
+                                └┄→ DLQ
+
+λ ops        sem rota HTTP: migrações e tarefas administrativas`,
+      items: [
+        {
+          title: "api",
+          description: "Express 5 atrás do API Gateway. A mesma aplicação roda no docker compose local.",
+        },
+        {
+          title: "dispatcher",
+          description: "Agendado pelo EventBridge. Publica no SQS os eventos pendentes da outbox.",
+        },
+        {
+          title: "worker",
+          description: "Consome o SQS com partial batch failure, então uma mensagem ruim vai para a DLQ sem travar o lote.",
+        },
+        {
+          title: "ops",
+          description: "Sem nenhuma rota HTTP: migrações, export de dados de treino e tarefas administrativas.",
+        },
+        {
+          title: "10 módulos Terraform",
+          description: "Três ambientes (dev, staging, prod), cada um com state separado.",
+        },
+        {
+          title: "RDS Proxy",
+          description: "Cada ambiente de execução da Lambda abre suas próprias conexões, o que pode esgotar o banco num pico de tráfego. O proxy mantém o pool e multiplexa as conexões.",
+        },
+      ],
+    },
+    problems: {
+      kicker: "// PROBLEMAS RESOLVIDOS",
+      title: "Cada garantia tem um teste por trás.",
+      subtitle:
+        "As falhas que uma loja real encontra com concorrência, retries e quedas, e como a API trata cada uma.",
+      proofLabel: "teste",
+      items: [
+        {
+          title: "Sem estoque negativo, mesmo sob concorrência",
+          description:
+            "O débito de estoque é um UPDATE … WHERE stock >= quantidade dentro da transação do pedido, com locks sempre na mesma ordem para evitar deadlock. Uma constraint no banco é a última linha de defesa.",
+          proof: "4 compradores simultâneos disputando 1 unidade, e exatamente um recebe 201.",
+        },
+        {
+          title: "Sem pedido duplicado por retry do cliente",
+          description:
+            "O header Idempotency-Key é obrigatório. A mesma chave com o mesmo corpo devolve o mesmo pedido, sem novo débito de estoque. A mesma chave com outro corpo devolve 409.",
+          proof: "3 retries concorrentes com a mesma chave viram um pedido só.",
+        },
+        {
+          title: "Nenhum evento perdido entre o banco e a fila",
+          description:
+            "Transactional outbox: o evento é gravado na mesma transação do pedido, e um dispatcher publica no SQS com FOR UPDATE SKIP LOCKED, para que dois dispatchers nunca publiquem o mesmo evento. O worker deduplica pelo id do evento.",
+          proof: "Com o SQS fora do ar, o evento espera na outbox e é publicado quando a fila volta.",
+        },
+        {
+          title: "Cache que não derruba a aplicação",
+          description:
+            "O cache-aside no Redis trata erro como miss, com timeouts curtos. Se o Redis cai, o catálogo continua respondendo direto do banco.",
+        },
+        {
+          title: "Upload seguro",
+          description:
+            "POST pré-assinado em vez de PUT, porque só a policy do POST permite limitar o tamanho do arquivo. A chave é gerada pelo servidor dentro do prefixo do próprio usuário, então um cliente não consegue escrever no espaço de outro.",
+        },
+        {
+          title: "Conexões de banco com Lambda",
+          description:
+            "O RDS Proxy mantém o pool de conexões, para que uma rajada de ambientes Lambda novos não esgote o PostgreSQL.",
+        },
+      ],
+    },
+    ml: {
+      kicker: "// MACHINE LEARNING",
+      title: "Recomendação pelo que clientes parecidos compraram.",
+      subtitle:
+        "GET /api/v1/recommendations sugere produtos por filtragem colaborativa item-item, servida pelo SageMaker Serverless Inference.",
+      diagram: `PostgreSQL ─→ export anonimizado ─→ S3 ─→ treino em Python ─→ model.tar.gz
+                                                                   │
+λ api ─InvokeEndpoint, 800 ms→ SageMaker Serverless ←──────────────┘
+  └─ timeout · sem histórico · modelo fora ─→ mais vendidos`,
+      items: [
+        {
+          title: "O modelo certo para o problema",
+          description:
+            "Filtragem colaborativa item-item com similaridade de cosseno, treinada do zero com o histórico de compras. Fine-tuning foi descartado de propósito: exige um modelo pré-treinado, GPU e um volume de dados que uma loja pequena não tem.",
+        },
+        {
+          title: "Paga por invocação",
+          description:
+            "SageMaker Serverless Inference com o container oficial de scikit-learn. Nenhuma instância ligada 24 horas por dia.",
+        },
+        {
+          title: "Uma dependência opcional",
+          description:
+            "Com timeout de 800 ms, cliente sem histórico ou modelo fora do ar, a API responde com os mais vendidos. O header X-Recommendation-Source informa a origem da lista.",
+        },
+        {
+          title: "Consistente com a loja",
+          description:
+            "O modelo só devolve ids. Preço e estoque vêm sempre do banco, então um produto esgotado nunca é recomendado.",
+        },
+        {
+          title: "Privado e reprodutível",
+          description:
+            "No export para treino, o id do cliente vira um HMAC com sal aleatório a cada exportação. Os mesmos dados geram o mesmo artefato, byte a byte, e a versão do modelo é o hash do seu conteúdo.",
+        },
+        {
+          title: "Testado de ponta a ponta",
+          description:
+            "Um teste exporta do PostgreSQL, treina, sobe o servidor de inferência e verifica que a API passa de “mais vendidos” para “modelo”.",
+        },
+      ],
+    },
+    infra: {
+      kicker: "// INFRAESTRUTURA COMO CÓDIGO",
+      title: "Terraform sem segredo no state.",
+      subtitle: "10 módulos, 3 ambientes e uma suíte de testes que roda sem conta AWS.",
+      items: [
+        {
+          title: "Segredos fora do state",
+          description:
+            "O RDS gera e guarda a própria senha (manage_master_user_password). A chave JWT é um valor efêmero gravado por argumento write-only, então nunca aparece no state do Terraform.",
+        },
+        {
+          title: "IAM de menor privilégio",
+          description:
+            "Um role por função, e cada um só acessa o que a função usa. A api só pode invocar o endpoint de recomendação; a ops só escreve no prefixo training/.",
+        },
+        {
+          title: "Guardas de configuração",
+          description: "Um bloco check recusa o plan de produção sem Multi-AZ.",
+        },
+        {
+          title: "Lock nativo do state",
+          description: "O lock é feito nativamente no S3, sem tabela DynamoDB.",
+        },
+        {
+          title: "terraform test com provider simulado",
+          description:
+            "Valida os três ambientes em 8 cenários, sem conta AWS e sem custo.",
+        },
+        {
+          title: "Documentação gerada",
+          description: "Cada módulo tem um README produzido pelo terraform-docs e verificado no CI.",
+        },
+      ],
+    },
+    cicd: {
+      kicker: "// CI/CD",
+      title: "Nenhuma chave AWS no GitHub.",
+      subtitle: "O GitHub Actions autentica com OIDC, e produção exige aprovação humana.",
+      diagram: `pull request ─┬─→ testes · lint · build · compose + smoke · terraform
+              └─→ terraform plan × 3 ambientes (role somente leitura)
+
+push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
+      items: [
+        {
+          title: "OIDC em vez de chaves",
+          description:
+            "O role de produção só pode ser assumido por um job no ambiente prod, que exige aprovação manual.",
+        },
+        {
+          title: "Pull request nunca aplica",
+          description: "O role de plan é somente leitura.",
+        },
+        {
+          title: "Deploy pelo plano salvo",
+          description:
+            "Serializado por ambiente, seguido de migração e smoke test.",
+        },
+        {
+          title: "Stack local completa no CI",
+          description:
+            "O docker compose sobe e o smoke test vai do cadastro ao pedido, passando pela recomendação treinada.",
+        },
+      ],
+    },
+    observability: {
+      kicker: "// OBSERVABILIDADE",
+      title: "Siga um pedido do HTTP até o worker.",
+      subtitle: "Logs estruturados, correlação de ponta a ponta, tracing e alarmes no que de fato quebra.",
+      items: [
+        {
+          title: "Logs JSON estruturados",
+          description:
+            "Toda linha leva o correlation ID e o trace ID. Senha, token e email são redigidos automaticamente.",
+        },
+        {
+          title: "Correlation ID fim a fim",
+          description:
+            "Atravessa a requisição HTTP, a outbox, a mensagem SQS e o worker, então uma consulta salva no CloudWatch Logs Insights mostra o caminho completo de um pedido.",
+        },
+        {
+          title: "OpenTelemetry e X-Ray",
+          description:
+            "No ambiente local, um collector OpenTelemetry roda como sidecar. Na Lambda, onde não existem containers lado a lado, o equivalente é o X-Ray com uma Lambda Extension.",
+        },
+        {
+          title: "Dashboard e alarmes",
+          description:
+            "Dashboard CloudWatch e alarmes para 5xx, latência p95, erros por função, qualquer mensagem na DLQ e mensagens envelhecendo na fila.",
+        },
+      ],
+    },
+    quality: {
+      kicker: "// QUALIDADE",
+      title: "Testado contra o real.",
+      subtitle:
+        "Lock de linha, constraint, transação e SKIP LOCKED não existem num mock, então os testes usam banco e cache de verdade de propósito.",
+      stats: [
+        { value: "69", label: "testes de backend contra PostgreSQL e Redis reais" },
+        { value: "~95%", label: "de cobertura de linhas (~83% de branches, mínimo de 80% no CI)" },
+        { value: "9", label: "testes de ML: treino, contrato de inferência e servidor HTTP" },
+        { value: "8", label: "cenários de terraform test" },
+      ],
+      layerLabel: "Camada",
+      coverageLabel: "Cobertura",
+      rows: [
+        { layer: "Backend (Jest + Supertest)", coverage: "69 testes contra PostgreSQL e Redis reais" },
+        { layer: "Machine Learning (unittest)", coverage: "9 testes: treino, contrato de inferência e servidor HTTP" },
+        { layer: "Infraestrutura", coverage: "terraform fmt, validate e test (8 cenários)" },
+        { layer: "Artefato", coverage: "O zip da Lambda é extraído como a AWS faz e invocado com um evento real do API Gateway" },
+        { layer: "Integração", coverage: "Smoke test contra a stack completa em Docker Compose" },
+      ],
+    },
+    status: {
+      kicker: "// STATUS HONESTO",
+      title: "O que está provado, e o que ainda não.",
+      subtitle: "O pipeline está pronto. O deploy numa conta AWS real ainda não foi executado.",
+      doneTitle: "Verificado",
+      done: [
+        "testes, lint, build, Terraform validate/test e a stack Docker, tudo no CI",
+        "recomendação de ponta a ponta, local e no CI",
+      ],
+      pendingTitle: "Pipeline pronto, ainda não executado",
+      pending: ["deploy numa conta AWS real: apply, SageMaker, X-Ray"],
+      costTitle: "Custo estimado",
+      cost:
+        "Cerca de US$ 0,12/hora no ambiente dev. É uma estimativa, não uma fatura. O que domina é o custo fixo de NAT, RDS Proxy, RDS e ElastiCache, não as Lambdas. Por isso o projeto roda 100% local e sobe na AWS só para testar, destruído no mesmo dia.",
+      learnedTitle: "O que aprendi",
+      learned: [
+        "A janela entre “gravou no banco” e “publicou na fila” é real, e o outbox fecha essa janela.",
+        "Idempotência deve ser desenhada desde o início, não adicionada depois.",
+        "Serverless tem custo fixo escondido: NAT, Proxy e banco cobram parados, e a Lambda quase não pesa.",
+        "Escolher o modelo de ML certo para o problema. Filtragem colaborativa simples e explicável vence um modelo grande quando os dados são poucos.",
+        "Dependências opcionais (cache, modelo de ML) precisam de timeout e fallback, para que a falha delas nunca vire falha do usuário.",
+        "Segurança na infraestrutura: OIDC em vez de chaves, segredos fora do state e IAM mínimo por função.",
+        "Documentar o porquê de cada decisão vale tanto quanto o código.",
+      ],
+      ctaRepo: "Ler o código",
+      ctaContact: "Conversar sobre esse projeto",
+    },
+  },
+  home: {
+    nav: {
+      obrahub: "ObraHub",
+      swarm: "Swarm",
+      serverless: "Serverless",
+      experience: "Experiência",
+      resume: "Currículo",
+      openToWork: "Disponível",
+    },
+    hero: {
+      badge: "Disponível agora · aberto a remoto",
+      role: ["Desenvolvedor Full-Stack", "Ruby on Rails", "4 anos"],
+      pitch:
+        "Deixo apps Rails lentos rápidos e **corretos**, em software usado todo dia por mais de 50 prefeituras brasileiras.",
+      downloadResume: "Baixar currículo",
+      emailMe: "Mandar email",
+      facts: [
+        { label: "Experiência", value: "4 anos · Rails + PostgreSQL" },
+        { label: "Disponibilidade", value: "Imediata", accent: true },
+        { label: "Modelo", value: "Remoto · Brasil ou exterior" },
+        { label: "Local", value: "São José do Rio Preto, SP" },
+        { label: "Inglês", value: "B2 · todo dia em PRs e docs" },
+        { label: "Contrato", value: "PJ · CLT · B2B internacional" },
+      ],
+      quote:
+        "A liderança dele foi essencial para tornar o projeto mais confiável e para o meu crescimento profissional.",
+      quoteBy: "Samuel · Desenvolvedor, Was Advisory",
+    },
+    proof: {
+      title: "Medido em produção · barra = tempo que sobrou",
+      items: [
+        { label: "Endpoint crítico", before: "3,5 s", after: "180 ms" },
+        { label: "Exportação CSV, 1,77M linhas", before: "~80 h", after: "7 min" },
+        { label: "Consulta em 14M linhas", before: "12,7 s", after: "0,2 ms" },
+        { label: "Cobertura de testes", before: "35%", after: "85%" },
+      ],
+    },
+    highlights: [
+      { value: "50+", label: "prefeituras numa só base de código" },
+      { value: "17", label: "releases em 5 meses como autor principal" },
+      { value: "99,9%", label: "de uptime com um provedor instável" },
+      { value: "0", label: "downtime em migrações de índice" },
+    ],
+    work: {
+      title: "O que eu construí",
+      allProjects: "Todos os {count} projetos →",
+      projects: {
+        obrahub: {
+          kicker: "Projeto · Em produção na Engemil",
+          title: "ObraHub",
+          body: "Apontamento e medição de mão de obra para uma prestadora industrial que rodava em papel, planilha e redigitação. Construído rodada a rodada com quem fazia o trabalho à mão.",
+          bullets: [
+            "Reenviar um arquivo nunca duplica uma linha",
+            "Planilha de medição exportada idêntica ao arquivo de referência do cliente",
+            "11.551 horas fechadas no primeiro mês",
+          ],
+          cta: "Ler o estudo de caso →",
+          checks: ["899 exemplos, 0 falhas", "1.395 apontamentos validados em 3 s", "0 duplicados ao reenviar"],
+          screenshotAlt: "Tela do ObraHub listando 216 RDOs montados a partir da planilha mensal",
+        },
+        swarm: {
+          kicker: "Projeto · App desktop",
+          title: "Swarm",
+          body: "Um workspace que roda de um a quatro agentes de código em paralelo, cada um no seu git worktree, transmitido ao vivo de um terminal real.",
+          bullets: [
+            "Toda tarefa é planejada antes de escrever código",
+            "Comentários de linha no diff voltam para o agente",
+            "Descrição de PR escrita a partir do diff real e dos checks",
+          ],
+          cta: "Ver como funciona →",
+        },
+        serverless: {
+          kicker: "Projeto · AWS",
+          title: "API de e-commerce serverless",
+          body: "Quatro Lambdas, quatro gatilhos diferentes, numa VPC privada. Cada garantia tem um teste que a prova.",
+          bullets: [
+            "4 compradores disputam 1 unidade: exatamente um leva",
+            "3 retries com a mesma chave viram um pedido só",
+            "Fila fora do ar? Os eventos esperam na outbox",
+          ],
+          cta: "Ler o estudo de caso →",
+        },
+      },
+      more: {
+        trilogyKicker: "Open source · Claude Code",
+        trilogyTitle: "Trilogia de plugins Rails",
+        trilogyBody:
+          "Corta de 70% a 97% dos tokens da saída do RSpec e do RuboCop, e bloqueia `db:drop` até um humano dizer sim.",
+        shelflogKicker: "PWA · Varejo",
+        shelflogBody:
+          "Controle de validade na gôndola de um supermercado: leitura de código de barras e alertas push de hora em hora.",
+        restKicker: "Mais {count}",
+        restTitle: "Apps web, sistemas, ferramentas de dev",
+        restCta: "Ver todos os projetos →",
+      },
+    },
+    bugCase: {
+      kicker: "Um bug, do começo ao fim",
+      title: "O mesmo número de protocolo, três vezes.",
+      cause:
+        "Um clique duplo num sistema de protocolo municipal gerava números repetidos. O próximo número vinha de `MAX(number) + 1`, lido sem lock.",
+      fix: "Um advisory lock com escopo de transação, por departamento e ano, resolveu sem serializar a tabela inteira. Uma checagem de unicidade continua como segunda linha de defesa.",
+      facts: [
+        { label: "Causa", value: "corrida de ler-e-gravar" },
+        { label: "Correção", value: "pg_advisory_xact_lock" },
+        { label: "Escopo", value: "departamento + ano" },
+      ],
+      fileLabel: "app/models/protocol.rb · simplificado",
+    },
+    testimonials: {
+      title: "O que dizem as pessoas com quem trabalhei",
+      prev: "Depoimento anterior",
+      next: "Próximo depoimento",
+      items: [
+        {
+          quote:
+            "Ele estruturou uma iniciativa de testes automatizados que levou a cobertura da suíte RSpec de 35% para 89%. No caminho, me mentorou: criando cards de teste no Trello, explicando quais cenários precisavam ser cobertos e revisando minhas implementações.",
+          name: "Samuel",
+          role: "Desenvolvedor · Was Advisory",
+          context: "Projeto Compras · mentoria em RSpec",
+        },
+        {
+          quote:
+            "Ele ficou responsável por orientar dois desenvolvedores na melhoria dos testes automatizados do sistema. Ajudou a identificar os cenários que importavam, escrever specs mais confiáveis e entender como os testes protegem as regras de negócio contra regressões.",
+          name: "Iarhel",
+          role: "Desenvolvedor · Was Advisory",
+          context: "Projeto Compras · mentoria em RSpec",
+        },
+        {
+          quote:
+            "Ele construiu a API de Protocolo e implementou a integração com o Gov.br. Depois de se especializar em Claude Code e LLMs, levou isso para o nosso desenvolvimento e ajudou a aumentar nossa produtividade. Ficamos entre os que mais entregaram no time, e a contribuição dele teve papel importante nisso.",
+          name: "Lucas",
+          role: "Desenvolvedor · Nobe Sistemas",
+          context: "API de Protocolo · integração Gov.br",
+        },
+      ],
+    },
+    experience: {
+      title: "Experiência",
+      items: [
+        {
+          period: "ago 2023 – out 2026",
+          role: "Desenvolvedor Full-Stack",
+          company: "Was Advisory (PJ)",
+          summary:
+            "Backend Rails de uma plataforma multi-tenant de tributos e dívida ativa atendendo mais de 50 prefeituras. Liderei a frente de performance, o módulo de Extrato de Débitos, a integração com a API SINAL e a migração Rails 7 → 8 do módulo de parcelamentos.",
+          bullets: [
+            "Reduzi um endpoint crítico de **3,5 s para 180 ms** eliminando N+1 e adicionando cache Redis em 3 camadas, com mais de 10 mil requisições por dia.",
+            "Refiz a exportação CSV como pipeline assíncrono (Sidekiq, COPY do PostgreSQL, streaming para o S3): 1,77M registros foram de **~80 h para 7 min**.",
+            "Desenhei índices compostos numa base de 14M linhas, levando uma consulta de **12,7 s para 0,2 ms**.",
+            "Construí do zero o módulo de Extrato de Débitos como autor principal, **17 releases em 5 meses**, e acabei com os erros 500 recorrentes.",
+            "Fiz os totais de dívida do contribuinte baterem **até o centavo** em três telas que divergiam em produção, com um resolvedor compartilhado.",
+            "Integrei a API SINAL (**100 mil+ registros/mês**) com circuit breaker, retries e outbox: 99,9% de uptime e zero duplicados com um provedor instável.",
+            "Corrigi uma corrida que gerava o mesmo número de protocolo 3× no clique duplo, usando um `pg_advisory_xact_lock` com escopo.",
+            "Removi **33 índices sem uso** e adicionei índices únicos com migrações concorrentes, sem downtime.",
+            "Subi a cobertura de testes de **35% para 85%** com RSpec e Capybara, além de RuboCop e Brakeman no CI.",
+            "Evoluí o módulo de Parcelamentos na migração Rails 7 → 8 com **mais de 15 feature flags por prefeitura**: entregas 60% mais rápidas e 59% menos chamados de suporte.",
+            "Operei produção em Kubernetes com ArgoCD, Grafana e Datadog, pegando incidentes antes dos usuários.",
+          ],
+          stack: "Rails · PostgreSQL · Sidekiq · Redis · Kubernetes · Datadog",
+        },
+        {
+          period: "jun 2023 – jul 2023",
+          role: "Desenvolvedor Full-Stack",
+          company: "GoTechDS",
+          bullets: [
+            "Entreguei funcionalidades no produto Go Tech DS com Rails e Devise, a partir de cards no Trello priorizados pelo time.",
+            "Construí o fluxo de autenticação (login, cadastro, recuperação de senha) e o dashboard.",
+            "Me adaptei rápido a uma base de código nova com code review e pair programming.",
+          ],
+        },
+        {
+          period: "nov 2022 – mai 2023",
+          role: "Desenvolvedor Full-Stack",
+          company: "Autônomo",
+          bullets: [
+            "Entreguei blogs, landing pages e pequenos produtos para clientes diretos, da descoberta à produção.",
+            "Cuidei sozinho da comunicação, escopo e preço, com clientes que voltaram.",
+            "Aprendi o que cada trabalho pedia: Stimulus, Tailwind, AWS S3, gateways de pagamento.",
+          ],
+        },
+      ],
+    },
+    howIWork: {
+      title: "Como eu trabalho",
+      items: [
+        {
+          stat: "899 / 0",
+          title: "Teste vem primeiro",
+          body: "O ObraHub vai para produção com 899 exemplos e zero falhas. Cada garantia que eu afirmo tem um teste tentando quebrá-la.",
+        },
+        {
+          stat: "0 duplicados",
+          title: "Seguro para repetir",
+          body: "Chaves de idempotência, outbox e advisory locks, para que clique duplo, retry e provedor instável não gerem dado errado.",
+        },
+        {
+          stat: "33 índices",
+          title: "Passos pequenos e seguros",
+          body: "Removi 33 índices sem uso com migrações concorrentes e zero downtime. Medir antes, mudar uma coisa, medir de novo.",
+        },
+      ],
+    },
+    skills: {
+      title: "Habilidades técnicas",
+      production: "Usado em produção",
+      builtWith: "Já construí com",
+      groups: [
+        {
+          label: "Linguagens",
+          production: ["Ruby", "SQL", "JavaScript"],
+          builtWith: ["TypeScript", "Python", "Shell", "Kotlin", "C#", "Elixir", "Rust"],
+        },
+        {
+          label: "Frameworks",
+          production: ["Ruby on Rails", "Hotwire", "Stimulus", "React"],
+          builtWith: ["Node.js", "Next.js", "Tailwind CSS", "Tauri", "Sinatra", "Spring Boot", "Django", ".NET", "Phoenix", "Ember.js", "React Native", "Electron"],
+        },
+        {
+          label: "Bancos de dados",
+          production: ["PostgreSQL", "Redis"],
+          builtWith: ["SQLite", "MySQL", "Elasticsearch", "SQL Server"],
+        },
+        {
+          label: "DevOps e cloud",
+          production: ["Sidekiq", "Kubernetes", "ArgoCD", "Datadog", "Grafana", "AWS S3", "Docker", "CI/CD", "Git", "Linux"],
+          builtWith: ["Terraform", "AWS Lambda", "Solid Queue", "RabbitMQ", "OpenTelemetry"],
+        },
+        {
+          label: "Testes e qualidade",
+          production: ["RSpec", "TDD", "Capybara", "RuboCop", "Brakeman"],
+          builtWith: ["Selenium", "Testcontainers"],
+        },
+        {
+          label: "Arquitetura",
+          production: ["SaaS multi-tenant", "APIs RESTful", "Orientado a eventos / outbox", "Clean Architecture"],
+          builtWith: ["WebSockets", "GraphQL", "MCP", "RAG", "Claude API"],
+        },
+      ],
+    },
+    footer: {
+      kicker: "Aberto a vagas de backend · remoto ou Brasil",
+      title: "Tem um app Rails lento ou frágil?",
+      resume: "Currículo",
     },
   },
 }
