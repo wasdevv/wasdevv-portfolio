@@ -24,7 +24,7 @@ export function SectionFrame({
 }: Props) {
   return (
     <section className={`relative border-t border-border/50 ${className}`}>
-      <div className="mx-auto max-w-6xl px-4 py-24 md:px-6 md:py-32">
+      <div className="mx-auto max-w-[1480px] px-6 py-24 md:py-32">
         <motion.header
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

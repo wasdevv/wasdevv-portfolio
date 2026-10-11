@@ -11,7 +11,7 @@ export function StackMarquee() {
 
   return (
     <section className="relative border-t border-border/50 py-16 md:py-20">
-      <div className="mx-auto mb-8 max-w-6xl px-4 md:px-6">
+      <div className="mx-auto mb-8 max-w-[1480px] px-6">
         <p className="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
           {s.kicker}
         </p>

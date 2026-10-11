@@ -14,7 +14,7 @@ export function FinalCta() {
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)/0.18),transparent_65%)]"
       />
-      <div className="relative mx-auto max-w-6xl px-4 py-24 md:px-6 md:py-32">
+      <div className="relative mx-auto max-w-[1480px] px-6 py-24 md:py-32">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}

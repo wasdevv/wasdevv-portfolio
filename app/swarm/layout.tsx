@@ -1,15 +1,12 @@
 import type { ReactNode } from "react"
-import { TopNav } from "@/components/top-nav"
-import { SiteFooter } from "@/components/site-footer"
+import { SiteChrome } from "@/components/home/site-chrome"
 
-// /swarm gets its own full-bleed layout — no sidebar profile, so the hero and
-// interactive sections can span the full viewport.
+// Full-bleed case study under the homepage's nav and contact footer, like
+// /obrahub and /ecommerce-serverless — no sidebar profile, so the hero and wide sections span the viewport.
 export default function SwarmLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background font-mono">
-      <TopNav />
-      <main className="flex-1">{children}</main>
-      <SiteFooter />
-    </div>
+    <SiteChrome>
+      <main className="flex-1 font-mono text-foreground">{children}</main>
+    </SiteChrome>
   )
 }

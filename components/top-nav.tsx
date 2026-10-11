@@ -14,6 +14,7 @@ const routes = [
   { href: "/resume", key: "resume" as const },
   { href: "/swarm", key: "swarm" as const, featured: true },
   { href: "/obrahub", key: "obrahub" as const },
+  { href: "/ecommerce-serverless", key: "ecommerce" as const },
   { href: "/contact", key: "contact" as const },
 ]
 
@@ -25,7 +26,7 @@ export function TopNav() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link
-          href="/about-me"
+          href="/"
           className="flex items-center gap-2 font-mono text-sm font-semibold"
         >
           <Terminal className="h-4 w-4 text-primary" aria-hidden="true" />

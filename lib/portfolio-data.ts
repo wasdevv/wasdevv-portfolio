@@ -77,6 +77,7 @@ export const skills: Skill[] = [
   // DevOps & Cloud
   // no icon: simple-icons removed the AWS logo (cdn.simpleicons.org/amazonaws 404s)
   { name: "AWS", level: "INTERMEDIATE", category: "devops" },
+  { name: "Terraform", icon: "terraform", iconColor: "844FBA", level: "INTERMEDIATE", category: "devops" },
   { name: "Docker", icon: "docker", iconColor: "2496ED", level: "ADVANCED", category: "devops" },
   { name: "Git/GitHub", icon: "github", iconColor: "FFFFFF", level: "ADVANCED", category: "devops" },
   { name: "CI/CD", icon: "githubactions", iconColor: "2088FF", level: "INTERMEDIATE", category: "devops" },
@@ -135,6 +136,7 @@ export type Project = {
 export type ProjectKey =
   | "swarm"
   | "obrahub"
+  | "ecommerceServerless"
   | "tally"
   | "pulse"
   | "pipelineHq"
@@ -158,6 +160,7 @@ export type ProjectKey =
 export const projects: Project[] = [
   { key: "swarm", name: "Swarm", category: "tools", year: "2026", tags: ["Rails 8", "Hotwire", "ActionCable", "Tauri 2", "SQLite"], icons: ["rubyonrails", "tauri"], image: "/projects/swarm.webp" },
   { key: "obrahub", name: "ObraHub", category: "web", year: "2026", tags: ["Rails 8.1", "PostgreSQL", "Hotwire", "Devise", "Pundit"], icons: ["rubyonrails", "postgresql"], image: "/projects/obrahub.webp", site: "https://obrahub.up.railway.app" },
+  { key: "ecommerceServerless", name: "E-commerce Serverless", category: "backend", year: "2026", tags: ["AWS Lambda", "Terraform", "PostgreSQL", "SQS", "SageMaker"], icons: ["nodedotjs", "terraform", "postgresql"], repo: "https://github.com/wasdevv/ecommerce-serverless" },
   { key: "tally", name: "Tally", category: "backend", year: "2026", tags: ["Kotlin", "Spring Boot", "jOOQ", "Rails", "PostgreSQL"], icons: ["kotlin", "springboot", "rubyonrails"], repo: "https://github.com/wasdevv/tally" },
   { key: "pulse", name: "Pulse", category: "backend", year: "2026", tags: ["Node.js", "Fastify", "BullMQ", "PostgreSQL", "Expo"], icons: ["nodedotjs", "typescript", "react"], repo: "https://github.com/wasdevv/pulse" },
   { key: "pipelineHq", name: "PipelineHQ", category: "web", year: "2026", tags: ["Rails 8.1", "Hotwire", "Tailwind v4", "PostgreSQL"], icons: ["rubyonrails", "hotwire", "postgresql"], repo: "https://github.com/wasdevv/pipeline_hq" },

@@ -20,7 +20,7 @@ export function ObrahubHero() {
         className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"
       />
 
-      <div className="relative mx-auto flex min-h-[80vh] max-w-6xl flex-col justify-center px-4 pb-20 pt-32 md:px-6 md:pb-28 md:pt-40">
+      <div className="relative mx-auto flex min-h-[80vh] max-w-[1480px] flex-col justify-center px-6 pb-20 pt-32 md:pb-28 md:pt-40">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
