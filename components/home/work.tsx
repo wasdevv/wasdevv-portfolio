@@ -65,12 +65,12 @@ export function HomeWork() {
 
       <article className={`${article} flex-wrap`}>
         <ProjectText copy={p.obrahub} stack="Rails 8 · Hotwire · PostgreSQL · Pundit" href="/obrahub" />
-        <Window title="obrahub.up.railway.app">
+        <Window title="obrahub.up.railway.app · Dashboard">
           <Image
-            src="/projects/obrahub-rdos.png"
+            src="/projects/obrahub-dashboard.png"
             alt={p.obrahub.screenshotAlt}
-            width={821}
-            height={417}
+            width={890}
+            height={595}
             className="block h-auto w-full"
           />
           <div className="flex flex-wrap gap-x-6 gap-y-2 border-t border-hp-line px-5 py-3.5 font-plex-mono text-[13px] text-hp-muted">
@@ -86,44 +86,13 @@ export function HomeWork() {
 
       <article className={`${article} flex-wrap-reverse`}>
         <Window title="swarm">
-          <div className="grid grid-cols-1 gap-px bg-hp-line font-plex-mono text-xs leading-[1.7] sm:grid-cols-3">
-            <div className="bg-hp-code p-4 sm:min-h-[200px]">
-              <p className="m-0 mb-2.5 font-semibold text-hp-fg">agent 1 · plan</p>
-              <p className="m-0 text-hp-muted">
-                reading routes…
-                <br />
-                writing plan.md
-                <br />
-                <span className="text-hp-green">plan written, exit 0</span>
-                <br />
-                <span className="text-hp-cyan">→ coder started</span>
-              </p>
-            </div>
-            <div className="bg-hp-code p-4 sm:min-h-[200px]">
-              <p className="m-0 mb-2.5 font-semibold text-hp-fg">agent 2 · code</p>
-              <p className="m-0 text-hp-muted">
-                worktree swarm/task-2
-                <br />
-                editing 3 files
-                <br />
-                running rspec…
-                <br />
-                <span className="text-hp-amber">● running</span>
-              </p>
-            </div>
-            <div className="bg-hp-code p-4 sm:min-h-[200px]">
-              <p className="m-0 mb-2.5 font-semibold text-hp-fg">diff</p>
-              <p className="m-0 whitespace-pre">
-                <span className="text-hp-red">- render :index</span>
-                <br />
-                <span className="text-hp-green">+ render :index,</span>
-                <br />
-                <span className="text-hp-green">+   status: :ok</span>
-                <br />
-                <span className="text-hp-muted">2 comments → agent</span>
-              </p>
-            </div>
-          </div>
+          <Image
+            src="/projects/swarm.webp"
+            alt={p.swarm.screenshotAlt}
+            width={1200}
+            height={800}
+            className="block h-auto w-full"
+          />
         </Window>
         <ProjectText copy={p.swarm} stack="Rails 8 · ActionCable · SQLite · Tauri 2" href="/swarm" />
       </article>

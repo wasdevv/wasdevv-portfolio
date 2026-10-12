@@ -31,7 +31,7 @@ export function HomeTestimonials() {
       <h2 id="quote-title" className="m-0 mb-10 font-plex-mono text-[13px] font-medium text-hp-cyan">
         {q.title}
       </h2>
-      <div aria-live="polite" className="min-h-[230px]">
+      <div aria-live="polite" className="min-h-[160px]">
         <figure key={`${i}-${run}`} className="m-0 flex flex-wrap gap-x-16 gap-y-8">
           <blockquote className="hp-in m-0 min-w-0 flex-[1_1_620px] text-[clamp(20px,3vw,26px)] font-medium leading-[1.45] tracking-[-0.01em] text-hp-fg">
             “{item.quote}”
