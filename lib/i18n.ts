@@ -468,7 +468,7 @@ type Dict = {
       allProjects: string
       projects: {
         obrahub: HomeProject & { checks: string[]; screenshotAlt: string }
-        swarm: HomeProject
+        swarm: HomeProject & { screenshotAlt: string }
         serverless: HomeProject
       }
       more: {
@@ -1792,10 +1792,11 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
           ],
           cta: "Read the case study →",
           checks: ["899 examples, 0 failures", "1,395 entries validated in 3 s", "0 duplicates on re-upload"],
-          screenshotAlt: "ObraHub screen listing 216 daily reports built from the monthly spreadsheet",
+          screenshotAlt: "ObraHub dashboard: 354 hours worked in 30 days, with a daily bar chart",
         },
         swarm: {
           kicker: "Project · Desktop app",
+          screenshotAlt: "Swarm dashboard: \"Welcome back\", 4 agents running and the active tasks",
           title: "Swarm",
           body: "A workspace that runs one to four coding agents in parallel, each in its own git worktree, streamed live from a real terminal.",
           bullets: [
@@ -3257,10 +3258,11 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
           ],
           cta: "Ler o estudo de caso →",
           checks: ["899 exemplos, 0 falhas", "1.395 apontamentos validados em 3 s", "0 duplicados ao reenviar"],
-          screenshotAlt: "Tela do ObraHub listando 216 RDOs montados a partir da planilha mensal",
+          screenshotAlt: "Dashboard do ObraHub: 354 horas trabalhadas em 30 dias, com gráfico de barras por dia",
         },
         swarm: {
           kicker: "Projeto · App desktop",
+          screenshotAlt: "Painel do Swarm: \"Welcome back\", 4 agentes rodando e as tarefas ativas",
           title: "Swarm",
           body: "Um workspace que roda de um a quatro agentes de código em paralelo, cada um no seu git worktree, transmitido ao vivo de um terminal real.",
           bullets: [

@@ -84,13 +84,13 @@ export function HomeHero() {
 
       <aside
         aria-label="Quick facts"
-        className="flex min-w-0 flex-[0_1_520px] flex-col justify-center gap-6 rounded-[14px] border border-hp-line bg-hp-panel p-7"
+        className="flex min-w-0 flex-[0_1_520px] flex-col gap-6 rounded-[14px] border border-hp-line bg-hp-panel p-7"
       >
         <dl className="m-0 flex flex-col border-b border-hp-line">
           {h.facts.map((fact) => (
             <div
               key={fact.label}
-              className="flex justify-between gap-4 border-t border-hp-line py-3"
+              className="flex justify-between gap-4 border-t border-hp-line py-3 first:border-t-0 first:pt-0"
             >
               <dt className="text-[15px] text-hp-muted">{fact.label}</dt>
               <dd className={`m-0 text-right font-medium ${fact.accent ? "text-hp-green" : ""}`}>
