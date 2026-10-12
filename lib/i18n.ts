@@ -460,7 +460,7 @@ type Dict = {
     }
     proof: {
       title: string
-      items: { label: string; before: string; after: string }[]
+      items: { label: string; before: string; after: string; gain: string }[]
     }
     highlights: { value: string; label: string }[]
     work: {
@@ -1763,12 +1763,12 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       quoteBy: "Samuel · Developer, Was Advisory",
     },
     proof: {
-      title: "Measured in production · bar = time left",
+      title: "Measured in production",
       items: [
-        { label: "Critical endpoint", before: "3.5 s", after: "180 ms" },
-        { label: "CSV export, 1.77M rows", before: "~80 h", after: "7 min" },
-        { label: "Query on 14M rows", before: "12.7 s", after: "0.2 ms" },
-        { label: "Test coverage", before: "35%", after: "85%" },
+        { label: "Critical endpoint", before: "3.5 s", after: "180 ms", gain: "19× faster" },
+        { label: "CSV export, 1.77M rows", before: "~80 h", after: "7 min", gain: "~690× faster" },
+        { label: "Query on 14M rows", before: "12.7 s", after: "0.2 ms", gain: "63,500× faster" },
+        { label: "Test coverage", before: "35%", after: "85%", gain: "+50 percentage points" },
       ],
     },
     highlights: [
@@ -3229,12 +3229,12 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       quoteBy: "Samuel · Desenvolvedor, Was Advisory",
     },
     proof: {
-      title: "Medido em produção · barra = tempo que sobrou",
+      title: "Medido em produção",
       items: [
-        { label: "Endpoint crítico", before: "3,5 s", after: "180 ms" },
-        { label: "Exportação CSV, 1,77M linhas", before: "~80 h", after: "7 min" },
-        { label: "Consulta em 14M linhas", before: "12,7 s", after: "0,2 ms" },
-        { label: "Cobertura de testes", before: "35%", after: "85%" },
+        { label: "Endpoint crítico", before: "3,5 s", after: "180 ms", gain: "19× mais rápido" },
+        { label: "Exportação CSV, 1,77M linhas", before: "~80 h", after: "7 min", gain: "~690× mais rápido" },
+        { label: "Consulta em 14M linhas", before: "12,7 s", after: "0,2 ms", gain: "63.500× mais rápido" },
+        { label: "Cobertura de testes", before: "35%", after: "85%", gain: "+50 pontos percentuais" },
       ],
     },
     highlights: [
