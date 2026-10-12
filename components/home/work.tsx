@@ -87,10 +87,10 @@ export function HomeWork() {
       <article className={`${article} flex-wrap-reverse`}>
         <Window title="swarm">
           <Image
-            src="/projects/swarm.webp"
+            src="/projects/swarm-agent-diff.webp"
             alt={p.swarm.screenshotAlt}
-            width={1200}
-            height={800}
+            width={1484}
+            height={876}
             className="block h-auto w-full"
           />
         </Window>
