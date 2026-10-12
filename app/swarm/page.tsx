@@ -1,4 +1,5 @@
 import { ArchitectureDiagram } from "@/components/swarm/architecture-diagram"
+import { SwarmAutomations } from "@/components/swarm/automations"
 import { CompareGrid } from "@/components/swarm/compare-grid"
 import { FeaturesBento } from "@/components/swarm/features-bento"
 import { FinalCta } from "@/components/swarm/final-cta"
@@ -15,6 +16,7 @@ export default function SwarmPage() {
       <PtySimulator />
       <CompareGrid />
       <FeaturesBento />
+      <SwarmAutomations />
       <ArchitectureDiagram />
       <StackMarquee />
       <RoadmapTimeline />

@@ -245,6 +245,12 @@ type Dict = {
         description: string
       }[]
     }
+    automations: {
+      kicker: string
+      title: string
+      subtitle: string
+      items: { title: string; description: string }[]
+    }
     architecture: {
       kicker: string
       title: string
@@ -609,7 +615,7 @@ const en: Dict = {
             "Hands-on experience with **Kubernetes** in production (accessed via **Pritunl VPN**), using **ArgoCD** (GitOps), **Headlamp** and **Grafana** for continuous deploy, cluster management and incident monitoring in a high-availability environment.",
             "Built **ObraHub**, the labor tracking and billing system for **Engemil**, an industrial maintenance and assembly contractor, specified through successive rounds of review and feedback with the person who produced the whole process by hand — a **Rails 8 + PostgreSQL + Hotwire** monolith (Devise, Pundit, 12 policies, 19 importers/exporters) that replaced a paper-to-spreadsheet-to-retyping cycle. Imports the spreadsheet engineering already fills in, with **SHA-256 row digests** for idempotent `upsert_all` so re-uploading a file never duplicates; keeps each work package's balance as a **query, not a stored column**, so a 663h package shows its new balance the moment a report lands; and exports the monthly billing workbook **byte-identical** to the client's reference file — theme-colour fills with tint, ACCOUNTING number format and a two-column-per-hour-type summary layout, with a test that strictly parses the generated `styles.xml`. **899 examples, 0 failures**; **11,551h** closed in one month and **1,395 entries** imported and validated in **3s** in real use.",
             "Built **shelflog**, an installable **Rails** PWA for shelf expiry-date control, designed for use in **Muffato's PAS** (a major Brazilian supermarket chain): barcode and name lookup, a per-product status driven by configurable thresholds, and an hourly **Solid Queue** job that sends **web push** alerts for expired and soon-to-expire stock.",
-            "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written** — the planner runs in the PTY, writes the plan and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design — the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
+            "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written** — the planner runs in the PTY, writes a PRD with acceptance criteria and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design — the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
             "Published a trilogy of **Claude Code** plugins covering agent input, output and side effects: **lean-output** compresses **RSpec**, **RuboCop** and **Brakeman** outputs by **-70% to -97% tokens** with a zero-loss guarantee on failures; **rails-context** injects a curated dossier (columns, indexes, associations, validations and routes), drastically shrinking the model's read surface instead of loading full `db/schema.rb` and models; **rails-guard** intercepts destructive Rails commands (`db:drop`, `db:reset`, `rails destroy`, `runner` with `delete_all`) via a `PreToolUse` hook, requiring human confirmation before execution.",
           ],
         },
@@ -713,7 +719,7 @@ const en: Dict = {
         summary:
           "Agent Development Environment that runs 1–4 coding agents in parallel, each in an isolated git worktree with a live PTY, diff review and one-click merge.",
         details:
-          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**.",
+          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**. **Automations** fire tasks on their own — cron schedules, GitHub CI failures through an **AWS Lambda + SQS** relay provisioned with **Terraform**, and Trello cards — with Jira, Linear and GitHub panels alongside.",
       },
       obrahub: {
         type: "Full Stack",
@@ -1032,9 +1038,9 @@ const en: Dict = {
       subtitle: "Eight things it does, all on your machine.",
       items: [
         {
-          title: "Planner, then coder",
+          title: "Planner writes a PRD, then coder",
           description:
-            "The handoff is a PTY phase, not a job: the planner runs in the same pane, writes the plan and exits, and on_exit starts the coder pointed at it. “The planner failed” never turns into “code in the dark”.",
+            "The handoff is a PTY phase, not a job: the planner runs in the same pane, writes a PRD — problem, requirements, acceptance criteria, risks, steps — and exits, and on_exit starts the coder pointed at it. A PRD with no acceptance criteria stops the task with that reason: “the planner failed” never turns into “code in the dark”.",
         },
         {
           title: "Claude Code and Codex",
@@ -1069,19 +1075,57 @@ const en: Dict = {
         {
           title: "Loops with guards",
           description:
-            "Turn, Goal, Time and Proactive, all behind the same non-negotiable guards: cost ceiling, attempt ceiling, global kill switch, judgment timeout, HMAC-SHA256 over the raw webhook body. Trello (bidirectional), Linear and Jira on the tracker side.",
+            "Turn, Goal, Time and Proactive, all behind the same non-negotiable guards: cost ceiling, attempt ceiling, global kill switch, judgment timeout. An unreadable transcript stops the loop instead of counting as zero spent.",
+        },
+      ],
+    },
+    automations: {
+      kicker: "// 05 — AUTOMATIONS",
+      title: "Work that starts without you.",
+      subtitle:
+        "One Automations page holds everything that fires on its own — schedules, triggers and boards — with the controls, not just the list. Every run still goes through the cost, attempt and kill-switch guards.",
+      items: [
+        {
+          title: "Scheduled tasks",
+          description:
+            "A cron expression, parsed by Fugit, fires a prompt into a fresh worktree on schedule. Optional run cap, pause and resume, and three honest states: active, paused and finished. Lowering the cap stops the schedule, so the panel and the scheduler never disagree.",
+        },
+        {
+          title: "CI failure starts an agent",
+          description:
+            "A failed GitHub check suite opens a task on its own: HMAC-SHA256 over the raw body, actor allowlist, budget, run cap and cooldown. Branch and SHA pass a strict regex and the repo is pinned to the real git origin, so nothing from the payload reaches the prompt raw.",
+        },
+        {
+          title: "Webhook relay on AWS",
+          description:
+            "Swarm runs behind NAT in WSL, where GitHub cannot reach it. A Lambda provisioned with Terraform keeps the raw body and headers in SQS without validating anything; the app drains the queue every minute over an outbound connection and runs the same HMAC check and deduplication as a direct delivery.",
+        },
+        {
+          title: "Trello, both ways",
+          description:
+            "A card you are added to becomes a pending task — no worktree, no agent, nothing spent until you press Start. The other way, the card moves to Doing, PR and Done and gets a comment as the task starts, opens a PR and is merged or discarded.",
+        },
+        {
+          title: "Jira, Linear and GitHub",
+          description:
+            "Tracker panels next to Tasks: Jira Cloud on the current /search/jql endpoint, Linear over GraphQL, and a GitHub panel for issues, PRs and projects in GitHub's own query syntax. An expired credential shows as an error, never as an empty backlog.",
+        },
+        {
+          title: "Goal loop with a judge",
+          description:
+            "The PRD's acceptance criteria feed the Goal loop. A judge — QA gate, custom shell or evaluator — checks every attempt and retries until it passes, and every stop is named: passed, judge crash, budget exhausted, usage unavailable or attempts exhausted.",
         },
       ],
     },
     architecture: {
-      kicker: "// 05 — INSIDE",
+      kicker: "// 06 — INSIDE",
       title: "What happens when you press Start.",
       subtitle:
-        "A pending task has no worktree. Start creates it, the planner hands off to the coder in the same PTY, and everything the agent produces streams back through a single Puma process — the registry lives in memory, so WEB_CONCURRENCY is forbidden by design.",
+        "A pending task has no worktree. Start creates it, the planner writes a PRD and hands off to the coder in the same PTY, and everything the agent produces streams back through a single Puma process — the registry lives in memory, so WEB_CONCURRENCY is forbidden by design.",
       nodes: [
         { id: "task", label: "Task · pending" },
         { id: "start", label: "Start → worktree" },
-        { id: "planner", label: "Planner (PTY)" },
+        { id: "planner", label: "Planner → PRD" },
         { id: "adapters", label: "Claude Code · Codex" },
         { id: "coder", label: "Coder agent" },
         { id: "cable", label: "PTY + ActionCable" },
@@ -1090,7 +1134,7 @@ const en: Dict = {
       ],
     },
     stack: {
-      kicker: "// 06 — STACK",
+      kicker: "// 07 — STACK",
       title: "Built on.",
       items: [
         "Rails 8.1",
@@ -1111,10 +1155,17 @@ const en: Dict = {
         "Rust",
         "WebView2",
         "GitHub CLI",
+        "Solid Queue",
+        "Fugit",
+        "tmux",
+        "AWS Lambda",
+        "SQS",
+        "Terraform",
+        "GitHub Actions",
       ],
     },
     roadmap: {
-      kicker: "// 07 — MILESTONES",
+      kicker: "// 08 — MILESTONES",
       title: "What is already in.",
       subtitle: "Everything below is shipped and running — this is the tool as it exists, not a plan.",
       items: [
@@ -1131,12 +1182,12 @@ const en: Dict = {
         {
           marker: "03",
           title: "Workspace",
-          description: "Splittable panes serialized into the URL, with the explorer, editor, preview, chat and any file as draggable tabs.",
+          description: "Splittable panes serialized into the URL, with the explorer, editor, preview, chat and any file as draggable tabs, plus a Jump Palette for tasks, projects and commands.",
         },
         {
           marker: "04",
           title: "Two CLIs, one planner",
-          description: "Claude Code and Codex adapters, and a planner phase every task goes through before any code is written.",
+          description: "Claude Code and Codex adapters, and a planner phase that writes a PRD for every task before any code is written.",
         },
         {
           marker: "05",
@@ -1150,18 +1201,28 @@ const en: Dict = {
         },
         {
           marker: "07",
-          title: "Loops and trackers",
-          description: "Turn, Goal, Time and Proactive behind cost, attempt and kill-switch guards, plus Trello, Linear and Jira integrations.",
+          title: "Automations",
+          description: "Cron schedules, CI-failure triggers through an AWS relay (Lambda + SQS on Terraform), Trello both ways, and Jira, Linear and GitHub panels.",
         },
         {
           marker: "08",
           title: "Desktop",
           description: "Tauri 2 window on a fixed port with its own process group; WebView2 on Windows, with Rails running inside WSL.",
         },
+        {
+          marker: "09",
+          title: "CI/CD",
+          description: "CI, infra and release workflows on GitHub Actions: RSpec, RuboCop and a security scan on every PR and push to main, and the Windows .exe built and released by Actions.",
+        },
+        {
+          marker: "10",
+          title: "tmux sidecar",
+          description: "tmux as the backend for agent, shell and preview panes — phase A of ADR 001, shipped behind SWARM_TMUX=1.",
+        },
       ],
     },
     story: {
-      kicker: "// 08 — STORY",
+      kicker: "// 09 — STORY",
       title: "How it started.",
       body: [
         "I wanted an IDE for coding agents, not a wrapper around one. Register a local repo, fire a prompt, and 1 to 4 agents go at it in parallel — each in its own Git worktree and branch, each in a live PTY, with the file explorer, the editor, the running app, the chat and the diff all in the same window.",
@@ -1171,7 +1232,7 @@ const en: Dict = {
       inspiredByLabel: "View source on GitHub",
     },
     finalCta: {
-      kicker: "// 09 — TRY IT",
+      kicker: "// 10 — TRY IT",
       title: "Point it at a repo and press Start.",
       subtitle:
         "Swarm runs on your machine, against your local repos. The Claude Code plugin ports the same fan-out into the CLI.",
@@ -1800,7 +1861,8 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
           title: "Swarm",
           body: "A workspace that runs one to four coding agents in parallel, each in its own git worktree, streamed live from a real terminal.",
           bullets: [
-            "Every task is planned before any code is written",
+            "Every task gets a PRD before any code is written",
+            "Cron schedules, failed CI runs and Trello cards start tasks on their own",
             "Line comments on the diff flow back to the agent",
             "PR bodies written from the real diff and check results",
           ],
@@ -2074,7 +2136,7 @@ const pt: Dict = {
             "Atuação prática em **Kubernetes** em produção (acesso via **Pritunl VPN**), utilizando **ArgoCD** (GitOps), **Headlamp** e **Grafana** para deploy contínuo, gestão de cluster e monitoramento de incidentes em ambiente de alta disponibilidade.",
             "Desenvolvi o **ObraHub**, o sistema de apontamento e medição da **Engemil**, prestadora de manutenção e montagem industrial, especificado em rodadas sucessivas de review e feedback com o responsável por produzir todo o processo na mão — um monólito **Rails 8 + PostgreSQL + Hotwire** (Devise, Pundit, 12 policies, 19 importadores/exportadores) que substituiu o ciclo papel → planilha → redigitação. Importa a planilha que a engenharia já preenche, com **digest SHA-256 da linha** para `upsert_all` idempotente, de modo que reenviar o mesmo arquivo nunca duplica; mantém o saldo de cada pacote como **query, não coluna gravada**, então um pacote de 663h mostra o saldo novo no instante em que o RDO entra; e exporta a medição mensal **idêntica byte a byte** ao arquivo de referência do cliente — fills com cor de tema e tint, formato numérico CONTÁBIL e o Resumo com duas colunas por tipo de hora, com teste que faz parse estrito do `styles.xml` gerado. **899 exemplos, 0 falhas**; em uso real, **11.551h** fechadas em um mês e **1.395 apontamentos** importados e validados em **3s**.",
             "Desenvolvi o **shelflog**, PWA em **Rails** para controle de validade em gôndola, pensado para uso no **PAS do Muffato** (uma grande rede de supermercados do Brasil): busca por código de barras ou nome, status por produto a partir de limites configuráveis e um job horário no **Solid Queue** que dispara alertas via **web push** de produtos vencidos e a vencer.",
-            "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código** — o planner roda no PTY, escreve o plano e sai, e o `on_exit` sobe o coder com o ponteiro pro plano, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design — o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
+            "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código** — o planner roda no PTY, escreve um PRD com critérios de aceite e sai, e o `on_exit` sobe o coder com o ponteiro pro PRD, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design — o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
             "Publiquei uma trilogia de plugins para o **Claude Code** cobrindo entrada, saída e efeitos colaterais do agente: **lean-output** comprime outputs de **RSpec**, **RuboCop** e **Brakeman** em **-70% a -97% de tokens** com garantia zero-loss de falhas; **rails-context** injeta dossiê curado (colunas, índices, associações, validações e rotas) reduzindo drasticamente a superfície lida pelo modelo em vez de carregar `db/schema.rb` e models inteiros; **rails-guard** intercepta comandos Rails destrutivos (`db:drop`, `db:reset`, `rails destroy`, `runner` com `delete_all`) via hook `PreToolUse`, exigindo confirmação humana antes da execução.",
           ],
         },
@@ -2178,7 +2240,7 @@ const pt: Dict = {
         summary:
           "Agent Development Environment que roda de 1 a 4 agentes de código em paralelo, cada um num git worktree isolado com PTY ao vivo, revisão de diff e merge num clique.",
         details:
-          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**.",
+          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**. **Automações** disparam tasks sozinhas — agendamentos cron, falhas de CI do GitHub via relay **AWS Lambda + SQS** provisionado com **Terraform** e cards do Trello — com painéis de Jira, Linear e GitHub ao lado.",
       },
       obrahub: {
         type: "Full Stack",
@@ -2498,9 +2560,9 @@ const pt: Dict = {
       subtitle: "Oito coisas que ele faz, todas na sua máquina.",
       items: [
         {
-          title: "Planner, depois coder",
+          title: "Planner escreve um PRD, depois coder",
           description:
-            "O handoff é uma fase de PTY, não um job: o planner roda no mesmo pane, escreve o plano e sai, e o on_exit sobe o coder com o ponteiro pro plano. “Planner falhou” nunca vira “coda no escuro”.",
+            "O handoff é uma fase de PTY, não um job: o planner roda no mesmo pane, escreve um PRD — problema, requisitos, critérios de aceite, riscos, passos — e sai, e o on_exit sobe o coder com o ponteiro pro PRD. PRD sem critério de aceite para a task com esse motivo: “planner falhou” nunca vira “coda no escuro”.",
         },
         {
           title: "Claude Code e Codex",
@@ -2535,19 +2597,57 @@ const pt: Dict = {
         {
           title: "Loops com guardas",
           description:
-            "Turn, Goal, Time e Proactive, todos atrás das mesmas guardas inegociáveis: teto de custo, teto de tentativas, kill-switch global, timeout de julgamento e HMAC-SHA256 sobre o corpo cru do webhook. Do lado dos trackers, Trello (bidirecional), Linear e Jira.",
+            "Turn, Goal, Time e Proactive, todos atrás das mesmas guardas inegociáveis: teto de custo, teto de tentativas, kill-switch global e timeout de julgamento. Transcript ilegível para o loop em vez de contar como zero gasto.",
+        },
+      ],
+    },
+    automations: {
+      kicker: "// 05 — AUTOMAÇÕES",
+      title: "Trabalho que começa sem você.",
+      subtitle:
+        "Uma página de Automações junta tudo que dispara sozinho — agendamentos, triggers e quadros — com os controles, não só a lista. Toda execução continua passando pelas guardas de custo, tentativas e kill-switch.",
+      items: [
+        {
+          title: "Tasks agendadas",
+          description:
+            "Uma expressão cron, lida pelo Fugit, dispara um prompt numa worktree nova no horário. Teto de execuções opcional, pausar e retomar, e três estados honestos: ativa, pausada e encerrada. Baixar o teto para o agendamento, então o painel e o scheduler nunca discordam.",
+        },
+        {
+          title: "CI falhou, agente sobe",
+          description:
+            "Um check suite do GitHub que falha abre uma task sozinho: HMAC-SHA256 sobre o corpo cru, allowlist de quem pode disparar, orçamento, teto de execuções e cooldown. Branch e SHA passam por regex estrita e o repo é fixado contra o origin real do git, então nada do payload entra cru no prompt.",
+        },
+        {
+          title: "Relay de webhook na AWS",
+          description:
+            "O Swarm roda atrás de NAT no WSL, onde o GitHub não alcança. Uma Lambda provisionada com Terraform guarda o corpo cru e os headers numa fila SQS sem validar nada; o app drena a fila a cada minuto por uma conexão de saída e aplica o mesmo HMAC e a mesma deduplicação de uma entrega direta.",
+        },
+        {
+          title: "Trello nos dois sentidos",
+          description:
+            "Card em que você é adicionado vira task pendente — sem worktree, sem agente, nada gasto até você apertar Start. No sentido contrário, o card anda para Doing, PR e Done e ganha um comentário quando a task começa, abre PR e é mesclada ou descartada.",
+        },
+        {
+          title: "Jira, Linear e GitHub",
+          description:
+            "Painéis de tracker ao lado das Tasks: Jira Cloud no endpoint atual /search/jql, Linear via GraphQL e um painel do GitHub com issues, PRs e projects na sintaxe de busca do próprio GitHub. Credencial expirada aparece como erro, nunca como backlog vazio.",
+        },
+        {
+          title: "Loop Goal com judge",
+          description:
+            "Os critérios de aceite do PRD alimentam o loop Goal. Um judge — QA gate, shell customizado ou evaluator — confere cada tentativa e tenta de novo até passar, e toda parada tem nome: passou, judge quebrou, orçamento esgotado, uso indisponível ou tentativas esgotadas.",
         },
       ],
     },
     architecture: {
-      kicker: "// 05 — POR DENTRO",
+      kicker: "// 06 — POR DENTRO",
       title: "O que acontece quando você aperta Start.",
       subtitle:
-        "Uma task pending não tem worktree. O Start cria, o planner faz handoff pro coder no mesmo PTY, e tudo que o agente produz volta por um único processo Puma — o registry vive em memória, então WEB_CONCURRENCY é proibido por design.",
+        "Uma task pending não tem worktree. O Start cria, o planner escreve um PRD e faz handoff pro coder no mesmo PTY, e tudo que o agente produz volta por um único processo Puma — o registry vive em memória, então WEB_CONCURRENCY é proibido por design.",
       nodes: [
         { id: "task", label: "Task · pending" },
         { id: "start", label: "Start → worktree" },
-        { id: "planner", label: "Planner (PTY)" },
+        { id: "planner", label: "Planner → PRD" },
         { id: "adapters", label: "Claude Code · Codex" },
         { id: "coder", label: "Agente coder" },
         { id: "cable", label: "PTY + ActionCable" },
@@ -2556,7 +2656,7 @@ const pt: Dict = {
       ],
     },
     stack: {
-      kicker: "// 06 — STACK",
+      kicker: "// 07 — STACK",
       title: "Construído sobre.",
       items: [
         "Rails 8.1",
@@ -2577,10 +2677,17 @@ const pt: Dict = {
         "Rust",
         "WebView2",
         "GitHub CLI",
+        "Solid Queue",
+        "Fugit",
+        "tmux",
+        "AWS Lambda",
+        "SQS",
+        "Terraform",
+        "GitHub Actions",
       ],
     },
     roadmap: {
-      kicker: "// 07 — MARCOS",
+      kicker: "// 08 — MARCOS",
       title: "O que já está dentro.",
       subtitle: "Tudo abaixo já está entregue e rodando — é a ferramenta como ela existe, não um plano.",
       items: [
@@ -2597,12 +2704,12 @@ const pt: Dict = {
         {
           marker: "03",
           title: "Workspace",
-          description: "Painéis divisíveis serializados na URL, com explorer, editor, preview, chat e qualquer arquivo como abas arrastáveis.",
+          description: "Painéis divisíveis serializados na URL, com explorer, editor, preview, chat e qualquer arquivo como abas arrastáveis, mais um Jump Palette para tasks, projetos e comandos.",
         },
         {
           marker: "04",
           title: "Duas CLIs, um planner",
-          description: "Adapters de Claude Code e Codex, e uma fase de planner por onde toda task passa antes de escrever código.",
+          description: "Adapters de Claude Code e Codex, e uma fase de planner que escreve um PRD para toda task antes de qualquer código.",
         },
         {
           marker: "05",
@@ -2616,18 +2723,28 @@ const pt: Dict = {
         },
         {
           marker: "07",
-          title: "Loops e trackers",
-          description: "Turn, Goal, Time e Proactive atrás de guardas de custo, tentativas e kill-switch, mais integrações com Trello, Linear e Jira.",
+          title: "Automações",
+          description: "Agendamentos cron, triggers de CI falho via relay na AWS (Lambda + SQS em Terraform), Trello nos dois sentidos e painéis de Jira, Linear e GitHub.",
         },
         {
           marker: "08",
           title: "Desktop",
           description: "Janela Tauri 2 em porta fixa com process group próprio; WebView2 no Windows, com o Rails rodando dentro do WSL.",
         },
+        {
+          marker: "09",
+          title: "CI/CD",
+          description: "Workflows de CI, infra e release no GitHub Actions: RSpec, RuboCop e scan de segurança em todo PR e push na main, e o .exe do Windows gerado e publicado pelo Actions.",
+        },
+        {
+          marker: "10",
+          title: "Sidecar tmux",
+          description: "tmux como backend dos panes de agente, shell e preview — fase A do ADR 001, entregue atrás de SWARM_TMUX=1.",
+        },
       ],
     },
     story: {
-      kicker: "// 08 — HISTÓRIA",
+      kicker: "// 09 — HISTÓRIA",
       title: "Como começou.",
       body: [
         "Eu queria uma IDE pra agentes de código, não um wrapper de um agente só. Registra um repo local, dispara um prompt, e de 1 a 4 agentes atacam em paralelo — cada um na sua worktree e sua branch, cada um num PTY ao vivo, com o explorer de arquivos, o editor, o app rodando, o chat e o diff na mesma janela.",
@@ -2637,7 +2754,7 @@ const pt: Dict = {
       inspiredByLabel: "Ver código no GitHub",
     },
     finalCta: {
-      kicker: "// 09 — EXPERIMENTA",
+      kicker: "// 10 — EXPERIMENTA",
       title: "Aponta pra um repo e aperta Start.",
       subtitle:
         "O Swarm roda na sua máquina, contra os seus repos locais. O plugin de Claude Code leva o mesmo fan-out pra dentro da CLI.",
@@ -3266,7 +3383,8 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
           title: "Swarm",
           body: "Um workspace que roda de um a quatro agentes de código em paralelo, cada um no seu git worktree, transmitido ao vivo de um terminal real.",
           bullets: [
-            "Toda tarefa é planejada antes de escrever código",
+            "Toda tarefa ganha um PRD antes de qualquer código",
+            "Agendamentos cron, CI que falhou e cards do Trello abrem tarefas sozinhos",
             "Comentários de linha no diff voltam para o agente",
             "Descrição de PR escrita a partir do diff real e dos checks",
           ],
