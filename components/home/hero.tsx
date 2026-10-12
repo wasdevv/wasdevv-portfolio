@@ -22,7 +22,7 @@ export function HomeHero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className={`${shell} flex flex-wrap items-stretch gap-x-[72px] gap-y-14 pb-20 pt-[88px]`}
+      className={`${shell} flex flex-wrap items-start gap-x-[72px] gap-y-14 pb-12 pt-14`}
     >
       <div className="flex min-w-0 flex-[1_1_580px] flex-col justify-center">
         <p className="mb-7 inline-flex items-center gap-2.5 self-start rounded-full border border-[#23503a] bg-[#0f1a15] px-3.5 py-2 text-sm text-[#cdebd8]">
