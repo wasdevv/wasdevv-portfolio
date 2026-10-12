@@ -5,6 +5,7 @@ import { FinalCta } from "@/components/swarm/final-cta"
 import { SwarmHero } from "@/components/swarm/hero"
 import { PtySimulator } from "@/components/swarm/pty-simulator"
 import { RoadmapTimeline } from "@/components/swarm/roadmap-timeline"
+import { SwarmScreens } from "@/components/swarm/screens"
 import { StackMarquee } from "@/components/swarm/stack-marquee"
 import { StoryCard } from "@/components/swarm/story-card"
 
@@ -12,6 +13,7 @@ export default function SwarmPage() {
   return (
     <>
       <SwarmHero />
+      <SwarmScreens />
       <PtySimulator />
       <CompareGrid />
       <FeaturesBento />

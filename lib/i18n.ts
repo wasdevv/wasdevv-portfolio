@@ -211,6 +211,11 @@ type Dict = {
       ctaCli: string
       agentLabel: string
     }
+    screens: {
+      kicker: string
+      title: string
+      review: { alt: string; caption: string }
+    }
     pty: {
       kicker: string
       title: string
@@ -961,6 +966,14 @@ const en: Dict = {
       ctaGithub: "View on GitHub",
       ctaCli: "CLI plugin",
       agentLabel: "agent",
+    },
+    screens: {
+      kicker: "// IN THE APP",
+      title: "The real app, not a mockup",
+      review: {
+        alt: "Swarm with a Claude Code session on the left and the diff review on the right, with a line-comment box under each file",
+        caption: "Agent and review side by side: the live session on the left, the diff on the right, where line comments go back to the agent.",
+      },
     },
     pty: {
       kicker: "// 02 — LIVE",
@@ -1796,7 +1809,7 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
         },
         swarm: {
           kicker: "Project · Desktop app",
-          screenshotAlt: "Swarm dashboard: \"Welcome back\", 4 agents running and the active tasks",
+          screenshotAlt: "Swarm with a Claude Code session on the left and the diff review on the right",
           title: "Swarm",
           body: "A workspace that runs one to four coding agents in parallel, each in its own git worktree, streamed live from a real terminal.",
           bullets: [
@@ -2427,6 +2440,14 @@ const pt: Dict = {
       ctaGithub: "Ver no GitHub",
       ctaCli: "Plugin CLI",
       agentLabel: "agente",
+    },
+    screens: {
+      kicker: "// NO APP",
+      title: "O app de verdade, não um mockup",
+      review: {
+        alt: "Swarm com uma sessão do Claude Code à esquerda e a revisão do diff à direita, com uma caixa de comentário por linha em cada arquivo",
+        caption: "Agente e revisão lado a lado: a sessão ao vivo à esquerda e o diff à direita, onde comentários por linha voltam para o agente.",
+      },
     },
     pty: {
       kicker: "// 02 — AO VIVO",
@@ -3262,7 +3283,7 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
         },
         swarm: {
           kicker: "Projeto · App desktop",
-          screenshotAlt: "Painel do Swarm: \"Welcome back\", 4 agentes rodando e as tarefas ativas",
+          screenshotAlt: "Swarm com uma sessão do Claude Code à esquerda e a revisão do diff à direita",
           title: "Swarm",
           body: "Um workspace que roda de um a quatro agentes de código em paralelo, cada um no seu git worktree, transmitido ao vivo de um terminal real.",
           bullets: [
