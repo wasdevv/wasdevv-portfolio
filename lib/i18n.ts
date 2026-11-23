@@ -718,7 +718,7 @@ const en: Dict = {
     },
   },
   education: {
-    title: "Education",
+    title: "Education · *Languages*",
     items: [
       {
         degree: "AWS SERVERLESS DEMONSTRATED",
@@ -729,6 +729,11 @@ const en: Dict = {
         degree: "Systems Analysis and Development (in progress)",
         school: "Wyden – São José do Rio Preto, SP",
         period: "2024 – 2026 (expected Dec/2026)",
+      },
+      {
+        degree: "TreinaDev",
+        school: "Campus Code",
+        period: "2023",
       },
       {
         degree: "Learn Rails and Ruby Programming",
@@ -922,7 +927,7 @@ const en: Dict = {
     title: "Languages",
     items: [
       { language: "Portuguese", level: "Native" },
-      { language: "English", level: "B2 (technical)" },
+      { language: "English", level: "B2" },
     ],
   },
   resume: {
@@ -2326,7 +2331,7 @@ const pt: Dict = {
     },
   },
   education: {
-    title: "Formação",
+    title: "Formação · *Idiomas*",
     items: [
       {
         degree: "AWS SERVERLESS DEMONSTRATED",
@@ -2337,6 +2342,11 @@ const pt: Dict = {
         degree: "Análise e Desenvolvimento de Sistemas (cursando)",
         school: "Wyden – São José do Rio Preto, SP",
         period: "2024 – 2026 (previsão dez/2026)",
+      },
+      {
+        degree: "TreinaDev",
+        school: "Campus Code",
+        period: "2023",
       },
       {
         degree: "Learn Rails and Ruby Programming",
@@ -2530,7 +2540,7 @@ const pt: Dict = {
     title: "Idiomas",
     items: [
       { language: "Português", level: "Nativo" },
-      { language: "Inglês", level: "B2 (técnico)" },
+      { language: "Inglês", level: "B2" },
     ],
   },
   resume: {

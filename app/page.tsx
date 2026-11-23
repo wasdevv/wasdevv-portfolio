@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { HomeContact } from "@/components/home/contact"
+import { HomeEducation } from "@/components/home/education"
 import { HomeExperience } from "@/components/home/experience"
 import { HomeHero } from "@/components/home/hero"
 import { HomeIntro } from "@/components/home/intro"
@@ -26,6 +27,7 @@ export default function HomePage() {
       <main id="main" className="font-plex text-[17px] leading-[1.6]">
         <HomeHero />
         <HomeIntro />
+        <HomeEducation />
         <HomeExperience />
         <HomeProof />
         <HomeWork />
