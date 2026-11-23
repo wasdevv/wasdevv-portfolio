@@ -6,7 +6,7 @@ import { SiteChrome } from "@/components/home/site-chrome"
 export default function ObrahubLayout({ children }: { children: ReactNode }) {
   return (
     <SiteChrome>
-      <main className="flex-1 font-mono text-foreground">{children}</main>
+      <main id="main" className="flex-1 font-sans text-foreground">{children}</main>
     </SiteChrome>
   )
 }

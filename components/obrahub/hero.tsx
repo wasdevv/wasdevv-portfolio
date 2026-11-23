@@ -11,50 +11,31 @@ export function ObrahubHero() {
 
   return (
     <section className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,hsl(var(--primary)/0.12),transparent_60%)]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"
-      />
 
-      <div className="relative mx-auto flex min-h-[80vh] max-w-[1480px] flex-col justify-center px-6 pb-20 pt-32 md:pb-28 md:pt-40">
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 font-mono text-xs uppercase tracking-wider text-muted-foreground"
-        >
-          {h.kicker}
-        </motion.p>
-
+      <div className="relative mx-auto flex min-h-[80vh] max-w-[1840px] flex-col justify-center px-6 lg:px-10 2xl:px-14 pb-20 pt-32 md:pb-28 md:pt-40">
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          className="text-balance text-5xl font-bold leading-none tracking-tight md:text-[7rem]"
+          className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-8xl"
         >
-          <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/40 bg-clip-text text-transparent">
-            {h.title}
-          </span>
+          {h.title}
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mt-6 font-mono text-base text-primary md:text-2xl"
+          className="mt-5 text-lg text-hp-soft md:text-2xl"
         >
-          &gt; {h.tagline}
+          {h.tagline}
         </motion.p>
 
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="mt-8 max-w-3xl text-balance text-base text-muted-foreground md:text-lg"
+          className="mt-8 max-w-[56ch] text-base text-muted-foreground md:text-lg"
         >
           {h.subtitle}
         </motion.p>
@@ -68,7 +49,7 @@ export function ObrahubHero() {
           {h.badges.map((badge) => (
             <li
               key={badge}
-              className="inline-flex items-center gap-2 border border-border/70 bg-card/50 px-3 py-1.5 font-mono text-xs text-muted-foreground"
+              className="inline-flex items-center gap-2 border border-border/70 bg-card px-3 py-1.5 font-mono text-xs text-muted-foreground"
             >
               <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary/70" />
               {badge}
@@ -84,10 +65,10 @@ export function ObrahubHero() {
         >
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-all hover:bg-primary/90"
+            className="group inline-flex items-center gap-2 border border-primary bg-primary min-h-11 px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             {h.ctaContact}
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
         </motion.div>
       </div>

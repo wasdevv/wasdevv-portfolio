@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
-import { HomeBugCase } from "@/components/home/bug-case"
+import { HomeContact } from "@/components/home/contact"
 import { HomeExperience } from "@/components/home/experience"
 import { HomeHero } from "@/components/home/hero"
-import { HomeHowIWork } from "@/components/home/how-i-work"
+import { HomeIntro } from "@/components/home/intro"
 import { HomeProof } from "@/components/home/proof"
+import { SectionIndex } from "@/components/home/section-index"
 import { SiteChrome } from "@/components/home/site-chrome"
 import { HomeTestimonials } from "@/components/home/testimonials"
 import { HomeWork } from "@/components/home/work"
@@ -15,19 +16,23 @@ export const metadata: Metadata = {
 }
 
 // The homepage has its own fixed dark design (no sidebar or theme toggle);
-// the about/skills/resume/contact pages keep the shared shell.
+// /resume keeps the shared shell (about-me, skills and contact are parked as
+// app/(shell)/_about-me, _skills and _contact, off the site for now). The bug case and
+// how-I-work left the homepage in Nov 2026; the skills live in the About, and
+// the contact section closes the page (there is no /contact page any more).
 export default function HomePage() {
   return (
-    <SiteChrome>
-      <main className="font-plex text-[17px] leading-[1.6]">
+    <SiteChrome contact={false} themable>
+      <main id="main" className="font-plex text-[17px] leading-[1.6]">
         <HomeHero />
+        <HomeIntro />
+        <HomeExperience />
         <HomeProof />
         <HomeWork />
-        <HomeBugCase />
         <HomeTestimonials />
-        <HomeExperience />
-        <HomeHowIWork />
+        <HomeContact />
       </main>
+      <SectionIndex />
     </SiteChrome>
   )
 }

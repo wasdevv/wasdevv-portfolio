@@ -1,13 +1,21 @@
 import { Fragment } from "react"
 
 // Homepage copy marks **figures** and `identifiers` inline; this renders both.
-export function Rich({ text, accent = false }: { text: string; accent?: boolean }) {
+export function Rich({
+  text,
+  accent = false,
+  accentClass = "text-hp-cyan",
+}: {
+  text: string
+  accent?: boolean
+  accentClass?: string
+}) {
   return (
     <>
       {text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).map((seg, i) => {
         if (seg.startsWith("**") && seg.endsWith("**")) {
           return accent ? (
-            <span key={i} className="text-hp-cyan">
+            <span key={i} className={accentClass}>
               {seg.slice(2, -2)}
             </span>
           ) : (
@@ -46,4 +54,4 @@ export function DashList({ items, className = "" }: { items: string[]; className
   )
 }
 
-export const shell = "mx-auto max-w-[1480px] px-6"
+export const shell = "mx-auto max-w-[1840px] px-6 lg:px-10 2xl:px-14"

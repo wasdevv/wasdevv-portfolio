@@ -11,44 +11,43 @@ export function SidebarProfile({ className = "" }: { className?: string }) {
 
   return (
     <aside className={className}>
-      <div className="sticky top-24 space-y-6">
+      <div className="space-y-6 lg:sticky lg:top-24">
         <div>
-          <h1 className="font-mono text-3xl font-bold leading-none tracking-tight text-foreground sm:text-4xl">
-            {p.nameLine1}
-            <br />
-            <span className="text-primary">{p.nameLine2}</span>
+          <h1 className="text-2xl font-semibold leading-tight tracking-tight text-foreground">
+            {p.nameLine1} {p.nameLine2}
           </h1>
-          <p className="mt-3 font-mono text-xs text-muted-foreground">
-            {p.role}{" "}
-            <span className="text-primary">/ {p.yearsLabel}</span>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            {p.role} · {p.yearsLabel}
           </p>
         </div>
 
+        {/* On phones the download and contacts live in the footer; keep only the name here. */}
+        <div className="hidden space-y-6 lg:block">
         <a
           href="/files/resume.pdf"
           download="washington-cardoso-resume.pdf"
-          className="group inline-flex w-full items-center justify-between gap-2 border border-primary bg-primary/10 px-4 py-3 font-mono text-xs font-semibold tracking-wider text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
+          <Download className="h-4 w-4" aria-hidden="true" />
           {p.downloadResume}
-          <Download className="h-3.5 w-3.5" aria-hidden="true" />
         </a>
 
-        <ul className="space-y-2 font-mono text-xs">
+        <ul className="space-y-1 border-t border-border pt-5 text-sm">
           <li>
             <a
               href={`tel:${sidebar.contactPhone.replace(/\s/g, "")}`}
-              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+              className="flex min-h-9 items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground"
             >
-              <Phone className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              <Phone className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
               <span>{sidebar.contactPhone}</span>
             </a>
           </li>
           <li>
             <a
               href={`mailto:${profile.email}`}
-              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+              className="flex min-h-9 items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground"
             >
-              <Mail className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              <Mail className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
               <span className="truncate">{profile.email}</span>
             </a>
           </li>
@@ -57,9 +56,9 @@ export function SidebarProfile({ className = "" }: { className?: string }) {
               href={profile.social.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+              className="flex min-h-9 items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground"
             >
-              <LinkedinIcon className="h-3.5 w-3.5 text-primary" />
+              <LinkedinIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
               <span>{sidebar.contactLinkedInLabel}</span>
             </a>
           </li>
@@ -68,13 +67,14 @@ export function SidebarProfile({ className = "" }: { className?: string }) {
               href={profile.social.github}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+              className="flex min-h-9 items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground"
             >
-              <GithubIcon className="h-3.5 w-3.5 text-primary" />
+              <GithubIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
               <span>{sidebar.contactGithubLabel}</span>
             </a>
           </li>
         </ul>
+        </div>
       </div>
     </aside>
   )

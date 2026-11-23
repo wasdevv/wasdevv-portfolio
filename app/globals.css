@@ -5,30 +5,41 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Homepage (/) palette and type — a fixed dark design, independent of the
-     light/dark theme the inner pages follow. */
+  /* Site palette (hp-*), read from the --hp-* variables below so the homepage
+     can switch to its light theme; and type. */
   --font-plex: var(--font-ibm-plex-sans), system-ui, sans-serif;
   --font-plex-mono: var(--font-ibm-plex-mono), monospace;
-  --color-hp-bg: #0e1113;
-  --color-hp-band: #111518;
-  --color-hp-panel: #14181b;
-  --color-hp-code: #0a0d0f;
-  --color-hp-line: #252b30;
-  --color-hp-line-2: #2f363b;
-  --color-hp-line-3: #3a4247;
-  --color-hp-fg: #e8ecee;
-  --color-hp-code-fg: #c9d1d5;
-  --color-hp-soft: #b8c1c6;
-  --color-hp-muted: #a9b3b9;
-  --color-hp-dim: #7a858c;
-  --color-hp-cyan: #5ccfe6;
-  --color-hp-cyan-ink: #0b1418;
-  --color-hp-green: #7ddb9c;
-  --color-hp-amber: #e8b04a;
-  --color-hp-red: #f2a7a0;
-  --font-heading: var(--font-archivo), var(--font-geist-sans), 'Geist Fallback';
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --font-geist: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-jb: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-serif-i: var(--font-instrument-serif), Georgia, serif;
+  --color-hp-bg: var(--hp-bg);
+  --color-hp-band: var(--hp-band);
+  --color-hp-panel: var(--hp-panel);
+  --color-hp-code: var(--hp-code);
+  --color-hp-line: var(--hp-line);
+  --color-hp-line-2: var(--hp-line-2);
+  --color-hp-line-3: var(--hp-line-3);
+  --color-hp-fg: var(--hp-fg);
+  --color-hp-code-fg: var(--hp-code-fg);
+  --color-hp-soft: var(--hp-soft);
+  --color-hp-muted: var(--hp-muted);
+  --color-hp-dim: var(--hp-dim);
+  --color-hp-cyan: var(--hp-cyan);
+  --color-hp-cyan-ink: var(--hp-cyan-ink);
+  --color-hp-green: var(--hp-green);
+  --color-hp-amber: var(--hp-amber);
+  --color-hp-red: var(--hp-red);
+  /* Background identity: the planet's purple dots and lavender rim. */
+  --color-hp-lilac: var(--hp-lilac);
+  --color-hp-lilac-soft: var(--hp-lilac-soft);
+  --color-hp-lilac-dim: var(--hp-lilac-dim);
+  --color-hp-violet: var(--hp-violet);
+  --color-hp-violet-ink: var(--hp-violet-ink);
+  --color-hp-hair: var(--hp-hair);
+  --color-hp-spark: var(--hp-spark);
+  --font-heading: var(--font-ibm-plex-sans), system-ui, sans-serif;
+  --font-sans: var(--font-ibm-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -69,77 +80,124 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* hp-* palette. Dark is the site's identity; the homepage alone (.hp-themable,
+   see components/home/site-chrome.tsx) can switch to light through the toggle
+   next to EN/PT, which sets data-hp-theme on <html> (set before paint by the
+   inline script in app/layout.tsx, so there is no flash). */
+:root {
+  --hp-bg: #09090b;
+  --hp-band: #111518;
+  --hp-panel: #14181b;
+  --hp-code: #0a0d0f;
+  --hp-line: #252b30;
+  --hp-line-2: #2f363b;
+  --hp-line-3: #3a4247;
+  --hp-fg: #e8ecee;
+  --hp-code-fg: #c9d1d5;
+  --hp-soft: #b8c1c6;
+  --hp-muted: #a9b3b9;
+  --hp-dim: #7a858c;
+  --hp-cyan: #5ccfe6;
+  --hp-cyan-ink: #0b1418;
+  --hp-green: #7ddb9c;
+  --hp-amber: #e8b04a;
+  --hp-red: #f2a7a0;
+  --hp-lilac: #f1e7ff;
+  --hp-lilac-soft: #c9bddc;
+  --hp-lilac-dim: #8e83a3;
+  --hp-violet: #c4a1ff;
+  --hp-violet-ink: #1a1028;
+  --hp-hair: #241d33;
+  --hp-spark: #e9dcff;
+}
+
+html[data-hp-theme="light"] .hp-themable {
+  color-scheme: light;
+  --hp-bg: #f7f5fb;
+  --hp-band: #efebf5;
+  --hp-panel: #f1edf7;
+  --hp-code: #f3f0f8;
+  --hp-line: #e3ddec;
+  --hp-line-2: #d5cde2;
+  --hp-line-3: #bfb4d1;
+  --hp-fg: #17121f;
+  --hp-code-fg: #2c2338;
+  --hp-soft: #3f3650;
+  --hp-muted: #5c536b;
+  --hp-dim: #7a7088;
+  --hp-cyan: #0e7490;
+  --hp-cyan-ink: #ffffff;
+  --hp-green: #237a46;
+  --hp-amber: #9a6408;
+  --hp-red: #b42318;
+  --hp-lilac: #1a1028;
+  --hp-lilac-soft: #463b57;
+  --hp-lilac-dim: #6c6180;
+  --hp-violet: #7444d4;
+  --hp-violet-ink: #ffffff;
+  --hp-hair: #e6dff0;
+  --hp-spark: #5b33b8;
+}
+
+/* Page transition: blinking block cursor (components/page-transition.tsx). */
+@keyframes pt-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.pt-cursor {
+  animation: pt-blink 1s steps(1) infinite;
+}
+
+/* Theme switch: a slow cross-fade of the whole page (use-hp-theme.ts). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[data-hp-theme="light"]:has(.hp-themable) {
+  color-scheme: light;
+  background: #f7f5fb;
+}
+
 :root,
 .dark {
   color-scheme: dark;
-  --background: oklch(0.155 0.008 220);
-  --foreground: oklch(0.94 0.01 200);
-  --card: oklch(0.185 0.008 220);
-  --card-foreground: oklch(0.94 0.01 200);
-  --popover: oklch(0.185 0.008 220);
-  --popover-foreground: oklch(0.94 0.01 200);
-  --primary: oklch(0.78 0.14 215);
-  --primary-foreground: oklch(0.15 0.02 220);
-  --secondary: oklch(0.24 0.01 220);
-  --secondary-foreground: oklch(0.94 0.01 200);
-  --muted: oklch(0.22 0.008 220);
-  --muted-foreground: oklch(0.62 0.02 220);
-  --accent: oklch(0.78 0.14 215);
-  --accent-foreground: oklch(0.15 0.02 220);
-  --destructive: oklch(0.62 0.2 25);
-  --border: oklch(0.3 0.012 220);
-  --input: oklch(0.3 0.012 220);
-  --ring: oklch(0.78 0.14 215);
-  --chart-1: oklch(0.78 0.14 215);
-  --chart-2: oklch(0.7 0.13 195);
-  --chart-3: oklch(0.82 0.12 175);
-  --chart-4: oklch(0.65 0.15 230);
-  --chart-5: oklch(0.55 0.12 240);
+  /* Same canvas as the homepage and the horizon background. */
+  --background: #09090b;
+  --foreground: #e8ecee;
+  --card: #111518;
+  --card-foreground: #e8ecee;
+  --popover: #111518;
+  --popover-foreground: #e8ecee;
+  --primary: #5ccfe6;
+  --primary-foreground: #0b1418;
+  --secondary: #181d21;
+  --secondary-foreground: #c9d1d5;
+  --muted: #14181b;
+  --muted-foreground: #a9b3b9;
+  --accent: #5ccfe6;
+  --accent-foreground: #0b1418;
+  --destructive: #f2a7a0;
+  --border: #252b30;
+  --input: #2f363b;
+  --ring: #5ccfe6;
+  --chart-1: #5ccfe6;
+  --chart-2: #7ddb9c;
+  --chart-3: #8fe0b0;
+  --chart-4: #e8b04a;
+  --chart-5: #a9b3b9;
   --radius: 0rem;
-  --sidebar: oklch(0.185 0.008 220);
-  --sidebar-foreground: oklch(0.94 0.01 200);
-  --sidebar-primary: oklch(0.78 0.14 215);
-  --sidebar-primary-foreground: oklch(0.15 0.02 220);
-  --sidebar-accent: oklch(0.24 0.01 220);
-  --sidebar-accent-foreground: oklch(0.94 0.01 200);
-  --sidebar-border: oklch(0.3 0.012 220);
-  --sidebar-ring: oklch(0.78 0.14 215);
+  --sidebar: #111518;
+  --sidebar-foreground: #e8ecee;
+  --sidebar-primary: #5ccfe6;
+  --sidebar-primary-foreground: #0b1418;
+  --sidebar-accent: #181d21;
+  --sidebar-accent-foreground: #e8ecee;
+  --sidebar-border: #252b30;
+  --sidebar-ring: #5ccfe6;
 }
 
-.light {
-  color-scheme: light;
-  --background: oklch(0.99 0.004 220);
-  --foreground: oklch(0.18 0.015 220);
-  --card: oklch(0.97 0.006 220);
-  --card-foreground: oklch(0.18 0.015 220);
-  --popover: oklch(0.97 0.006 220);
-  --popover-foreground: oklch(0.18 0.015 220);
-  --primary: oklch(0.55 0.16 215);
-  --primary-foreground: oklch(0.99 0.005 220);
-  --secondary: oklch(0.94 0.008 220);
-  --secondary-foreground: oklch(0.22 0.015 220);
-  --muted: oklch(0.94 0.008 220);
-  --muted-foreground: oklch(0.45 0.02 220);
-  --accent: oklch(0.55 0.16 215);
-  --accent-foreground: oklch(0.99 0.005 220);
-  --destructive: oklch(0.55 0.2 25);
-  --border: oklch(0.88 0.01 220);
-  --input: oklch(0.88 0.01 220);
-  --ring: oklch(0.55 0.16 215);
-  --chart-1: oklch(0.55 0.16 215);
-  --chart-2: oklch(0.6 0.14 195);
-  --chart-3: oklch(0.5 0.14 175);
-  --chart-4: oklch(0.5 0.16 230);
-  --chart-5: oklch(0.45 0.14 240);
-  --sidebar: oklch(0.97 0.006 220);
-  --sidebar-foreground: oklch(0.18 0.015 220);
-  --sidebar-primary: oklch(0.55 0.16 215);
-  --sidebar-primary-foreground: oklch(0.99 0.005 220);
-  --sidebar-accent: oklch(0.94 0.008 220);
-  --sidebar-accent-foreground: oklch(0.22 0.015 220);
-  --sidebar-border: oklch(0.88 0.01 220);
-  --sidebar-ring: oklch(0.55 0.16 215);
-}
 
 @layer base {
   * {
@@ -150,6 +208,23 @@
   }
   html {
     @apply font-sans;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p, li, blockquote, figcaption, dd {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--ring) 35%, transparent);
+    color: var(--foreground);
+  }
+  [id] {
+    scroll-margin-top: 96px;
   }
 }
 
@@ -178,24 +253,9 @@
 }
 
 /* --- /swarm page animations --- */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
-}
-
-/* --- /about-me intro art --- */
-@keyframes orbit {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-13px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -204,11 +264,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* --- /skills proficiency bar: animates 0 → its inline width --- */
-@keyframes skill-fill {
-  from { width: 0; }
 }
 
 /* Homepage testimonial carousel: each slide fades in, and the progress bar's

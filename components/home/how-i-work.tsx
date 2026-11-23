@@ -9,7 +9,7 @@ export function HomeHowIWork() {
   const s = t.home.skills
 
   return (
-    <section aria-labelledby="how-title" className={`${shell} pb-28 pt-16`}>
+    <section id="how" aria-labelledby="how-title" className={`${shell} pb-28 pt-16`}>
       <h2 id="how-title" className="m-0 mb-12 text-[40px] font-bold leading-[1.1] tracking-[-0.02em]">
         {h.title}
       </h2>
@@ -51,7 +51,7 @@ export function HomeHowIWork() {
                   </span>
                 ))}
                 {g.builtWith.map((name) => (
-                  <span key={name} className="rounded border border-hp-line-2 px-2.5 py-[5px] text-hp-muted">
+                  <span key={name} className="rounded border border-hp-line-2 bg-hp-bg px-2.5 py-[5px] text-hp-muted">
                     {name}
                   </span>
                 ))}

@@ -9,7 +9,7 @@ export function EcommerceQuality() {
   const q = t.ecommerce.quality
 
   return (
-    <SectionFrame kicker={q.kicker} title={q.title} subtitle={q.subtitle}>
+    <SectionFrame title={q.title} subtitle={q.subtitle}>
       <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {q.stats.map((stat, i) => (
           <motion.div
@@ -18,7 +18,7 @@ export function EcommerceQuality() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
-            className="border border-border bg-card/40 p-4 md:p-5"
+            className="border border-border bg-card p-4 md:p-5"
           >
             <dt className="sr-only">{stat.label}</dt>
             <dd>
@@ -33,19 +33,19 @@ export function EcommerceQuality() {
         ))}
       </dl>
 
-      <div className="mt-10 overflow-x-auto border border-border bg-card/40 p-5 md:p-6">
+      <div className="mt-10 overflow-x-auto border border-border bg-card p-5 md:p-6">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border/70 text-left">
               <th
                 scope="col"
-                className="pb-2 pr-6 font-mono text-[10px] font-normal uppercase tracking-widest text-muted-foreground"
+                className="pb-2 pr-6 text-sm font-normal text-muted-foreground"
               >
                 {q.layerLabel}
               </th>
               <th
                 scope="col"
-                className="pb-2 font-mono text-[10px] font-normal uppercase tracking-widest text-muted-foreground"
+                className="pb-2 text-sm font-normal text-muted-foreground"
               >
                 {q.coverageLabel}
               </th>

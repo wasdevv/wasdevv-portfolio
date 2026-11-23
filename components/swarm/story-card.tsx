@@ -10,19 +10,19 @@ export function StoryCard() {
   const s = t.swarm.story
 
   return (
-    <SectionFrame kicker={s.kicker} title={s.title}>
+    <SectionFrame title={s.title}>
       <motion.article
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.5 }}
-        className="relative overflow-hidden border border-border bg-card/40 p-6 md:p-10"
+        className="relative overflow-hidden border border-border bg-card p-6 md:p-10"
       >
         <Quote
           aria-hidden
           className="absolute -right-4 -top-4 h-32 w-32 text-primary/5 md:h-40 md:w-40"
         />
-        <div className="relative space-y-5 text-base leading-relaxed text-foreground/90 md:text-lg">
+        <div className="relative max-w-[56ch] space-y-5 text-base leading-relaxed text-foreground/90 md:text-lg">
           {s.body.map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}

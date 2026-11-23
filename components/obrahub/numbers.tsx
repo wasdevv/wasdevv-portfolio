@@ -9,7 +9,7 @@ export function ObrahubNumbers() {
   const n = t.obrahub.numbers
 
   return (
-    <SectionFrame kicker={n.kicker} title={n.title} subtitle={n.subtitle}>
+    <SectionFrame title={n.title} subtitle={n.subtitle}>
       <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {n.stats.map((stat, i) => (
           <motion.div
@@ -18,7 +18,7 @@ export function ObrahubNumbers() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
-            className="border border-border bg-card/40 p-4 md:p-5"
+            className="border border-border bg-card p-4 md:p-5"
           >
             <dt className="sr-only">{stat.label}</dt>
             <dd>
@@ -34,7 +34,7 @@ export function ObrahubNumbers() {
       </dl>
 
       <div className="mt-10">
-        <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        <p className="mb-4 text-sm font-medium text-foreground">
           {n.measuredTitle}
         </p>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-2">
@@ -43,7 +43,7 @@ export function ObrahubNumbers() {
               <dt className="font-mono text-lg font-semibold tabular-nums text-foreground md:text-xl">
                 {item.value}
               </dt>
-              <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground max-w-[60ch]">
                 {item.label}
               </dd>
             </div>

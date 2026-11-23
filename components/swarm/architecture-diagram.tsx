@@ -37,8 +37,8 @@ export function ArchitectureDiagram() {
   const [hovered, setHovered] = useState<string | null>(null)
 
   return (
-    <SectionFrame kicker={a.kicker} title={a.title} subtitle={a.subtitle}>
-      <div className="overflow-x-auto border border-border bg-card/40 p-4 md:p-8">
+    <SectionFrame title={a.title} subtitle={a.subtitle}>
+      <div className="overflow-x-auto border border-border bg-card p-4 md:p-8">
         <svg
           viewBox="0 0 800 420"
           className="mx-auto w-full min-w-[720px] max-w-4xl"

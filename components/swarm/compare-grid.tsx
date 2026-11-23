@@ -12,8 +12,8 @@ export function CompareGrid() {
   const [focused, setFocused] = useState<number | null>(null)
 
   return (
-    <SectionFrame kicker={c.kicker} title={c.title} subtitle={c.subtitle}>
-      <p className="mb-6 font-mono text-xs text-muted-foreground">{c.hint}</p>
+    <SectionFrame title={c.title} subtitle={c.subtitle}>
+      <p className="mb-6 text-xs text-muted-foreground">{c.hint}</p>
 
       <div
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
@@ -34,7 +34,7 @@ export function CompareGrid() {
               className={`group flex flex-col overflow-hidden border transition-colors ${
                 isFocused
                   ? "border-primary/70 bg-card"
-                  : "border-border bg-card/60"
+                  : "border-border bg-card"
               }`}
             >
               <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-border/50 bg-muted/20 px-4 py-2 font-mono text-xs">
@@ -43,7 +43,7 @@ export function CompareGrid() {
                   <span>swarm/{attempt.id}</span>
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground">
-                  <span className="border border-border/70 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
+                  <span className="border border-border/70 px-1.5 py-0.5 text-xs">
                     {attempt.agent}
                   </span>
                   <span className="tabular-nums">{attempt.elapsed}</span>

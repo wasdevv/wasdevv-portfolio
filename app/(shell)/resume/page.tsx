@@ -14,64 +14,65 @@ export default function ResumePage() {
     <div className="space-y-8">
       <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
         <div>
-          <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-            <span className="text-primary">[03]</span> {t.resume.title}
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            {t.resume.title}
           </h2>
-          <p className="mt-2 font-mono text-xs text-muted-foreground">
+          <p className="mt-2 text-base text-muted-foreground">
             {t.resume.subtitle}
           </p>
         </div>
         <a
           href="/files/resume.pdf"
           download="washington-cardoso-resume.pdf"
-          className="inline-flex items-center gap-2 border border-primary bg-primary/10 px-4 py-2.5 font-mono text-xs font-semibold tracking-wider text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+          className="inline-flex min-h-11 items-center gap-2 border border-hp-line-3 bg-hp-bg px-4 text-sm font-semibold text-foreground transition-colors hover:border-foreground"
         >
+          <Download className="h-4 w-4" aria-hidden="true" />
           {t.resume.downloadCta}
-          <Download className="h-3.5 w-3.5" aria-hidden="true" />
         </a>
       </header>
 
       <section>
-        <h3 className="mb-6 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <h3 className="mb-6 text-xl font-semibold tracking-tight text-foreground">
           {t.resume.timelineTitle}
         </h3>
 
         <ol className="relative space-y-5">
           <span
-            className="absolute bottom-6 left-5 top-6 w-px bg-border sm:left-6"
+            className="absolute bottom-6 left-[5px] top-7 w-px bg-border"
             aria-hidden="true"
           />
 
           {experience.items.map((exp, i) => (
             <li
               key={`${exp.company}-${i}`}
-              className="relative flex items-start gap-4 sm:gap-6"
+              className="relative flex items-start gap-5 sm:gap-7"
             >
-              <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary bg-background font-mono text-xs font-bold text-primary sm:h-12 sm:w-12">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <span
+                aria-hidden="true"
+                className={`relative z-10 mt-7 h-[11px] w-[11px] shrink-0 rounded-full border-2 border-hp-bg ${exp.isCurrent ? "bg-hp-green" : "bg-hp-line-3"}`}
+              />
 
-              <article className="min-w-0 flex-1 border border-border bg-card p-5 transition-colors hover:border-primary/60">
+              <article className="min-w-0 flex-1 border border-border bg-card p-6">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
+                  <span className="font-mono text-sm text-muted-foreground">
                     {exp.period}
                   </span>
                   {exp.isCurrent && (
-                    <span className="inline-flex items-center gap-1.5 border border-primary px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-primary">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                      CURRENT
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-hp-line-2 px-2 py-0.5 text-xs text-hp-green">
+                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-hp-green" />
+                      {t.resume.currentLabel}
                     </span>
                   )}
                 </div>
 
-                <h4 className="mt-3 font-mono text-lg font-bold tracking-tight text-foreground">
+                <h4 className="mt-2 text-lg font-semibold tracking-tight text-foreground">
                   {exp.role}
                 </h4>
-                <p className="mt-1 font-mono text-sm font-semibold text-primary">
+                <p className="mt-0.5 text-sm text-muted-foreground">
                   {exp.company}
                 </p>
 
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-hp-soft">
                   {exp.summary}
                 </p>
 
@@ -79,7 +80,7 @@ export default function ResumePage() {
                   {exp.tags.map((tag) => (
                     <li
                       key={tag}
-                      className="border border-border bg-secondary px-2.5 py-1 font-mono text-[11px] text-secondary-foreground"
+                      className="border border-border bg-secondary px-2.5 py-1 font-mono text-xs text-secondary-foreground"
                     >
                       {tag}
                     </li>
@@ -92,11 +93,11 @@ export default function ResumePage() {
       </section>
 
       <section>
-        <header className="mb-5 flex items-baseline justify-between border-b border-border pb-3">
-          <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <header className="mb-5 flex items-baseline justify-between gap-4 border-b border-border pb-3">
+          <h3 className="text-xl font-semibold tracking-tight text-foreground">
             {t.resume.openSourceTitle}
           </h3>
-          <span className="border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
+          <span className="font-mono text-sm text-muted-foreground">
             {projects.length}
           </span>
         </header>
@@ -107,19 +108,19 @@ export default function ResumePage() {
             return (
               <li
                 key={project.key}
-                className="border border-border bg-card p-5 transition-colors hover:border-primary/60"
+                className="border border-border bg-card p-6"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h4 className="flex items-center gap-2 font-mono text-sm font-bold tracking-wider text-foreground">
-                    <GithubIcon className="h-3.5 w-3.5 text-primary" />
+                  <h4 className="flex items-center gap-2 text-base font-semibold tracking-tight text-foreground">
+                    <GithubIcon className="h-4 w-4 text-muted-foreground" />
                     {project.name}
                   </h4>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <span className="font-mono text-sm text-muted-foreground">
                     {project.year}
                   </span>
                 </div>
 
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 max-w-[66ch] text-[15px] leading-relaxed text-muted-foreground">
                   <HighlightedText text={copy.details ?? copy.summary} />
                 </p>
 

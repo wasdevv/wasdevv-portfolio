@@ -7,7 +7,7 @@ export function HighlightedText({ text }: { text: string }) {
       {segments.map((seg, i) => {
         if (seg.startsWith("**") && seg.endsWith("**")) {
           return (
-            <span key={i} className="font-semibold text-primary">
+            <span key={i} className="font-semibold text-foreground">
               {seg.slice(2, -2)}
             </span>
           )

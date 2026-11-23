@@ -15,17 +15,17 @@ export default function AboutMePage() {
   const { experience } = t.aboutMe
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-16">
       <section>
         <AboutIntro />
       </section>
 
       <section>
         <header className="mb-5 flex items-baseline justify-between border-b border-border pb-3">
-          <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-            <span className="text-primary">[01]</span> {experience.title}
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+            {experience.title}
           </h2>
-          <span className="border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
+          <span className="font-mono text-sm text-muted-foreground">
             {experience.items.length} {experience.rolesLabel}
           </span>
         </header>
@@ -34,12 +34,12 @@ export default function AboutMePage() {
           {experience.items.map((exp, i) => (
             <ExperienceCard
               key={`${exp.company}-${i}`}
-              index={i + 1}
               role={exp.role}
               company={exp.company}
               period={exp.period}
               bullets={exp.bullets}
               isCurrent={exp.isCurrent}
+              currentLabel={t.resume.currentLabel}
             />
           ))}
         </div>
@@ -48,14 +48,14 @@ export default function AboutMePage() {
       <section>
         <header className="mb-8 flex items-baseline justify-between border-b border-border pb-3">
           <div>
-            <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-              <span className="text-primary">[02]</span> {t.projects.title}
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+              {t.projects.title}
             </h2>
-            <p className="mt-1 font-mono text-xs text-muted-foreground">
+            <p className="mt-1 text-sm text-muted-foreground">
               {t.projects.subtitle}
             </p>
           </div>
-          <span className="border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
+          <span className="font-mono text-sm text-muted-foreground">
             {projects.length}
           </span>
         </header>
@@ -64,8 +64,8 @@ export default function AboutMePage() {
 
       <section>
         <header className="mb-5 border-b border-border pb-3">
-          <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-            <span className="text-primary">[03]</span> {t.skills.title}
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+            {t.skills.title}
           </h2>
         </header>
         <SkillsTable />
@@ -74,20 +74,20 @@ export default function AboutMePage() {
       <div className="grid gap-5 md:grid-cols-2">
         <section>
           <header className="mb-5 border-b border-border pb-3">
-            <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-              <span className="text-primary">[04]</span> {t.education.title}
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+              {t.education.title}
             </h2>
           </header>
           <ul className="space-y-4">
             {t.education.items.map((edu, i) => (
               <li key={i} className="border border-border bg-card p-5">
-                <h3 className="font-mono text-sm font-bold tracking-wider text-foreground">
+                <h3 className="text-base font-semibold tracking-tight text-foreground">
                   {edu.degree}
                 </h3>
-                <p className="mt-1 font-mono text-xs text-primary">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {edu.school}
                 </p>
-                <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <p className="mt-2 font-mono text-sm text-hp-dim">
                   {edu.period}
                 </p>
               </li>
@@ -97,8 +97,7 @@ export default function AboutMePage() {
 
         <section>
           <header className="mb-5 border-b border-border pb-3">
-            <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-              <span className="text-primary">[05]</span>{" "}
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">
               {t.spokenLanguages.title}
             </h2>
           </header>
@@ -108,10 +107,10 @@ export default function AboutMePage() {
                 key={i}
                 className="flex items-baseline justify-between border border-border bg-card px-5 py-4"
               >
-                <span className="font-mono text-sm font-bold tracking-wider text-foreground">
+                <span className="text-base font-semibold text-foreground">
                   {item.language}
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-wider text-primary">
+                <span className="text-sm text-muted-foreground">
                   {item.level}
                 </span>
               </li>
@@ -122,10 +121,10 @@ export default function AboutMePage() {
 
       <section>
         <header className="mb-5 border-b border-border pb-3">
-          <h2 className="font-mono text-sm font-bold tracking-wider text-foreground">
-            <span className="text-primary">[06]</span> {t.testimonials.title}
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+            {t.testimonials.title}
           </h2>
-          <p className="mt-1 font-mono text-xs text-muted-foreground">
+          <p className="mt-1 text-sm text-muted-foreground">
             {t.testimonials.subtitle}
           </p>
         </header>
@@ -133,28 +132,19 @@ export default function AboutMePage() {
       </section>
 
       <section className="border border-border bg-card p-8 md:p-12">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <p className="font-mono text-xs tracking-wider text-primary">
-            [07] {t.contact.kicker}
-          </p>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            {t.contact.badge}
-          </span>
-        </div>
-
-        <h2 className="mt-6 text-pretty font-mono text-3xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-4xl md:text-5xl">
+        <h2 className="text-pretty text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl">
           {t.contact.headline}
-          <span className="text-primary">{t.contact.headlineEmphasis}</span>
+          {t.contact.headlineEmphasis}
         </h2>
 
-        <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
           {t.contact.subheadline}
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 border border-primary bg-primary px-5 py-3 font-mono text-xs font-semibold tracking-wider text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_24px_2px_var(--primary)]"
+            className="group inline-flex min-h-11 items-center gap-2 bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             {t.contact.ctaPrimary}
             <ArrowRight
@@ -164,7 +154,7 @@ export default function AboutMePage() {
           </Link>
           <Link
             href="/resume"
-            className="inline-flex items-center gap-2 border border-border bg-transparent px-5 py-3 font-mono text-xs font-semibold tracking-wider text-foreground transition-colors hover:border-primary hover:text-primary"
+            className="inline-flex min-h-11 items-center gap-2 border border-hp-line-3 bg-hp-bg px-5 text-sm font-semibold text-foreground transition-colors hover:border-foreground"
           >
             {t.contact.ctaSecondary}
           </Link>

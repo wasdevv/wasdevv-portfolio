@@ -14,9 +14,9 @@ export function DiagramCards({ section }: { section: Section }) {
   const diagram = "diagram" in s ? s.diagram : undefined
 
   return (
-    <SectionFrame kicker={s.kicker} title={s.title} subtitle={s.subtitle}>
+    <SectionFrame title={s.title} subtitle={s.subtitle}>
       {diagram ? (
-        <div className="mb-10 overflow-x-auto border border-border bg-card/40 p-4 md:p-6">
+        <div className="mb-10 overflow-x-auto border border-border bg-card p-4 md:p-6">
           <pre className="w-max font-mono text-[12px] leading-relaxed text-foreground/90 md:text-[13px]">
             {diagram}
           </pre>

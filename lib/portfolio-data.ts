@@ -9,7 +9,7 @@ export const profile = {
   email: "cardosowashington2003@gmail.com",
   social: {
     github: "https://github.com/wasdevv",
-    linkedin: "https://www.linkedin.com/in/washington-cardoso-6a3558261/",
+    linkedin: "https://www.linkedin.com/in/wasdevv/",
   },
 }
 
@@ -159,7 +159,7 @@ export type ProjectKey =
 // Only repos that answer 200 to an anonymous visitor get a `repo` link.
 export const projects: Project[] = [
   { key: "swarm", name: "Swarm", category: "tools", year: "2026", tags: ["Rails 8", "Hotwire", "ActionCable", "Tauri 2", "SQLite"], icons: ["rubyonrails", "tauri"], image: "/projects/swarm.webp" },
-  { key: "obrahub", name: "ObraHub", category: "web", year: "2026", tags: ["Rails 8.1", "PostgreSQL", "Hotwire", "Devise", "Pundit"], icons: ["rubyonrails", "postgresql"], image: "/projects/obrahub.webp", site: "https://obrahub.up.railway.app" },
+  { key: "obrahub", name: "Tork", category: "web", year: "2026", tags: ["Rails 8.1", "PostgreSQL", "Hotwire", "Devise", "Pundit"], icons: ["rubyonrails", "postgresql"], image: "/projects/obrahub.webp", site: "https://obrahub.up.railway.app" },
   { key: "ecommerceServerless", name: "E-commerce Serverless", category: "backend", year: "2026", tags: ["AWS Lambda", "Terraform", "PostgreSQL", "SQS", "SageMaker"], icons: ["nodedotjs", "terraform", "postgresql"], repo: "https://github.com/wasdevv/ecommerce-serverless" },
   { key: "tally", name: "Tally", category: "backend", year: "2026", tags: ["Kotlin", "Spring Boot", "jOOQ", "Rails", "PostgreSQL"], icons: ["kotlin", "springboot", "rubyonrails"], repo: "https://github.com/wasdevv/tally" },
   { key: "pulse", name: "Pulse", category: "backend", year: "2026", tags: ["Node.js", "Fastify", "BullMQ", "PostgreSQL", "Expo"], icons: ["nodedotjs", "typescript", "react"], repo: "https://github.com/wasdevv/pulse" },

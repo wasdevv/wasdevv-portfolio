@@ -8,8 +8,8 @@ export function ObrahubDomain() {
   const d = t.obrahub.domain
 
   return (
-    <SectionFrame kicker={d.kicker} title={d.title} subtitle={d.subtitle}>
-      <div className="overflow-x-auto border border-border bg-card/40 p-4 md:p-6">
+    <SectionFrame title={d.title} subtitle={d.subtitle}>
+      <div className="overflow-x-auto border border-border bg-card p-4 md:p-6">
         <pre className="min-w-[560px] font-mono text-[12px] leading-relaxed text-foreground/90 md:text-[13px]">
           {d.tree}
         </pre>
@@ -21,7 +21,7 @@ export function ObrahubDomain() {
             <dt className="font-mono text-sm font-semibold text-primary">
               {entity.name}
             </dt>
-            <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+            <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground max-w-[60ch]">
               {entity.description}
             </dd>
           </div>
@@ -29,8 +29,8 @@ export function ObrahubDomain() {
       </dl>
 
       <div className="mt-10 grid grid-cols-1 gap-3 lg:grid-cols-2">
-        <div className="border border-border bg-card/40 p-5 md:p-6">
-          <h3 className="font-mono text-sm font-semibold tracking-tight md:text-base">
+        <div className="border border-border bg-card p-5 md:p-6">
+          <h3 className="text-sm font-semibold tracking-tight md:text-base">
             {d.hoursTitle}
           </h3>
           <table className="mt-4 w-full font-mono text-sm">
@@ -41,7 +41,7 @@ export function ObrahubDomain() {
                 </th>
                 <th
                   scope="col"
-                  className="pb-2 text-right font-normal uppercase tracking-widest text-[10px] text-muted-foreground"
+                  className="pb-2 text-right font-normal text-sm text-muted-foreground"
                 >
                   {d.hoursFactorLabel}
                 </th>
@@ -64,11 +64,11 @@ export function ObrahubDomain() {
           </table>
         </div>
 
-        <div className="border border-border bg-card/40 p-5 md:p-6">
-          <h3 className="font-mono text-sm font-semibold tracking-tight md:text-base">
+        <div className="border border-border bg-card p-5 md:p-6">
+          <h3 className="text-sm font-semibold tracking-tight md:text-base">
             {d.balanceTitle}
           </h3>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground max-w-[60ch]">
             {d.balanceBody}
           </p>
         </div>
