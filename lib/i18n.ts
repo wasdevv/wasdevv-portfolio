@@ -198,6 +198,11 @@ type Dict = {
       ctaGithub: string
       ctaCli: string
     }
+    screens: {
+      kicker: string
+      title: string
+      review: { alt: string; caption: string }
+    }
     pty: {
       title: string
       subtitle: string
@@ -969,6 +974,14 @@ const en: Dict = {
         "A desktop IDE for coding agents. Run 1–4 Claude Code or Codex agents in parallel Git worktrees, watch each one in a live PTY, review the diff with per-line comments, then merge or open the PR: all in one window.",
       ctaGithub: "View on GitHub",
       ctaCli: "CLI plugin",
+    },
+    screens: {
+      kicker: "// IN THE APP",
+      title: "The real app, not a mockup",
+      review: {
+        alt: "Swarm with a Claude Code session on the left and the diff review on the right, with a line-comment box under each file",
+        caption: "Agent and review side by side: the live session on the left, the diff on the right, where line comments go back to the agent.",
+      },
     },
     pty: {
       title: "Every task plans before it codes.",
@@ -1895,11 +1908,11 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
         },
         swarm: {
           kicker: "AI engineering project · multi-agent platform",
+          screenshotAlt: "Swarm with a Claude Code session on the left and the diff review on the right",
           title: "Swarm",
           lead: "*250+ pull requests* in 30 days. One orchestrated AI engineering workflow.",
           body: "An autonomous multi-agent software engineering platform. It runs Claude Code and Codex in parallel, coordinates persistent AI teams, automates the development workflow and reviews every implementation in one real-time workspace.",
           cta: "See it in more detail →",
-          screenshotAlt: "Swarm dashboard: \"Welcome back\", 4 agents running and the active tasks",
           figures: [
             { value: "250+", label: "pull requests in a single month" },
             { value: "100+", label: "isolated git worktrees" },
@@ -2569,6 +2582,14 @@ const pt: Dict = {
         "Uma IDE desktop pra agentes de código. Rode de 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, acompanhe cada um num PTY ao vivo, revise o diff com comentários por linha e faça merge ou abra o PR: tudo na mesma janela.",
       ctaGithub: "Ver no GitHub",
       ctaCli: "Plugin CLI",
+    },
+    screens: {
+      kicker: "// NO APP",
+      title: "O app de verdade, não um mockup",
+      review: {
+        alt: "Swarm com uma sessão do Claude Code à esquerda e a revisão do diff à direita, com uma caixa de comentário por linha em cada arquivo",
+        caption: "Agente e revisão lado a lado: a sessão ao vivo à esquerda e o diff à direita, onde comentários por linha voltam para o agente.",
+      },
     },
     pty: {
       title: "Toda task planeja antes de codar.",
@@ -3495,11 +3516,11 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
         },
         swarm: {
           kicker: "Projeto de engenharia com IA · plataforma multiagente",
+          screenshotAlt: "Swarm com uma sessão do Claude Code à esquerda e a revisão do diff à direita",
           title: "Swarm",
           lead: "*250+ pull requests* em 30 dias. Um único fluxo de engenharia orquestrado por IA.",
           body: "Uma plataforma autônoma de engenharia de software multiagente. Roda Claude Code e Codex em paralelo, coordena times de IA persistentes, automatiza o fluxo de desenvolvimento e revisa cada implementação num workspace em tempo real.",
           cta: "Veja com mais detalhes →",
-          screenshotAlt: "Painel do Swarm: \"Welcome back\", 4 agentes rodando e as tarefas ativas",
           figures: [
             { value: "250+", label: "pull requests em um único mês" },
             { value: "100+", label: "git worktrees isolados" },

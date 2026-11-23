@@ -16,10 +16,10 @@ export function SwarmCard() {
     <article className="grid items-start gap-x-12 gap-y-8 border-t border-hp-line py-12 font-geist lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
       <CaseFrame label="swarm · desktop" className="lg:sticky lg:top-[120px]">
         <Image
-          src="/projects/swarm.webp"
+          src="/projects/swarm-agent-diff.webp"
           alt={copy.screenshotAlt}
-          width={1200}
-          height={800}
+          width={1484}
+          height={876}
           className="block h-auto w-full"
         />
         <div className="border-t border-hp-line px-5 pb-5 pt-4">
