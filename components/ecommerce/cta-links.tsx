@@ -14,7 +14,7 @@ export function CtaLinks({ repoLabel, contactLabel }: { repoLabel: string; conta
           href={repo}
           target="_blank"
           rel="noreferrer"
-          className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-all hover:bg-primary/90"
+          className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-[color,background-color,border-color,opacity,transform] hover:bg-primary/90"
         >
           <GithubIcon className="h-4 w-4" />
           {repoLabel}

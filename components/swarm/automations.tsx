@@ -7,5 +7,5 @@ export function SwarmAutomations() {
   const { t } = useLanguage()
   const a = t.swarm.automations
 
-  return <CardGrid kicker={a.kicker} title={a.title} subtitle={a.subtitle} items={a.items} />
+  return <CardGrid title={a.title} subtitle={a.subtitle} items={a.items} />
 }

@@ -1,93 +1,84 @@
 "use client"
 
-import { useState } from "react"
+import { motion } from "framer-motion"
 import { useLanguage } from "@/components/language-provider"
 import { shell } from "./rich"
+import { timelineTitleClass } from "./timeline"
+import { usePrefersReducedMotion } from "./use-reduced-motion"
 
-// Auto-advances when the active progress bar's CSS animation ends; hovering
-// pauses it, and with reduced motion the bar never animates, so it never moves on.
+// "What people I worked with say": every quote side by side (one column on
+// phones, 2×2 on tablets), separated by hairlines like the Measured in
+// production columns.
+
+const ease = [0.2, 0.7, 0.2, 1] as const
+
+// Hairlines: stacked on phones, 2×2 on tablets, one row of four on desktop.
+const cellBorders = (i: number) =>
+  [
+    i > 0 ? "border-t" : "",
+    i === 1 ? "md:border-t-0" : "",
+    i % 2 === 1 ? "md:border-l md:pl-8" : "md:pr-8",
+    i >= 2 ? "lg:border-t-0" : "",
+    i > 0 ? "lg:border-l lg:pl-8" : "",
+    i < 3 ? "lg:pr-8" : "lg:pr-0",
+  ].join(" ")
+
 export function HomeTestimonials() {
   const { t } = useLanguage()
   const q = t.home.testimonials
-  const n = q.items.length
-  const [i, setI] = useState(0)
-  // bumps on every change so the fade-in and the bar restart from zero
-  const [run, setRun] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const reduce = usePrefersReducedMotion()
 
-  const show = (k: number) => {
-    setI((k + n) % n)
-    setRun((r) => r + 1)
-  }
-  const item = q.items[i]
+  // Reduced motion resolves after hydration: pin the final state rather than
+  // dropping the props, or the initial opacity 0 would stick.
+  const enter = (i: number) =>
+    reduce
+      ? { initial: false as const, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+      : {
+          initial: { opacity: 0, y: 16 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, amount: 0.3 },
+          transition: { duration: 0.5, ease, delay: i * 0.08 },
+        }
 
   return (
-    <section
-      aria-labelledby="quote-title"
-      className={`${shell} pt-28 ${paused ? "hp-paused" : ""}`}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <h2 id="quote-title" className="m-0 mb-10 font-plex-mono text-[13px] font-medium text-hp-cyan">
+    <section aria-labelledby="quote-title" className={`${shell} pb-16 pt-28 font-geist`}>
+      <h2 id="quote-title" className={`${timelineTitleClass} mb-12 text-hp-lilac`}>
         {q.title}
       </h2>
-      <div aria-live="polite" className="min-h-[160px]">
-        <figure key={`${i}-${run}`} className="m-0 flex flex-wrap gap-x-16 gap-y-8">
-          <blockquote className="hp-in m-0 min-w-0 flex-[1_1_620px] text-[clamp(20px,3vw,26px)] font-medium leading-[1.45] tracking-[-0.01em] text-hp-fg">
-            “{item.quote}”
-          </blockquote>
-          <figcaption className="hp-in-late flex flex-[0_1_280px] flex-col gap-1.5 border-t border-hp-line pt-2 text-[15px] text-hp-soft">
-            <span className="mt-3 text-[17px] font-semibold text-hp-fg">{item.name}</span>
-            <span>{item.role}</span>
-            <span>{item.context}</span>
-          </figcaption>
-        </figure>
-      </div>
-      <div className="mt-10 flex items-center gap-4">
-        <ArrowButton label={q.prev} onClick={() => show(i - 1)}>
-          ←
-        </ArrowButton>
-        <div aria-hidden="true" className="flex gap-1.5">
-          {q.items.map((_, k) => (
-            <span key={k} className="h-1 w-10 overflow-hidden rounded-sm bg-hp-line-2">
-              {k === i ? (
-                <span
-                  key={run}
-                  className="hp-bar bg-hp-cyan"
-                  onAnimationEnd={() => show(i + 1)}
-                />
-              ) : null}
-            </span>
-          ))}
-        </div>
-        <ArrowButton label={q.next} onClick={() => show(i + 1)}>
-          →
-        </ArrowButton>
-        <span className="font-plex-mono text-[13px] text-hp-muted">
-          {i + 1} / {n}
-        </span>
-      </div>
-    </section>
-  )
-}
 
-function ArrowButton({
-  label,
-  onClick,
-  children,
-}: {
-  label: string
-  onClick: () => void
-  children: string
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      onClick={onClick}
-      className="h-12 w-12 cursor-pointer rounded-full border border-hp-line-3 bg-transparent text-lg text-hp-fg transition-[background,border-color,transform] hover:border-[#5a646b] hover:bg-[#1a1f23] active:scale-[.94]"
-    >
-      {children}
-    </button>
+      <ul className="m-0 grid list-none grid-cols-1 border-y border-hp-line p-0 md:grid-cols-2 lg:grid-cols-4">
+        {q.items.map((item, i) => (
+          <motion.li
+            key={item.name}
+            {...enter(i)}
+            className={`flex flex-col border-hp-line py-8 ${cellBorders(i)}`}
+          >
+            <figure className="m-0 flex h-full flex-col">
+              <blockquote className="m-0 flex-1 text-[17px] leading-[1.6] text-hp-lilac-soft">
+                <span aria-hidden="true" className="mb-3 block font-serif-i text-4xl leading-none text-hp-violet">
+                  “
+                </span>
+                {item.quote}
+              </blockquote>
+              <figcaption className="mt-8 border-t border-hp-line pt-4">
+                <span className="block font-medium text-hp-lilac">{item.name}</span>
+                <span className="mt-1 block text-[15px] text-hp-lilac-soft">{item.role}</span>
+                <span className="mt-1 block font-plex-mono text-[12px] text-hp-lilac-dim">{item.context}</span>
+                {item.linkedin ? (
+                  <a
+                    href={item.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-block font-jb text-[12px] uppercase tracking-[0.14em] text-hp-violet hover:text-hp-lilac"
+                  >
+                    LinkedIn ↗
+                  </a>
+                ) : null}
+              </figcaption>
+            </figure>
+          </motion.li>
+        ))}
+      </ul>
+    </section>
   )
 }

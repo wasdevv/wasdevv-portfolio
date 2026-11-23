@@ -20,7 +20,6 @@ export function HomeBugCase() {
     <section id="case" aria-labelledby="case-title" className="mt-16 border-y border-hp-line bg-hp-band">
       <div className={`${shell} flex flex-wrap items-center gap-14 py-[104px]`}>
         <div className="min-w-0 flex-[1_1_400px]">
-          <p className="m-0 mb-3.5 font-plex-mono text-[13px] text-hp-cyan">{c.kicker}</p>
           <h2
             id="case-title"
             className="m-0 mb-6 text-[40px] font-bold leading-[1.12] tracking-[-0.02em]"

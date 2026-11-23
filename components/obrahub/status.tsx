@@ -10,10 +10,10 @@ export function ObrahubStatus() {
   const s = t.obrahub.status
 
   return (
-    <SectionFrame kicker={s.kicker} title={s.title} subtitle={s.subtitle}>
+    <SectionFrame title={s.title} subtitle={s.subtitle}>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <div className="border border-border bg-card/40 p-5 md:p-6">
-          <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-chart-3 md:text-base">
+        <div className="border border-border bg-card p-5 md:p-6">
+          <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-chart-3 md:text-base">
             <Check className="h-4 w-4" aria-hidden />
             {s.doneTitle}
           </h3>
@@ -30,8 +30,8 @@ export function ObrahubStatus() {
           </ul>
         </div>
 
-        <div className="border border-border bg-card/40 p-5 md:p-6">
-          <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-muted-foreground md:text-base">
+        <div className="border border-border bg-card p-5 md:p-6">
+          <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-muted-foreground md:text-base">
             <CircleDashed className="h-4 w-4" aria-hidden />
             {s.openTitle}
           </h3>
@@ -52,12 +52,12 @@ export function ObrahubStatus() {
         </div>
       </div>
 
-      <div className="mt-3 border border-border bg-card/40 p-5 md:p-6">
-        <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-primary md:text-base">
+      <div className="mt-3 border border-border bg-card p-5 md:p-6">
+        <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-primary md:text-base">
           <Compass className="h-4 w-4" aria-hidden />
           {s.directionTitle}
         </h3>
-        <p className="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-muted-foreground">
           {s.direction}
         </p>
       </div>
@@ -65,7 +65,7 @@ export function ObrahubStatus() {
       <div className="mt-10">
         <Link
           href="/contact"
-          className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-all hover:bg-primary/90"
+          className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-[color,background-color,border-color,opacity,transform] hover:bg-primary/90"
         >
           {s.ctaLabel}
           <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

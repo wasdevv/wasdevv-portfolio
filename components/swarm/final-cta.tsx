@@ -10,20 +10,7 @@ export function FinalCta() {
 
   return (
     <section className="relative overflow-hidden border-t border-border/50">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,hsl(var(--primary)/0.18),transparent_65%)]"
-      />
-      <div className="relative mx-auto max-w-[1480px] px-6 py-24 md:py-32">
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-4 font-mono text-xs uppercase tracking-wider text-muted-foreground"
-        >
-          {f.kicker}
-        </motion.p>
+      <div className="relative mx-auto max-w-[1840px] px-6 lg:px-10 2xl:px-14 py-24 md:py-32">
         <motion.h2
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

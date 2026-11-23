@@ -11,15 +11,14 @@ export default function SkillsPage() {
     <div className="space-y-8">
       <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
         <div>
-          <h2 className="font-mono text-2xl font-bold tracking-wider text-foreground sm:text-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             {t.skills.techTitle}
-            <span className="text-primary">.</span>
           </h2>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 max-w-[56ch] text-base leading-relaxed text-muted-foreground">
             {t.skills.techSubtitle}
           </p>
         </div>
-        <span className="border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
+        <span className="font-mono text-sm text-muted-foreground">
           {skills.length} {t.skills.countSuffix}
         </span>
       </header>

@@ -21,59 +21,51 @@ function ChannelsCard() {
 
   return (
     <aside className="border border-border bg-card p-6 lg:p-8">
-      <div className="flex items-start justify-between gap-3">
-        <p className="font-mono text-[11px] tracking-wider text-muted-foreground">
-          <span className="text-primary">[01]</span> {c.kicker}
-        </p>
-        <span className="inline-flex items-center gap-1.5 border border-primary px-2 py-0.5 font-mono text-[10px] tracking-wider text-primary">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-          </span>
+      <div className="flex items-start">
+        <span className="inline-flex items-center gap-2 rounded-full border border-hp-line-2 px-3 py-1 text-sm text-hp-green">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-hp-green" />
           {c.available}
         </span>
       </div>
 
-      <h1 className="mt-6 font-mono text-4xl font-bold leading-[0.95] tracking-tight text-foreground sm:text-5xl">
+      <h2 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl">
         {c.title}
-        <span className="text-primary">.</span>
-      </h1>
+      </h2>
 
-      <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-5 max-w-[48ch] text-base leading-relaxed text-muted-foreground">
         {c.body}
       </p>
 
-      <h2 className="mt-10 border-b border-border pb-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-        <span className="text-primary">/</span> {c.channelsTitle}
-      </h2>
+      <h3 className="mt-10 text-sm font-medium text-foreground">
+        {c.channelsTitle}
+      </h3>
 
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-3 space-y-2">
         <ChannelRow
-          icon={<Mail className="h-3.5 w-3.5 text-primary" />}
+          icon={<Mail className="h-4 w-4 text-muted-foreground" />}
           label={c.form.emailLabel}
           value={profile.email}
           href={`mailto:${profile.email}`}
         />
         <ChannelRow
-          icon={<LinkedinIcon className="h-3.5 w-3.5 text-primary" />}
-          label="LINKEDIN"
+          icon={<LinkedinIcon className="h-4 w-4 text-muted-foreground" />}
+          label="LinkedIn"
           value="washington-cardoso"
           href={profile.social.linkedin}
           external
         />
         <ChannelRow
-          icon={<GithubIcon className="h-3.5 w-3.5 text-primary" />}
-          label="GITHUB"
+          icon={<GithubIcon className="h-4 w-4 text-muted-foreground" />}
+          label="GitHub"
           value={profile.handle}
           href={profile.social.github}
           external
         />
       </ul>
 
-      <dl className="mt-10 grid grid-cols-3 gap-2 border-t border-border pt-5">
+      <dl className="mt-10 grid grid-cols-1 gap-4 border-t border-border pt-6 sm:grid-cols-2">
         <MetaCell label={c.metaLocation.label} value={c.metaLocation.value} />
         <MetaCell label={c.metaResponse.label} value={c.metaResponse.value} />
-        <MetaCell label={c.metaStatus.label} value={c.metaStatus.value} />
       </dl>
     </aside>
   )
@@ -97,15 +89,15 @@ function ChannelRow({
       <a
         href={href}
         {...(external && { target: "_blank", rel: "noreferrer" })}
-        className="flex items-center justify-between gap-3 border border-border bg-background px-3 py-2.5 transition-colors hover:border-primary"
+        className="flex min-h-12 items-center justify-between gap-3 border border-border bg-background px-4 transition-colors hover:border-hp-line-3"
       >
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2.5">
           {icon}
-          <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
+          <span className="text-sm text-muted-foreground">
             {label}
           </span>
         </span>
-        <span className="truncate font-mono text-xs text-foreground">
+        <span className="truncate text-sm font-medium text-foreground">
           {value}
         </span>
       </a>
@@ -116,10 +108,10 @@ function ChannelRow({
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
+      <dt className="text-sm text-muted-foreground">
         {label}
       </dt>
-      <dd className="mt-1 font-mono text-[11px] font-semibold tracking-wider text-foreground">
+      <dd className="mt-1 text-sm font-medium text-foreground">
         {value}
       </dd>
     </div>
@@ -155,13 +147,10 @@ function MessageForm() {
       onSubmit={handleSubmit}
       className="border border-border bg-card p-6 lg:p-8"
     >
-      <header className="flex items-center justify-between gap-3 border-b border-border pb-4">
-        <h2 className="font-mono text-xs font-bold tracking-wider text-foreground">
-          <span className="text-primary">$</span> {f.title}
+      <header className="border-b border-border pb-4">
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">
+          {f.title}
         </h2>
-        <span className="border border-border bg-secondary px-2 py-0.5 font-mono text-[9px] tracking-wider text-muted-foreground">
-          {f.status}
-        </span>
       </header>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -194,7 +183,7 @@ function MessageForm() {
 
       <div className="mt-4">
         <label className="block">
-          <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
+          <span className="text-sm font-medium text-foreground">
             {f.messageLabel}
           </span>
           <textarea
@@ -203,20 +192,17 @@ function MessageForm() {
             placeholder={f.messagePlaceholder}
             value={form.message}
             onChange={update("message")}
-            className="mt-2 w-full resize-none border border-border bg-background px-3 py-2.5 font-mono text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none"
+            className="mt-2 w-full resize-none border border-input bg-background px-3.5 py-3 text-[15px] text-foreground placeholder:text-hp-dim focus:border-primary"
           />
         </label>
       </div>
 
       <button
         type="submit"
-        className="group mt-6 inline-flex w-full items-center justify-center gap-2 border border-primary bg-primary px-5 py-3 font-mono text-xs font-semibold tracking-wider text-primary-foreground shadow-[0_0_0_0_oklch(var(--primary)/0.5)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_24px_2px_var(--primary)] focus:outline-none focus-visible:-translate-y-0.5 focus-visible:shadow-[0_0_24px_2px_var(--primary)] sm:w-auto"
+        className="mt-6 inline-flex min-h-11 w-full items-center justify-center gap-2 bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
       >
+        <Send className="h-4 w-4" aria-hidden="true" />
         {f.sendCta}
-        <Send
-          className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5"
-          aria-hidden="true"
-        />
       </button>
     </form>
   )
@@ -239,7 +225,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
+      <span className="text-sm font-medium text-foreground">
         {label}
       </span>
       <input
@@ -248,7 +234,7 @@ function Field({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="mt-2 w-full border border-border bg-background px-3 py-2.5 font-mono text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none"
+        className="mt-2 min-h-11 w-full border border-input bg-background px-3.5 text-[15px] text-foreground placeholder:text-hp-dim focus:border-primary"
       />
     </label>
   )

@@ -10,7 +10,7 @@ export function RoadmapTimeline() {
   const r = t.swarm.roadmap
 
   return (
-    <SectionFrame kicker={r.kicker} title={r.title} subtitle={r.subtitle}>
+    <SectionFrame title={r.title} subtitle={r.subtitle}>
       <ol className="relative border-l border-border pl-8 md:pl-10">
         {r.items.map((item, i) => {
           return (

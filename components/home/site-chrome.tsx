@@ -1,30 +1,36 @@
 import type { ReactNode } from "react"
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import { HomeFooter } from "./home-footer"
 import { HomeNav } from "./home-nav"
+import { SiteBackdrop } from "./site-backdrop"
+import { SmoothScroll } from "./smooth-scroll"
 
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-ibm-plex-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-})
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-})
-
-// Nav + contact footer shared by the homepage and the project case studies
-// (/obrahub, /swarm, /ecommerce-serverless). That nav has no theme toggle, so
-// `dark` pins the case-study content to the dark tokens to match it.
-export function SiteChrome({ children }: { children: ReactNode }) {
+// Nav + footer shared by every page: the homepage, /projects, the project
+// pages (/tork, /ecommerce-serverless) and the shell pages (/resume, /contact).
+// `dark` pins the shadcn tokens to dark; the hp-* palette follows the theme
+// toggle only where `themable` is set.
+export function SiteChrome({
+  children,
+  dimBackdrop = false,
+  contact = true,
+  themable = false,
+}: {
+  children: ReactNode
+  dimBackdrop?: boolean
+  /** false keeps only the footer's bottom bar (©, GitHub, LinkedIn, résumé). */
+  contact?: boolean
+  /** Lets the light/dark toggle apply here (homepage only, for now). */
+  themable?: boolean
+}) {
   return (
     <div
-      className={`dark ${plexSans.variable} ${plexMono.variable} flex min-h-screen flex-col bg-hp-bg font-plex text-hp-fg antialiased`}
+      className={`dark isolate flex min-h-screen flex-col bg-hp-bg font-plex text-hp-fg antialiased ${themable ? "hp-themable" : ""}`}
     >
-      <HomeNav />
-      {children}
-      <HomeFooter />
+      <SmoothScroll>
+        <SiteBackdrop dimmed={dimBackdrop} themable={themable} />
+        <HomeNav themeToggle={themable} />
+        {children}
+        <HomeFooter contact={contact} />
+      </SmoothScroll>
     </div>
   )
 }

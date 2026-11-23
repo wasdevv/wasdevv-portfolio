@@ -11,7 +11,7 @@ export function SwarmScreens() {
   const s = t.swarm.screens
 
   return (
-    <SectionFrame kicker={s.kicker} title={s.title}>
+    <SectionFrame title={s.title}>
       <motion.figure
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}

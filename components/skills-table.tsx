@@ -19,7 +19,7 @@ export function SkillsTable() {
                 scope="row"
                 className="w-40 border-r border-border px-4 py-4 text-left align-middle"
               >
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                <span className="text-sm font-medium text-foreground">
                   {t.skills.categories[group.key]}
                 </span>
               </th>
@@ -28,7 +28,7 @@ export function SkillsTable() {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="border border-border bg-secondary px-2.5 py-1 font-mono text-[11px] text-secondary-foreground transition-colors hover:border-primary hover:text-primary"
+                      className="border border-border bg-secondary px-2.5 py-1 text-[13px] text-secondary-foreground"
                     >
                       {item}
                     </li>

@@ -10,42 +10,23 @@ export function SwarmHero() {
 
   return (
     <section className="relative overflow-hidden">
-      <BackgroundGrid />
-
-      <div className="relative mx-auto flex min-h-[92vh] max-w-[1480px] flex-col justify-center px-6 pb-24 pt-32 md:pb-32 md:pt-40">
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 font-mono text-xs uppercase tracking-wider text-muted-foreground"
-        >
-          {h.kicker}
-        </motion.p>
-
+      <div className="relative mx-auto flex min-h-[80vh] max-w-[1840px] flex-col justify-center px-6 lg:px-10 2xl:px-14 pb-24 pt-32 md:pb-32 md:pt-40">
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          className="text-balance text-6xl font-bold leading-none tracking-tight md:text-[9rem]"
+          className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-8xl"
         >
-          <span className="bg-gradient-to-br from-foreground via-foreground to-foreground/40 bg-clip-text text-transparent">
-            {h.title}
-          </span>
-          <motion.span
-            aria-hidden
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 1.05, repeat: Infinity, ease: "easeInOut" }}
-            className="ml-2 inline-block h-[0.85em] w-[0.5ch] translate-y-[-0.05em] bg-primary align-middle"
-          />
+          {h.title}
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mt-6 font-mono text-lg text-primary md:text-2xl"
+          className="mt-5 text-lg text-hp-soft md:text-2xl"
         >
-          &gt; {h.tagline}
+          {h.tagline}
         </motion.p>
 
         <motion.p
@@ -67,76 +48,25 @@ export function SwarmHero() {
             href="https://github.com/wasdevv/swarm"
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2 border border-primary bg-primary px-4 py-2.5 font-mono text-sm text-primary-foreground transition-all hover:bg-primary/90"
+            className="group inline-flex items-center gap-2 border border-primary bg-primary min-h-11 px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            <Star className="h-4 w-4" />
+            <Star className="h-4 w-4" aria-hidden="true" />
             {h.ctaGithub}
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-4 w-4" />
           </a>
           <a
             href="https://github.com/wasdevv/swarm-plugin"
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2 border border-border bg-transparent px-4 py-2.5 font-mono text-sm transition-colors hover:border-foreground/60 hover:bg-foreground/5"
+            className="group inline-flex min-h-11 items-center gap-2 border border-hp-line-3 bg-hp-bg px-5 text-sm font-semibold transition-colors hover:border-foreground"
           >
-            <Terminal className="h-4 w-4" />
+            <Terminal className="h-4 w-4" aria-hidden="true" />
             {h.ctaCli}
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-4 w-4" />
           </a>
         </motion.div>
 
-        <AgentDock label={h.agentLabel} />
       </div>
     </section>
-  )
-}
-
-function BackgroundGrid() {
-  return (
-    <>
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,hsl(var(--primary)/0.12),transparent_60%)]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.15)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.15)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]"
-      />
-    </>
-  )
-}
-
-function AgentDock({ label }: { label: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.6 }}
-      className="mt-20 flex items-end gap-4 md:gap-6"
-    >
-      {[0, 1, 2, 3].map((i) => (
-        <div key={i} className="flex flex-col items-center gap-2">
-          <motion.div
-            animate={{
-              opacity: [0.35, 1, 0.35],
-              scale: [1, 1.06, 1],
-            }}
-            transition={{
-              duration: 1.6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.32,
-            }}
-            className="relative h-14 w-14 border border-primary/50 bg-primary/10 md:h-20 md:w-20"
-          >
-            <div className="absolute inset-1 border border-primary/25" />
-            <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary" />
-          </motion.div>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground md:text-xs">
-            {label}·{i + 1}
-          </span>
-        </div>
-      ))}
-    </motion.div>
   )
 }

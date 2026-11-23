@@ -10,10 +10,10 @@ export function EcommerceStatus() {
   const s = t.ecommerce.status
 
   return (
-    <SectionFrame kicker={s.kicker} title={s.title} subtitle={s.subtitle}>
+    <SectionFrame title={s.title} subtitle={s.subtitle}>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <div className="border border-border bg-card/40 p-5 md:p-6">
-          <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-chart-3 md:text-base">
+        <div className="border border-border bg-card p-5 md:p-6">
+          <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-chart-3 md:text-base">
             <Check className="h-4 w-4" aria-hidden />
             {s.doneTitle}
           </h3>
@@ -27,8 +27,8 @@ export function EcommerceStatus() {
           </ul>
         </div>
 
-        <div className="border border-border bg-card/40 p-5 md:p-6">
-          <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-muted-foreground md:text-base">
+        <div className="border border-border bg-card p-5 md:p-6">
+          <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-muted-foreground md:text-base">
             <CircleDashed className="h-4 w-4" aria-hidden />
             {s.pendingTitle}
           </h3>
@@ -46,16 +46,16 @@ export function EcommerceStatus() {
         </div>
       </div>
 
-      <div className="mt-3 border border-border bg-card/40 p-5 md:p-6">
-        <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-primary md:text-base">
+      <div className="mt-3 border border-border bg-card p-5 md:p-6">
+        <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-primary md:text-base">
           <Coins className="h-4 w-4" aria-hidden />
           {s.costTitle}
         </h3>
-        <p className="mt-3 max-w-4xl text-sm leading-relaxed text-muted-foreground">{s.cost}</p>
+        <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-muted-foreground">{s.cost}</p>
       </div>
 
-      <div className="mt-3 border border-border bg-card/40 p-5 md:p-6">
-        <h3 className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-primary md:text-base">
+      <div className="mt-3 border border-border bg-card p-5 md:p-6">
+        <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-primary md:text-base">
           <Lightbulb className="h-4 w-4" aria-hidden />
           {s.learnedTitle}
         </h3>

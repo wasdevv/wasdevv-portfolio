@@ -19,6 +19,19 @@ type ExperienceItem = {
   bullets: string[]
 }
 
+/** A "Software I've shipped" project card (Swarm, Serverless). */
+type HomeCase = {
+  kicker: string
+  title: string
+  /** Opening line; "*text*" is set in the italic serif. */
+  lead: string
+  body: string
+  cta: string
+  figures: { value: string; label: string }[]
+  pillars: { title: string; text: string }[]
+  decision: { label: string; text: string }
+}
+
 type HomeProject = {
   kicker: string
   title: string
@@ -38,15 +51,6 @@ type Dict = {
     availableLabel: string
     downloadResume: string
   }
-  nav: {
-    aboutMe: string
-    skills: string
-    resume: string
-    contact: string
-    swarm: string
-    obrahub: string
-    ecommerce: string
-  }
   sidebar: {
     contactPhone: string
     contactPhoneLabel: string
@@ -59,17 +63,6 @@ type Dict = {
       eyebrow: string
       headline: string
       headlineEmphasis: string
-      devRb: {
-        filename: string
-        codeKeys: {
-          name: string
-          stack: string
-          location: string
-          focus: string
-          monster: string
-        }
-        focus: string
-      }
       paragraphs: string[]
       stats: Stat[]
       facts: {
@@ -127,6 +120,18 @@ type Dict = {
     pageLabel: string
     // details: the long form shown on /resume; the card grid uses summary
     items: Record<ProjectKey, { type: string; summary: string; details?: string }>
+    /** The /projects page. */
+    page: {
+      label: string
+      /** "*text*" is set in the violet italic serif. */
+      title: string
+      intro: string
+      count: string
+      details: string
+      code: string
+      site: string
+      private: string
+    }
   }
   testimonials: {
     title: string
@@ -154,10 +159,9 @@ type Dict = {
     timelineTitle: string
     openSourceTitle: string
     privateRepoLabel: string
+    currentLabel: string
   }
   contact: {
-    kicker: string
-    badge: string
     headline: string
     headlineEmphasis: string
     subheadline: string
@@ -172,10 +176,8 @@ type Dict = {
     channelsTitle: string
     metaLocation: { label: string; value: string }
     metaResponse: { label: string; value: string }
-    metaStatus: { label: string; value: string }
     form: {
       title: string
-      status: string
       nameLabel: string
       namePlaceholder: string
       emailLabel: string
@@ -188,28 +190,13 @@ type Dict = {
     }
   }
   footer: string
-  toggle: {
-    switchLang: string
-    switchTheme: { toLight: string; toDark: string }
-  }
-  meta: {
-    aboutMe: { title: string; description: string }
-    skills: { title: string; description: string }
-    resume: { title: string; description: string }
-    contact: { title: string; description: string }
-    swarm: { title: string; description: string }
-    obrahub: { title: string; description: string }
-    ecommerce: { title: string; description: string }
-  }
   swarm: {
     hero: {
-      kicker: string
       title: string
       tagline: string
       subtitle: string
       ctaGithub: string
       ctaCli: string
-      agentLabel: string
     }
     screens: {
       kicker: string
@@ -217,7 +204,6 @@ type Dict = {
       review: { alt: string; caption: string }
     }
     pty: {
-      kicker: string
       title: string
       subtitle: string
       promptLabel: string
@@ -226,7 +212,6 @@ type Dict = {
       lines: { kind: "sys" | "task" | "ok"; text: string }[]
     }
     compare: {
-      kicker: string
       title: string
       subtitle: string
       hint: string
@@ -242,7 +227,6 @@ type Dict = {
       }[]
     }
     features: {
-      kicker: string
       title: string
       subtitle: string
       items: {
@@ -251,13 +235,11 @@ type Dict = {
       }[]
     }
     automations: {
-      kicker: string
       title: string
       subtitle: string
       items: { title: string; description: string }[]
     }
     architecture: {
-      kicker: string
       title: string
       subtitle: string
       nodes: {
@@ -266,12 +248,10 @@ type Dict = {
       }[]
     }
     stack: {
-      kicker: string
       title: string
       items: string[]
     }
     roadmap: {
-      kicker: string
       title: string
       subtitle: string
       items: {
@@ -281,13 +261,11 @@ type Dict = {
       }[]
     }
     story: {
-      kicker: string
       title: string
       body: string[]
       inspiredByLabel: string
     }
     finalCta: {
-      kicker: string
       title: string
       subtitle: string
       ctaGithub: string
@@ -297,7 +275,6 @@ type Dict = {
   }
   obrahub: {
     hero: {
-      kicker: string
       title: string
       tagline: string
       subtitle: string
@@ -305,7 +282,6 @@ type Dict = {
       ctaContact: string
     }
     problem: {
-      kicker: string
       title: string
       subtitle: string
       beforeLabel: string
@@ -313,13 +289,11 @@ type Dict = {
       items: { title: string; description: string }[]
     }
     rules: {
-      kicker: string
       title: string
       subtitle: string
       items: { title: string; description: string }[]
     }
     domain: {
-      kicker: string
       title: string
       subtitle: string
       tree: string
@@ -331,7 +305,6 @@ type Dict = {
       balanceBody: string
     }
     architecture: {
-      kicker: string
       title: string
       subtitle: string
       items: { title: string; description: string }[]
@@ -339,13 +312,11 @@ type Dict = {
       stack: string[]
     }
     decisions: {
-      kicker: string
       title: string
       subtitle: string
       items: { title: string; description: string }[]
     }
     numbers: {
-      kicker: string
       title: string
       subtitle: string
       stats: { value: string; label: string }[]
@@ -353,7 +324,6 @@ type Dict = {
       measured: { value: string; label: string }[]
     }
     status: {
-      kicker: string
       title: string
       subtitle: string
       doneTitle: string
@@ -367,7 +337,6 @@ type Dict = {
   }
   ecommerce: {
     hero: {
-      kicker: string
       title: string
       tagline: string
       subtitle: string
@@ -376,7 +345,6 @@ type Dict = {
       ctaContact: string
     }
     overview: {
-      kicker: string
       title: string
       subtitle: string
       flowsTitle: string
@@ -385,47 +353,40 @@ type Dict = {
       localBody: string
     }
     architecture: {
-      kicker: string
       title: string
       subtitle: string
       diagram: string
       items: { title: string; description: string }[]
     }
     problems: {
-      kicker: string
       title: string
       subtitle: string
       proofLabel: string
       items: { title: string; description: string; proof?: string }[]
     }
     ml: {
-      kicker: string
       title: string
       subtitle: string
       diagram: string
       items: { title: string; description: string }[]
     }
     infra: {
-      kicker: string
       title: string
       subtitle: string
       items: { title: string; description: string }[]
     }
     cicd: {
-      kicker: string
       title: string
       subtitle: string
       diagram: string
       items: { title: string; description: string }[]
     }
     observability: {
-      kicker: string
       title: string
       subtitle: string
       items: { title: string; description: string }[]
     }
     quality: {
-      kicker: string
       title: string
       subtitle: string
       stats: { value: string; label: string }[]
@@ -434,7 +395,6 @@ type Dict = {
       rows: { layer: string; coverage: string }[]
     }
     status: {
-      kicker: string
       title: string
       subtitle: string
       doneTitle: string
@@ -452,35 +412,108 @@ type Dict = {
   // Copy for the / homepage. Strings support **bold** and `code` via HomeRich.
   home: {
     nav: {
+      home: string
+      work: string
+      more: string
+      lightMode: string
+      darkMode: string
+      projects: string
       obrahub: string
       swarm: string
       serverless: string
       experience: string
+      about: string
+      skills: string
       resume: string
       openToWork: string
     }
     hero: {
       badge: string
-      role: string[]
+      roleAccent: string
+      roleRest: string
+      /** Short line under the name, items separated by " · ". */
+      focus: string
       pitch: string
+      pitchMore: string
+      pitchStrong: string
       downloadResume: string
       emailMe: string
+      shippedFor: string
+      clients: string[]
+      terminal: { title: string; boot: string[]; ready: string; localTime: string }
       facts: { label: string; value: string; accent?: boolean }[]
-      quote: string
-      quoteBy: string
+    }
+    intro: {
+      label: string
+      statement: string
+      details: string[]
+      more: string
+    }
+    sectionIndex: {
+      label: string
+      about: string
+      work: string
+      case: string
+      experience: string
+      how: string
+      contact: string
     }
     proof: {
-      title: string
-      items: { label: string; before: string; after: string; gain: string }[]
+      label: string
+      heading: string
+      items: {
+        label: string
+        before: string
+        after: string
+        /** Headline figure, counted from `start` to `value`. */
+        value: number
+        start: number
+        decimals?: number
+        prefix?: string
+        unit: string
+        /** Word set in the italic serif next to the figure. */
+        word: string
+        /** Optional italic serif line under the figure. */
+        note?: string
+        /** time: the violet "after" share shrinks from 1 to `to`; growth: it grows from `from` to `to`. */
+        kind: "time" | "growth"
+        from: number
+        to: number
+      }[]
     }
     highlights: { value: string; label: string }[]
     work: {
       title: string
       allProjects: string
       projects: {
-        obrahub: HomeProject & { checks: string[]; screenshotAlt: string }
-        swarm: HomeProject & { screenshotAlt: string }
-        serverless: HomeProject
+        obrahub: HomeProject & {
+          checks: string[]
+          /** Headline figures for the Tork card, counted up when they appear. */
+          figures: { value: string; label: string }[]
+          screenshotAlt: string
+          videoLabel: string
+          play: string
+          pause: string
+          seek: string
+          mute: string
+          unmute: string
+          volume: string
+          expand: string
+          collapse: string
+          /** Video chapters; their start times live in components/home/tork-demo.tsx. */
+          chapters: { title: string; text: string }[]
+        }
+        swarm: HomeCase & {
+          screenshotAlt: string
+          lifecycleTitle: string
+          lifecycle: { title: string; text: string }[]
+        }
+        serverless: HomeCase & {
+          diagramLabel: string
+          opsNote: string
+          provenTitle: string
+          proven: { scenario: string; result: string }[]
+        }
       }
       more: {
         trilogyKicker: string
@@ -505,11 +538,37 @@ type Dict = {
       title: string
       prev: string
       next: string
-      items: { quote: string; name: string; role: string; context: string }[]
+      pause: string
+      play: string
+      /** `role` reads "Role · Company"; `linkedin` is the author's profile URL, when known. */
+      items: { quote: string; name: string; role: string; context: string; linkedin?: string }[]
+    }
+    contact: {
+      label: string
+      /** "*text*" is set in the violet italic serif. */
+      title: string
+      copy: string
+      copied: string
+      copyLabel: string
+      availability: string
+      resume: string
     }
     experience: {
       title: string
-      items: { period: string; role: string; company: string; summary?: string; bullets: string[]; stack?: string }[]
+      showAll: string
+      showLess: string
+      items: {
+        period: string
+        role: string
+        company: string
+        summary?: string
+        /** Headline figures shown as cards above the bullets. */
+        stats?: { value: string; label: string; detail: string }[]
+        /** When set, the first N bullets (in written order) are the ones shown before "Show all". */
+        featured?: number
+        bullets: string[]
+        stack?: string
+      }[]
     }
     howIWork: {
       title: string
@@ -531,24 +590,15 @@ type Dict = {
 
 const en: Dict = {
   profile: {
-    nameLine1: "WASHINGTON",
-    nameLine2: "CARDOSO.",
+    nameLine1: "Washington",
+    nameLine2: "Cardoso",
     role: "Full-Stack Developer",
     yearsLabel: "4 years",
     location: "Brazil",
     tagline:
       "Ruby on Rails specialist building scalable web platforms with focus on performance, clean code and shipping real value.",
     availableLabel: "available for projects",
-    downloadResume: "DOWNLOAD RESUME",
-  },
-  nav: {
-    aboutMe: "ABOUT_ME",
-    skills: "SKILLS",
-    swarm: "SWARM",
-    obrahub: "OBRAHUB",
-    ecommerce: "ECOMMERCE_SERVERLESS",
-    resume: "RESUME",
-    contact: "CONTACT",
+    downloadResume: "Download resume",
   },
   sidebar: {
     contactPhone: "+55 17 98843-2434",
@@ -562,17 +612,6 @@ const en: Dict = {
       eyebrow: "Who I am",
       headline: "I turn complex problems into ",
       headlineEmphasis: "useful software.",
-      devRb: {
-        filename: "dev.rb",
-        codeKeys: {
-          name: "name",
-          stack: "stack",
-          location: "location",
-          focus: "focus",
-          monster: "monster",
-        },
-        focus: "shipping products",
-      },
       paragraphs: [
         "Full Stack Software Engineer with 4 years of experience developing scalable applications on Ruby on Rails and multi-tenant SaaS platforms.",
         "Solid background in backend architecture, REST APIs, automated testing, CI/CD, observability and performance optimization.",
@@ -583,7 +622,7 @@ const en: Dict = {
         { value: "3.5s → 180ms", label: "p99 latency cut" },
         { value: "63,000×", label: "faster queries on 14M+ rows" },
         { value: "80h → 7min", label: "CSV export pipeline" },
-        { value: "35% → 85%", label: "test coverage via CI/CD" },
+        { value: "35% → 89%", label: "test coverage via CI/CD" },
         { value: "99.9%", label: "production uptime" },
       ],
       facts: {
@@ -594,19 +633,19 @@ const en: Dict = {
       },
     },
     experience: {
-      title: "PROFESSIONAL EXPERIENCE",
-      rolesLabel: "ROLES",
+      title: "Professional experience",
+      rolesLabel: "roles",
       items: [
         {
-          role: "FULL STACK DEVELOPER",
+          role: "Full-Stack Developer",
           company: "Was Advisory",
-          period: "Aug 2023 — Present",
+          period: "Aug 2023 – Present",
           isCurrent: true,
           summary:
             "Building multi-tenant SaaS systems with Rails, PostgreSQL, Redis and React. Cut a critical endpoint from 3.5 seconds to 180 milliseconds and kept reliable workflows running at scale.",
           tags: ["Ruby on Rails", "PostgreSQL", "React", "Redis"],
           bullets: [
-            "Optimized a critical endpoint, cutting latency from **3.5s to 180ms** (-94%) by identifying **N+1** queries, implementing **eager loading** and **3-layer Redis caching**, impacting **10k+ requests/day**.",
+            "Optimized a critical endpoint, cutting latency from **3.5s to 180ms** (-94%) by identifying **N+1** queries, implementing **eager loading** and **3-layer Redis caching**, impacting **100k+ requests/day**.",
             "Rearchitected the CSV report export pipeline, replacing synchronous processing with an asynchronous architecture using **Sidekiq**, **PostgreSQL COPY**, streaming and **Amazon S3**, reducing export time of 1.77M records from ~80h to 7min (~600×).",
             "Optimized PostgreSQL queries on a base with **14M+ records**, designing composite indexes and refining query strategies that cut response time from **12.7s to 0.2ms** (~63,000×).",
             "Designed and delivered from scratch the **Extrato de Débitos** (Debt Statement) module with dynamic search over millions of tax debt installments, sustaining **17 incremental releases in 5 months** as the main author; eliminated N+1 in polymorphic associations (not resolvable by Rails eager loading) via manual preload, replaced in-memory ID loading with SQL subqueries and closed recurring 500 errors in production.",
@@ -614,20 +653,20 @@ const en: Dict = {
             "Reduced write cost on high-volume tables by removing **33 unused indexes** and adding unique indexes on join tables via concurrent migrations (`algorithm: :concurrently`) applied with zero downtime.",
             "Diagnosed and fixed a race condition emitting duplicate protocol numbers in a municipal administrative system (same protocol generated 3× under double-click), replacing `SELECT MAX(number)+1` without lock with **pg_advisory_xact_lock** scoped by department and year, preserving cross-department concurrency, with explicit transaction guard and uniqueness validation as second defense layer.",
             "Architected and implemented the integration with the external **SINAL API**, documented in **OpenAPI/Swagger**, processing **100k+ records/month** in a **multi-tenant** environment, applying **Faraday**, **distributed Circuit Breaker (Stoplight)**, **Retry with Exponential Backoff**, **Outbox Pattern**, advisory locks in **PostgreSQL** and **Sidekiq** for asynchronous processing, sustaining **99.9% uptime** and zero duplicate records even with an unstable provider.",
-            "Built automated test suites with **RSpec** and **Capybara**, raising coverage from **35% to 85%** and reducing production bugs through robust **CI/CD** pipelines, with **RuboCop** and **Brakeman** for static analysis and security.",
+            "Built automated test suites with **RSpec** and **Capybara**, raising coverage from **35% to 89%** and reducing production bugs through robust **CI/CD** pipelines, with **RuboCop** and **Brakeman** for static analysis and security.",
             "Evolved the critical **Acordos de Dívida Ativa** (Active Debt Agreements) module in a **multi-tenant** architecture serving **50+ municipalities**, during the system migration from **Rails 7 to Rails 8**, structured with **Devise**, **Service Objects** and **Form::Builder** to encapsulate complex fiscal rules, delivering **15+ per-municipality customizations via feature flags**, cutting delivery time by **60%**, zeroing cross-tenant regressions and reducing module-related support tickets by **59%**.",
             "Monitored production applications using observability tools (**Datadog**), identifying and resolving incidents proactively before they affected end users.",
             "Hands-on experience with **Kubernetes** in production (accessed via **Pritunl VPN**), using **ArgoCD** (GitOps), **Headlamp** and **Grafana** for continuous deploy, cluster management and incident monitoring in a high-availability environment.",
-            "Built **ObraHub**, the labor tracking and billing system for **Engemil**, an industrial maintenance and assembly contractor, specified through successive rounds of review and feedback with the person who produced the whole process by hand — a **Rails 8 + PostgreSQL + Hotwire** monolith (Devise, Pundit, 12 policies, 19 importers/exporters) that replaced a paper-to-spreadsheet-to-retyping cycle. Imports the spreadsheet engineering already fills in, with **SHA-256 row digests** for idempotent `upsert_all` so re-uploading a file never duplicates; keeps each work package's balance as a **query, not a stored column**, so a 663h package shows its new balance the moment a report lands; and exports the monthly billing workbook **byte-identical** to the client's reference file — theme-colour fills with tint, ACCOUNTING number format and a two-column-per-hour-type summary layout, with a test that strictly parses the generated `styles.xml`. **899 examples, 0 failures**; **11,551h** closed in one month and **1,395 entries** imported and validated in **3s** in real use.",
+            "Built **ObraHub**, the labor tracking and billing system for **Engemil**, an industrial maintenance and assembly contractor, specified through successive rounds of review and feedback with the person who produced the whole process by hand: a **Rails 8 + PostgreSQL + Hotwire** monolith (Devise, Pundit, 12 policies, 19 importers/exporters) that replaced a paper-to-spreadsheet-to-retyping cycle. Imports the spreadsheet engineering already fills in, with **SHA-256 row digests** for idempotent `upsert_all` so re-uploading a file never duplicates; keeps each work package's balance as a **query, not a stored column**, so a 663h package shows its new balance the moment a report lands; and exports the monthly billing workbook **byte-identical** to the client's reference file: theme-colour fills with tint, ACCOUNTING number format and a two-column-per-hour-type summary layout, with a test that strictly parses the generated `styles.xml`. **899 examples, 0 failures**; **11,551h** closed in one month and **1,395 entries** imported and validated in **3s** in real use.",
             "Built **shelflog**, an installable **Rails** PWA for shelf expiry-date control, designed for use in **Muffato's PAS** (a major Brazilian supermarket chain): barcode and name lookup, a per-product status driven by configurable thresholds, and an hourly **Solid Queue** job that sends **web push** alerts for expired and soon-to-expire stock.",
-            "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written** — the planner runs in the PTY, writes a PRD with acceptance criteria and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design — the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
+            "Built **Swarm**, an Agent Development Environment on **Rails 8 + Hotwire + SQLite** that runs **1–4 Claude Code or Codex agents in parallel**, each in an isolated Git worktree and branch, streamed live from a real **PTY** over **ActionCable**. Every task goes through a **planner phase before any code is written**: the planner runs in the PTY, writes a PRD with acceptance criteria and exits, and `on_exit` starts the coder pointed at it, so a failed plan never becomes code written blind. The workspace is a **tree of splittable panes serialized into the URL** (agent, terminal, chat, diff, preview, any file, or another attempt at the same prompt as tabs), with a file explorer, a **CodeMirror 6** editor and an embedded preview of the running app. Diff review carries **per-line comments that flow back into the agent's session**; **PR bodies are written server-side by a headless agent** from the real diff and the actual check results, with the golden path recorded in headless **Chrome (Ferrum)** and embedded as a GIF. Also ships **Design Mode** (annotate the live app like a Figma comment, sending the element's live DOM state rather than a screenshot), four **agent loop patterns** (Turn/Goal/Time/Proactive) behind cost, attempt and kill-switch guards with HMAC-verified webhooks, and **Trello / Linear / Jira** integrations. Single-process by design: the PTY registry lives in Puma's memory. Packaged as a native desktop app (**Tauri 2 + WebView2** on Windows with the Rails backend running inside **WSL**), with complete i18n in pt-BR and English.",
             "Published a trilogy of **Claude Code** plugins covering agent input, output and side effects: **lean-output** compresses **RSpec**, **RuboCop** and **Brakeman** outputs by **-70% to -97% tokens** with a zero-loss guarantee on failures; **rails-context** injects a curated dossier (columns, indexes, associations, validations and routes), drastically shrinking the model's read surface instead of loading full `db/schema.rb` and models; **rails-guard** intercepts destructive Rails commands (`db:drop`, `db:reset`, `rails destroy`, `runner` with `delete_all`) via a `PreToolUse` hook, requiring human confirmation before execution.",
           ],
         },
         {
-          role: "FULL STACK DEVELOPER",
+          role: "Full-Stack Developer",
           company: "GoTechDS",
-          period: "Jun 2023 — Jul 2023",
+          period: "Jun 2023 – Jul 2023",
           summary:
             "Contributed to authentication and dashboard features in an established Rails product, through code reviews and collaborative development.",
           tags: ["Rails", "Devise", "Code Review"],
@@ -638,14 +677,14 @@ const en: Dict = {
           ],
         },
         {
-          role: "FULL STACK DEVELOPER",
+          role: "Full-Stack Developer",
           company: "Independent \\\\ Blogs & Micro-SaaS",
-          period: "Nov 2022 — May 2023",
+          period: "Nov 2022 – May 2023",
           summary:
-            "Delivered landing pages, blogs and small software products end to end — from discovery and database design to deployment and support.",
+            "Delivered landing pages, blogs and small software products end to end, from discovery and database design to deployment and support.",
           tags: ["Full Stack", "Clients", "Delivery"],
           bullets: [
-            "End-to-end delivery of **blogs, landing pages and mini-softwares** for direct clients — from discovery to production.",
+            "End-to-end delivery of **blogs, landing pages and mini-softwares** for direct clients, from discovery to production.",
             "Worked as the **single owner of every project**: requirements, **PostgreSQL** modeling, backend in **Ruby on Rails**, frontend, deploy and ongoing support.",
             "Set up **CI/CD pipelines**, domain configuration, SSL and monitoring for every project handed off.",
             "Directly handled **client communication, scope negotiation and pricing**, building long-term relationships with returning clients.",
@@ -656,13 +695,13 @@ const en: Dict = {
     },
   },
   skills: {
-    title: "TECHNICAL SKILLS",
+    title: "Technical skills",
     subtitle: "Tools and technologies I use to ship",
-    techTitle: "TECHNOLOGIES AND TOOLS",
+    techTitle: "Technologies and tools",
     techSubtitle:
-      "A modern stack, backed by industry best practices — built to scale and perform under pressure.",
-    allLabel: "ALL",
-    countSuffix: "TECHS",
+      "What I use day to day, and how deep I go in each one. Advanced means I have shipped and maintained it in production.",
+    allLabel: "All",
+    countSuffix: "technologies",
     levelLabel: "Skill level",
     levels: {
       ADVANCED: "Advanced",
@@ -670,16 +709,16 @@ const en: Dict = {
       FAMILIAR: "Familiar",
     },
     categories: {
-      languages: "languages",
-      frameworks: "frameworks & libraries",
-      databases: "databases",
-      devops: "devops & cloud",
-      testing: "testing & quality",
-      architecture: "architecture",
+      languages: "Languages",
+      frameworks: "Frameworks and libraries",
+      databases: "Databases",
+      devops: "DevOps and cloud",
+      testing: "Testing and quality",
+      architecture: "Architecture",
     },
   },
   education: {
-    title: "EDUCATION",
+    title: "Education",
     items: [
       {
         degree: "AWS SERVERLESS DEMONSTRATED",
@@ -687,24 +726,24 @@ const en: Dict = {
         period: "Issued Sep 2026 · Expires Sep 2027",
       },
       {
-        degree: "SYSTEMS ANALYSIS AND DEVELOPMENT — IN PROGRESS",
-        school: "Wyden — São José do Rio Preto, SP",
-        period: "2024 — 2026 (expected Dec/2026)",
+        degree: "Systems Analysis and Development (in progress)",
+        school: "Wyden – São José do Rio Preto, SP",
+        period: "2024 – 2026 (expected Dec/2026)",
       },
       {
-        degree: "LEARN RAILS AND RUBY PROGRAMMING",
-        school: "Udemy — John Elder",
+        degree: "Learn Rails and Ruby Programming",
+        school: "Udemy – John Elder",
         period: "2023",
       },
       {
-        degree: "ENGLISH COURSE",
-        school: "CNA — São José do Rio Preto (Downtown)",
+        degree: "English course",
+        school: "CNA – São José do Rio Preto (Downtown)",
         period: "2019",
       },
     ],
   },
   projects: {
-    title: "PROJECTS",
+    title: "Projects",
     subtitle: "Some things I've built with modern technologies",
     filters: {
       all: "All projects",
@@ -714,7 +753,17 @@ const en: Dict = {
     },
     liveSite: "Live site",
     viewCode: "View code",
-    askAbout: "Private — ask me",
+    askAbout: "Private: ask me",
+    page: {
+      label: "// Projects",
+      title: "Everything I've *built*.",
+      intro: "Products in production, case studies, open-source tools and the experiments behind them.",
+      count: "{count} projects",
+      details: "Details",
+      code: "Code",
+      site: "Live",
+      private: "Private",
+    },
     prev: "Previous",
     next: "Next",
     pageLabel: "Page",
@@ -724,14 +773,14 @@ const en: Dict = {
         summary:
           "Agent Development Environment that runs 1–4 coding agents in parallel, each in an isolated git worktree with a live PTY, diff review and one-click merge.",
         details:
-          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**. **Automations** fire tasks on their own — cron schedules, GitHub CI failures through an **AWS Lambda + SQS** relay provisioned with **Terraform**, and Trello cards — with Jira, Linear and GitHub panels alongside.",
+          "An **Agent Development Environment** on **Rails 8 + Hotwire** that runs **1–4 coding agents in parallel**, each in its own isolated **git worktree** with a real **PTY** streamed over **ActionCable**. Live diff with line comments that flow straight back into the agent's session, a `/compare` grid to pick the best attempt, one-click merge or PR, and a native desktop build via **Tauri 2 + WebView2** with the Rails backend inside **WSL**. **Automations** fire tasks on their own: cron schedules, GitHub CI failures through an **AWS Lambda + SQS** relay provisioned with **Terraform**, and Trello cards, with Jira, Linear and GitHub panels alongside.",
       },
       obrahub: {
         type: "Full Stack",
         summary:
           "In production at Engemil: turns the spreadsheets site engineers already fill in into labor tracking, daily reports and the measurement the client signs.",
         details:
-          "**Currently in production at Engemil.** Tracks work executed on construction sites: each site has its assigned foremen, and each one logs how many hours they worked, in which role, on which day, with an optional photo. Admins bulk-import those entries from an **Excel** spreadsheet plus a zip of the photos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** and **Active Storage** — no JS bundler, no job queue.",
+          "**Currently in production at Engemil.** Tracks work executed on construction sites: each site has its assigned foremen, and each one logs how many hours they worked, in which role, on which day, with an optional photo. Admins bulk-import those entries from an **Excel** spreadsheet plus a zip of the photos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** and **Active Storage**, no JS bundler, no job queue.",
       },
       ecommerceServerless: {
         type: "Serverless Backend",
@@ -743,23 +792,23 @@ const en: Dict = {
       tally: {
         type: "Backend",
         summary:
-          "Bank return file reconciliation: a Kotlin engine accounts for every line — matched, in review, unmatched or rejected — and a Rails console shows it in EN and pt-BR.",
+          "Bank return file reconciliation: a Kotlin engine accounts for every line (matched, in review, unmatched or rejected) and a Rails console shows it in EN and pt-BR.",
         details:
-          "Reconciles **bank return files** against expected receivables and accounts for every single line: matched, awaiting review, unmatched, or rejected with a reason. A **Kotlin** engine decides and never emits human-facing text — it emits stable codes that a **Rails** console renders in English and pt-BR. Whatever the engine will not decide alone goes to a human queue carrying the candidates and the reason.",
+          "Reconciles **bank return files** against expected receivables and accounts for every single line: matched, awaiting review, unmatched, or rejected with a reason. A **Kotlin** engine decides and never emits human-facing text: it emits stable codes that a **Rails** console renders in English and pt-BR. Whatever the engine will not decide alone goes to a human queue carrying the candidates and the reason.",
       },
       pulse: {
         type: "API + Mobile",
         summary:
           "Self-hosted uptime and heartbeat monitoring: check workers, incident detection, email alerts and an Expo app with push notifications.",
         details:
-          "Self-hosted **uptime and heartbeat monitoring** — paste a URL, it checks on a fixed interval and tells you when it goes down. **Fastify + TypeScript** API with **BullMQ** workers (check, reconcile, notify) over **PostgreSQL** and **Redis**, the whole stack up with a single `docker compose`. Ships an **Expo** mobile app with push notifications and a streaming **NDJSON** importer built on `pg-copy-streams`.",
+          "Self-hosted **uptime and heartbeat monitoring**: paste a URL, it checks on a fixed interval and tells you when it goes down. **Fastify + TypeScript** API with **BullMQ** workers (check, reconcile, notify) over **PostgreSQL** and **Redis**, the whole stack up with a single `docker compose`. Ships an **Expo** mobile app with push notifications and a streaming **NDJSON** importer built on `pg-copy-streams`.",
       },
       pipelineHq: {
         type: "Full Stack",
         summary:
           "Multi-tenant B2B CRM on Rails 8.1 with Solid Queue, Cache and Cable, native auth hardened in 10 layers and an ADR behind every decision.",
         details:
-          "Full-stack **multi-tenant B2B CRM** built on **Rails 8.1.3** — Pipedrive/HubSpot-style sales pipeline. Uses **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** and **native Rails auth** extended with **10 hardening layers** (TOTP 2FA, backup codes, sudo mode, rate limit, audit log, honeypot). Each decision is backed by an **ADR**.",
+          "Full-stack **multi-tenant B2B CRM** built on **Rails 8.1.3**: Pipedrive/HubSpot-style sales pipeline. Uses **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** and **native Rails auth** extended with **10 hardening layers** (TOTP 2FA, backup codes, sudo mode, rate limit, audit log, honeypot). Each decision is backed by an **ADR**.",
       },
       jornada: {
         type: "Backend",
@@ -769,16 +818,16 @@ const en: Dict = {
       leanOutput: {
         type: "Claude Code plugin",
         summary:
-          "Keeps long tool output out of the context window — spills it to disk behind a pointer and compresses RSpec, RuboCop and Brakeman without losing a failure.",
+          "Keeps long tool output out of the context window: spills it to disk behind a pointer and compresses RSpec, RuboCop and Brakeman without losing a failure.",
         details:
-          "A **Claude Code plugin** that keeps long tool output out of the context window: it spills big results to disk and hands the model a pointer, withholds what the context already holds, and compresses **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo and grep on the way past. Measured by replaying **12,008 real tool results (10.54 MB)** — fewer tokens, **zero lost failures**.",
+          "A **Claude Code plugin** that keeps long tool output out of the context window: it spills big results to disk and hands the model a pointer, withholds what the context already holds, and compresses **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo and grep on the way past. Measured by replaying **12,008 real tool results (10.54 MB)**: fewer tokens, **zero lost failures**.",
       },
       amnesia: {
         type: "Real-time app",
         summary:
           "A lean Discord: real-time text and voice channels and screen sharing on Phoenix Channels and LiveKit, with an Electron desktop client.",
         details:
-          "A lean Discord — real-time **text and voice channels**, screen sharing and a desktop app. **Elixir + Phoenix 1.8** Channels and Presence resolve rooms, join and who-is-online with no infrastructure code, **LiveKit** (SFU) carries the media, and the client is **Electron + React + Vite + Tailwind v4**.",
+          "A lean Discord: real-time **text and voice channels**, screen sharing and a desktop app. **Elixir + Phoenix 1.8** Channels and Presence resolve rooms, join and who-is-online with no infrastructure code, **LiveKit** (SFU) carries the media, and the client is **Electron + React + Vite + Tailwind v4**.",
       },
       glossa: {
         type: "Full Stack",
@@ -795,7 +844,7 @@ const en: Dict = {
         summary:
           "Paste a job description, get a per-term verdict against evidence-backed facts: already covered, earnable, or a real gap it refuses to fake.",
         details:
-          "Paste a job description and get a **per-term verdict** against facts that have evidence behind them: already covered by a bullet, **earnable** (a fact describes that work and simply does not use the word), or a real **gap** — which the tool reports instead of writing it anyway. Coverage is read from bullet prose only, because a keyword sitting in a skills list scores nothing against an LLM matcher: measured **76% → 98%** by moving five terms into experience bullets.",
+          "Paste a job description and get a **per-term verdict** against facts that have evidence behind them: already covered by a bullet, **earnable** (a fact describes that work and simply does not use the word), or a real **gap**, which the tool reports instead of writing it anyway. Coverage is read from bullet prose only, because a keyword sitting in a skills list scores nothing against an LLM matcher: measured **76% → 98%** by moving five terms into experience bullets.",
       },
       telehealth: {
         type: "Microservices",
@@ -822,7 +871,7 @@ const en: Dict = {
       railsGuard: {
         type: "Claude Code plugin",
         summary:
-          "Blocks the irrecoverable Rails commands an agent might run — db:drop, db:reset, destructive runners — and asks first on the risky ones.",
+          "Blocks the irrecoverable Rails commands an agent might run (db:drop, db:reset, destructive runners) and asks first on the risky ones.",
       },
       railsContext: {
         type: "Claude Code plugin",
@@ -832,24 +881,24 @@ const en: Dict = {
       swarmPlugin: {
         type: "Claude Code plugin",
         summary:
-          "Runs the same prompt across N isolated git worktrees in parallel, then lets you diff each attempt and merge the best one — or open a PR.",
+          "Runs the same prompt across N isolated git worktrees in parallel, then lets you diff each attempt and merge the best one, or open a PR.",
       },
       systemDesignPrimer: {
         type: "Lab",
         summary:
-          "A Rails 8 lab for system design: cache, N+1, indexes, hot keys, write contention and queues — each layer has to prove itself in a measured number.",
+          "A Rails 8 lab for system design: cache, N+1, indexes, hot keys, write contention and queues, each layer has to prove itself in a measured number.",
       },
       brasilApiRuby: {
         type: "Library",
         summary:
-          "My first open-source step: an early Ruby wrapper for BrasilAPI — learning to publish packages and code in public.",
+          "My first open-source step: an early Ruby wrapper for BrasilAPI. Learning to publish packages and code in public.",
         details:
-          "Early-career attempt to build a **Ruby wrapper** for **BrasilAPI**. The code was naive at the time, but it was my **first dive into open-source** — publishing public code, dealing with packaging and learning from the experience.",
+          "Early-career attempt to build a **Ruby wrapper** for **BrasilAPI**. The code was naive at the time, but it was my **first dive into open-source**: publishing public code, dealing with packaging and learning from the experience.",
       },
     },
   },
   testimonials: {
-    title: "TESTIMONIALS",
+    title: "Testimonials",
     subtitle: "What people say about my work",
     prevLabel: "Previous testimonial",
     nextLabel: "Next testimonial",
@@ -857,7 +906,7 @@ const en: Dict = {
     items: [
       {
         quote:
-          "I worked with Washington on the Compras project, where he played a key role in raising the application's technical quality. Beyond shipping improvements to the project, he structured an automated testing initiative that took the RSpec suite's coverage from 35% to 89%. Along the way, Washington mentored me — creating and organizing testing cards in Trello, explaining which scenarios had to be covered and reviewing my implementations. His guidance helped me better understand RSpec, testing best practices and why preventing regressions matters. Washington showed not only technical knowledge but also organization, patience and a real ability to share what he knows. His leadership was essential to making the project more reliable and to my own professional growth.",
+          "I worked with Washington on the Compras project, where he played a key role in raising the application's technical quality. Beyond shipping improvements to the project, he structured an automated testing initiative that took the RSpec suite's coverage from 35% to 89%. Along the way, Washington mentored me: creating and organizing testing cards in Trello, explaining which scenarios had to be covered and reviewing my implementations. His guidance helped me better understand RSpec, testing best practices and why preventing regressions matters. Washington showed not only technical knowledge but also organization, patience and a real ability to share what he knows. His leadership was essential to making the project more reliable and to my own professional growth.",
         name: "Developer · Was Advisory",
         role: "RSpec mentorship · Compras project",
       },
@@ -870,108 +919,61 @@ const en: Dict = {
     ],
   },
   spokenLanguages: {
-    title: "LANGUAGES",
+    title: "Languages",
     items: [
-      { language: "PORTUGUESE", level: "NATIVE" },
-      { language: "ENGLISH", level: "B2 (TECHNICAL)" },
+      { language: "Portuguese", level: "Native" },
+      { language: "English", level: "B2 (technical)" },
     ],
   },
   resume: {
-    title: "RESUME",
-    subtitle: "Career timeline & downloadable CV",
-    downloadCta: "DOWNLOAD PDF",
-    timelineTitle: "CAREER TIMELINE",
-    openSourceTitle: "PROJECTS & OPEN SOURCE",
-    privateRepoLabel: "PRIVATE REPO",
+    title: "Resume",
+    subtitle: "Career timeline and downloadable CV",
+    downloadCta: "Download PDF",
+    timelineTitle: "Career timeline",
+    openSourceTitle: "Projects and open source",
+    privateRepoLabel: "Private repo",
+    currentLabel: "Current",
   },
   contact: {
-    kicker: "GET IN TOUCH",
-    badge: "24H RESPONSE",
-    headline: "GOT AN IDEA? LET'S BUILD IT TOGETHER",
+    headline: "Got an idea? Let's build it together",
     headlineEmphasis: ".",
     subheadline:
       "Open to freelance projects, consulting and full-time opportunities.",
-    ctaPrimary: "START A CONVERSATION",
-    ctaSecondary: "VIEW RESUME",
-    title: "LET'S TALK",
+    ctaPrimary: "Start a conversation",
+    ctaSecondary: "View resume",
+    title: "Let's talk",
     body:
       "Got a project in mind or an opportunity to discuss? I'd love to hear from you.",
     emailLabel: "Email me",
     inboxLabel: "Inbox",
     socialLabel: "Find me online",
-    available: "AVAILABLE",
-    channelsTitle: "CHANNELS",
-    metaLocation: { label: "LOCATION", value: "BRAZIL, GMT-3" },
-    metaResponse: { label: "RESPONSE TIME", value: "WITHIN 24H" },
-    metaStatus: { label: "STATUS", value: "AVAILABLE" },
+    available: "Available",
+    channelsTitle: "Channels",
+    metaLocation: { label: "Location", value: "Brazil, GMT-3" },
+    metaResponse: { label: "Response time", value: "Within 24h" },
     form: {
-      title: "NEW MESSAGE",
-      status: "DRAFT",
-      nameLabel: "NAME",
+      title: "New message",
+      nameLabel: "Name",
       namePlaceholder: "Your name",
-      emailLabel: "EMAIL",
+      emailLabel: "Email",
       emailPlaceholder: "your@email.com",
-      subjectLabel: "SUBJECT",
+      subjectLabel: "Subject",
       subjectPlaceholder: "What's this about?",
-      messageLabel: "MESSAGE",
+      messageLabel: "Message",
       messagePlaceholder:
-        "Have a project in mind or a question to ask? Send me a message — I'll reply within 24 hours.",
-      sendCta: "SEND MESSAGE",
+        "Have a project in mind or a question to ask? Send me a message: I'll reply within 24 hours.",
+      sendCta: "Send message",
     },
   },
   footer: "built with next.js + tailwind",
-  toggle: {
-    switchLang: "Switch language",
-    switchTheme: {
-      toLight: "Switch to light mode",
-      toDark: "Switch to dark mode",
-    },
-  },
-  meta: {
-    aboutMe: {
-      title: "About Me — Washington Pereira",
-      description:
-        "Full-stack developer specialized in Ruby on Rails. Professional experience, context and stack.",
-    },
-    skills: {
-      title: "Skills — Washington Pereira",
-      description:
-        "Technical skills: Ruby on Rails, PostgreSQL, Redis, Sidekiq, React, Next.js and more.",
-    },
-    resume: {
-      title: "Resume — Washington Pereira",
-      description: "Career timeline and downloadable resume PDF.",
-    },
-    contact: {
-      title: "Contact — Washington Pereira",
-      description: "Get in touch with Washington Pereira, full-stack developer.",
-    },
-    swarm: {
-      title: "Swarm — Agent Development Environment",
-      description:
-        "A desktop IDE for coding agents: 1–4 Claude Code or Codex agents in parallel Git worktrees, live PTYs, diff review with per-line comments, merge or PR.",
-    },
-    obrahub: {
-      title: "ObraHub — labor tracking and billing for Engemil",
-      description:
-        "Case study: the Rails 8 monolith built for Engemil that replaces a paper-to-spreadsheet-to-retyping cycle with spreadsheet import, live package balances and a byte-identical Excel billing export.",
-    },
-    ecommerce: {
-      title: "E-commerce Serverless — API on AWS Lambda",
-      description:
-        "Case study: an e-commerce API on AWS Lambda with Terraform, OIDC CI/CD, a transactional outbox, idempotent orders, OpenTelemetry/X-Ray and SageMaker recommendations.",
-    },
-  },
   swarm: {
     hero: {
-      kicker: "// PRODUCT — FEATURED",
-      title: "SWARM",
+      title: "Swarm",
       tagline: "Agent Development Environment",
       subtitle:
-        "A desktop IDE for coding agents. Run 1–4 Claude Code or Codex agents in parallel Git worktrees, watch each one in a live PTY, review the diff with per-line comments, then merge or open the PR — all in one window.",
+        "A desktop IDE for coding agents. Run 1–4 Claude Code or Codex agents in parallel Git worktrees, watch each one in a live PTY, review the diff with per-line comments, then merge or open the PR: all in one window.",
       ctaGithub: "View on GitHub",
       ctaCli: "CLI plugin",
-      agentLabel: "agent",
     },
     screens: {
       kicker: "// IN THE APP",
@@ -982,10 +984,9 @@ const en: Dict = {
       },
     },
     pty: {
-      kicker: "// 02 — LIVE",
       title: "Every task plans before it codes.",
       subtitle:
-        "A task is born pending, with no worktree — creating one costs neither disk nor money. Start creates the worktree, the planner writes the plan and exits, and only then does on_exit bring up the coder. No non-empty plan, no coder.",
+        "A task is born pending, with no worktree: creating one costs neither disk nor money. Start creates the worktree, the planner writes the plan and exits, and only then does on_exit bring up the coder. No non-empty plan, no coder.",
       promptLabel: "prompt",
       promptLine: "add cursor pagination to DealsController#index",
       windowLabel: "swarm — task #142 — agent pane",
@@ -1006,10 +1007,9 @@ const en: Dict = {
       ],
     },
     compare: {
-      kicker: "// 03 — REVIEW",
       title: "Attempts side by side, as tabs.",
       subtitle:
-        "The screen is a tree of splits written into the URL. Any surface becomes a tab — the agent, a terminal, the chat, the diff, the preview, a file, or another attempt at the same prompt. That is how two different CLIs on one prompt end up next to each other.",
+        "The screen is a tree of splits written into the URL. Any surface becomes a tab: the agent, a terminal, the chat, the diff, the preview, a file, or another attempt at the same prompt. That is how two different CLIs on one prompt end up next to each other.",
       hint: "?panes=agent;(diff|preview)   ·   ; splits · | stacks · , tabs · () nests",
       mergeLabel: "Merge",
       discardLabel: "Discard",
@@ -1046,19 +1046,18 @@ const en: Dict = {
       ],
     },
     features: {
-      kicker: "// 04 — CAPABILITIES",
       title: "An environment, not a wrapper around one CLI.",
       subtitle: "Eight things it does, all on your machine.",
       items: [
         {
           title: "Planner writes a PRD, then coder",
           description:
-            "The handoff is a PTY phase, not a job: the planner runs in the same pane, writes a PRD — problem, requirements, acceptance criteria, risks, steps — and exits, and on_exit starts the coder pointed at it. A PRD with no acceptance criteria stops the task with that reason: “the planner failed” never turns into “code in the dark”.",
+            "The handoff is a PTY phase, not a job: the planner runs in the same pane, writes a PRD (problem, requirements, acceptance criteria, risks, steps) and exits, and on_exit starts the coder pointed at it. A PRD with no acceptance criteria stops the task with that reason: “the planner failed” never turns into “code in the dark”.",
         },
         {
           title: "Claude Code and Codex",
           description:
-            "Two adapters behind one map — 1 to 4 agents in parallel, each in its own worktree and branch. A new CLI is a map entry plus a class; the validation and the form follow from there.",
+            "Two adapters behind one map: 1 to 4 agents in parallel, each in its own worktree and branch. A new CLI is a map entry plus a class; the validation and the form follow from there.",
         },
         {
           title: "Real PTYs",
@@ -1068,7 +1067,7 @@ const en: Dict = {
         {
           title: "Panes live in the URL",
           description:
-            "The layout is a tree of splits serialized into the query string. Switching tabs is reordering, closing is removing, splitting is inserting — every action is a link, so reload, back button and bookmarks all just work.",
+            "The layout is a tree of splits serialized into the query string. Switching tabs is reordering, closing is removing, splitting is inserting, every action is a link, so reload, back button and bookmarks all just work.",
         },
         {
           title: "Diff review that talks back",
@@ -1078,12 +1077,12 @@ const en: Dict = {
         {
           title: "PR with real evidence",
           description:
-            "The body is written server-side by a headless agent from the real diff, the original prompt and the actual check results — “no check command” and “never ran” stay distinct from a real result. The golden path is recorded in headless Chrome and embedded as a GIF.",
+            "The body is written server-side by a headless agent from the real diff, the original prompt and the actual check results: “no check command” and “never ran” stay distinct from a real result. The golden path is recorded in headless Chrome and embedded as a GIF.",
         },
         {
           title: "Preview and Design Mode",
           description:
-            "The worktree's app boots in a PTY behind a proxy whose port detection does not rely on the stack honoring $PORT. Design Mode annotates the live screen like Figma comments — the element's live state is serialized from the DOM and re-rendered with the user's session, not screenshotted.",
+            "The worktree's app boots in a PTY behind a proxy whose port detection does not rely on the stack honoring $PORT. Design Mode annotates the live screen like Figma comments: the element's live state is serialized from the DOM and re-rendered with the user's session, not screenshotted.",
         },
         {
           title: "Loops with guards",
@@ -1093,10 +1092,9 @@ const en: Dict = {
       ],
     },
     automations: {
-      kicker: "// 05 — AUTOMATIONS",
       title: "Work that starts without you.",
       subtitle:
-        "One Automations page holds everything that fires on its own — schedules, triggers and boards — with the controls, not just the list. Every run still goes through the cost, attempt and kill-switch guards.",
+        "One Automations page holds everything that fires on its own (schedules, triggers and boards) with the controls, not just the list. Every run still goes through the cost, attempt and kill-switch guards.",
       items: [
         {
           title: "Scheduled tasks",
@@ -1116,7 +1114,7 @@ const en: Dict = {
         {
           title: "Trello, both ways",
           description:
-            "A card you are added to becomes a pending task — no worktree, no agent, nothing spent until you press Start. The other way, the card moves to Doing, PR and Done and gets a comment as the task starts, opens a PR and is merged or discarded.",
+            "A card you are added to becomes a pending task, no worktree, no agent, nothing spent until you press Start. The other way, the card moves to Doing, PR and Done and gets a comment as the task starts, opens a PR and is merged or discarded.",
         },
         {
           title: "Jira, Linear and GitHub",
@@ -1126,15 +1124,14 @@ const en: Dict = {
         {
           title: "Goal loop with a judge",
           description:
-            "The PRD's acceptance criteria feed the Goal loop. A judge — QA gate, custom shell or evaluator — checks every attempt and retries until it passes, and every stop is named: passed, judge crash, budget exhausted, usage unavailable or attempts exhausted.",
+            "The PRD's acceptance criteria feed the Goal loop. A judge (QA gate, custom shell or evaluator) checks every attempt and retries until it passes, and every stop is named: passed, judge crash, budget exhausted, usage unavailable or attempts exhausted.",
         },
       ],
     },
     architecture: {
-      kicker: "// 06 — INSIDE",
       title: "What happens when you press Start.",
       subtitle:
-        "A pending task has no worktree. Start creates it, the planner writes a PRD and hands off to the coder in the same PTY, and everything the agent produces streams back through a single Puma process — the registry lives in memory, so WEB_CONCURRENCY is forbidden by design.",
+        "A pending task has no worktree. Start creates it, the planner writes a PRD and hands off to the coder in the same PTY, and everything the agent produces streams back through a single Puma process: the registry lives in memory, so WEB_CONCURRENCY is forbidden by design.",
       nodes: [
         { id: "task", label: "Task · pending" },
         { id: "start", label: "Start → worktree" },
@@ -1147,7 +1144,6 @@ const en: Dict = {
       ],
     },
     stack: {
-      kicker: "// 07 — STACK",
       title: "Built on.",
       items: [
         "Rails 8.1",
@@ -1178,9 +1174,8 @@ const en: Dict = {
       ],
     },
     roadmap: {
-      kicker: "// 08 — MILESTONES",
       title: "What is already in.",
-      subtitle: "Everything below is shipped and running — this is the tool as it exists, not a plan.",
+      subtitle: "Everything below is shipped and running: this is the tool as it exists, not a plan.",
       items: [
         {
           marker: "01",
@@ -1210,7 +1205,7 @@ const en: Dict = {
         {
           marker: "06",
           title: "Design Mode",
-          description: "Annotate the running app like a Figma comment — the element is serialized from the live DOM and re-rendered with the user's session.",
+          description: "Annotate the running app like a Figma comment: the element is serialized from the live DOM and re-rendered with the user's session.",
         },
         {
           marker: "07",
@@ -1230,22 +1225,20 @@ const en: Dict = {
         {
           marker: "10",
           title: "tmux sidecar",
-          description: "tmux as the backend for agent, shell and preview panes — phase A of ADR 001, shipped behind SWARM_TMUX=1.",
+          description: "tmux as the backend for agent, shell and preview panes: phase A of ADR 001, shipped behind SWARM_TMUX=1.",
         },
       ],
     },
     story: {
-      kicker: "// 09 — STORY",
       title: "How it started.",
       body: [
-        "I wanted an IDE for coding agents, not a wrapper around one. Register a local repo, fire a prompt, and 1 to 4 agents go at it in parallel — each in its own Git worktree and branch, each in a live PTY, with the file explorer, the editor, the running app, the chat and the diff all in the same window.",
-        "It is a Rails 8 app on Hotwire and SQLite, single-process by design: the PTY registry lives in Puma's memory, so WEB_CONCURRENCY is forbidden — two processes mean two registries and a UI showing an empty terminal for an agent that is very much running. Tauri 2 wraps it as a native window; on Windows that is WebView2 with Rails running inside WSL.",
-        "One rule ended up running through the whole thing: unknown must never become a value. A model missing from the price table pays the most expensive row. An unreadable transcript returns :unknown and stops the loop instead of counting as zero spent. And a prompt that assembles evidence has to tell the model where the hole is — because a prompt without evidence does not answer “I don't know”, it answers with a plausible invention.",
+        "I wanted an IDE for coding agents, not a wrapper around one. Register a local repo, fire a prompt, and 1 to 4 agents go at it in parallel, each in its own Git worktree and branch, each in a live PTY, with the file explorer, the editor, the running app, the chat and the diff all in the same window.",
+        "It is a Rails 8 app on Hotwire and SQLite, single-process by design: the PTY registry lives in Puma's memory, so WEB_CONCURRENCY is forbidden. Two processes mean two registries and a UI showing an empty terminal for an agent that is very much running. Tauri 2 wraps it as a native window; on Windows that is WebView2 with Rails running inside WSL.",
+        "One rule ended up running through the whole thing: unknown must never become a value. A model missing from the price table pays the most expensive row. An unreadable transcript returns :unknown and stops the loop instead of counting as zero spent. And a prompt that assembles evidence has to tell the model where the hole is, because a prompt without evidence does not answer “I don't know”, it answers with a plausible invention.",
       ],
       inspiredByLabel: "View source on GitHub",
     },
     finalCta: {
-      kicker: "// 10 — TRY IT",
       title: "Point it at a repo and press Start.",
       subtitle:
         "Swarm runs on your machine, against your local repos. The Claude Code plugin ports the same fan-out into the CLI.",
@@ -1256,31 +1249,29 @@ const en: Dict = {
   },
   obrahub: {
     hero: {
-      kicker: "// CASE STUDY — CLIENT SYSTEM",
-      title: "OBRAHUB",
+      title: "ObraHub",
       tagline: "Labor tracking and billing for industrial field work",
       subtitle:
-        "Built for Engemil, an industrial maintenance and assembly contractor in Mogi Guaçu, Brazil — and shaped from the start to generalize to a sector that all runs the same cycle. It replaces paper → spreadsheet → retyping with one flow: import the spreadsheet engineering already fills in, keep every work package's balance as a live account, and export the monthly billing document byte-identical to the format the client signs.",
+        "Built for Engemil, an industrial maintenance and assembly contractor in Mogi Guaçu, Brazil, and shaped from the start to generalize to a sector that all runs the same cycle. It replaces paper → spreadsheet → retyping with one flow: import the spreadsheet engineering already fills in, keep every work package's balance as a live account, and export the monthly billing document byte-identical to the format the client signs.",
       badges: ["Rails 8 monolith", "In production", "Active development"],
       ctaContact: "Talk about this project",
     },
     problem: {
-      kicker: "// 01 — THE PROBLEM",
       title: "Money escaped in the retyping.",
       subtitle:
-        "Engemil allocates crews inside its largest client's plant, and every month it has to prove — job by job, person by person, day by day — how many hours were worked and what they cost. That document is signed by both sides. Before the system, producing it looked like this:",
+        "Engemil allocates crews inside its largest client's plant, and every month it has to prove (job by job, person by person, day by day) how many hours were worked and what they cost. That document is signed by both sides. Before the system, producing it looked like this:",
       beforeLabel: "The old cycle",
       beforeSteps: [
         "the foreman writes on paper who worked, in what role, for how many hours",
         "someone types that into a tracking spreadsheet",
-        "at month end, someone retypes it into a second spreadsheet — the billing one, in the format the client accepts",
+        "at month end, someone retypes it into a second spreadsheet: the billing one, in the format the client accepts",
         "the client checks it cell by cell and signs",
       ],
       items: [
         {
           title: "Retyping is where money escapes",
           description:
-            "An hour that never got transcribed never got billed, and nobody finds out — because there is nothing to compare it against.",
+            "An hour that never got transcribed never got billed, and nobody finds out, because there is nothing to compare it against.",
         },
         {
           title: "There is no balance",
@@ -1290,15 +1281,14 @@ const en: Dict = {
         {
           title: "The client's format is law",
           description:
-            "The billing spreadsheet has an exact shape — font, colour, number format, block position. A billing document that merely looks similar comes back.",
+            "The billing spreadsheet has an exact shape: font, colour, number format, block position. A billing document that merely looks similar comes back.",
         },
       ],
     },
     rules: {
-      kicker: "// 02 — HOW THE RULES GOT HERE",
       title: "Nothing here came from a written spec.",
       subtitle:
-        "The system was drawn out in successive rounds of discussion, review and feedback with the person at Engemil who was responsible for producing all of this by hand — each round trading an assumption for a fact about the operation. The real artefacts served as the specification: the reference billing workbook, the engineering tracking spreadsheet, the master package sheet and the job register. Three rules that only ever surface in conversation with someone who has done the work:",
+        "The system was drawn out in successive rounds of discussion, review and feedback with the person at Engemil who was responsible for producing all of this by hand, each round trading an assumption for a fact about the operation. The real artefacts served as the specification: the reference billing workbook, the engineering tracking spreadsheet, the master package sheet and the job register. Three rules that only ever surface in conversation with someone who has done the work:",
       items: [
         {
           title: "The job has no type",
@@ -1308,7 +1298,7 @@ const en: Dict = {
         {
           title: "Two of the codes are not hours at all",
           description:
-            "FE and FO are codes, not time. And the night-shift differential is a 45% uplift on the rate, not time worked — adding it to the hours inflated the billing.",
+            "FE and FO are codes, not time. And the night-shift differential is a 45% uplift on the rate, not time worked: adding it to the hours inflated the billing.",
         },
         {
           title: "74 of 84 packages have no date",
@@ -1318,7 +1308,6 @@ const en: Dict = {
       ],
     },
     domain: {
-      kicker: "// 03 — THE DOMAIN",
       title: "A job, a day, a line.",
       subtitle:
         "Ten domain tables. The whole operation fits in one model, which is why it is one application and not several.",
@@ -1332,12 +1321,12 @@ ImportBatch ── ImportError`,
         {
           name: "Project · Package",
           description:
-            "Project is the job. Package is the slice the client asked to be quoted on its own — it carries estimated hours, sale value and billed value.",
+            "Project is the job. Package is the slice the client asked to be quoted on its own: it carries estimated hours, sale value and billed value.",
         },
         {
           name: "Rdo",
           description:
-            "The daily work report: job, period, who signs, description, photo. It declares the nature of the day — package (draws down a Package), hourly (draws down nothing), or authorised extra service, identified by its own code, which is the code the invoice cites.",
+            "The daily work report: job, period, who signs, description, photo. It declares the nature of the day: package (draws down a Package), hourly (draws down nothing), or authorised extra service, identified by its own code, which is the code the invoice cites.",
         },
         {
           name: "WorkEntry",
@@ -1346,7 +1335,7 @@ ImportBatch ── ImportError`,
         {
           name: "Employee",
           description:
-            "The person in the field — deliberately not a User. A crew of hundreds cannot become hundreds of logins nobody remembers to revoke.",
+            "The person in the field: deliberately not a User. A crew of hundreds cannot become hundreds of logins nobody remembers to revoke.",
         },
         {
           name: "Measurement",
@@ -1365,27 +1354,26 @@ ImportBatch ── ImportError`,
       ],
       balanceTitle: "Balance is a query, not a column",
       balanceBody:
-        "Used hours, remaining hours, progress and value-to-bill all come out of a query at read time. A 663-hour package that receives a 9-hour report shows 654 hours remaining immediately, with no column being written — and therefore none of the classic risk of a stored total drifting from the lines that make it up.",
+        "Used hours, remaining hours, progress and value-to-bill all come out of a query at read time. A 663-hour package that receives a 9-hour report shows 654 hours remaining immediately, with no column being written, and therefore none of the classic risk of a stored total drifting from the lines that make it up.",
     },
     architecture: {
-      kicker: "// 04 — ARCHITECTURE",
       title: "One process, one database, one deploy.",
       subtitle:
-        "It is a Rails monolith, and that is a choice rather than a limitation. The data is tightly related — an hour entry only exists inside a daily report, which only exists inside a job — and there are no two teams moving at different speeds. Splitting it into services would buy distributed transactions for a company that closes one billing cycle a month.",
+        "It is a Rails monolith, and that is a choice rather than a limitation. The data is tightly related (an hour entry only exists inside a daily report, which only exists inside a job) and there are no two teams moving at different speeds. Splitting it into services would buy distributed transactions for a company that closes one billing cycle a month.",
       items: [
         {
           title: "Models",
-          description: "The rules that always hold — validation, scoping, balance calculation.",
+          description: "The rules that always hold: validation, scoping, balance calculation.",
         },
         {
           title: "Policies · 12",
           description:
-            "Who can see and do what, per record. The same policy scope that filters the list filters the autocomplete and the dashboard — a counter that sums hours the viewer may not read is a leak wearing the face of a metric.",
+            "Who can see and do what, per record. The same policy scope that filters the list filters the autocomplete and the dashboard: a counter that sums hours the viewer may not read is a leak wearing the face of a metric.",
         },
         {
           title: "Query objects",
           description:
-            "Measurement, ProjectWorkReport, DashboardReport, RdoQuery — reads that do not deserve to be models.",
+            "Measurement, ProjectWorkReport, DashboardReport, RdoQuery: reads that do not deserve to be models.",
         },
         {
           title: "Importers · 12 and exporters · 5",
@@ -1420,24 +1408,23 @@ ImportBatch ── ImportError`,
       ],
     },
     decisions: {
-      kicker: "// 05 — DECISIONS WORTH TELLING",
       title: "The parts that cost the most to get right.",
       subtitle: "Four problems where the obvious implementation is the wrong one.",
       items: [
         {
           title: "The client's workbook, cell by cell",
           description:
-            "“Identical” does not mean “similar”. The work was unzipping the reference .xlsx and reading the XML, because the eye does not catch what breaks: fills use theme colours with tint rather than RGB, so reading only the RGB attribute sees no fill at all; money uses the ACCOUNTING format, which is what pins the currency symbol to the left edge and the number to the right; and in the summary sheet each hour type occupies two columns, so writing into consecutive columns puts every value two cells to the left. There is a test that strictly parses the generated styles.xml, because an unescaped quote in a format code produces a file Excel refuses to open — and neither the reading library nor the content tests notice.",
+            "“Identical” does not mean “similar”. The work was unzipping the reference .xlsx and reading the XML, because the eye does not catch what breaks: fills use theme colours with tint rather than RGB, so reading only the RGB attribute sees no fill at all; money uses the ACCOUNTING format, which is what pins the currency symbol to the left edge and the number to the right; and in the summary sheet each hour type occupies two columns, so writing into consecutive columns puts every value two cells to the left. There is a test that strictly parses the generated styles.xml, because an unescaped quote in a format code produces a file Excel refuses to open, and neither the reading library nor the content tests notice.",
         },
         {
           title: "Importing twice must not duplicate",
           description:
-            "The idempotency key is a SHA-256 of the row: job, foreman, role, date and hour type. An upsert updates the same record instead of creating a second one. Without the hour type in the digest, a regular and an overtime entry on the same day collided and one vanished. A detail that cost real time: the digest carries the package id only when there is one — adding it unconditionally would change the digest of everything already stored, and the next upload of the same file would create a copy of every line.",
+            "The idempotency key is a SHA-256 of the row: job, foreman, role, date and hour type. An upsert updates the same record instead of creating a second one. Without the hour type in the digest, a regular and an overtime entry on the same day collided and one vanished. A detail that cost real time: the digest carries the package id only when there is one. Adding it unconditionally would change the digest of everything already stored, and the next upload of the same file would create a copy of every line.",
         },
         {
           title: "The importer creates records, but never invents money",
           description:
-            "Missing jobs, roles, employees and users are created, and the screen says which ones — creating silently is what turns a misspelled role into a permanent record nobody can trace. A missing package, though, rejects the line: packages carry estimated hours and a sale value, so inventing one would write a budget nobody approved.",
+            "Missing jobs, roles, employees and users are created, and the screen says which ones: creating silently is what turns a misspelled role into a permanent record nobody can trace. A missing package, though, rejects the line: packages carry estimated hours and a sale value, so inventing one would write a budget nobody approved.",
         },
         {
           title: "The phone is not a smaller version of the screen",
@@ -1447,7 +1434,6 @@ ImportBatch ── ImportError`,
       ],
     },
     numbers: {
-      kicker: "// 06 — NUMBERS",
       title: "Measured, not estimated.",
       subtitle: "Repository counts as of 30 Aug 2026, and figures from real use.",
       stats: [
@@ -1463,16 +1449,15 @@ ImportBatch ── ImportError`,
       measuredTitle: "From real use",
       measured: [
         { value: "11,551 h", label: "of labour closed in a single month, each tied to the job, role and package that paid for it" },
-        { value: "216", label: "daily reports built from the spreadsheet engineering already filled in — nobody typed a report" },
+        { value: "216", label: "daily reports built from the spreadsheet engineering already filled in, nobody typed a report" },
         { value: "3 s", label: "to import 1,395 entries, check them against the register and reject what does not match" },
         { value: "24", label: "sheets in the billing workbook, in the format the client signs" },
       ],
     },
     status: {
-      kicker: "// 07 — WHERE IT STANDS",
       title: "In production, and honestly unfinished.",
       subtitle:
-        "A portfolio that only lists what worked does not survive the next question. Scale tests count queries: a listing has to cost the same with ten records and with ten thousand — a real import file reaches 8,504 daily reports, which is why batch closing is one SQL statement per slice rather than a walk record by record.",
+        "A portfolio that only lists what worked does not survive the next question. Scale tests count queries: a listing has to cost the same with ten records and with ten thousand. A real import file reaches 8,504 daily reports, which is why batch closing is one SQL statement per slice rather than a walk record by record.",
       doneTitle: "Done and in use",
       done: [
         "registers for jobs, packages, employees, roles and users",
@@ -1485,21 +1470,20 @@ ImportBatch ── ImportError`,
       ],
       openTitle: "Still open",
       open: [
-        "the PACKAGE lines of the billing document are not generated by the exporter yet — the data already exists, the layout mapping does not",
+        "the PACKAGE lines of the billing document are not generated by the exporter yet: the data already exists, the layout mapping does not",
         "two jobs remain in the repository with nothing enqueueing them: either async comes back on purpose, or they go",
-        "no browser tests — real horizontal scroll and mobile Safari zoom are still a manual check",
+        "no browser tests: real horizontal scroll and mobile Safari zoom are still a manual check",
         "standardising the register screens under an inherited CRUD is decided and not started",
       ],
       directionTitle: "Where it is headed",
       direction:
-        "It was built for one contractor, but the cycle it replaces is not specific to one: crews allocated inside a client's plant, hours proven month by month, a billing document in a format the client dictates. Generalizing it into a product for that sector is the direction — the multi-client work has not started, and nothing here is sold to a second company yet.",
+        "It was built for one contractor, but the cycle it replaces is not specific to one: crews allocated inside a client's plant, hours proven month by month, a billing document in a format the client dictates. Generalizing it into a product for that sector is the direction: the multi-client work has not started, and nothing here is sold to a second company yet.",
       ctaLabel: "Talk about this project",
     },
   },
   ecommerce: {
     hero: {
-      kicker: "// CASE STUDY — STUDY PROJECT",
-      title: "SERVERLESS",
+      title: "Serverless",
       tagline: "E-commerce API on AWS Lambda",
       subtitle:
         "An e-commerce API on AWS Lambda with infrastructure as code, CI/CD on GitHub Actions, full observability and Machine Learning product recommendations. The goal: every decision has a written reason, and every guarantee has a test that proves it.",
@@ -1525,7 +1509,6 @@ ImportBatch ── ImportError`,
       ctaContact: "Talk about this project",
     },
     overview: {
-      kicker: "// OVERVIEW",
       title: "More than a Lambda hello world.",
       subtitle:
         "A study project built to practise how a serverless backend is really made: transactions, idempotency, async events, least-privilege IAM and a real deploy pipeline.",
@@ -1543,7 +1526,6 @@ ImportBatch ── ImportError`,
         "The whole stack runs locally with docker compose, and the same application runs on Lambda without changing a line.",
     },
     architecture: {
-      kicker: "// ARCHITECTURE",
       title: "4 Lambdas, 4 different triggers.",
       subtitle:
         "A private VPC across 2 availability zones. RDS and ElastiCache have no public access, and every connection uses TLS.",
@@ -1585,7 +1567,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     problems: {
-      kicker: "// PROBLEMS SOLVED",
       title: "Each guarantee has a test behind it.",
       subtitle:
         "The failures a real store hits under concurrency, retries and outages, and how the API handles each one.",
@@ -1627,7 +1608,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     ml: {
-      kicker: "// MACHINE LEARNING",
       title: "Recommendations from what similar customers bought.",
       subtitle:
         "GET /api/v1/recommendations suggests products from item-item collaborative filtering, served by SageMaker Serverless Inference.",
@@ -1669,7 +1649,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     infra: {
-      kicker: "// INFRASTRUCTURE AS CODE",
       title: "Terraform with no secrets in the state.",
       subtitle: "10 modules, 3 environments, and a test suite that runs without an AWS account.",
       items: [
@@ -1703,7 +1682,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     cicd: {
-      kicker: "// CI/CD",
       title: "No AWS keys in GitHub.",
       subtitle: "GitHub Actions authenticates with OIDC, and production needs a human to approve.",
       diagram: `pull request ─┬─→ tests · lint · build · compose + smoke · terraform
@@ -1733,7 +1711,6 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       ],
     },
     observability: {
-      kicker: "// OBSERVABILITY",
       title: "Follow one order from HTTP to the worker.",
       subtitle: "Structured logs, end-to-end correlation, tracing and alarms on what actually breaks.",
       items: [
@@ -1760,7 +1737,6 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       ],
     },
     quality: {
-      kicker: "// QUALITY",
       title: "Tested against the real thing.",
       subtitle:
         "Row locks, constraints, transactions and SKIP LOCKED don't exist in a mock, so the tests use a real database and cache on purpose.",
@@ -1781,7 +1757,6 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       ],
     },
     status: {
-      kicker: "// HONEST STATUS",
       title: "What is proven, and what isn't yet.",
       subtitle: "The pipeline is ready. A deploy to a real AWS account has not run yet.",
       doneTitle: "Verified",
@@ -1810,39 +1785,82 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
   },
   home: {
     nav: {
+      home: "Home",
+      work: "Work",
+      more: "More",
+      lightMode: "Switch to light mode",
+      projects: "Projects",
+      darkMode: "Switch to dark mode",
       obrahub: "ObraHub",
       swarm: "Swarm",
       serverless: "Serverless",
       experience: "Experience",
+      about: "About",
+      skills: "Skills",
       resume: "Resume",
       openToWork: "Open to work",
     },
     hero: {
       badge: "Available now · open to remote",
-      role: ["Full-Stack Developer", "Ruby on Rails", "4 years"],
-      pitch:
-        "I make slow Rails apps fast and keep them **correct**, on software used every day by 50+ Brazilian municipalities.",
+      roleAccent: "Full-Stack",
+      roleRest: "Software Engineer",
+      focus: "Backend-focused · Performance · Reliability",
+      pitch: "I build systems that don't break under pressure.",
+      pitchMore: "Performance, reliability and scalable architecture. From complex backend systems to polished user experiences.",
+      pitchStrong: "Complex problems. Elegant solutions. Measurable impact.",
       downloadResume: "Download resume",
       emailMe: "Email me",
+      shippedFor: "shipped for",
+      clients: ["Pare.Ai", "W/P Advisory", "Universe Pro", "Tork", "GoTechDS"],
+      terminal: {
+        title: "washington — zsh",
+        boot: [
+          "4 years of Ruby on Rails in production",
+          "PostgreSQL tuned on 14M+ rows",
+          "p99 latency 3.5 s → 180 ms",
+          "test coverage 35% → 89%",
+          "resume.pdf ready to download",
+        ],
+        ready: "ready",
+        localTime: "Local time",
+      },
       facts: [
-        { label: "Experience", value: "4 years · Rails + PostgreSQL" },
         { label: "Availability", value: "Immediate", accent: true },
         { label: "Work model", value: "Remote · Brazil or abroad" },
         { label: "Location", value: "São José do Rio Preto, SP" },
         { label: "English", value: "B2 · daily in PRs and docs" },
         { label: "Contract", value: "PJ · CLT · International B2B" },
       ],
-      quote:
-        "His leadership was essential to making the project more reliable and to my own professional growth.",
-      quoteBy: "Samuel · Developer, Was Advisory",
+    },
+    intro: {
+      label: "About",
+      statement:
+        "From distributed systems to AI-powered products, I turn complex problems into *reliable software*.",
+      details: [
+        "I build and optimize software systems where performance, reliability, and scalability matter.",
+        "With nearly four years of engineering experience, I've worked on production-grade Ruby on Rails platforms serving 50+ Brazilian municipalities, alongside full-stack applications, distributed architectures, and cloud infrastructure.",
+        "I'm also deeply interested in AI Engineering — building LLM integrations, RAG systems, autonomous agents, and developer tools with Claude, OpenAI, MCP, and modern orchestration frameworks.",
+        "I enjoy solving complex engineering problems, improving developer workflows, and turning ambitious ideas into dependable software.",
+      ],
+      more: "More about me",
+    },
+    sectionIndex: {
+      label: "Sections",
+      about: "About",
+      work: "Work",
+      case: "Case",
+      experience: "Experience",
+      how: "How I work",
+      contact: "Contact",
     },
     proof: {
-      title: "Measured in production",
+      label: "// Measured in production",
+      heading: "Before → after, *on real traffic*",
       items: [
-        { label: "Critical endpoint", before: "3.5 s", after: "180 ms", gain: "19× faster" },
-        { label: "CSV export, 1.77M rows", before: "~80 h", after: "7 min", gain: "~690× faster" },
-        { label: "Query on 14M rows", before: "12.7 s", after: "0.2 ms", gain: "63,500× faster" },
-        { label: "Test coverage", before: "35%", after: "85%", gain: "+50 percentage points" },
+        { label: "critical endpoint · 100k req/day", before: "3.5 s", after: "180 ms", value: 19, start: 1, unit: "×", word: "faster", kind: "time", from: 1, to: 180 / 3500 },
+        { label: "csv export · 1.77M rows", before: "~80 h", after: "7 min", value: 690, start: 1, prefix: "~", unit: "×", word: "faster", kind: "time", from: 1, to: 7 / 4800 },
+        { label: "query · 14M rows", before: "12.7 s", after: "0.2 ms", value: 0.2, start: 12700, decimals: 1, unit: " ms", word: "", note: "composite index", kind: "time", from: 1, to: 0.2 / 12700 },
+        { label: "test coverage · rspec", before: "35%", after: "89%", value: 54, start: 0, prefix: "+", unit: "", word: "pts", kind: "growth", from: 0.35, to: 0.89 },
       ],
     },
     highlights: [
@@ -1852,45 +1870,105 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       { value: "0", label: "downtime index migrations" },
     ],
     work: {
-      title: "Things I built",
+      title: "Software I've shipped",
       allProjects: "All {count} projects →",
       projects: {
         obrahub: {
-          kicker: "Project · In production at Engemil",
-          title: "ObraHub",
+          kicker: "formerly ObraHub · in production at Engemil",
+          title: "Tork",
           body: "Labor tracking and billing for an industrial contractor that ran on paper, spreadsheets and retyping. Built round by round with the person who did the job by hand.",
           bullets: [
             "Re-uploading a file never duplicates a row",
             "Billing workbook exported identical to the client's reference file",
             "11,551 hours closed in its first month",
           ],
-          cta: "Read the case study →",
-          checks: ["899 examples, 0 failures", "1,395 entries validated in 3 s", "0 duplicates on re-upload"],
+          cta: "See it in more detail →",
+          checks: ["PostgreSQL RLS between tenants", "Excel identical to the client's template", "Signed by phone, no login"],
+          figures: [
+            { value: "1,900+", label: "RSpec tests" },
+            { value: "95%", label: "line coverage" },
+            { value: "5", label: "hour categories calculated" },
+          ],
           screenshotAlt: "ObraHub dashboard: 354 hours worked in 30 days, with a daily bar chart",
+          videoLabel: "Tork product demo: from the daily report on the phone to the month-end measurement",
+          play: "Play the demo",
+          pause: "Pause the demo",
+          seek: "Video timeline",
+          mute: "Mute",
+          unmute: "Turn sound on",
+          volume: "Volume",
+          expand: "Expand",
+          collapse: "Exit",
+          chapters: [
+            { title: "Logged once, on site", text: "The foreman files the daily report on his phone; hours are calculated" },
+            { title: "Live office dashboard", text: "Every site's progress and package balance, in real time" },
+            { title: "Approved and signed", text: "The supervisor approves; the client signs by phone, no login" },
+            { title: "Measurement, ready", text: "Month-end billing by person and role, straight from the reports" },
+          ],
         },
         swarm: {
-          kicker: "Project · Desktop app",
+          kicker: "AI engineering project · multi-agent platform",
           screenshotAlt: "Swarm with a Claude Code session on the left and the diff review on the right",
           title: "Swarm",
-          body: "A workspace that runs one to four coding agents in parallel, each in its own git worktree, streamed live from a real terminal.",
-          bullets: [
-            "Every task gets a PRD before any code is written",
-            "Cron schedules, failed CI runs and Trello cards start tasks on their own",
-            "Line comments on the diff flow back to the agent",
-            "PR bodies written from the real diff and check results",
+          lead: "*250+ pull requests* in 30 days. One orchestrated AI engineering workflow.",
+          body: "An autonomous multi-agent software engineering platform. It runs Claude Code and Codex in parallel, coordinates persistent AI teams, automates the development workflow and reviews every implementation in one real-time workspace.",
+          cta: "See it in more detail →",
+          figures: [
+            { value: "250+", label: "pull requests in a single month" },
+            { value: "100+", label: "isolated git worktrees" },
+            { value: "4", label: "concurrent agents, Claude Code + Codex" },
+            { value: "3", label: "review rounds between agents" },
           ],
-          cta: "See how it works →",
+          pillars: [
+            { title: "Up to 4 parallel agents", text: "Claude Code and Codex working at the same time, each in an isolated environment" },
+            { title: "Autonomous AI teams", text: "Persistent agents that collaborate, delegate and review each other's work" },
+            { title: "Cost-aware execution", text: "Per-task token tracking, spending limits and fail-closed cost governance" },
+            { title: "Native desktop app", text: "Windows desktop through Tauri 2, Rust and WSL integration" },
+          ],
+          decision: {
+            label: "One Rails process, on purpose",
+            text: "PTY terminals and agent sessions live in the Puma process's memory, and the architecture is designed around that.",
+          },
+          lifecycleTitle: "AI-driven engineering lifecycle",
+          lifecycle: [
+            { title: "PRD & requirements", text: "Scope, constraints and acceptance criteria" },
+            { title: "Technical planning", text: "Architecture decisions and task breakdown" },
+            { title: "Parallel implementation", text: "Agents work in isolated git worktrees" },
+            { title: "Automated review", text: "AI teams inspect diffs and send feedback" },
+            { title: "Validation & delivery", text: "Tests, pull request, review fixes, merge" },
+          ],
         },
         serverless: {
-          kicker: "Project · AWS",
-          title: "Serverless e-commerce API",
-          body: "Four Lambdas, four different triggers, in a private VPC. Every guarantee has a test that proves it.",
-          bullets: [
-            "4 buyers fight over 1 unit: exactly one wins",
-            "3 retries with the same key become one order",
-            "Queue down? Events wait in the outbox",
+          kicker: "Study project · Node.js, React, React Native & AWS",
+          title: "Full-stack AI-powered serverless e-commerce platform",
+          lead: "*4 buyers, 1 unit:* exactly one purchase. Every guarantee has a test that proves it.",
+          body: "A web and mobile storefront (React and React Native) on one serverless AWS backend: 4 independently triggered Lambdas in a private VPC, with product recommendations from SageMaker and generative features from the Claude API.",
+          cta: "See it in more detail →",
+          figures: [
+            { value: "95%", label: "backend line coverage" },
+            { value: "83%", label: "branch coverage" },
+            { value: "10", label: "reusable Terraform modules" },
+            { value: "3", label: "isolated environments: dev, staging, prod" },
           ],
-          cta: "Read the case study →",
+          pillars: [
+            { title: "Fault-tolerant events", text: "SQS, EventBridge, dead-letter queues and a transactional outbox: a queue outage loses no committed event" },
+            { title: "Two kinds of AI", text: "Claude API for generative features, SageMaker item-item collaborative filtering for recommendations" },
+            { title: "Secure CI/CD", text: "GitHub Actions with AWS OIDC, no long-lived keys, per-environment plans and manual approval for production" },
+            { title: "End-to-end tracing", text: "OpenTelemetry, X-Ray and CloudWatch, with correlation IDs carried through HTTP, events, SQS and workers" },
+          ],
+          decision: {
+            label: "Pay per invocation, on purpose",
+            text: "Recommendations run on SageMaker Serverless, so no inference instance idles. If it takes longer than 800 ms, the store falls back and keeps selling.",
+          },
+          diagramLabel: "Architecture: API Gateway to the api Lambda, which talks to PostgreSQL through RDS Proxy, Valkey, S3 and SageMaker; EventBridge triggers the dispatcher, which feeds SQS and the worker, with a dead-letter queue; an ops Lambda has no HTTP route.",
+          opsNote: "no HTTP route: migrations, admin tasks",
+          provenTitle: "Proven by tests",
+          proven: [
+            { scenario: "4 buyers, 1 unit left", result: "exactly 1 purchase, stock never negative" },
+            { scenario: "3 requests, same idempotency key", result: "1 order, stock deducted once" },
+            { scenario: "queue down", result: "events wait in the outbox, none lost" },
+            { scenario: "69 backend + 9 ML + 8 Terraform tests", result: "backend against real PostgreSQL and Redis" },
+          ],
         },
       },
       more: {
@@ -1923,41 +2001,85 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       title: "What people I worked with say",
       prev: "Previous testimonial",
       next: "Next testimonial",
+      pause: "Pause testimonials",
+      play: "Play testimonials",
       items: [
+        {
+          quote:
+            "Washington didn't just deliver another software platform. He took the time to understand how our operation actually works and built a solution around our real-world needs.",
+          name: "Guilherme",
+          role: "Ingrideon",
+          context: "Tork · client since August",
+        },
         {
           quote:
             "He structured an automated testing initiative that took the RSpec suite's coverage from 35% to 89%. Along the way he mentored me: creating testing cards in Trello, explaining which scenarios had to be covered and reviewing my implementations.",
           name: "Samuel",
-          role: "Developer · Was Advisory",
+          role: "Developer · W/P Advisory",
           context: "Compras project · RSpec mentorship",
         },
         {
           quote:
             "He was put in charge of guiding two developers in improving the system's automated tests. He helped us spot the scenarios that mattered, write more reliable specs and understand how tests protect business rules against regressions.",
           name: "Iarhel",
-          role: "Developer · Was Advisory",
+          role: "Developer · W/P Advisory",
           context: "Compras project · RSpec mentorship",
         },
         {
           quote:
             "He built the Protocol API and implemented the Gov.br integration. After specializing in Claude Code and LLMs, he brought that into our development and helped raise our productivity. We were among the top deliverers on the team, and his contribution played an important part in that.",
           name: "Lucas",
-          role: "Developer · Nobe Sistemas",
+          role: "Developer · W/P Advisory",
           context: "Protocol API · Gov.br integration",
         },
       ],
     },
     experience: {
       title: "Experience",
+      showAll: "Show all",
+      showLess: "Show less",
       items: [
         {
-          period: "Aug 2023 – Oct 2026",
+          period: "Dec 2026 – Present",
+          role: "Mid-level Developer (Pleno I)",
+          company: "Pare.Ai (on track to Senior)",
+          bullets: [],
+          stack: "Node.js · React · React Native · Delphi",
+        },
+        {
+          period: "Aug 2026 – Present",
+          role: "Founder & Engineer",
+          company: "Tork (In production · Engemil partnership since Aug 2026)",
+          summary:
+            "Construction and industrial maintenance management SaaS. Replaces paper and spreadsheets with one platform for crews, time entries, contracts, hour packages and measurements.",
+          stats: [
+            { value: "1,900+", label: "Automated tests", detail: "RSpec, Capybara, Cuprite" },
+            { value: "95%", label: "Code coverage", detail: "SimpleCov" },
+            { value: "PostgreSQL RLS", label: "Database security", detail: "Multi-tenant isolation" },
+            { value: "AI-powered", label: "Document processing", detail: "Claude API, in development" },
+          ],
+          featured: 5,
+          bullets: [
+            "**Multi-tenant architecture and database security:** data isolation with PostgreSQL Row-Level Security, backed by Pundit authorization policies, database constraints and automated tests against cross-organization access.",
+            "**Advanced Excel generation and financial reporting:** a caxlsx export engine that faithfully reproduces each client's financial template (accounting formats, styles, colours, merged cells and layout), with automated fidelity tests.",
+            "**Automated workforce tracking and business rules:** a mobile-first daily site report (RDO) that calculates shifts, breaks, night hours and five hour categories with their own factors, cutting inconsistencies in time entries.",
+            "**Payment infrastructure and webhook reliability:** Asaas API integration for plans, recurring charges and webhooks, with HMAC signature validation, idempotency and payment status synced to platform access. Not yet released to production.",
+            "**AI-powered document processing with Claude:** architecture in development that reads purchase orders and PDFs through the Anthropic API to pre-fill Packages and ASEs, with human review before saving and token and cost tracking per organization.",
+            "**Approval and digital signature:** secure-link flows that let external inspectors review, return or approve daily reports and sign from their phone, recording authorship, date and document integrity.",
+            "**Idempotent data import:** pipelines for spreadsheets and ZIP files with deduplication, validation, related-record creation and concurrency control to prevent duplicates and inconsistencies.",
+            "**Per-organization customization:** independent settings for forms, fields, data grids, printed documents, logos, signatures and visual identity for each client.",
+            "**Test quality and automation:** a suite of about 1,900 RSpec, Capybara and Cuprite tests at 95% line coverage, with an extra run under RLS in CI plus Brakeman and Bundler Audit security checks.",
+          ],
+          stack: "Ruby on Rails 8.1 · Ruby 4 · PostgreSQL · Hotwire · Tailwind CSS 4 · Asaas · AWS S3 · RSpec · Docker · Railway",
+        },
+        {
+          period: "Aug 2023 – Nov 2026",
           role: "Full-Stack Developer",
-          company: "Was Advisory (contract)",
+          company: "W/P Advisory (contract)",
           summary:
             "Rails backend for a multi-tenant tax and debt platform serving 50+ municipalities. Led performance work, the Debt Statement module, the SINAL API integration and the Rails 7 → 8 migration of the debt agreements module.",
           bullets: [
-            "Cut a critical endpoint from **3.5 s to 180 ms** by removing N+1 queries and adding a 3-layer Redis cache, on 10k+ requests a day.",
+            "Cut a critical endpoint from **3.5 s to 180 ms** by removing N+1 queries and adding a 3-layer Redis cache, on 100k+ requests a day.",
             "Rebuilt the CSV export as an async pipeline (Sidekiq, PostgreSQL COPY, streaming to S3): 1.77M records went from **~80 h to 7 min**.",
             "Designed composite indexes on a 14M-row base, taking a query from **12.7 s to 0.2 ms**.",
             "Built the Debt Statement module from scratch as main author, **17 releases in 5 months**, and closed its recurring 500 errors.",
@@ -1965,7 +2087,7 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
             "Integrated the SINAL API (**100k+ records/month**) with circuit breaker, retries and outbox: 99.9% uptime and zero duplicates on an unstable provider.",
             "Fixed a race that issued the same protocol number 3× on double-click, using a scoped `pg_advisory_xact_lock`.",
             "Removed **33 unused indexes** and added unique ones with concurrent migrations, zero downtime.",
-            "Raised test coverage from **35% to 85%** with RSpec and Capybara, plus RuboCop and Brakeman in CI.",
+            "Raised test coverage from **35% to 89%** with RSpec and Capybara, plus RuboCop and Brakeman in CI.",
             "Evolved the Debt Agreements module through the Rails 7 → 8 migration with **15+ per-municipality** feature flags: 60% faster delivery, 59% fewer support tickets.",
             "Ran production on Kubernetes with ArgoCD, Grafana and Datadog, catching incidents before users did.",
           ],
@@ -1984,12 +2106,19 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
         {
           period: "Nov 2022 – May 2023",
           role: "Full-Stack Developer",
-          company: "Independent",
+          company: "Independent (freelance)",
           bullets: [
-            "Delivered blogs, landing pages and small products for direct clients, from discovery to production.",
-            "Handled client communication, scope and pricing myself, with clients who came back.",
-            "Picked up whatever each job needed: Stimulus, Tailwind, AWS S3, payment gateways.",
+            "Delivered end-to-end software solutions for independent clients, including business applications, websites, landing pages, internal tools, and workflow automation, managing projects from initial discovery to production deployment.",
+            "Conducted business requirements analysis, working directly with clients to understand operational workflows, identify inefficiencies, and translate manual processes into practical software solutions.",
+            "Developed backend applications using Ruby on Rails, Python, Node.js, and Delphi, selecting technologies according to business needs, project complexity, and deployment requirements.",
+            "Automated spreadsheet-driven workflows, transforming manually maintained Excel data into structured database operations, application features, and more reliable business processes.",
+            "Designed and implemented database schemas, CRUD operations, business rules, RESTful APIs, and third-party integrations, including AWS S3 storage and payment gateway services.",
+            "Built responsive web interfaces using JavaScript, Stimulus, and Tailwind CSS, connecting frontend components to backend services and external APIs.",
+            "Managed infrastructure and production deployments, including application configuration, environment variables, database setup, file storage, troubleshooting, and post-deployment maintenance.",
+            "Owned the complete client delivery lifecycle, including technical discovery, requirements gathering, project estimation, scope management, development, testing, deployment, and ongoing support.",
+            "Established recurring client relationships through technical ownership, transparent communication, and reliable delivery of solutions aligned with real business requirements.",
           ],
+          stack: "Ruby on Rails · Python · Node.js · Delphi · JavaScript · Stimulus · Tailwind CSS · AWS S3",
         },
       ],
     },
@@ -2020,13 +2149,13 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
       groups: [
         {
           label: "Languages",
-          production: ["Ruby", "SQL", "JavaScript"],
+          production: ["Ruby", "SQL", "JavaScript", "Delphi"],
           builtWith: ["TypeScript", "Python", "Shell", "Kotlin", "C#", "Elixir", "Rust"],
         },
         {
           label: "Frameworks",
-          production: ["Ruby on Rails", "Hotwire", "Stimulus", "React"],
-          builtWith: ["Node.js", "Next.js", "Tailwind CSS", "Tauri", "Sinatra", "Spring Boot", "Django", ".NET", "Phoenix", "Ember.js", "React Native", "Electron"],
+          production: ["Ruby on Rails", "Hotwire", "Stimulus", "React", "Node.js", "React Native"],
+          builtWith: ["Next.js", "Tailwind CSS", "Tauri", "Sinatra", "Spring Boot", "Django", ".NET", "Phoenix", "Ember.js", "Electron"],
         },
         {
           label: "Databases",
@@ -2040,8 +2169,8 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
         },
         {
           label: "Testing & quality",
-          production: ["RSpec", "TDD", "Capybara", "RuboCop", "Brakeman"],
-          builtWith: ["Selenium", "Testcontainers"],
+          production: ["RSpec", "TDD", "Capybara", "RuboCop", "Brakeman", "Jest", "Vitest", "Supertest", "Playwright", "Cypress", "Testcontainers", "MSW", "ESLint", "Prettier", "Stryker"],
+          builtWith: ["Selenium"],
         },
         {
           label: "Architecture",
@@ -2049,6 +2178,15 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
           builtWith: ["WebSockets", "GraphQL", "MCP", "RAG", "Claude API"],
         },
       ],
+    },
+    contact: {
+      label: "// Contact",
+      title: "Have a slow or fragile system? *Let's fix it.*",
+      copy: "Copy",
+      copied: "Copied",
+      copyLabel: "Copy the email address",
+      availability: "Full-Stack Developer · open to full-time roles · remote or Brazil · replies within 24h",
+      resume: "Resume (PDF)",
     },
     footer: {
       kicker: "Open to backend roles · remote or Brazil",
@@ -2060,24 +2198,15 @@ push main ───→ deploy dev ─→ deploy prod (manual approval)`,
 
 const pt: Dict = {
   profile: {
-    nameLine1: "WASHINGTON",
-    nameLine2: "CARDOSO.",
+    nameLine1: "Washington",
+    nameLine2: "Cardoso",
     role: "Desenvolvedor Full-Stack",
     yearsLabel: "4 anos",
     location: "Brasil",
     tagline:
       "Especialista em Ruby on Rails construindo plataformas web escaláveis com foco em performance, código limpo e entregar valor de verdade.",
     availableLabel: "disponível para projetos",
-    downloadResume: "BAIXAR CURRÍCULO",
-  },
-  nav: {
-    aboutMe: "SOBRE_MIM",
-    skills: "SKILLS",
-    resume: "CURRÍCULO",
-    contact: "CONTATO",
-    swarm: "SWARM",
-    obrahub: "OBRAHUB",
-    ecommerce: "ECOMMERCE_SERVERLESS",
+    downloadResume: "Baixar currículo",
   },
   sidebar: {
     contactPhone: "+55 17 98843-2434",
@@ -2091,17 +2220,6 @@ const pt: Dict = {
       eyebrow: "Quem eu sou",
       headline: "Transformo problemas complexos em ",
       headlineEmphasis: "software útil.",
-      devRb: {
-        filename: "dev.rb",
-        codeKeys: {
-          name: "nome",
-          stack: "stack",
-          location: "local",
-          focus: "foco",
-          monster: "monster",
-        },
-        focus: "shipar produtos",
-      },
       paragraphs: [
         "Engenheiro de Software Full Stack com 4 anos de experiência no desenvolvimento de aplicações escaláveis em Ruby on Rails e plataformas SaaS multi-tenant.",
         "Experiência em arquitetura de backend, APIs REST, testes automatizados, CI/CD, observabilidade e otimização de desempenho.",
@@ -2112,7 +2230,7 @@ const pt: Dict = {
         { value: "3,5s → 180ms", label: "redução de latência p99" },
         { value: "63.000×", label: "queries mais rápidas em 14M+ linhas" },
         { value: "80h → 7min", label: "pipeline de export CSV" },
-        { value: "35% → 85%", label: "cobertura de testes via CI/CD" },
+        { value: "35% → 89%", label: "cobertura de testes via CI/CD" },
         { value: "99,9%", label: "uptime em produção" },
       ],
       facts: {
@@ -2123,19 +2241,19 @@ const pt: Dict = {
       },
     },
     experience: {
-      title: "EXPERIÊNCIA PROFISSIONAL",
-      rolesLabel: "VAGAS",
+      title: "Experiência profissional",
+      rolesLabel: "cargos",
       items: [
         {
-          role: "DESENVOLVEDOR FULL STACK",
+          role: "Desenvolvedor Full-Stack",
           company: "Was Advisory",
-          period: "Ago 2023 — Presente",
+          period: "Ago 2023 – Presente",
           isCurrent: true,
           summary:
             "Construção de sistemas SaaS multi-tenant com Rails, PostgreSQL, Redis e React. Reduzi um endpoint crítico de 3,5 segundos para 180 milissegundos e mantive fluxos confiáveis rodando em escala.",
           tags: ["Ruby on Rails", "PostgreSQL", "React", "Redis"],
           bullets: [
-            "Otimizei endpoint crítico reduzindo latência de **3,5s para 180ms** (-94%) através de identificação de queries **N+1**, implementação de **eager loading** e **cache Redis em 3 camadas**, impactando **10k+ requisições/dia**.",
+            "Otimizei endpoint crítico reduzindo latência de **3,5s para 180ms** (-94%) através de identificação de queries **N+1**, implementação de **eager loading** e **cache Redis em 3 camadas**, impactando **100k+ requisições/dia**.",
             "Rearquitetei o pipeline de exportação de relatórios CSV, substituindo o processamento síncrono por uma arquitetura assíncrona com **Sidekiq**, **PostgreSQL COPY**, streaming e **Amazon S3**, reduzindo o tempo de exportação de 1,77M registros de ~80h para 7min (~600×).",
             "Otimizei consultas PostgreSQL em uma base com **14M+ registros**, projetando índices compostos e refinando estratégias de consulta que reduziram o tempo de resposta de **12,7s para 0,2ms** (~63.000×).",
             "Projetei e implementei do zero o módulo de **Extrato de Débitos** com busca dinâmica sobre base com milhões de parcelas de dívida ativa, sustentando **17 entregas incrementais em 5 meses** como autor principal; eliminei N+1 em associações polimórficas (não resolvíveis por eager loading do Rails) via preload manual, substituí carregamento de IDs em memória por subqueries SQL e encerrei erros 500 recorrentes em produção.",
@@ -2143,20 +2261,20 @@ const pt: Dict = {
             "Reduzi o custo de escrita em tabelas de alto volume removendo **33 índices não utilizados** e adicionando índices únicos em tabelas de junção, via migrations concorrentes (`algorithm: :concurrently`) aplicadas sem downtime.",
             "Diagnostiquei e corrigi race condition que emitia números de protocolo duplicados em sistema de processos administrativos municipais (mesmo protocolo gerado 3× sob duplo-clique), substituindo `SELECT MAX(number)+1` sem lock por **pg_advisory_xact_lock** escopado por departamento e ano, preservando concorrência entre departamentos, com guarda de transação explícita e validação de unicidade como segunda camada de defesa.",
             "Arquitetei e implementei a integração com a API externa (**SINAL**), documentada em **OpenAPI/Swagger**, que processava **100k+ registros/mês** em ambiente **multi-tenant**, aplicando **Faraday**, **Circuit Breaker distribuído (Stoplight)**, **Retry com Exponential Backoff**, **Outbox Pattern**, advisory locks no **PostgreSQL** e **Sidekiq** para processamento assíncrono, o que sustentou **99,9% de disponibilidade** e zero duplicação de cadastros mesmo com o fornecedor instável.",
-            "Implementei suítes de testes automatizados com **RSpec** e **Capybara**, aumentando a cobertura de testes de **35% para 85%** e reduzindo bugs em produção graças a pipelines de **CI/CD** robustos, com **RuboCop** e **Brakeman** para análise estática e segurança.",
+            "Implementei suítes de testes automatizados com **RSpec** e **Capybara**, aumentando a cobertura de testes de **35% para 89%** e reduzindo bugs em produção graças a pipelines de **CI/CD** robustos, com **RuboCop** e **Brakeman** para análise estática e segurança.",
             "Evoluí o módulo crítico de **Acordos de Dívida Ativa** em arquitetura **multi-tenant** atendendo **50+ municípios**, durante a migração do sistema do **Rails 7 para o Rails 8**, estruturado com **Devise**, **Service Objects** e **Form::Builder** para encapsular regras fiscais complexas, entregando **15+ customizações específicas por prefeitura via feature flags**, o que reduziu em **60% o tempo de entrega** de demandas municipais, zerou regressões cross-tenant e cortou em **59% os chamados de suporte** relacionados ao módulo.",
             "Monitorei aplicações em produção utilizando ferramentas de observabilidade (**Datadog**), identificando e resolvendo incidentes de forma proativa antes que afetassem o usuário final.",
             "Atuação prática em **Kubernetes** em produção (acesso via **Pritunl VPN**), utilizando **ArgoCD** (GitOps), **Headlamp** e **Grafana** para deploy contínuo, gestão de cluster e monitoramento de incidentes em ambiente de alta disponibilidade.",
-            "Desenvolvi o **ObraHub**, o sistema de apontamento e medição da **Engemil**, prestadora de manutenção e montagem industrial, especificado em rodadas sucessivas de review e feedback com o responsável por produzir todo o processo na mão — um monólito **Rails 8 + PostgreSQL + Hotwire** (Devise, Pundit, 12 policies, 19 importadores/exportadores) que substituiu o ciclo papel → planilha → redigitação. Importa a planilha que a engenharia já preenche, com **digest SHA-256 da linha** para `upsert_all` idempotente, de modo que reenviar o mesmo arquivo nunca duplica; mantém o saldo de cada pacote como **query, não coluna gravada**, então um pacote de 663h mostra o saldo novo no instante em que o RDO entra; e exporta a medição mensal **idêntica byte a byte** ao arquivo de referência do cliente — fills com cor de tema e tint, formato numérico CONTÁBIL e o Resumo com duas colunas por tipo de hora, com teste que faz parse estrito do `styles.xml` gerado. **899 exemplos, 0 falhas**; em uso real, **11.551h** fechadas em um mês e **1.395 apontamentos** importados e validados em **3s**.",
+            "Desenvolvi o **ObraHub**, o sistema de apontamento e medição da **Engemil**, prestadora de manutenção e montagem industrial, especificado em rodadas sucessivas de review e feedback com o responsável por produzir todo o processo na mão: um monólito **Rails 8 + PostgreSQL + Hotwire** (Devise, Pundit, 12 policies, 19 importadores/exportadores) que substituiu o ciclo papel → planilha → redigitação. Importa a planilha que a engenharia já preenche, com **digest SHA-256 da linha** para `upsert_all` idempotente, de modo que reenviar o mesmo arquivo nunca duplica; mantém o saldo de cada pacote como **query, não coluna gravada**, então um pacote de 663h mostra o saldo novo no instante em que o RDO entra; e exporta a medição mensal **idêntica byte a byte** ao arquivo de referência do cliente: fills com cor de tema e tint, formato numérico CONTÁBIL e o Resumo com duas colunas por tipo de hora, com teste que faz parse estrito do `styles.xml` gerado. **899 exemplos, 0 falhas**; em uso real, **11.551h** fechadas em um mês e **1.395 apontamentos** importados e validados em **3s**.",
             "Desenvolvi o **shelflog**, PWA em **Rails** para controle de validade em gôndola, pensado para uso no **PAS do Muffato** (uma grande rede de supermercados do Brasil): busca por código de barras ou nome, status por produto a partir de limites configuráveis e um job horário no **Solid Queue** que dispara alertas via **web push** de produtos vencidos e a vencer.",
-            "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código** — o planner roda no PTY, escreve um PRD com critérios de aceite e sai, e o `on_exit` sobe o coder com o ponteiro pro PRD, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design — o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
+            "Desenvolvi o **Swarm**, um Agent Development Environment em **Rails 8 + Hotwire + SQLite** que roda **1 a 4 agentes Claude Code ou Codex em paralelo**, cada um em worktree Git e branch isolados, transmitidos ao vivo de um **PTY** real via **ActionCable**. Toda task passa por uma **fase de planner antes de escrever qualquer código**: o planner roda no PTY, escreve um PRD com critérios de aceite e sai, e o `on_exit` sobe o coder com o ponteiro pro PRD, de modo que plano falho nunca vira código escrito no escuro. O workspace é uma **árvore de painéis divisíveis serializada na URL** (agente, terminal, chat, diff, preview, qualquer arquivo, ou outra tentativa do mesmo prompt como abas), com explorer de arquivos, editor **CodeMirror 6** e preview embutido do app rodando. A revisão de diff traz **comentários por linha que voltam para a sessão do agente**; o **corpo do PR é escrito no servidor por um agente headless** a partir do diff real e do resultado real dos checks, com o golden path gravado em **Chrome headless (Ferrum)** e embutido como GIF. Inclui ainda **Design Mode** (anotar o app vivo como comentário de Figma, mandando o estado vivo do DOM do elemento em vez de screenshot), quatro **agent loop patterns** (Turn/Goal/Time/Proactive) atrás de guardas de custo, tentativas e kill-switch com webhooks verificados por HMAC, e integrações com **Trello / Linear / Jira**. Single-process por design: o registry de PTYs vive na memória do Puma. Empacotado como app desktop nativo (**Tauri 2 + WebView2** no Windows, backend Rails rodando em **WSL**), com i18n completa em pt-BR e inglês.",
             "Publiquei uma trilogia de plugins para o **Claude Code** cobrindo entrada, saída e efeitos colaterais do agente: **lean-output** comprime outputs de **RSpec**, **RuboCop** e **Brakeman** em **-70% a -97% de tokens** com garantia zero-loss de falhas; **rails-context** injeta dossiê curado (colunas, índices, associações, validações e rotas) reduzindo drasticamente a superfície lida pelo modelo em vez de carregar `db/schema.rb` e models inteiros; **rails-guard** intercepta comandos Rails destrutivos (`db:drop`, `db:reset`, `rails destroy`, `runner` com `delete_all`) via hook `PreToolUse`, exigindo confirmação humana antes da execução.",
           ],
         },
         {
-          role: "DESENVOLVEDOR FULL STACK",
+          role: "Desenvolvedor Full-Stack",
           company: "GoTechDS",
-          period: "Jun 2023 — Jul 2023",
+          period: "Jun 2023 – Jul 2023",
           summary:
             "Contribuí com funcionalidades de autenticação e dashboard em um produto Rails já estabelecido, via code review e desenvolvimento colaborativo.",
           tags: ["Rails", "Devise", "Code Review"],
@@ -2167,14 +2285,14 @@ const pt: Dict = {
           ],
         },
         {
-          role: "DESENVOLVEDOR FULL STACK",
+          role: "Desenvolvedor Full-Stack",
           company: "Autônomo \\\\ Blogs & Micro-SaaS",
-          period: "Nov 2022 — Mai 2023",
+          period: "Nov 2022 – Mai 2023",
           summary:
-            "Entrega ponta a ponta de landing pages, blogs e pequenos softwares — do levantamento e modelagem do banco até deploy e suporte.",
+            "Entrega ponta a ponta de landing pages, blogs e pequenos softwares, do levantamento e modelagem do banco até deploy e suporte.",
           tags: ["Full Stack", "Clientes", "Entrega"],
           bullets: [
-            "Entrega ponta a ponta de **blogs, landing pages e mini-softwares** para clientes diretos — do levantamento à produção.",
+            "Entrega ponta a ponta de **blogs, landing pages e mini-softwares** para clientes diretos, do levantamento à produção.",
             "Atuei como **único responsável por cada projeto**: requisitos, modelagem **PostgreSQL**, backend em **Ruby on Rails**, frontend, deploy e suporte.",
             "Configurei **pipelines de CI/CD**, domínios, SSL e monitoramento em cada projeto entregue.",
             "Lidei diretamente com **comunicação com cliente, negociação de escopo e precificação**, construindo relações de longo prazo com clientes recorrentes.",
@@ -2185,13 +2303,13 @@ const pt: Dict = {
     },
   },
   skills: {
-    title: "SKILLS TÉCNICAS",
+    title: "Skills técnicas",
     subtitle: "Ferramentas e tecnologias que uso pra entregar",
-    techTitle: "TECNOLOGIAS E FERRAMENTAS",
+    techTitle: "Tecnologias e ferramentas",
     techSubtitle:
-      "Stack moderna, respaldada pelas melhores práticas do mercado — pra escalar e performar sob pressão.",
-    allLabel: "TODOS",
-    countSuffix: "TECHS",
+      "O que uso no dia a dia e o quanto domino cada um. Avançado significa que já entreguei e mantive em produção.",
+    allLabel: "Todos",
+    countSuffix: "tecnologias",
     levelLabel: "Nível",
     levels: {
       ADVANCED: "Avançado",
@@ -2199,16 +2317,16 @@ const pt: Dict = {
       FAMILIAR: "Familiarizado",
     },
     categories: {
-      languages: "linguagens",
-      frameworks: "frameworks & libs",
-      databases: "bancos de dados",
-      devops: "devops & cloud",
-      testing: "testes & qualidade",
-      architecture: "arquitetura",
+      languages: "Linguagens",
+      frameworks: "Frameworks e bibliotecas",
+      databases: "Bancos de dados",
+      devops: "DevOps e cloud",
+      testing: "Testes e qualidade",
+      architecture: "Arquitetura",
     },
   },
   education: {
-    title: "FORMAÇÃO",
+    title: "Formação",
     items: [
       {
         degree: "AWS SERVERLESS DEMONSTRATED",
@@ -2216,24 +2334,24 @@ const pt: Dict = {
         period: "Emitido em set 2026 · Expira em set 2027",
       },
       {
-        degree: "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS — CURSANDO",
-        school: "Wyden — São José do Rio Preto, SP",
-        period: "2024 — 2026 (previsão dez/2026)",
+        degree: "Análise e Desenvolvimento de Sistemas (cursando)",
+        school: "Wyden – São José do Rio Preto, SP",
+        period: "2024 – 2026 (previsão dez/2026)",
       },
       {
-        degree: "LEARN RAILS AND RUBY PROGRAMMING",
-        school: "Udemy — John Elder",
+        degree: "Learn Rails and Ruby Programming",
+        school: "Udemy – John Elder",
         period: "2023",
       },
       {
-        degree: "CURSO DE INGLÊS",
-        school: "CNA — São José do Rio Preto (Downtown)",
+        degree: "Curso de inglês",
+        school: "CNA – São José do Rio Preto (Downtown)",
         period: "2019",
       },
     ],
   },
   projects: {
-    title: "PROJETOS",
+    title: "Projetos",
     subtitle: "Algumas coisas que construí com tecnologias modernas",
     filters: {
       all: "Todos",
@@ -2243,7 +2361,17 @@ const pt: Dict = {
     },
     liveSite: "Ver no ar",
     viewCode: "Ver código",
-    askAbout: "Privado — me pergunte",
+    askAbout: "Privado: me pergunte",
+    page: {
+      label: "// Projetos",
+      title: "Tudo o que eu já *construí*.",
+      intro: "Produtos em produção, estudos de caso, ferramentas open source e os experimentos por trás deles.",
+      count: "{count} projetos",
+      details: "Detalhes",
+      code: "Código",
+      site: "No ar",
+      private: "Privado",
+    },
     prev: "Anterior",
     next: "Próximo",
     pageLabel: "Página",
@@ -2253,14 +2381,14 @@ const pt: Dict = {
         summary:
           "Agent Development Environment que roda de 1 a 4 agentes de código em paralelo, cada um num git worktree isolado com PTY ao vivo, revisão de diff e merge num clique.",
         details:
-          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**. **Automações** disparam tasks sozinhas — agendamentos cron, falhas de CI do GitHub via relay **AWS Lambda + SQS** provisionado com **Terraform** e cards do Trello — com painéis de Jira, Linear e GitHub ao lado.",
+          "Um **Agent Development Environment** em **Rails 8 + Hotwire** que roda **1 a 4 agentes de código em paralelo**, cada um no seu **git worktree** isolado com **PTY** real transmitido via **ActionCable**. Diff ao vivo com comentários por linha que voltam direto pra sessão do agente, grid `/compare` pra escolher a melhor tentativa, merge ou PR num clique, e build desktop nativo com **Tauri 2 + WebView2** rodando o backend Rails dentro do **WSL**. **Automações** disparam tasks sozinhas: agendamentos cron, falhas de CI do GitHub via relay **AWS Lambda + SQS** provisionado com **Terraform** e cards do Trello, com painéis de Jira, Linear e GitHub ao lado.",
       },
       obrahub: {
         type: "Full Stack",
         summary:
           "Em produção na Engemil: transforma as planilhas que a engenharia já preenche em apontamento de horas, RDO e a medição que o cliente assina.",
         details:
-          "**Atualmente em produção na Engemil.** Acompanha o trabalho executado em obras: cada obra tem seus encarregados vinculados, e cada um lança quantas horas trabalhou, em que cargo, em que dia, com foto opcional. O admin importa esses lançamentos em massa a partir de uma planilha **Excel** mais um zip com as fotos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** e **Active Storage** — sem bundler JS, sem fila.",
+          "**Atualmente em produção na Engemil.** Acompanha o trabalho executado em obras: cada obra tem seus encarregados vinculados, e cada um lança quantas horas trabalhou, em que cargo, em que dia, com foto opcional. O admin importa esses lançamentos em massa a partir de uma planilha **Excel** mais um zip com as fotos. **Rails 8.1**, **PostgreSQL**, **Hotwire**, **Devise + Pundit**, **Solid Cache** e **Active Storage**, sem bundler JS, sem fila.",
       },
       ecommerceServerless: {
         type: "Backend Serverless",
@@ -2272,23 +2400,23 @@ const pt: Dict = {
       tally: {
         type: "Backend",
         summary:
-          "Conciliação de retorno bancário: um motor Kotlin presta conta de cada linha — conciliada, em revisão, sem par ou rejeitada — e um console Rails mostra em EN e pt-BR.",
+          "Conciliação de retorno bancário: um motor Kotlin presta conta de cada linha (conciliada, em revisão, sem par ou rejeitada) e um console Rails mostra em EN e pt-BR.",
         details:
-          "Concilia **arquivos de retorno bancário** contra recebíveis esperados e presta conta de cada linha: conciliada, aguardando revisão, sem correspondência ou rejeitada com motivo. Um motor em **Kotlin** decide e nunca emite texto pra humano — emite códigos estáveis que um console **Rails** renderiza em inglês e pt-BR. O que o motor não decide sozinho vai pra uma fila humana levando os candidatos e o motivo.",
+          "Concilia **arquivos de retorno bancário** contra recebíveis esperados e presta conta de cada linha: conciliada, aguardando revisão, sem correspondência ou rejeitada com motivo. Um motor em **Kotlin** decide e nunca emite texto pra humano: emite códigos estáveis que um console **Rails** renderiza em inglês e pt-BR. O que o motor não decide sozinho vai pra uma fila humana levando os candidatos e o motivo.",
       },
       pulse: {
         type: "API + Mobile",
         summary:
           "Monitoramento de uptime e heartbeat self-hosted: workers de checagem, detecção de incidentes, alerta por e-mail e app Expo com push.",
         details:
-          "**Monitoramento de uptime e heartbeat** self-hosted — cola uma URL, ele checa num intervalo fixo e avisa quando cai. API em **Fastify + TypeScript** com workers **BullMQ** (check, reconcile, notify) sobre **PostgreSQL** e **Redis**, tudo de pé com um único `docker compose`. Tem app mobile em **Expo** com push notification e um importador **NDJSON** em streaming sobre `pg-copy-streams`.",
+          "**Monitoramento de uptime e heartbeat** self-hosted: cola uma URL, ele checa num intervalo fixo e avisa quando cai. API em **Fastify + TypeScript** com workers **BullMQ** (check, reconcile, notify) sobre **PostgreSQL** e **Redis**, tudo de pé com um único `docker compose`. Tem app mobile em **Expo** com push notification e um importador **NDJSON** em streaming sobre `pg-copy-streams`.",
       },
       pipelineHq: {
         type: "Full Stack",
         summary:
           "CRM B2B multi-tenant em Rails 8.1 com Solid Queue, Cache e Cable, auth nativa com 10 camadas de hardening e um ADR por decisão.",
         details:
-          "**CRM B2B multi-tenant** full-stack em **Rails 8.1.3** — pipeline de vendas no estilo Pipedrive/HubSpot. Usa **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** e **auth nativa do Rails** estendida com **10 camadas de hardening** (2FA TOTP, backup codes, sudo mode, rate limit, audit log, honeypot). Cada decisão tem um **ADR**.",
+          "**CRM B2B multi-tenant** full-stack em **Rails 8.1.3**: pipeline de vendas no estilo Pipedrive/HubSpot. Usa **Solid Queue / Solid Cache / Solid Cable** (zero Redis, zero Sidekiq), **Hotwire** (Turbo + Stimulus), **Tailwind v4** e **auth nativa do Rails** estendida com **10 camadas de hardening** (2FA TOTP, backup codes, sudo mode, rate limit, audit log, honeypot). Cada decisão tem um **ADR**.",
       },
       jornada: {
         type: "Backend",
@@ -2298,16 +2426,16 @@ const pt: Dict = {
       leanOutput: {
         type: "Plugin do Claude Code",
         summary:
-          "Mantém saída longa de ferramenta fora da janela de contexto — manda pro disco atrás de um ponteiro e comprime RSpec, RuboCop e Brakeman sem perder falha.",
+          "Mantém saída longa de ferramenta fora da janela de contexto: manda pro disco atrás de um ponteiro e comprime RSpec, RuboCop e Brakeman sem perder falha.",
         details:
-          "**Plugin do Claude Code** que mantém saída longa de ferramenta fora da janela de contexto: despeja resultados grandes em disco e entrega um ponteiro ao modelo, omite o que o contexto já tem, e comprime **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo e grep no caminho. Medido reprocessando **12.008 resultados reais (10,54 MB)** — menos tokens, **nenhuma falha perdida**.",
+          "**Plugin do Claude Code** que mantém saída longa de ferramenta fora da janela de contexto: despeja resultados grandes em disco e entrega um ponteiro ao modelo, omite o que o contexto já tem, e comprime **RSpec**, **RuboCop**, **Brakeman**, `git diff`, cargo e grep no caminho. Medido reprocessando **12.008 resultados reais (10,54 MB)**: menos tokens, **nenhuma falha perdida**.",
       },
       amnesia: {
         type: "App em tempo real",
         summary:
           "Um Discord enxuto: canais de texto e voz em tempo real e transmissão de tela com Phoenix Channels e LiveKit, e cliente desktop em Electron.",
         details:
-          "Um Discord enxuto — **canais de texto e de voz** em tempo real, transmissão de tela e app desktop. **Elixir + Phoenix 1.8** com Channels e Presence resolvem sala, entrada e quem-está-online sem código de infraestrutura, **LiveKit** (SFU) carrega a mídia, e o cliente é **Electron + React + Vite + Tailwind v4**.",
+          "Um Discord enxuto: **canais de texto e de voz** em tempo real, transmissão de tela e app desktop. **Elixir + Phoenix 1.8** com Channels e Presence resolvem sala, entrada e quem-está-online sem código de infraestrutura, **LiveKit** (SFU) carrega a mídia, e o cliente é **Electron + React + Vite + Tailwind v4**.",
       },
       glossa: {
         type: "Full Stack",
@@ -2322,9 +2450,9 @@ const pt: Dict = {
       atsOnRails: {
         type: "Ferramenta com IA",
         summary:
-          "Cola uma vaga e recebe um veredito por termo contra fatos com evidência: já coberto, alcançável, ou lacuna real — que ele se recusa a inventar.",
+          "Cola uma vaga e recebe um veredito por termo contra fatos com evidência: já coberto, alcançável, ou lacuna real, que ele se recusa a inventar.",
         details:
-          "Cola uma descrição de vaga e recebe um **veredito por termo** contra fatos que têm evidência por trás: já coberto por um bullet, **alcançável** (um fato descreve aquele trabalho e só não usa a palavra), ou **lacuna** real — que a ferramenta aponta em vez de escrever assim mesmo. A cobertura é lida só da prosa dos bullets, porque palavra-chave em lista de skills não pontua contra matcher com LLM: medido **76% → 98%** movendo cinco termos pra dentro dos bullets de experiência.",
+          "Cola uma descrição de vaga e recebe um **veredito por termo** contra fatos que têm evidência por trás: já coberto por um bullet, **alcançável** (um fato descreve aquele trabalho e só não usa a palavra), ou **lacuna** real, que a ferramenta aponta em vez de escrever assim mesmo. A cobertura é lida só da prosa dos bullets, porque palavra-chave em lista de skills não pontua contra matcher com LLM: medido **76% → 98%** movendo cinco termos pra dentro dos bullets de experiência.",
       },
       telehealth: {
         type: "Microsserviços",
@@ -2351,7 +2479,7 @@ const pt: Dict = {
       railsGuard: {
         type: "Plugin do Claude Code",
         summary:
-          "Bloqueia os comandos Rails irrecuperáveis que um agente poderia rodar — db:drop, db:reset, runners destrutivos — e pergunta antes nos arriscados.",
+          "Bloqueia os comandos Rails irrecuperáveis que um agente poderia rodar (db:drop, db:reset, runners destrutivos) e pergunta antes nos arriscados.",
       },
       railsContext: {
         type: "Plugin do Claude Code",
@@ -2361,24 +2489,24 @@ const pt: Dict = {
       swarmPlugin: {
         type: "Plugin do Claude Code",
         summary:
-          "Roda o mesmo prompt em N git worktrees isolados em paralelo e deixa você comparar o diff de cada tentativa e mesclar a melhor — ou abrir um PR.",
+          "Roda o mesmo prompt em N git worktrees isolados em paralelo e deixa você comparar o diff de cada tentativa e mesclar a melhor, ou abrir um PR.",
       },
       systemDesignPrimer: {
         type: "Laboratório",
         summary:
-          "Um laboratório Rails 8 de system design: cache, N+1, índice, hot key, contenção de escrita e fila — cada camada precisa se provar num número medido.",
+          "Um laboratório Rails 8 de system design: cache, N+1, índice, hot key, contenção de escrita e fila, cada camada precisa se provar num número medido.",
       },
       brasilApiRuby: {
         type: "Biblioteca",
         summary:
-          "Meu primeiro passo em open source: um wrapper Ruby inicial para a BrasilAPI — aprendendo a publicar pacotes e código em público.",
+          "Meu primeiro passo em open source: um wrapper Ruby inicial para a BrasilAPI. Aprendendo a publicar pacotes e código em público.",
         details:
-          "Tentativa no início da carreira de criar um **wrapper Ruby** pra **BrasilAPI**. O código era ingênuo na época, mas foi meu **primeiro mergulho em open-source** — publicar código público, lidar com empacotamento e aprender com a experiência.",
+          "Tentativa no início da carreira de criar um **wrapper Ruby** pra **BrasilAPI**. O código era ingênuo na época, mas foi meu **primeiro mergulho em open-source**: publicar código público, lidar com empacotamento e aprender com a experiência.",
       },
     },
   },
   testimonials: {
-    title: "DEPOIMENTOS",
+    title: "Depoimentos",
     subtitle: "O que dizem sobre o meu trabalho",
     prevLabel: "Depoimento anterior",
     nextLabel: "Próximo depoimento",
@@ -2399,109 +2527,61 @@ const pt: Dict = {
     ],
   },
   spokenLanguages: {
-    title: "IDIOMAS",
+    title: "Idiomas",
     items: [
-      { language: "PORTUGUÊS", level: "NATIVO" },
-      { language: "INGLÊS", level: "B2 (TÉCNICO)" },
+      { language: "Português", level: "Nativo" },
+      { language: "Inglês", level: "B2 (técnico)" },
     ],
   },
   resume: {
-    title: "CURRÍCULO",
+    title: "Currículo",
     subtitle: "Linha do tempo da carreira & CV pra baixar",
-    downloadCta: "BAIXAR PDF",
-    timelineTitle: "LINHA DO TEMPO",
-    openSourceTitle: "PROJETOS & OPEN SOURCE",
-    privateRepoLabel: "REPO PRIVADO",
+    downloadCta: "Baixar PDF",
+    timelineTitle: "Linha do tempo",
+    openSourceTitle: "Projetos e open source",
+    privateRepoLabel: "Repo privado",
+    currentLabel: "Atual",
   },
   contact: {
-    kicker: "ENTRE EM CONTATO",
-    badge: "RESPOSTA EM 24H",
-    headline: "BORA TIRAR SUA IDEIA DO PAPEL",
+    headline: "Bora tirar sua ideia do papel",
     headlineEmphasis: "?",
     subheadline:
       "Aberto a projetos freelance, consultoria e oportunidades full-time.",
-    ctaPrimary: "INICIAR CONVERSA",
-    ctaSecondary: "VER CURRÍCULO",
-    title: "VAMOS CONVERSAR",
+    ctaPrimary: "Iniciar conversa",
+    ctaSecondary: "Ver currículo",
+    title: "Vamos conversar",
     body:
       "Tem um projeto em mente ou uma oportunidade pra discutir? Vou adorar ouvir.",
     emailLabel: "Me envie um email",
     inboxLabel: "Inbox",
     socialLabel: "Me encontre online",
-    available: "DISPONÍVEL",
-    channelsTitle: "CANAIS",
-    metaLocation: { label: "LOCALIZAÇÃO", value: "BRASIL, GMT-3" },
-    metaResponse: { label: "TEMPO DE RESPOSTA", value: "EM ATÉ 24H" },
-    metaStatus: { label: "STATUS", value: "DISPONÍVEL" },
+    available: "Disponível",
+    channelsTitle: "Canais",
+    metaLocation: { label: "Localização", value: "Brasil, GMT-3" },
+    metaResponse: { label: "Tempo de resposta", value: "Em até 24h" },
     form: {
-      title: "NOVA MENSAGEM",
-      status: "RASCUNHO",
-      nameLabel: "NOME",
+      title: "Nova mensagem",
+      nameLabel: "Nome",
       namePlaceholder: "Seu nome",
-      emailLabel: "EMAIL",
+      emailLabel: "Email",
       emailPlaceholder: "seu@email.com",
-      subjectLabel: "ASSUNTO",
+      subjectLabel: "Assunto",
       subjectPlaceholder: "Sobre o que é?",
-      messageLabel: "MENSAGEM",
+      messageLabel: "Mensagem",
       messagePlaceholder:
-        "Tem um projeto em mente ou uma pergunta? Manda uma mensagem — respondo em até 24h.",
-      sendCta: "ENVIAR MENSAGEM",
+        "Tem um projeto em mente ou uma pergunta? Manda uma mensagem: respondo em até 24h.",
+      sendCta: "Enviar mensagem",
     },
   },
   footer: "feito com next.js + tailwind",
-  toggle: {
-    switchLang: "Mudar idioma",
-    switchTheme: {
-      toLight: "Mudar para tema claro",
-      toDark: "Mudar para tema escuro",
-    },
-  },
-  meta: {
-    aboutMe: {
-      title: "Sobre — Washington Pereira",
-      description:
-        "Desenvolvedor full-stack especializado em Ruby on Rails. Experiência profissional, contexto e stack.",
-    },
-    skills: {
-      title: "Skills — Washington Pereira",
-      description:
-        "Skills técnicas: Ruby on Rails, PostgreSQL, Redis, Sidekiq, React, Next.js e mais.",
-    },
-    resume: {
-      title: "Currículo — Washington Pereira",
-      description: "Linha do tempo da carreira e currículo em PDF.",
-    },
-    contact: {
-      title: "Contato — Washington Pereira",
-      description:
-        "Entre em contato com Washington Pereira, desenvolvedor full-stack.",
-    },
-    swarm: {
-      title: "Swarm — Agent Development Environment",
-      description:
-        "Uma IDE desktop pra agentes de código: 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, PTYs ao vivo, revisão de diff com comentários por linha, merge ou PR.",
-    },
-    obrahub: {
-      title: "ObraHub — apontamento e medição de mão de obra em campo",
-      description:
-        "Estudo de caso: o monólito Rails 8 feito para a Engemil que troca o ciclo papel → planilha → redigitação por importação de planilha, saldo vivo de pacote e exportação da medição idêntica ao formato do cliente.",
-    },
-    ecommerce: {
-      title: "E-commerce Serverless — API em AWS Lambda",
-      description:
-        "Estudo de caso: uma API de e-commerce em AWS Lambda com Terraform, CI/CD com OIDC, transactional outbox, pedidos idempotentes, OpenTelemetry/X-Ray e recomendação com SageMaker.",
-    },
-  },
   swarm: {
     hero: {
-      kicker: "// PROJETO — DESTAQUE",
-      title: "SWARM",
+      title: "Swarm",
       tagline: "Agent Development Environment",
       subtitle:
-        "Uma IDE desktop pra agentes de código. Rode de 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, acompanhe cada um num PTY ao vivo, revise o diff com comentários por linha e faça merge ou abra o PR — tudo na mesma janela.",
+        "Uma IDE desktop pra agentes de código. Rode de 1 a 4 agentes Claude Code ou Codex em worktrees Git paralelos, acompanhe cada um num PTY ao vivo, revise o diff com comentários por linha e faça merge ou abra o PR: tudo na mesma janela.",
       ctaGithub: "Ver no GitHub",
       ctaCli: "Plugin CLI",
-      agentLabel: "agente",
     },
     screens: {
       kicker: "// NO APP",
@@ -2512,10 +2592,9 @@ const pt: Dict = {
       },
     },
     pty: {
-      kicker: "// 02 — AO VIVO",
       title: "Toda task planeja antes de codar.",
       subtitle:
-        "A task nasce pending, sem worktree — criar não gasta disco nem dinheiro. O Start cria a worktree, o planner escreve o plano e sai, e só então o on_exit sobe o coder. Sem plano não-vazio, não tem coder.",
+        "A task nasce pending, sem worktree: criar não gasta disco nem dinheiro. O Start cria a worktree, o planner escreve o plano e sai, e só então o on_exit sobe o coder. Sem plano não-vazio, não tem coder.",
       promptLabel: "prompt",
       promptLine: "adiciona paginação por cursor no DealsController#index",
       windowLabel: "swarm — task #142 — painel do agente",
@@ -2536,10 +2615,9 @@ const pt: Dict = {
       ],
     },
     compare: {
-      kicker: "// 03 — REVISÃO",
       title: "Tentativas lado a lado, como abas.",
       subtitle:
-        "O arranjo da tela é uma árvore de divisões escrita na URL. Qualquer superfície vira aba — o agente, um terminal, o chat, o diff, o preview, um arquivo ou outra tentativa do mesmo prompt. É assim que duas CLIs diferentes no mesmo prompt ficam lado a lado.",
+        "O arranjo da tela é uma árvore de divisões escrita na URL. Qualquer superfície vira aba: o agente, um terminal, o chat, o diff, o preview, um arquivo ou outra tentativa do mesmo prompt. É assim que duas CLIs diferentes no mesmo prompt ficam lado a lado.",
       hint: "?panes=agent;(diff|preview)   ·   ; divide · | empilha · , abas · () aninha",
       mergeLabel: "Mesclar",
       discardLabel: "Descartar",
@@ -2576,29 +2654,28 @@ const pt: Dict = {
       ],
     },
     features: {
-      kicker: "// 04 — CAPACIDADES",
       title: "Um ambiente, não um wrapper de uma CLI.",
       subtitle: "Oito coisas que ele faz, todas na sua máquina.",
       items: [
         {
           title: "Planner escreve um PRD, depois coder",
           description:
-            "O handoff é uma fase de PTY, não um job: o planner roda no mesmo pane, escreve um PRD — problema, requisitos, critérios de aceite, riscos, passos — e sai, e o on_exit sobe o coder com o ponteiro pro PRD. PRD sem critério de aceite para a task com esse motivo: “planner falhou” nunca vira “coda no escuro”.",
+            "O handoff é uma fase de PTY, não um job: o planner roda no mesmo pane, escreve um PRD (problema, requisitos, critérios de aceite, riscos, passos) e sai, e o on_exit sobe o coder com o ponteiro pro PRD. PRD sem critério de aceite para a task com esse motivo: “planner falhou” nunca vira “coda no escuro”.",
         },
         {
           title: "Claude Code e Codex",
           description:
-            "Dois adapters atrás de um mapa — de 1 a 4 agentes em paralelo, cada um na sua worktree e sua branch. CLI nova é uma entrada no mapa mais uma classe; a validação e o formulário saem daí.",
+            "Dois adapters atrás de um mapa, de 1 a 4 agentes em paralelo, cada um na sua worktree e sua branch. CLI nova é uma entrada no mapa mais uma classe; a validação e o formulário saem daí.",
         },
         {
           title: "PTYs de verdade",
           description:
-            "PTY.spawn por pane, registrado em memória por (task, pane) e transmitido em base64 via ActionCable. O stop escala HUP → TERM → KILL, e o scrollback vai pra disco a cada 5s — morte abrupta perde no máximo 5 segundos.",
+            "PTY.spawn por pane, registrado em memória por (task, pane) e transmitido em base64 via ActionCable. O stop escala HUP → TERM → KILL, e o scrollback vai pra disco a cada 5s: morte abrupta perde no máximo 5 segundos.",
         },
         {
           title: "Painéis moram na URL",
           description:
-            "O arranjo é uma árvore de divisões serializada na query string. Trocar de aba é reordenar, fechar é remover, dividir é inserir — cada ação é um link, então reload, botão de voltar e favorito simplesmente funcionam.",
+            "O arranjo é uma árvore de divisões serializada na query string. Trocar de aba é reordenar, fechar é remover, dividir é inserir, cada ação é um link, então reload, botão de voltar e favorito simplesmente funcionam.",
         },
         {
           title: "Diff que responde",
@@ -2608,12 +2685,12 @@ const pt: Dict = {
         {
           title: "PR com evidência real",
           description:
-            "O corpo é escrito no servidor por um agente headless a partir do diff real, do prompt original e do resultado real dos checks — “sem check command” e “nunca rodados” continuam distintos de um resultado de verdade. O golden path é gravado em Chrome headless e embutido como GIF.",
+            "O corpo é escrito no servidor por um agente headless a partir do diff real, do prompt original e do resultado real dos checks: “sem check command” e “nunca rodados” continuam distintos de um resultado de verdade. O golden path é gravado em Chrome headless e embutido como GIF.",
         },
         {
           title: "Preview e Design Mode",
           description:
-            "O app da worktree sobe num PTY atrás de um proxy cuja detecção de porta não depende do stack respeitar $PORT. O Design Mode anota a tela viva como quem comenta num Figma — o estado vivo do elemento é serializado do DOM e re-renderizado com a sessão do usuário, não é screenshot.",
+            "O app da worktree sobe num PTY atrás de um proxy cuja detecção de porta não depende do stack respeitar $PORT. O Design Mode anota a tela viva como quem comenta num Figma: o estado vivo do elemento é serializado do DOM e re-renderizado com a sessão do usuário, não é screenshot.",
         },
         {
           title: "Loops com guardas",
@@ -2623,10 +2700,9 @@ const pt: Dict = {
       ],
     },
     automations: {
-      kicker: "// 05 — AUTOMAÇÕES",
       title: "Trabalho que começa sem você.",
       subtitle:
-        "Uma página de Automações junta tudo que dispara sozinho — agendamentos, triggers e quadros — com os controles, não só a lista. Toda execução continua passando pelas guardas de custo, tentativas e kill-switch.",
+        "Uma página de Automações junta tudo que dispara sozinho (agendamentos, triggers e quadros) com os controles, não só a lista. Toda execução continua passando pelas guardas de custo, tentativas e kill-switch.",
       items: [
         {
           title: "Tasks agendadas",
@@ -2646,7 +2722,7 @@ const pt: Dict = {
         {
           title: "Trello nos dois sentidos",
           description:
-            "Card em que você é adicionado vira task pendente — sem worktree, sem agente, nada gasto até você apertar Start. No sentido contrário, o card anda para Doing, PR e Done e ganha um comentário quando a task começa, abre PR e é mesclada ou descartada.",
+            "Card em que você é adicionado vira task pendente, sem worktree, sem agente, nada gasto até você apertar Start. No sentido contrário, o card anda para Doing, PR e Done e ganha um comentário quando a task começa, abre PR e é mesclada ou descartada.",
         },
         {
           title: "Jira, Linear e GitHub",
@@ -2656,15 +2732,14 @@ const pt: Dict = {
         {
           title: "Loop Goal com judge",
           description:
-            "Os critérios de aceite do PRD alimentam o loop Goal. Um judge — QA gate, shell customizado ou evaluator — confere cada tentativa e tenta de novo até passar, e toda parada tem nome: passou, judge quebrou, orçamento esgotado, uso indisponível ou tentativas esgotadas.",
+            "Os critérios de aceite do PRD alimentam o loop Goal. Um judge (QA gate, shell customizado ou evaluator) confere cada tentativa e tenta de novo até passar, e toda parada tem nome: passou, judge quebrou, orçamento esgotado, uso indisponível ou tentativas esgotadas.",
         },
       ],
     },
     architecture: {
-      kicker: "// 06 — POR DENTRO",
       title: "O que acontece quando você aperta Start.",
       subtitle:
-        "Uma task pending não tem worktree. O Start cria, o planner escreve um PRD e faz handoff pro coder no mesmo PTY, e tudo que o agente produz volta por um único processo Puma — o registry vive em memória, então WEB_CONCURRENCY é proibido por design.",
+        "Uma task pending não tem worktree. O Start cria, o planner escreve um PRD e faz handoff pro coder no mesmo PTY, e tudo que o agente produz volta por um único processo Puma: o registry vive em memória, então WEB_CONCURRENCY é proibido por design.",
       nodes: [
         { id: "task", label: "Task · pending" },
         { id: "start", label: "Start → worktree" },
@@ -2677,7 +2752,6 @@ const pt: Dict = {
       ],
     },
     stack: {
-      kicker: "// 07 — STACK",
       title: "Construído sobre.",
       items: [
         "Rails 8.1",
@@ -2708,9 +2782,8 @@ const pt: Dict = {
       ],
     },
     roadmap: {
-      kicker: "// 08 — MARCOS",
       title: "O que já está dentro.",
-      subtitle: "Tudo abaixo já está entregue e rodando — é a ferramenta como ela existe, não um plano.",
+      subtitle: "Tudo abaixo já está entregue e rodando: é a ferramenta como ela existe, não um plano.",
       items: [
         {
           marker: "01",
@@ -2740,7 +2813,7 @@ const pt: Dict = {
         {
           marker: "06",
           title: "Design Mode",
-          description: "Anote o app rodando como quem comenta num Figma — o elemento é serializado do DOM vivo e re-renderizado com a sessão do usuário.",
+          description: "Anote o app rodando como quem comenta num Figma: o elemento é serializado do DOM vivo e re-renderizado com a sessão do usuário.",
         },
         {
           marker: "07",
@@ -2760,22 +2833,20 @@ const pt: Dict = {
         {
           marker: "10",
           title: "Sidecar tmux",
-          description: "tmux como backend dos panes de agente, shell e preview — fase A do ADR 001, entregue atrás de SWARM_TMUX=1.",
+          description: "tmux como backend dos panes de agente, shell e preview: fase A do ADR 001, entregue atrás de SWARM_TMUX=1.",
         },
       ],
     },
     story: {
-      kicker: "// 09 — HISTÓRIA",
       title: "Como começou.",
       body: [
-        "Eu queria uma IDE pra agentes de código, não um wrapper de um agente só. Registra um repo local, dispara um prompt, e de 1 a 4 agentes atacam em paralelo — cada um na sua worktree e sua branch, cada um num PTY ao vivo, com o explorer de arquivos, o editor, o app rodando, o chat e o diff na mesma janela.",
-        "É um app Rails 8 em Hotwire e SQLite, single-process por design: o registry de PTYs vive na memória do Puma, então WEB_CONCURRENCY é proibido — dois processos significam dois registries e uma UI mostrando terminal vazio pra um agente que está rodando muito bem. O Tauri 2 empacota como janela nativa; no Windows isso é WebView2 com o Rails rodando dentro do WSL.",
-        "Uma regra acabou atravessando o projeto inteiro: desconhecido nunca pode virar valor. Modelo que não está na tabela de preços paga a linha mais cara. Transcript ilegível devolve :unknown e para o loop, em vez de contar como zero gasto. E prompt que monta evidência precisa dizer ao modelo onde está o buraco — porque prompt sem evidência não devolve “não sei”, devolve invenção plausível.",
+        "Eu queria uma IDE pra agentes de código, não um wrapper de um agente só. Registra um repo local, dispara um prompt, e de 1 a 4 agentes atacam em paralelo, cada um na sua worktree e sua branch, cada um num PTY ao vivo, com o explorer de arquivos, o editor, o app rodando, o chat e o diff na mesma janela.",
+        "É um app Rails 8 em Hotwire e SQLite, single-process por design: o registry de PTYs vive na memória do Puma, então WEB_CONCURRENCY é proibido. Dois processos significam dois registries e uma UI mostrando terminal vazio pra um agente que está rodando muito bem. O Tauri 2 empacota como janela nativa; no Windows isso é WebView2 com o Rails rodando dentro do WSL.",
+        "Uma regra acabou atravessando o projeto inteiro: desconhecido nunca pode virar valor. Modelo que não está na tabela de preços paga a linha mais cara. Transcript ilegível devolve :unknown e para o loop, em vez de contar como zero gasto. E prompt que monta evidência precisa dizer ao modelo onde está o buraco, porque prompt sem evidência não devolve “não sei”, devolve invenção plausível.",
       ],
       inspiredByLabel: "Ver código no GitHub",
     },
     finalCta: {
-      kicker: "// 10 — EXPERIMENTA",
       title: "Aponta pra um repo e aperta Start.",
       subtitle:
         "O Swarm roda na sua máquina, contra os seus repos locais. O plugin de Claude Code leva o mesmo fan-out pra dentro da CLI.",
@@ -2786,19 +2857,17 @@ const pt: Dict = {
   },
   obrahub: {
     hero: {
-      kicker: "// ESTUDO DE CASO — SISTEMA DE CLIENTE",
-      title: "OBRAHUB",
+      title: "ObraHub",
       tagline: "Apontamento e medição de mão de obra em campo",
       subtitle:
-        "Feito para a Engemil, prestadora de manutenção e montagem industrial em Mogi Guaçu/SP — e desenhado desde o começo para generalizar num setor que roda todo o mesmo ciclo. Ele substitui o ciclo papel → planilha → redigitação por um fluxo só: importa a planilha que a engenharia já preenche, mantém o saldo de cada pacote como conta viva, e exporta o documento de medição idêntico ao formato que o cliente assina.",
+        "Feito para a Engemil, prestadora de manutenção e montagem industrial em Mogi Guaçu/SP, e desenhado desde o começo para generalizar num setor que roda todo o mesmo ciclo. Ele substitui o ciclo papel → planilha → redigitação por um fluxo só: importa a planilha que a engenharia já preenche, mantém o saldo de cada pacote como conta viva, e exporta o documento de medição idêntico ao formato que o cliente assina.",
       badges: ["Monólito Rails 8", "Em produção", "Desenvolvimento ativo"],
       ctaContact: "Conversar sobre esse projeto",
     },
     problem: {
-      kicker: "// 01 — O PROBLEMA",
       title: "O dinheiro escapava na redigitação.",
       subtitle:
-        "A Engemil aloca equipes dentro da planta do seu maior cliente, e todo mês precisa provar — obra por obra, pessoa por pessoa, dia por dia — quantas horas foram trabalhadas e quanto isso custa. Esse documento é assinado pelos dois lados. Antes do sistema, produzi-lo era assim:",
+        "A Engemil aloca equipes dentro da planta do seu maior cliente, e todo mês precisa provar (obra por obra, pessoa por pessoa, dia por dia) quantas horas foram trabalhadas e quanto isso custa. Esse documento é assinado pelos dois lados. Antes do sistema, produzi-lo era assim:",
       beforeLabel: "O ciclo antigo",
       beforeSteps: [
         "o encarregado anota em papel quem trabalhou, em que cargo e por quantas horas",
@@ -2810,7 +2879,7 @@ const pt: Dict = {
         {
           title: "Redigitação é onde o dinheiro escapa",
           description:
-            "Hora que não foi transcrita não é faturada, e ninguém descobre — porque não há com o que comparar.",
+            "Hora que não foi transcrita não é faturada, e ninguém descobre, porque não há com o que comparar.",
         },
         {
           title: "Não há saldo",
@@ -2820,15 +2889,14 @@ const pt: Dict = {
         {
           title: "O formato do cliente é lei",
           description:
-            "A planilha da medição tem uma forma exata — fonte, cor, formato de número, posição de bloco. Uma medição “parecida” volta.",
+            "A planilha da medição tem uma forma exata: fonte, cor, formato de número, posição de bloco. Uma medição “parecida” volta.",
         },
       ],
     },
     rules: {
-      kicker: "// 02 — COMO AS REGRAS CHEGARAM AQUI",
       title: "Nada aqui saiu de um documento de especificação.",
       subtitle:
-        "O sistema foi levantado em rodadas sucessivas de discussão, review e feedback com o responsável na Engemil por produzir tudo isso na mão — e cada rodada trocou uma suposição por um fato da operação. Os artefatos reais serviram de especificação: a planilha de medição de referência, a de apontamento da engenharia, a mestre de pacotes e o cadastro de obras. Três regras que só aparecem na conversa com quem já fez o trabalho:",
+        "O sistema foi levantado em rodadas sucessivas de discussão, review e feedback com o responsável na Engemil por produzir tudo isso na mão, e cada rodada trocou uma suposição por um fato da operação. Os artefatos reais serviram de especificação: a planilha de medição de referência, a de apontamento da engenharia, a mestre de pacotes e o cadastro de obras. Três regras que só aparecem na conversa com quem já fez o trabalho:",
       items: [
         {
           title: "A obra não tem tipo",
@@ -2838,7 +2906,7 @@ const pt: Dict = {
         {
           title: "Dois dos códigos não são hora nenhuma",
           description:
-            "FE e FO são códigos, não tempo. E o adicional noturno é um acréscimo de 45% sobre o valor, não tempo trabalhado — somá-lo às horas inflava a medição.",
+            "FE e FO são códigos, não tempo. E o adicional noturno é um acréscimo de 45% sobre o valor, não tempo trabalhado: somá-lo às horas inflava a medição.",
         },
         {
           title: "74 dos 84 pacotes não têm data",
@@ -2848,7 +2916,6 @@ const pt: Dict = {
       ],
     },
     domain: {
-      kicker: "// 03 — O DOMÍNIO",
       title: "Uma obra, um dia, uma linha.",
       subtitle:
         "Dez tabelas de domínio. A operação inteira cabe num modelo só, e é por isso que ele é uma aplicação e não várias.",
@@ -2862,12 +2929,12 @@ ImportBatch ── ImportError`,
         {
           name: "Project · Package",
           description:
-            "Project é a obra. Package é a fatia que o cliente mandou orçar sozinha — tem horas estimadas, valor de venda e valor faturado.",
+            "Project é a obra. Package é a fatia que o cliente mandou orçar sozinha: tem horas estimadas, valor de venda e valor faturado.",
         },
         {
           name: "Rdo",
           description:
-            "O Relatório Diário de Obra: obra, período, quem assina, descrição, foto. Ele declara a natureza do dia — pacote (desconta de um Package), HH (não desconta de nada) ou ASE, o serviço extra autorizado por um código próprio, que é o código que a fatura cita.",
+            "O Relatório Diário de Obra: obra, período, quem assina, descrição, foto. Ele declara a natureza do dia: pacote (desconta de um Package), HH (não desconta de nada) ou ASE, o serviço extra autorizado por um código próprio, que é o código que a fatura cita.",
         },
         {
           name: "WorkEntry",
@@ -2876,7 +2943,7 @@ ImportBatch ── ImportError`,
         {
           name: "Employee",
           description:
-            "A pessoa em campo — deliberadamente não é um User. Uma equipe de centenas não pode virar centenas de logins que ninguém lembra de revogar.",
+            "A pessoa em campo: deliberadamente não é um User. Uma equipe de centenas não pode virar centenas de logins que ninguém lembra de revogar.",
         },
         {
           name: "Measurement",
@@ -2895,27 +2962,26 @@ ImportBatch ── ImportError`,
       ],
       balanceTitle: "Saldo é conta, não coluna",
       balanceBody:
-        "Horas usadas, saldo, progresso e valor a faturar saem de query no momento da leitura. Um pacote de 663 h que recebe um RDO de 9 h passa a mostrar 654 h de saldo na hora, sem nenhuma coluna sendo escrita — e portanto sem o risco clássico de o total gravado divergir das linhas que o compõem.",
+        "Horas usadas, saldo, progresso e valor a faturar saem de query no momento da leitura. Um pacote de 663 h que recebe um RDO de 9 h passa a mostrar 654 h de saldo na hora, sem nenhuma coluna sendo escrita, e portanto sem o risco clássico de o total gravado divergir das linhas que o compõem.",
     },
     architecture: {
-      kicker: "// 04 — ARQUITETURA",
       title: "Um processo, um banco, um deploy.",
       subtitle:
-        "É um monólito Rails, e isso é escolha, não limitação. Os dados são fortemente relacionados — um lançamento de hora só existe dentro de um RDO, que só existe dentro de uma obra — e não há duas equipes trabalhando em ritmos diferentes. Fatiar isso em serviços compraria transação distribuída para uma empresa que fecha uma medição por mês.",
+        "É um monólito Rails, e isso é escolha, não limitação. Os dados são fortemente relacionados (um lançamento de hora só existe dentro de um RDO, que só existe dentro de uma obra) e não há duas equipes trabalhando em ritmos diferentes. Fatiar isso em serviços compraria transação distribuída para uma empresa que fecha uma medição por mês.",
       items: [
         {
           title: "Models",
-          description: "As regras que valem sempre — validação, escopo, cálculo de saldo.",
+          description: "As regras que valem sempre: validação, escopo, cálculo de saldo.",
         },
         {
           title: "Policies · 12",
           description:
-            "Quem pode ver e fazer o quê, por registro. O mesmo policy_scope que filtra a lista filtra o autocomplete e o dashboard — um contador que soma horas que a pessoa não pode ler é um vazamento com cara de indicador.",
+            "Quem pode ver e fazer o quê, por registro. O mesmo policy_scope que filtra a lista filtra o autocomplete e o dashboard: um contador que soma horas que a pessoa não pode ler é um vazamento com cara de indicador.",
         },
         {
           title: "POROs de consulta",
           description:
-            "Measurement, ProjectWorkReport, DashboardReport, RdoQuery — leitura que não merece virar model.",
+            "Measurement, ProjectWorkReport, DashboardReport, RdoQuery: leitura que não merece virar model.",
         },
         {
           title: "Importers · 12 e exporters · 5",
@@ -2950,24 +3016,23 @@ ImportBatch ── ImportError`,
       ],
     },
     decisions: {
-      kicker: "// 05 — AS DECISÕES QUE VALEM CONTAR",
       title: "As partes que custaram mais para acertar.",
       subtitle: "Quatro problemas em que a implementação óbvia é a errada.",
       items: [
         {
           title: "O Excel do cliente, célula a célula",
           description:
-            "“Idêntico” não significa “parecido”. O trabalho foi descompactar o .xlsx de referência e ler o XML, porque o olho não pega o que quebra: os fills usam cor de tema com tint, não RGB, então ler só o atributo RGB não vê fill nenhum; dinheiro usa o formato CONTÁBIL, que é o que encosta o R$ na borda esquerda e o número na direita; e no Resumo cada tipo de hora ocupa duas colunas, então escrever em colunas consecutivas põe todo valor duas casas à esquerda. Há um teste que faz parse estrito do styles.xml gerado, porque um format_code com aspas não escapadas produz um arquivo que o Excel se recusa a abrir — e nem a biblioteca de leitura nem os testes de conteúdo percebem.",
+            "“Idêntico” não significa “parecido”. O trabalho foi descompactar o .xlsx de referência e ler o XML, porque o olho não pega o que quebra: os fills usam cor de tema com tint, não RGB, então ler só o atributo RGB não vê fill nenhum; dinheiro usa o formato CONTÁBIL, que é o que encosta o R$ na borda esquerda e o número na direita; e no Resumo cada tipo de hora ocupa duas colunas, então escrever em colunas consecutivas põe todo valor duas casas à esquerda. Há um teste que faz parse estrito do styles.xml gerado, porque um format_code com aspas não escapadas produz um arquivo que o Excel se recusa a abrir, e nem a biblioteca de leitura nem os testes de conteúdo percebem.",
         },
         {
           title: "Importar duas vezes não pode duplicar",
           description:
-            "A chave de idempotência é um SHA-256 da linha: obra, encarregado, cargo, data e tipo de hora. O upsert atualiza o mesmo registro em vez de criar um segundo. Sem o tipo de hora na conta, HN e FA do mesmo dia colidiam e uma sumia. Um detalhe que custou caro: o digest carrega o package_id só quando ele existe — acrescentá-lo sempre mudaria o digest de tudo que já estava gravado, e o próximo envio do mesmo arquivo criaria uma cópia de cada linha.",
+            "A chave de idempotência é um SHA-256 da linha: obra, encarregado, cargo, data e tipo de hora. O upsert atualiza o mesmo registro em vez de criar um segundo. Sem o tipo de hora na conta, HN e FA do mesmo dia colidiam e uma sumia. Um detalhe que custou caro: o digest carrega o package_id só quando ele existe. Acrescentá-lo sempre mudaria o digest de tudo que já estava gravado, e o próximo envio do mesmo arquivo criaria uma cópia de cada linha.",
         },
         {
           title: "O importador cria cadastro, mas não inventa dinheiro",
           description:
-            "Obra, cargo, funcionário e usuário que faltam são criados, e a tela diz quais foram — criar em silêncio é o que transforma um cargo digitado errado em cadastro permanente que ninguém sabe de onde veio. Pacote que não existe, porém, recusa a linha: pacote tem horas estimadas e valor de venda, então inventá-lo escreveria um orçamento que ninguém aprovou.",
+            "Obra, cargo, funcionário e usuário que faltam são criados, e a tela diz quais foram: criar em silêncio é o que transforma um cargo digitado errado em cadastro permanente que ninguém sabe de onde veio. Pacote que não existe, porém, recusa a linha: pacote tem horas estimadas e valor de venda, então inventá-lo escreveria um orçamento que ninguém aprovou.",
         },
         {
           title: "O celular não é uma versão menor da tela",
@@ -2977,7 +3042,6 @@ ImportBatch ── ImportError`,
       ],
     },
     numbers: {
-      kicker: "// 06 — NÚMEROS",
       title: "Medidos, não estimados.",
       subtitle: "Contagens do repositório em 30/08/2026, e números de uso real.",
       stats: [
@@ -2993,16 +3057,15 @@ ImportBatch ── ImportError`,
       measuredTitle: "De uso real",
       measured: [
         { value: "11.551 h", label: "de mão de obra fechadas em um mês, cada uma amarrada à obra, ao cargo e ao pacote que pagou por ela" },
-        { value: "216", label: "RDOs montados a partir da planilha que a engenharia já preenchia — ninguém digitou um relatório" },
+        { value: "216", label: "RDOs montados a partir da planilha que a engenharia já preenchia: ninguém digitou um relatório" },
         { value: "3 s", label: "para importar 1.395 apontamentos, conferir contra o cadastro e recusar o que não bate" },
         { value: "24", label: "abas no Excel de medição, no formato que o cliente assina" },
       ],
     },
     status: {
-      kicker: "// 07 — ESTADO ATUAL",
       title: "Em produção, e honestamente inacabado.",
       subtitle:
-        "Portfólio que só lista acertos não sustenta a pergunta seguinte. Os testes de escala contam queries: a listagem tem de custar o mesmo com dez registros e com dez mil — um arquivo real de importação chega a 8.504 RDOs, e é por isso que o fechamento em lote é uma sentença SQL por fatia, e não um percurso registro a registro.",
+        "Portfólio que só lista acertos não sustenta a pergunta seguinte. Os testes de escala contam queries: a listagem tem de custar o mesmo com dez registros e com dez mil. Um arquivo real de importação chega a 8.504 RDOs, e é por isso que o fechamento em lote é uma sentença SQL por fatia, e não um percurso registro a registro.",
       doneTitle: "Pronto e em uso",
       done: [
         "cadastro de obras, pacotes, funcionários, cargos e usuários",
@@ -3015,21 +3078,20 @@ ImportBatch ── ImportError`,
       ],
       openTitle: "Em aberto",
       open: [
-        "as linhas PACOTE da medição ainda não são geradas pelo exportador — o dado já existe, falta mapear o layout",
+        "as linhas PACOTE da medição ainda não são geradas pelo exportador: o dado já existe, falta mapear o layout",
         "dois jobs continuam no repositório sem ninguém os enfileirar: ou o assíncrono volta de propósito, ou eles saem",
-        "não há teste de navegador — rolagem lateral real e o zoom de campo do Safari seguem como conferência manual",
+        "não há teste de navegador: rolagem lateral real e o zoom de campo do Safari seguem como conferência manual",
         "a padronização das telas de cadastro sob um CRUD herdado está decidida e não começou",
       ],
       directionTitle: "Para onde vai",
       direction:
-        "Foi feito para uma prestadora, mas o ciclo que ele substitui não é específico de uma: equipes alocadas dentro da planta de um cliente, horas provadas mês a mês, um documento de medição no formato que o cliente dita. Generalizar isso num produto para o setor é a direção — o trabalho multi-cliente não começou, e nada aqui está vendido para uma segunda empresa ainda.",
+        "Foi feito para uma prestadora, mas o ciclo que ele substitui não é específico de uma: equipes alocadas dentro da planta de um cliente, horas provadas mês a mês, um documento de medição no formato que o cliente dita. Generalizar isso num produto para o setor é a direção: o trabalho multi-cliente não começou, e nada aqui está vendido para uma segunda empresa ainda.",
       ctaLabel: "Conversar sobre esse projeto",
     },
   },
   ecommerce: {
     hero: {
-      kicker: "// ESTUDO DE CASO — PROJETO DE ESTUDO",
-      title: "SERVERLESS",
+      title: "Serverless",
       tagline: "API de e-commerce em AWS Lambda",
       subtitle:
         "API de e-commerce em AWS Lambda com infraestrutura como código, CI/CD com GitHub Actions, observabilidade completa e recomendação de produtos com Machine Learning. A meta: cada decisão tem uma justificativa escrita, e cada garantia tem um teste que a prova.",
@@ -3055,7 +3117,6 @@ ImportBatch ── ImportError`,
       ctaContact: "Conversar sobre esse projeto",
     },
     overview: {
-      kicker: "// VISÃO GERAL",
       title: "Mais que o hello world de uma Lambda.",
       subtitle:
         "Projeto de estudo construído para praticar como um backend serverless é feito de verdade: transações, idempotência, eventos assíncronos, IAM de menor privilégio e um pipeline de deploy real.",
@@ -3073,7 +3134,6 @@ ImportBatch ── ImportError`,
         "Tudo roda localmente com docker compose, e a mesma aplicação roda na Lambda sem mudar uma linha.",
     },
     architecture: {
-      kicker: "// ARQUITETURA",
       title: "4 Lambdas, 4 gatilhos diferentes.",
       subtitle:
         "VPC privada em 2 zonas de disponibilidade. RDS e ElastiCache sem acesso público, e TLS em todas as conexões.",
@@ -3115,7 +3175,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     problems: {
-      kicker: "// PROBLEMAS RESOLVIDOS",
       title: "Cada garantia tem um teste por trás.",
       subtitle:
         "As falhas que uma loja real encontra com concorrência, retries e quedas, e como a API trata cada uma.",
@@ -3157,7 +3216,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     ml: {
-      kicker: "// MACHINE LEARNING",
       title: "Recomendação pelo que clientes parecidos compraram.",
       subtitle:
         "GET /api/v1/recommendations sugere produtos por filtragem colaborativa item-item, servida pelo SageMaker Serverless Inference.",
@@ -3199,7 +3257,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     infra: {
-      kicker: "// INFRAESTRUTURA COMO CÓDIGO",
       title: "Terraform sem segredo no state.",
       subtitle: "10 módulos, 3 ambientes e uma suíte de testes que roda sem conta AWS.",
       items: [
@@ -3233,7 +3290,6 @@ EventBridge ─→ λ dispatcher ─→ SQS ─→ λ worker
       ],
     },
     cicd: {
-      kicker: "// CI/CD",
       title: "Nenhuma chave AWS no GitHub.",
       subtitle: "O GitHub Actions autentica com OIDC, e produção exige aprovação humana.",
       diagram: `pull request ─┬─→ testes · lint · build · compose + smoke · terraform
@@ -3263,7 +3319,6 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       ],
     },
     observability: {
-      kicker: "// OBSERVABILIDADE",
       title: "Siga um pedido do HTTP até o worker.",
       subtitle: "Logs estruturados, correlação de ponta a ponta, tracing e alarmes no que de fato quebra.",
       items: [
@@ -3290,7 +3345,6 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       ],
     },
     quality: {
-      kicker: "// QUALIDADE",
       title: "Testado contra o real.",
       subtitle:
         "Lock de linha, constraint, transação e SKIP LOCKED não existem num mock, então os testes usam banco e cache de verdade de propósito.",
@@ -3311,7 +3365,6 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       ],
     },
     status: {
-      kicker: "// STATUS HONESTO",
       title: "O que está provado, e o que ainda não.",
       subtitle: "O pipeline está pronto. O deploy numa conta AWS real ainda não foi executado.",
       doneTitle: "Verificado",
@@ -3340,39 +3393,82 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
   },
   home: {
     nav: {
+      home: "Início",
+      work: "Projetos",
+      more: "Mais",
+      lightMode: "Mudar para o modo claro",
+      projects: "Projetos",
+      darkMode: "Mudar para o modo escuro",
       obrahub: "ObraHub",
       swarm: "Swarm",
       serverless: "Serverless",
       experience: "Experiência",
+      about: "Sobre",
+      skills: "Skills",
       resume: "Currículo",
       openToWork: "Disponível",
     },
     hero: {
       badge: "Disponível agora · aberto a remoto",
-      role: ["Desenvolvedor Full-Stack", "Ruby on Rails", "4 anos"],
-      pitch:
-        "Deixo apps Rails lentos rápidos e **corretos**, em software usado todo dia por mais de 50 prefeituras brasileiras.",
+      roleAccent: "Engenheiro de Software",
+      roleRest: "Full-Stack",
+      focus: "Foco em backend · Performance · Confiabilidade",
+      pitch: "Construo sistemas que não quebram sob pressão.",
+      pitchMore: "Performance, confiabilidade e arquitetura escalável. De sistemas backend complexos a experiências de usuário bem acabadas.",
+      pitchStrong: "Problemas complexos. Soluções elegantes. Impacto mensurável.",
       downloadResume: "Baixar currículo",
       emailMe: "Mandar email",
+      shippedFor: "entregue para",
+      clients: ["Pare.Ai", "W/P Advisory", "Universe Pro", "Tork", "GoTechDS"],
+      terminal: {
+        title: "washington — zsh",
+        boot: [
+          "4 anos de Ruby on Rails em produção",
+          "PostgreSQL ajustado em 14M+ linhas",
+          "latência p99 3,5 s → 180 ms",
+          "cobertura de testes 35% → 89%",
+          "curriculo.pdf pronto para baixar",
+        ],
+        ready: "pronto",
+        localTime: "Horário local",
+      },
       facts: [
-        { label: "Experiência", value: "4 anos · Rails + PostgreSQL" },
         { label: "Disponibilidade", value: "Imediata", accent: true },
         { label: "Modelo", value: "Remoto · Brasil ou exterior" },
         { label: "Local", value: "São José do Rio Preto, SP" },
         { label: "Inglês", value: "B2 · todo dia em PRs e docs" },
         { label: "Contrato", value: "PJ · CLT · B2B internacional" },
       ],
-      quote:
-        "A liderança dele foi essencial para tornar o projeto mais confiável e para o meu crescimento profissional.",
-      quoteBy: "Samuel · Desenvolvedor, Was Advisory",
+    },
+    intro: {
+      label: "Sobre",
+      statement:
+        "De sistemas distribuídos a produtos com IA, transformo problemas complexos em *software confiável*.",
+      details: [
+        "Construo e otimizo sistemas de software onde performance, confiabilidade e escalabilidade importam.",
+        "Com quase quatro anos de experiência em engenharia, trabalhei em plataformas Ruby on Rails em produção que atendem mais de 50 prefeituras brasileiras, além de aplicações full-stack, arquiteturas distribuídas e infraestrutura em nuvem.",
+        "Também tenho grande interesse em AI Engineering — integrações com LLMs, sistemas RAG, agentes autônomos e ferramentas para desenvolvedores com Claude, OpenAI, MCP e frameworks modernos de orquestração.",
+        "Gosto de resolver problemas complexos de engenharia, melhorar o fluxo de trabalho dos desenvolvedores e transformar ideias ambiciosas em software confiável.",
+      ],
+      more: "Mais sobre mim",
+    },
+    sectionIndex: {
+      label: "Seções",
+      about: "Sobre",
+      work: "Projetos",
+      case: "Case",
+      experience: "Experiência",
+      how: "Como trabalho",
+      contact: "Contato",
     },
     proof: {
-      title: "Medido em produção",
+      label: "// Medido em produção",
+      heading: "Antes → depois, *em tráfego real*",
       items: [
-        { label: "Endpoint crítico", before: "3,5 s", after: "180 ms", gain: "19× mais rápido" },
-        { label: "Exportação CSV, 1,77M linhas", before: "~80 h", after: "7 min", gain: "~690× mais rápido" },
-        { label: "Consulta em 14M linhas", before: "12,7 s", after: "0,2 ms", gain: "63.500× mais rápido" },
-        { label: "Cobertura de testes", before: "35%", after: "85%", gain: "+50 pontos percentuais" },
+        { label: "endpoint crítico · 100k req/dia", before: "3,5 s", after: "180 ms", value: 19, start: 1, unit: "×", word: "mais rápido", kind: "time", from: 1, to: 180 / 3500 },
+        { label: "export csv · 1,77M linhas", before: "~80 h", after: "7 min", value: 690, start: 1, prefix: "~", unit: "×", word: "mais rápido", kind: "time", from: 1, to: 7 / 4800 },
+        { label: "consulta · 14M linhas", before: "12,7 s", after: "0,2 ms", value: 0.2, start: 12700, decimals: 1, unit: " ms", word: "", note: "índice composto", kind: "time", from: 1, to: 0.2 / 12700 },
+        { label: "cobertura de testes · rspec", before: "35%", after: "89%", value: 54, start: 0, prefix: "+", unit: "", word: "pts", kind: "growth", from: 0.35, to: 0.89 },
       ],
     },
     highlights: [
@@ -3382,45 +3478,105 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       { value: "0", label: "downtime em migrações de índice" },
     ],
     work: {
-      title: "O que eu construí",
+      title: "Software que coloquei no ar",
       allProjects: "Todos os {count} projetos →",
       projects: {
         obrahub: {
-          kicker: "Projeto · Em produção na Engemil",
-          title: "ObraHub",
+          kicker: "antes ObraHub · em produção na Engemil",
+          title: "Tork",
           body: "Apontamento e medição de mão de obra para uma prestadora industrial que rodava em papel, planilha e redigitação. Construído rodada a rodada com quem fazia o trabalho à mão.",
           bullets: [
             "Reenviar um arquivo nunca duplica uma linha",
             "Planilha de medição exportada idêntica ao arquivo de referência do cliente",
             "11.551 horas fechadas no primeiro mês",
           ],
-          cta: "Ler o estudo de caso →",
-          checks: ["899 exemplos, 0 falhas", "1.395 apontamentos validados em 3 s", "0 duplicados ao reenviar"],
+          cta: "Veja com mais detalhes →",
+          checks: ["PostgreSQL RLS entre empresas", "Excel idêntico ao modelo do cliente", "Assinado pelo celular, sem login"],
+          figures: [
+            { value: "1.900+", label: "testes RSpec" },
+            { value: "95%", label: "de cobertura" },
+            { value: "5", label: "categorias de hora calculadas" },
+          ],
           screenshotAlt: "Dashboard do ObraHub: 354 horas trabalhadas em 30 dias, com gráfico de barras por dia",
+          videoLabel: "Demonstração do Tork: do RDO no celular à medição do fim do mês",
+          play: "Reproduzir a demonstração",
+          pause: "Pausar a demonstração",
+          seek: "Linha do tempo do vídeo",
+          mute: "Tirar o som",
+          unmute: "Ligar o som",
+          volume: "Volume",
+          expand: "Expandir",
+          collapse: "Sair",
+          chapters: [
+            { title: "Lançado uma vez, na obra", text: "O encarregado lança o RDO pelo celular; as horas saem calculadas" },
+            { title: "Painel do escritório ao vivo", text: "Andamento de cada obra e saldo dos pacotes em tempo real" },
+            { title: "Aprovado e assinado", text: "O supervisor aprova; o cliente assina pelo celular, sem login" },
+            { title: "Medição pronta", text: "A medição do mês por pessoa e função, direto dos RDOs" },
+          ],
         },
         swarm: {
-          kicker: "Projeto · App desktop",
+          kicker: "Projeto de engenharia com IA · plataforma multiagente",
           screenshotAlt: "Swarm com uma sessão do Claude Code à esquerda e a revisão do diff à direita",
           title: "Swarm",
-          body: "Um workspace que roda de um a quatro agentes de código em paralelo, cada um no seu git worktree, transmitido ao vivo de um terminal real.",
-          bullets: [
-            "Toda tarefa ganha um PRD antes de qualquer código",
-            "Agendamentos cron, CI que falhou e cards do Trello abrem tarefas sozinhos",
-            "Comentários de linha no diff voltam para o agente",
-            "Descrição de PR escrita a partir do diff real e dos checks",
+          lead: "*250+ pull requests* em 30 dias. Um único fluxo de engenharia orquestrado por IA.",
+          body: "Uma plataforma autônoma de engenharia de software multiagente. Roda Claude Code e Codex em paralelo, coordena times de IA persistentes, automatiza o fluxo de desenvolvimento e revisa cada implementação num workspace em tempo real.",
+          cta: "Veja com mais detalhes →",
+          figures: [
+            { value: "250+", label: "pull requests em um único mês" },
+            { value: "100+", label: "git worktrees isolados" },
+            { value: "4", label: "agentes simultâneos, Claude Code + Codex" },
+            { value: "3", label: "rodadas de revisão entre agentes" },
           ],
-          cta: "Ver como funciona →",
+          pillars: [
+            { title: "Até 4 agentes em paralelo", text: "Claude Code e Codex trabalhando ao mesmo tempo, cada um num ambiente isolado" },
+            { title: "Times de IA autônomos", text: "Agentes persistentes que colaboram, delegam e revisam o trabalho um do outro" },
+            { title: "Execução com controle de custo", text: "Tokens por tarefa, limites de gasto e governança de custo fail-closed" },
+            { title: "App desktop nativo", text: "Desktop Windows com Tauri 2, Rust e integração com WSL" },
+          ],
+          decision: {
+            label: "Um único processo Rails, de propósito",
+            text: "Os terminais PTY e as sessões dos agentes vivem na memória do processo Puma, e a arquitetura foi desenhada em torno disso.",
+          },
+          lifecycleTitle: "Ciclo de engenharia guiado por IA",
+          lifecycle: [
+            { title: "PRD e requisitos", text: "Escopo, restrições e critérios de aceite" },
+            { title: "Planejamento técnico", text: "Decisões de arquitetura e divisão em tarefas" },
+            { title: "Implementação paralela", text: "Agentes trabalham em git worktrees isolados" },
+            { title: "Revisão automatizada", text: "Times de IA inspecionam o diff e dão feedback" },
+            { title: "Validação e entrega", text: "Testes, pull request, ajustes da revisão, merge" },
+          ],
         },
         serverless: {
-          kicker: "Projeto · AWS",
-          title: "API de e-commerce serverless",
-          body: "Quatro Lambdas, quatro gatilhos diferentes, numa VPC privada. Cada garantia tem um teste que a prova.",
-          bullets: [
-            "4 compradores disputam 1 unidade: exatamente um leva",
-            "3 retries com a mesma chave viram um pedido só",
-            "Fila fora do ar? Os eventos esperam na outbox",
+          kicker: "Projeto de estudo · Node.js, React, React Native e AWS",
+          title: "Plataforma de e-commerce serverless full-stack com IA",
+          lead: "*4 compradores, 1 unidade:* exatamente uma compra. Cada garantia tem um teste que a prova.",
+          body: "Uma loja web e mobile (React e React Native) sobre um único backend serverless na AWS: 4 Lambdas com gatilhos independentes numa VPC privada, recomendações de produto pelo SageMaker e recursos generativos pela API do Claude.",
+          cta: "Veja com mais detalhes →",
+          figures: [
+            { value: "95%", label: "cobertura de linhas no backend" },
+            { value: "83%", label: "cobertura de branches" },
+            { value: "10", label: "módulos Terraform reutilizáveis" },
+            { value: "3", label: "ambientes isolados: dev, staging, prod" },
           ],
-          cta: "Ler o estudo de caso →",
+          pillars: [
+            { title: "Eventos tolerantes a falha", text: "SQS, EventBridge, dead-letter queues e outbox transacional: fila fora do ar não perde evento já gravado" },
+            { title: "Dois tipos de IA", text: "API do Claude para recursos generativos, filtragem colaborativa item-item no SageMaker para recomendações" },
+            { title: "CI/CD seguro", text: "GitHub Actions com AWS OIDC, sem chaves de longa duração, plano por ambiente e aprovação manual em produção" },
+            { title: "Rastreamento ponta a ponta", text: "OpenTelemetry, X-Ray e CloudWatch, com correlation IDs passando por HTTP, eventos, SQS e workers" },
+          ],
+          decision: {
+            label: "Pagar por invocação, de propósito",
+            text: "As recomendações rodam no SageMaker Serverless, então nenhuma instância de inferência fica ociosa. Se passar de 800 ms, a loja usa o fallback e continua vendendo.",
+          },
+          diagramLabel: "Arquitetura: API Gateway para a Lambda api, que fala com o PostgreSQL via RDS Proxy, Valkey, S3 e SageMaker; o EventBridge dispara o dispatcher, que alimenta o SQS e o worker, com dead-letter queue; uma Lambda ops não tem rota HTTP.",
+          opsNote: "sem rota HTTP: migrations, tarefas de admin",
+          provenTitle: "Provado por testes",
+          proven: [
+            { scenario: "4 compradores, 1 unidade", result: "exatamente 1 compra, estoque nunca negativo" },
+            { scenario: "3 requisições, mesma chave de idempotência", result: "1 pedido, estoque baixado uma vez" },
+            { scenario: "fila fora do ar", result: "eventos esperam na outbox, nenhum perdido" },
+            { scenario: "69 testes de backend + 9 de ML + 8 de Terraform", result: "backend contra PostgreSQL e Redis reais" },
+          ],
         },
       },
       more: {
@@ -3453,41 +3609,85 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       title: "O que dizem as pessoas com quem trabalhei",
       prev: "Depoimento anterior",
       next: "Próximo depoimento",
+      pause: "Pausar depoimentos",
+      play: "Reproduzir depoimentos",
       items: [
+        {
+          quote:
+            "O Washington não entregou só mais uma plataforma de software. Ele dedicou tempo para entender como a nossa operação funciona de verdade e construiu uma solução em cima das nossas necessidades reais.",
+          name: "Guilherme",
+          role: "Ingrideon",
+          context: "Tork · cliente desde agosto",
+        },
         {
           quote:
             "Ele estruturou uma iniciativa de testes automatizados que levou a cobertura da suíte RSpec de 35% para 89%. No caminho, me mentorou: criando cards de teste no Trello, explicando quais cenários precisavam ser cobertos e revisando minhas implementações.",
           name: "Samuel",
-          role: "Desenvolvedor · Was Advisory",
+          role: "Desenvolvedor · W/P Advisory",
           context: "Projeto Compras · mentoria em RSpec",
         },
         {
           quote:
             "Ele ficou responsável por orientar dois desenvolvedores na melhoria dos testes automatizados do sistema. Ajudou a identificar os cenários que importavam, escrever specs mais confiáveis e entender como os testes protegem as regras de negócio contra regressões.",
           name: "Iarhel",
-          role: "Desenvolvedor · Was Advisory",
+          role: "Desenvolvedor · W/P Advisory",
           context: "Projeto Compras · mentoria em RSpec",
         },
         {
           quote:
             "Ele construiu a API de Protocolo e implementou a integração com o Gov.br. Depois de se especializar em Claude Code e LLMs, levou isso para o nosso desenvolvimento e ajudou a aumentar nossa produtividade. Ficamos entre os que mais entregaram no time, e a contribuição dele teve papel importante nisso.",
           name: "Lucas",
-          role: "Desenvolvedor · Nobe Sistemas",
+          role: "Desenvolvedor · W/P Advisory",
           context: "API de Protocolo · integração Gov.br",
         },
       ],
     },
     experience: {
       title: "Experiência",
+      showAll: "Ver todos",
+      showLess: "Ver menos",
       items: [
         {
-          period: "ago 2023 – out 2026",
+          period: "dez 2026 – atual",
+          role: "Programador Pleno I",
+          company: "Pare.Ai (subindo para Sênior)",
+          bullets: [],
+          stack: "Node.js · React · React Native · Delphi",
+        },
+        {
+          period: "ago 2026 – atual",
+          role: "Fundador e engenheiro",
+          company: "Tork (Em produção · parceria com a Engemil desde ago 2026)",
+          summary:
+            "SaaS de gestão de obras e manutenção industrial. Substitui controles manuais e planilhas por uma plataforma única para equipes, apontamentos, contratos, pacotes de horas e medições.",
+          stats: [
+            { value: "1.900+", label: "Testes automatizados", detail: "RSpec, Capybara, Cuprite" },
+            { value: "95%", label: "Cobertura de código", detail: "SimpleCov" },
+            { value: "PostgreSQL RLS", label: "Segurança no banco", detail: "Isolamento multi-tenant" },
+            { value: "Com IA", label: "Leitura de documentos", detail: "API do Claude, em desenvolvimento" },
+          ],
+          featured: 5,
+          bullets: [
+            "**Arquitetura multi-tenant e segurança:** isolamento de dados com PostgreSQL Row-Level Security (RLS), complementado por políticas de autorização com Pundit, restrições no banco e testes automatizados contra acesso cruzado entre organizações.",
+            "**Geração de medições em Excel:** mecanismo de exportação com caxlsx que reproduz fielmente o template financeiro de cada cliente, preservando formatação contábil, estilos, cores, células mescladas e estrutura da planilha, com testes automatizados de fidelidade.",
+            "**RDO e cálculo de horas:** Registro Diário de Obras mobile-first, com cálculo automático de jornadas, intervalos, horas noturnas e cinco categorias de horas com fatores específicos, reduzindo inconsistências nos apontamentos.",
+            "**Billing e pagamentos:** integração com a API do Asaas para planos, cobranças recorrentes e webhooks, com validação de assinatura HMAC, idempotência e sincronização do status de pagamento com as permissões de acesso. Integração ainda não publicada em produção.",
+            "**AI Engineering com a API do Claude:** arquitetura em desenvolvimento para interpretar pedidos de compra e PDFs com a API da Anthropic, estruturando informações para preencher Pacotes e ASEs, com revisão humana antes de salvar e rastreamento de tokens e custos por organização.",
+            "**Aprovação e assinatura digital:** fluxos de aprovação por links seguros, em que fiscais externos revisam, devolvem ou aprovam RDOs e assinam pelo celular, com registro de autoria, data e integridade dos documentos.",
+            "**Importação idempotente de dados:** pipelines para planilhas e arquivos ZIP, com deduplicação, validações, criação de registros relacionados e controle de concorrência para evitar inconsistências e duplicações.",
+            "**Customização por organização:** configurações independentes de formulários, campos, grades de dados, documentos impressos, logotipos, assinaturas e identidade visual de cada cliente.",
+            "**Qualidade e automação de testes:** suíte com cerca de 1.900 testes RSpec, Capybara e Cuprite, com 95% de cobertura de linhas, execução adicional sob RLS no CI e verificações de segurança com Brakeman e Bundler Audit.",
+          ],
+          stack: "Ruby on Rails 8.1 · Ruby 4 · PostgreSQL · Hotwire · Tailwind CSS 4 · Asaas · AWS S3 · RSpec · Docker · Railway",
+        },
+        {
+          period: "ago 2023 – nov 2026",
           role: "Desenvolvedor Full-Stack",
-          company: "Was Advisory (PJ)",
+          company: "W/P Advisory (PJ)",
           summary:
             "Backend Rails de uma plataforma multi-tenant de tributos e dívida ativa atendendo mais de 50 prefeituras. Liderei a frente de performance, o módulo de Extrato de Débitos, a integração com a API SINAL e a migração Rails 7 → 8 do módulo de parcelamentos.",
           bullets: [
-            "Reduzi um endpoint crítico de **3,5 s para 180 ms** eliminando N+1 e adicionando cache Redis em 3 camadas, com mais de 10 mil requisições por dia.",
+            "Reduzi um endpoint crítico de **3,5 s para 180 ms** eliminando N+1 e adicionando cache Redis em 3 camadas, com mais de 100 mil requisições por dia.",
             "Refiz a exportação CSV como pipeline assíncrono (Sidekiq, COPY do PostgreSQL, streaming para o S3): 1,77M registros foram de **~80 h para 7 min**.",
             "Desenhei índices compostos numa base de 14M linhas, levando uma consulta de **12,7 s para 0,2 ms**.",
             "Construí do zero o módulo de Extrato de Débitos como autor principal, **17 releases em 5 meses**, e acabei com os erros 500 recorrentes.",
@@ -3495,7 +3695,7 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
             "Integrei a API SINAL (**100 mil+ registros/mês**) com circuit breaker, retries e outbox: 99,9% de uptime e zero duplicados com um provedor instável.",
             "Corrigi uma corrida que gerava o mesmo número de protocolo 3× no clique duplo, usando um `pg_advisory_xact_lock` com escopo.",
             "Removi **33 índices sem uso** e adicionei índices únicos com migrações concorrentes, sem downtime.",
-            "Subi a cobertura de testes de **35% para 85%** com RSpec e Capybara, além de RuboCop e Brakeman no CI.",
+            "Subi a cobertura de testes de **35% para 89%** com RSpec e Capybara, além de RuboCop e Brakeman no CI.",
             "Evoluí o módulo de Parcelamentos na migração Rails 7 → 8 com **mais de 15 feature flags por prefeitura**: entregas 60% mais rápidas e 59% menos chamados de suporte.",
             "Operei produção em Kubernetes com ArgoCD, Grafana e Datadog, pegando incidentes antes dos usuários.",
           ],
@@ -3514,12 +3714,19 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
         {
           period: "nov 2022 – mai 2023",
           role: "Desenvolvedor Full-Stack",
-          company: "Autônomo",
+          company: "Autônomo (freelance)",
           bullets: [
-            "Entreguei blogs, landing pages e pequenos produtos para clientes diretos, da descoberta à produção.",
-            "Cuidei sozinho da comunicação, escopo e preço, com clientes que voltaram.",
-            "Aprendi o que cada trabalho pedia: Stimulus, Tailwind, AWS S3, gateways de pagamento.",
+            "Entreguei soluções de software de ponta a ponta para clientes independentes, incluindo aplicações de negócio, sites, landing pages, ferramentas internas e automação de fluxos, conduzindo os projetos da descoberta inicial ao deploy em produção.",
+            "Fiz análise de requisitos de negócio trabalhando direto com os clientes para entender os fluxos operacionais, identificar ineficiências e transformar processos manuais em soluções de software práticas.",
+            "Desenvolvi aplicações backend com Ruby on Rails, Python, Node.js e Delphi, escolhendo a tecnologia conforme a necessidade do negócio, a complexidade do projeto e os requisitos de deploy.",
+            "Automatizei fluxos baseados em planilhas, transformando dados de Excel mantidos à mão em operações estruturadas de banco, funcionalidades da aplicação e processos de negócio mais confiáveis.",
+            "Projetei e implementei schemas de banco, operações CRUD, regras de negócio, APIs RESTful e integrações com terceiros, incluindo armazenamento no AWS S3 e gateways de pagamento.",
+            "Construí interfaces web responsivas com JavaScript, Stimulus e Tailwind CSS, conectando componentes de frontend a serviços de backend e APIs externas.",
+            "Cuidei da infraestrutura e dos deploys em produção, incluindo configuração da aplicação, variáveis de ambiente, banco de dados, armazenamento de arquivos, troubleshooting e manutenção pós-deploy.",
+            "Assumi todo o ciclo de entrega ao cliente: discovery técnico, levantamento de requisitos, estimativa, gestão de escopo, desenvolvimento, testes, deploy e suporte contínuo.",
+            "Construí relacionamentos recorrentes com clientes por meio de ownership técnico, comunicação transparente e entrega confiável de soluções alinhadas às necessidades reais do negócio.",
           ],
+          stack: "Ruby on Rails · Python · Node.js · Delphi · JavaScript · Stimulus · Tailwind CSS · AWS S3",
         },
       ],
     },
@@ -3550,13 +3757,13 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
       groups: [
         {
           label: "Linguagens",
-          production: ["Ruby", "SQL", "JavaScript"],
+          production: ["Ruby", "SQL", "JavaScript", "Delphi"],
           builtWith: ["TypeScript", "Python", "Shell", "Kotlin", "C#", "Elixir", "Rust"],
         },
         {
           label: "Frameworks",
-          production: ["Ruby on Rails", "Hotwire", "Stimulus", "React"],
-          builtWith: ["Node.js", "Next.js", "Tailwind CSS", "Tauri", "Sinatra", "Spring Boot", "Django", ".NET", "Phoenix", "Ember.js", "React Native", "Electron"],
+          production: ["Ruby on Rails", "Hotwire", "Stimulus", "React", "Node.js", "React Native"],
+          builtWith: ["Next.js", "Tailwind CSS", "Tauri", "Sinatra", "Spring Boot", "Django", ".NET", "Phoenix", "Ember.js", "Electron"],
         },
         {
           label: "Bancos de dados",
@@ -3570,8 +3777,8 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
         },
         {
           label: "Testes e qualidade",
-          production: ["RSpec", "TDD", "Capybara", "RuboCop", "Brakeman"],
-          builtWith: ["Selenium", "Testcontainers"],
+          production: ["RSpec", "TDD", "Capybara", "RuboCop", "Brakeman", "Jest", "Vitest", "Supertest", "Playwright", "Cypress", "Testcontainers", "MSW", "ESLint", "Prettier", "Stryker"],
+          builtWith: ["Selenium"],
         },
         {
           label: "Arquitetura",
@@ -3579,6 +3786,15 @@ push main ───→ deploy dev ─→ deploy prod (aprovação manual)`,
           builtWith: ["WebSockets", "GraphQL", "MCP", "RAG", "Claude API"],
         },
       ],
+    },
+    contact: {
+      label: "// Contato",
+      title: "Seu sistema está lento ou frágil? *Vamos resolver.*",
+      copy: "Copiar",
+      copied: "Copiado",
+      copyLabel: "Copiar o endereço de e-mail",
+      availability: "Full-Stack Developer · aberto a vagas full-time · remoto ou Brasil · respondo em até 24h",
+      resume: "Currículo (PDF)",
     },
     footer: {
       kicker: "Aberto a vagas de backend · remoto ou Brasil",

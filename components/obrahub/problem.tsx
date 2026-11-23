@@ -9,9 +9,9 @@ export function ObrahubProblem() {
   const p = t.obrahub.problem
 
   return (
-    <SectionFrame kicker={p.kicker} title={p.title} subtitle={p.subtitle}>
-      <div className="mb-10 border border-border bg-card/40 p-5 md:p-6">
-        <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+    <SectionFrame title={p.title} subtitle={p.subtitle}>
+      <div className="mb-10 border border-border bg-card p-5 md:p-6">
+        <p className="mb-4 text-sm font-medium text-foreground">
           {p.beforeLabel}
         </p>
         <ol className="grid grid-cols-1 gap-3 md:grid-cols-4">

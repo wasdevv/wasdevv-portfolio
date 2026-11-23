@@ -49,7 +49,7 @@ export function PtySimulator() {
   }, [promptText, output])
 
   return (
-    <SectionFrame kicker={p.kicker} title={p.title} subtitle={p.subtitle}>
+    <SectionFrame title={p.title} subtitle={p.subtitle}>
       <div className="overflow-hidden rounded-none border border-border bg-card shadow-2xl shadow-primary/5">
         <TerminalHeader label={p.windowLabel} />
         <div className="grid grid-cols-[auto,1fr] gap-x-4 overflow-x-auto p-5 font-mono text-[13px] leading-relaxed md:p-6">
@@ -99,7 +99,7 @@ function TerminalHeader({ label }: { label: string }) {
 
 function Gutter({ count }: { count: number }) {
   return (
-    <div className="select-none border-r border-border/50 pr-4 text-right tabular-nums text-muted-foreground/40">
+    <div className="select-none border-r border-border/50 pr-4 text-right tabular-nums text-muted-foreground">
       {Array.from({ length: Math.max(count, 6) }).map((_, i) => (
         <div key={i}>{String(i + 1).padStart(2, "0")}</div>
       ))}

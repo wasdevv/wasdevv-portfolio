@@ -8,7 +8,6 @@ export function ObrahubDecisions() {
   const d = t.obrahub.decisions
   return (
     <CardGrid
-      kicker={d.kicker}
       title={d.title}
       subtitle={d.subtitle}
       items={d.items}

@@ -34,17 +34,17 @@ export function ProjectsGrid() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-3">
+      <div className="flex flex-wrap gap-2">
         {filters.map((f) => (
           <button
             key={f}
             type="button"
             onClick={() => selectFilter(f)}
             aria-pressed={filter === f}
-            className={`rounded-[12px] border px-4 py-2.5 text-xs font-semibold transition-all duration-300 ${
+            className={`min-h-10 cursor-pointer rounded-full border px-4 text-sm transition-colors ${
               filter === f
-                ? "border-primary bg-primary text-primary-foreground shadow-[0_0_24px_color-mix(in_oklch,var(--primary)_45%,transparent)]"
-                : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                ? "border-foreground bg-foreground font-medium text-hp-bg"
+                : "border-hp-line-2 bg-hp-bg text-muted-foreground hover:border-hp-line-3 hover:text-foreground"
             }`}
           >
             {t.projects.filters[f]}
@@ -52,19 +52,18 @@ export function ProjectsGrid() {
         ))}
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {visible.map((project) => (
           <ProjectCard
             key={project.key}
             project={project}
-            number={projects.indexOf(project) + 1}
           />
         ))}
       </div>
 
       {totalPages > 1 && (
         <nav
-          className="mt-10 flex flex-wrap items-center justify-center gap-2"
+          className="mt-6 flex flex-wrap items-center gap-2"
           aria-label={t.projects.pageLabel}
         >
           <PageButton
@@ -84,7 +83,7 @@ export function ProjectsGrid() {
               aria-current={i === page ? "page" : undefined}
               className="w-10"
             >
-              {String(i + 1).padStart(2, "0")}
+              {i + 1}
             </PageButton>
           ))}
           <PageButton
@@ -101,7 +100,7 @@ export function ProjectsGrid() {
   )
 }
 
-function ProjectCard({ project, number }: { project: Project; number: number }) {
+function ProjectCard({ project }: { project: Project }) {
   const { t } = useLanguage()
   const copy = t.projects.items[project.key]
   const href = project.site ?? project.repo
@@ -112,19 +111,19 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
       : t.projects.askAbout
 
   const footerClass =
-    "mt-auto flex items-center justify-between border-t border-border pt-4 text-xs font-medium text-muted-foreground transition-colors group-hover:text-primary"
+    "mt-auto flex items-center justify-between border-t border-border pt-4 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
   const footer = (
     <>
       {label}
       <ArrowRight
-        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+        className="h-4 w-4"
         aria-hidden="true"
       />
     </>
   )
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+    <article className="flex flex-col overflow-hidden border border-border bg-card transition-colors hover:border-hp-line-3">
       <div className="relative aspect-[3/2] overflow-hidden border-b border-border bg-background">
         {project.image ? (
           <Image
@@ -132,25 +131,19 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
             alt={project.name}
             fill
             sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-top"
           />
         ) : (
           <GeneratedCover project={project} />
         )}
-        <span className="absolute left-3 top-3 rounded-[8px] border border-white/10 bg-black/55 px-2 py-1 font-mono text-xs font-bold text-white backdrop-blur-sm">
-          {String(number).padStart(2, "0")}
-        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-6">
-        <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
-          <span className="h-px w-4 bg-primary" aria-hidden="true" />
-          {copy.type}
-        </p>
-        <h3 className="mt-3 text-lg font-bold text-foreground">
+        <h3 className="text-lg font-semibold tracking-tight text-foreground">
           {project.name}
         </h3>
-        <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-1 font-mono text-[13px] text-hp-dim">{copy.type}</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           {copy.summary}
         </p>
 
@@ -158,7 +151,7 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
           {project.tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-[6px] border border-border bg-secondary px-2 py-1 text-[11px] font-medium text-secondary-foreground"
+              className="border border-border bg-secondary px-2 py-0.5 text-xs text-secondary-foreground"
             >
               {tag}
             </li>
@@ -171,7 +164,7 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
             target="_blank"
             rel="noreferrer"
             className={footerClass}
-            aria-label={`${label} — ${project.name}`}
+            aria-label={`${label}: ${project.name}`}
           >
             {footer}
           </a>
@@ -179,7 +172,7 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
           <Link
             href="/contact"
             className={footerClass}
-            aria-label={`${label} — ${project.name}`}
+            aria-label={`${label}: ${project.name}`}
           >
             {footer}
           </Link>
@@ -193,7 +186,7 @@ function ProjectCard({ project, number }: { project: Project; number: number }) 
 // instead of inventing a UI mockup.
 function GeneratedCover({ project }: { project: Project }) {
   return (
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_oklch,var(--primary)_16%,transparent),transparent_65%)]">
+    <div className="absolute inset-0 bg-background">
       <div
         className="absolute inset-0 opacity-60 [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]"
         aria-hidden="true"
@@ -202,7 +195,7 @@ function GeneratedCover({ project }: { project: Project }) {
         {project.icons.map((icon) => (
           <div
             key={icon}
-            className="flex h-16 w-16 items-center justify-center rounded-[16px] border border-border bg-card/80 shadow-lg backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-1"
+            className="flex h-14 w-14 items-center justify-center border border-border bg-card"
           >
             <Image
               src={`https://cdn.simpleicons.org/${icon}/${iconColor(icon)}`}
@@ -215,7 +208,7 @@ function GeneratedCover({ project }: { project: Project }) {
           </div>
         ))}
       </div>
-      <span className="absolute bottom-3 right-4 font-mono text-[11px] text-muted-foreground/70">
+      <span className="absolute bottom-3 right-4 font-mono text-xs text-muted-foreground">
         ~/{project.name.toLowerCase().replace(/\s+/g, "-")}
       </span>
     </div>
@@ -236,10 +229,10 @@ function PageButton({
     <button
       type="button"
       {...props}
-      className={`inline-flex h-10 items-center justify-center gap-1.5 rounded-[12px] border font-mono text-xs font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+      className={`inline-flex h-10 items-center justify-center gap-1.5 rounded-full border text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
         active
-          ? "border-primary bg-primary text-primary-foreground shadow-[0_0_20px_color-mix(in_oklch,var(--primary)_40%,transparent)]"
-          : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+          ? "border-foreground bg-foreground font-medium text-hp-bg"
+          : "border-hp-line-2 bg-hp-bg text-muted-foreground enabled:hover:border-hp-line-3 enabled:hover:text-foreground"
       } ${className}`}
     >
       {children}
